@@ -1,0 +1,125 @@
+ExportSceneInfo:
+
+KeyCount
+Time (* N)
+
+ExportMaterials:
+
+matCount
+{
+Name
+DiffuseRGB
+AmbientRGB
+SpecularRGB
+[TexCount][0]		// 如果是0则没有纹理，最大是1
+BitmapFile		// 只保存diffuse的纹理
+} (* N)
+
+Matrix:
+
+TranslationXYZ
+RotationQuaternionXYZW
+ScaleXYZ
+
+CopyMeshInfoToFile:
+
+MeshCount
+Mesh_Start (* N)
+VertexCount
+{
+PositionXYZ
+NormalsXYZ
+TexVerticesXY
+TangentXYZ			// 可以在使用时用Normal X Tangent得到Binormal
+[BoneCount][0] // 如果是0,后面就没有ID和权重了
+{
+BoneID
+Weight
+} (* N)
+} (* N)
+FaceCount
+{
+index(3)
+[MaterialName][None]
+} (* N)
+Matrix
+[IsSkin][NoSkin]
+if(Skin)
+{
+BoneCount
+{
+BoneID
+OffsetMatrices 骨骼空间矩阵的逆矩阵,用于将坐标从物体空间变换到骨骼坐标系
+} (* N)
+}
+Mesh_End
+
+CopySkeletonInfoToFile:
+
+TopLevelNodeCount
+Node_Start (* N)
+Name
+ID
+Matrix
+ChildCount
+{Child}
+Node_End
+
+CopyAnimeInfoToFile:
+
+AnimeSetName
+TopLevelNodeCount
+Node_Start (* N)
+ID
+Matrix (* N)
+ChildCount
+{Child}
+Node_End
+
+CopyVertexAnimeToFile:
+
+AnimeSetName
+MeshCount
+Mesh_Start (* N)
+KeyCount
+{
+VertexCount
+{
+PositionXYZ
+NormalXYZ
+TexVerticesXY
+TangentXYZ			// 可以在使用时用Normal X Tangent得到Binormal
+} (* N)
+} (* N)
+Mesh_End
+
+注:所有坐标都是以DirectX为基础的左手坐标系,即X向右,Y向上,Z向屏幕里
+注:Skeleton保存的Matrix是相对于父的,此矩阵*父相对于物体=子相对于物体,这个矩阵在客户端暂时没有用上
+注:Anime里面的矩阵都是相对于物体空间的
+注:所有坐标都是相对物体空间的坐标
+注:关键帧时间为Tick计数,Time/TicksPerFrame得到现在是第几帧,再/FrameRate得到现在的秒时间
+注:顶点动画导出的是每一帧每个点的位置和法线，是3DMAX中实际的位置，也就是3DMAX世界的位置
+
+表示模型的文件
+TMESH_100
+{ExportMaterials}
+{CopyMeshInfoToFile}
+{CopySkeletonInfoToFile}
+
+表示动画的文件
+TANIME_100
+AnimeType
+if(SKELETONANIME)
+{
+	{ExportSceneInfo}
+	{CopyAnimeInfoToFile}
+}
+else if(VERTEXANIME)
+{
+	{ExportSceneInfo}
+	{CopyVertexAnimeToFile}
+}
+else if(NODEANIME)
+{
+	// 不需要这种类型了，顶点动画已经全部做了
+}

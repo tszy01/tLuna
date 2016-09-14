@@ -1,0 +1,4 @@
+TUI_TEX_100
+1
+0
+gui/texture/sl.png

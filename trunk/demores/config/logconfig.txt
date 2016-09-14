@@ -1,0 +1,4 @@
+FilterCount=0
+OpenWriteLog=1
+LogLevel=2
+OutputConsole=0

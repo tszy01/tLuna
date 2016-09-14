@@ -1,0 +1,66 @@
+TUI_TEX_100
+Tex_Num
+{TexID
+TexFile}(*N)
+
+TUI_FONT_100
+Font_Num
+{FontID
+FontSize
+FontTexPageSize	// 生成的纹理边长（像素个数）
+FontFile}(*N)
+
+TUI_CTRL_100
+Container_Begin
+Id
+Rect // 相对于父的位置大小
+AnimeType // 动画类型，是个并集的BYTE
+
+CtrlNum
+Ctrl_Begin (*N)
+Index
+CtrlRect // 相对于Container的位置大小
+Type
+if(Type==1){
+TexId
+TexRect	// 在纹理上的坐标
+}
+else{
+FontId
+FontColor // 文本内容先默认是一行
+}
+Ctrl_End
+
+SubContainerNum
+{SubContainer}(*N)
+
+if(AnimeType!=0)
+{
+if(AnimeType&&TypeFade){
+FadeType // -1 无，0 淡入,1 淡出,2淡入淡出
+FadeAlphaPerSec // 每秒Alpha的变化值，这个是个正数
+AnimeTimes // 动画执行的次数，-1无限循环，0停在第一帧，默认停在最后一帧
+}
+if(AnimeType&&TypePic){
+PicCtrlStart // 图片控件开始索引号 -1:无
+PicCtrlEnd // 图片控件结束索引号 -1:无
+PicChangedPerSec // 每秒图片变几个
+AnimeTimes // 动画执行的次数，-1无限循环，0停在第一帧，默认停在最后一帧
+}
+if(AnimeType&&TypePosChange){
+// 注意改位置需要重算子位置
+AnimeStartPos // 动作开始相对位置
+AnimeEndPos // 动作结束相对位置
+AnimeChangedPerSec // 每秒变化的像素数
+AnimeTimes // 动画执行的次数，-1无限循环，0停在第一帧，默认停在最后一帧
+}
+}
+
+Container_End
+
+
+注意：
+1、RECT说明，按照顺序为left,top,width,height
+2、纹理RECT说明，按照顺序为left,top,right,bottom
+3、FontColor说明，0-1，依次是R,G,B,A
+4、Pos说明，按照顺序为x,y

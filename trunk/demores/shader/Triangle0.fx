@@ -1,0 +1,77 @@
+//--------------------------------------------------------------------------------------
+// File: Tutorial07.fx
+//
+// Copyright (c) Microsoft Corporation. All rights reserved.
+//--------------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------
+// Constant Buffer Variables
+//--------------------------------------------------------------------------------------
+Texture2D txDiffuse : register( t0 );
+SamplerState samLinear : register( s0 );
+
+cbuffer cbNeverChanges : register( b0 )
+{
+    matrix View;
+};
+
+cbuffer cbChangeOnResize : register( b1 )
+{
+    matrix Projection;
+};
+
+cbuffer cbChangesEveryFrame : register( b2 )
+{
+    matrix World;
+    float4x4 transMatrix;
+};
+
+struct VS_INPUT
+{
+    float4 Pos : POSITION;
+    float2 Tex : TEXCOORD;
+};
+
+struct PS_INPUT
+{
+    float4 Pos : SV_POSITION;
+    float2 Tex : TEXCOORD0;
+};
+
+struct GS_INPUT
+{
+	float3 Pos : POSITION;
+    float2 Tex : TEXCOORD;
+};
+
+
+//--------------------------------------------------------------------------------------
+// Vertex Shader
+//--------------------------------------------------------------------------------------
+PS_INPUT VS( VS_INPUT input )
+{
+    PS_INPUT output = (PS_INPUT)0;
+    output.Pos = mul( input.Pos, World );
+    output.Pos = mul( output.Pos, View );
+    output.Pos = mul( output.Pos, Projection );
+    output.Tex = input.Tex;
+    
+    return output;
+}
+
+GS_INPUT AddVS( VS_INPUT input )
+{
+	GS_INPUT output = (GS_INPUT)0;
+	output.Tex = input.Tex;
+	output.Pos = mul( input.Pos, transMatrix );
+	//output.Pos.xyz = input.Pos.xyz;
+	return output;
+}
+
+//--------------------------------------------------------------------------------------
+// Pixel Shader
+//--------------------------------------------------------------------------------------
+float4 PS( PS_INPUT input) : SV_Target
+{
+    return txDiffuse.Sample( samLinear, input.Tex );
+}

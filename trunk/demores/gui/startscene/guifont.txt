@@ -1,0 +1,6 @@
+TUI_FONT_100
+1
+0
+24
+512
+gui/font/simkai.ttf

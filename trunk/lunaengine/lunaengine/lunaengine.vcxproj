@@ -1,0 +1,271 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B0E65BCB-863E-42C4-9043-B48264DE4ACA}</ProjectGuid>
+    <RootNamespace>lunaengine</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)\..\bin\$(Configuration)</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)\..\Intermediate\$(Configuration)\$(ProjectName)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)\..\bin\$(Configuration)</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)\..\Intermediate\$(Configuration)\$(ProjectName)\</IntDir>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\freetype-2.1.9\include;..\FreeImage\source;..\FreeImage\Source\ZLib;..\tinyxml;..\lua\include;..\LibDDSTextureLoader;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(SolutionDir)\..\lib\$(Configuration)\$(ProjectName).lib</OutputFile>
+    </Lib>
+    <BuildLog>
+      <Path>
+      </Path>
+    </BuildLog>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>..\freetype-2.1.9\include;..\FreeImage\source;..\FreeImage\Source\ZLib;..\tinyxml;..\lua\include;..\LibDDSTextureLoader;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(SolutionDir)\..\lib\$(Configuration)\$(ProjectName).lib</OutputFile>
+    </Lib>
+    <BuildLog>
+      <Path>
+      </Path>
+    </BuildLog>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="GlobleFunc.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="TBinaryFileProcessor.cpp" />
+    <ClCompile Include="TConfigFile.cpp" />
+    <ClCompile Include="TConvexBody.cpp" />
+    <ClCompile Include="TDateTime.cpp" />
+    <ClCompile Include="TDegree.cpp" />
+    <ClCompile Include="TLGlobleClass.cpp" />
+    <ClCompile Include="TLGUIContainer.cpp" />
+    <ClCompile Include="TLGUICtrl.cpp" />
+    <ClCompile Include="TLGUIFont.cpp" />
+    <ClCompile Include="TLGUIFontManager.cpp" />
+    <ClCompile Include="TLGUIMgr.cpp" />
+    <ClCompile Include="TLGUIPicture.cpp" />
+    <ClCompile Include="TLGUIText.cpp" />
+    <ClCompile Include="TLGUITextureMgr.cpp" />
+    <ClCompile Include="TLImage.cpp" />
+    <ClCompile Include="TLInputMsgMgr.cpp" />
+    <ClCompile Include="TLIResObject.cpp" />
+    <ClCompile Include="TLLoopCtrl.cpp" />
+    <ClCompile Include="TLog.cpp" />
+    <ClCompile Include="TLRenderDeviceCompiledShader_D3D11.cpp" />
+    <ClCompile Include="TLRenderDeviceUsedBlendState_D3D11.cpp" />
+    <ClCompile Include="TLRenderDeviceUsedBuffer_D3D11.cpp" />
+    <ClCompile Include="TLRenderDeviceUsedCS_D3D11.cpp" />
+    <ClCompile Include="TLRenderDeviceUsedDepthStencilState_D3D11.cpp" />
+    <ClCompile Include="TLRenderDeviceUsedDSV_D3D11.cpp" />
+    <ClCompile Include="TLRenderDeviceUsedDS_D3D11.cpp" />
+    <ClCompile Include="TLRenderDeviceUsedGS_D3D11.cpp" />
+    <ClCompile Include="TLRenderDeviceUsedHS_D3D11.cpp" />
+    <ClCompile Include="TLRenderDeviceUsedInputLayout_D3D11.cpp" />
+    <ClCompile Include="TLRenderDeviceUsedPS_D3D11.cpp" />
+    <ClCompile Include="TLRenderDeviceUsedRasterizerState_D3D11.cpp" />
+    <ClCompile Include="TLRenderDeviceUsedRTV_D3D11.cpp" />
+    <ClCompile Include="TLRenderDeviceUsedSamplerState_D3D11.cpp" />
+    <ClCompile Include="TLRenderDeviceUsedSRV_D3D11.cpp" />
+    <ClCompile Include="TLRenderDeviceUsedTex1D_D3D11.cpp" />
+    <ClCompile Include="TLRenderDeviceUsedTex2D_D3D11.cpp" />
+    <ClCompile Include="TLRenderDeviceUsedTex3D_D3D11.cpp" />
+    <ClCompile Include="TLRenderDeviceUsedUAV_D3D11.cpp" />
+    <ClCompile Include="TLRenderDeviceUsedVS_D3D11.cpp" />
+    <ClCompile Include="TLRenderDevice_D3D11.cpp" />
+    <ClCompile Include="TLRenderMgr.cpp" />
+    <ClCompile Include="TLResMgr.cpp" />
+    <ClCompile Include="TLTriangle.cpp" />
+    <ClCompile Include="TLuaBase.cpp" />
+    <ClCompile Include="TMemFile.cpp" />
+    <ClCompile Include="TRadian.cpp" />
+    <ClCompile Include="TString.cpp" />
+    <ClCompile Include="TTimer.cpp" />
+    <ClCompile Include="TTxtFileReader.cpp" />
+    <ClCompile Include="TTxtFileWriter.cpp" />
+    <ClCompile Include="TZip.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="TConvexBody.h" />
+    <ClInclude Include="TDegree.h" />
+    <ClInclude Include="TDualQuaternion.h" />
+    <ClInclude Include="TMathUtils.h" />
+    <ClInclude Include="GlobleFunc.h" />
+    <ClInclude Include="KeyCodeDef.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="TAABBbox.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="TArray.h" />
+    <ClInclude Include="TAutoPtr.h" />
+    <ClInclude Include="TBinaryFileProcessor.h" />
+    <ClInclude Include="TCommonTypeDef.h" />
+    <ClInclude Include="TConfigFile.h" />
+    <ClInclude Include="TDateTime.h" />
+    <ClInclude Include="TFPU.h" />
+    <ClInclude Include="THashtable.h" />
+    <ClInclude Include="TLGlobleClass.h" />
+    <ClInclude Include="TLGUIContainer.h" />
+    <ClInclude Include="TLGUICtrl.h" />
+    <ClInclude Include="TLGUIDefine.h" />
+    <ClInclude Include="TLGUIFont.h" />
+    <ClInclude Include="TLGUIFontManager.h" />
+    <ClInclude Include="TLGUIMgr.h" />
+    <ClInclude Include="TLGUIPicture.h" />
+    <ClInclude Include="TLGUIText.h" />
+    <ClInclude Include="TLGUITextureMgr.h" />
+    <ClInclude Include="TLIGUIListener.h" />
+    <ClInclude Include="TLImage.h" />
+    <ClInclude Include="TLine.h" />
+    <ClInclude Include="TLInputMsgMgr.h" />
+    <ClInclude Include="TLIRenderDevice.h" />
+    <ClInclude Include="TLIRenderDeviceUsed.h" />
+    <ClInclude Include="TLIRenderDeviceUsedBlendState.h" />
+    <ClInclude Include="TLIRenderDeviceUsedBuffer.h" />
+    <ClInclude Include="TLIRenderDeviceUsedCS.h" />
+    <ClInclude Include="TLIRenderDeviceUsedDepthStencilState.h" />
+    <ClInclude Include="TLIRenderDeviceUsedDS.h" />
+    <ClInclude Include="TLIRenderDeviceUsedDSV.h" />
+    <ClInclude Include="TLIRenderDeviceUsedGS.h" />
+    <ClInclude Include="TLIRenderDeviceUsedHS.h" />
+    <ClInclude Include="TLIRenderDeviceUsedInputLayout.h" />
+    <ClInclude Include="TLIRenderDeviceUsedPS.h" />
+    <ClInclude Include="TLIRenderDeviceUsedRasterizerState.h" />
+    <ClInclude Include="TLIRenderDeviceUsedResource.h" />
+    <ClInclude Include="TLIRenderDeviceUsedRTV.h" />
+    <ClInclude Include="TLIRenderDeviceUsedSamplerState.h" />
+    <ClInclude Include="TLIRenderDeviceCompiledShader.h" />
+    <ClInclude Include="TLIRenderDeviceUsedSRV.h" />
+    <ClInclude Include="TLIRenderDeviceUsedTex1D.h" />
+    <ClInclude Include="TLIRenderDeviceUsedTex2D.h" />
+    <ClInclude Include="TLIRenderDeviceUsedTex3D.h" />
+    <ClInclude Include="TLIRenderDeviceUsedUAV.h" />
+    <ClInclude Include="TLIRenderDeviceUsedView.h" />
+    <ClInclude Include="TLIRenderDeviceUsedView_D3D11.h" />
+    <ClInclude Include="TLIRenderDeviceUsedVS.h" />
+    <ClInclude Include="TLIResObject.h" />
+    <ClInclude Include="TList.h" />
+    <ClInclude Include="TLLoopCtrl.h" />
+    <ClInclude Include="TLock.h" />
+    <ClInclude Include="TLog.h" />
+    <ClInclude Include="TLRenderDef.h" />
+    <ClInclude Include="TLRenderDeviceCompiledShader_D3D11.h" />
+    <ClInclude Include="TLRenderDeviceUsedBlendState_D3D11.h" />
+    <ClInclude Include="TLRenderDeviceUsedBuffer_D3D11.h" />
+    <ClInclude Include="TLRenderDeviceUsedCS_D3D11.h" />
+    <ClInclude Include="TLRenderDeviceUsedDepthStencilState_D3D11.h" />
+    <ClInclude Include="TLRenderDeviceUsedDSV_D3D11.h" />
+    <ClInclude Include="TLRenderDeviceUsedDS_D3D11.h" />
+    <ClInclude Include="TLRenderDeviceUsedGS_D3D11.h" />
+    <ClInclude Include="TLRenderDeviceUsedHS_D3D11.h" />
+    <ClInclude Include="TLRenderDeviceUsedInputLayout_D3D11.h" />
+    <ClInclude Include="TLRenderDeviceUsedPS_D3D11.h" />
+    <ClInclude Include="TLRenderDeviceUsedRasterizerState_D3D11.h" />
+    <ClInclude Include="TLIRenderDeviceUsedResource_D3D11.h" />
+    <ClInclude Include="TLRenderDeviceUsedRTV_D3D11.h" />
+    <ClInclude Include="TLRenderDeviceUsedSamplerState_D3D11.h" />
+    <ClInclude Include="TLRenderDeviceUsedSRV_D3D11.h" />
+    <ClInclude Include="TLRenderDeviceUsedTex1D_D3D11.h" />
+    <ClInclude Include="TLRenderDeviceUsedTex2D_D3D11.h" />
+    <ClInclude Include="TLRenderDeviceUsedTex3D_D3D11.h" />
+    <ClInclude Include="TLRenderDeviceUsedUAV_D3D11.h" />
+    <ClInclude Include="TLRenderDeviceUsedVS_D3D11.h" />
+    <ClInclude Include="TLRenderDevice_D3D11.h" />
+    <ClInclude Include="TLRenderMgr.h" />
+    <ClInclude Include="TLResMgr.h" />
+    <ClInclude Include="TLTriangle.h" />
+    <ClInclude Include="TLuaBase.h" />
+    <ClInclude Include="TMatrix3x3.h" />
+    <ClInclude Include="TMatrix4x4.h" />
+    <ClInclude Include="TMemFile.h" />
+    <ClInclude Include="TMutex.h" />
+    <ClInclude Include="TPlane.h" />
+    <ClInclude Include="TPlaneBoundedVolume.h" />
+    <ClInclude Include="TPolygon.h" />
+    <ClInclude Include="TQuaternion.h" />
+    <ClInclude Include="TRadian.h" />
+    <ClInclude Include="TRay.h" />
+    <ClInclude Include="TRotationalSpline.h" />
+    <ClInclude Include="TSharedPtr.h" />
+    <ClInclude Include="TSimpleSpline.h" />
+    <ClInclude Include="TSingleton.h" />
+    <ClInclude Include="TSphere.h" />
+    <ClInclude Include="TString.h" />
+    <ClInclude Include="TTimer.h" />
+    <ClInclude Include="TTriangle.h" />
+    <ClInclude Include="TTxtFileReader.h" />
+    <ClInclude Include="TTxtFileWriter.h" />
+    <ClInclude Include="TVector2.h" />
+    <ClInclude Include="TVector3.h" />
+    <ClInclude Include="TVector4.h" />
+    <ClInclude Include="TZip.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
