@@ -385,7 +385,7 @@ namespace TLunaEngine{
 
 	inline  void clearFPUException ()
 	{
-	#ifdef _MSC_VER
+	#if defined(_MSC_VER) && !defined(_WIN64)
 		__asm fnclex;
 	#endif
 	}
@@ -394,7 +394,7 @@ namespace TLunaEngine{
 	inline TF32 reciprocal_squareroot( TF32 x)
 	{
 		// comes from NVIDIA
-	#if defined(_MSC_VER)
+	#if defined(_MSC_VER) && !defined(_WIN64)
 		// an sse2 version
 		__asm
 		{
@@ -426,9 +426,9 @@ namespace TLunaEngine{
 	// 比x小的最大整数
 	inline TS32 floor32(TF32 x)
 	{
+	#if defined(_MSC_VER) && !defined(_WIN64)
 		TF32 h = 0.5f;
 		TS32 t;
-	#if defined(_MSC_VER)
 		__asm
 		{
 			fld	x
@@ -444,9 +444,9 @@ namespace TLunaEngine{
 	// 比x大的最小整数
 	inline TS32 ceil32 ( TF32 x )
 	{
+	#if defined(_MSC_VER) && !defined(_WIN64)
 		TF32 h = 0.5f;
 		TS32 t;
-	#if defined(_MSC_VER)
 		__asm
 		{
 			fld	x
@@ -462,8 +462,8 @@ namespace TLunaEngine{
 	// 比x+0.5小的最大整数
 	inline TS32 round32(TF32 x)
 	{
+	#if defined(_MSC_VER) && !defined(_WIN64)
 		TS32 t;
-	#if defined(_MSC_VER)
 		__asm
 		{
 			fld   x
@@ -502,7 +502,7 @@ namespace TLunaEngine{
 	//! Fast square root for floating-point values.
 	inline TF32 FastSqrt(TF32 square)
 	{
-		return sqrt(square);
+		return sqrtf(square);
 	}
 
 	//! Saturates positive to zero.

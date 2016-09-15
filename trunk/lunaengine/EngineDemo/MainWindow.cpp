@@ -4,7 +4,7 @@
 MainWindow* TLunaEngine::Singleton<MainWindow>::m_Ptr = 0;
 
 // 消息处理函数
-long FAR PASCAL WindowProc(HWND hWnd, UINT message,WPARAM wParam, LPARAM lParam)
+LRESULT FAR PASCAL WindowProc(HWND hWnd, UINT message,WPARAM wParam, LPARAM lParam)
 {
 	switch(message)
 	{
