@@ -1,1 +1,1 @@
-*.ncb *.obj *.pdb *.ilk *.pch *.idb *.bsc *.user *.suo *.dep *.ipch *.sdf *.tlog *.timestamp *.meta *.manifest *.resources *.log *.lastbuildstate
+*.ncb *.obj *.pdb *.ilk *.pch *.idb *.bsc *.user *.suo *.dep *.ipch *.sdf *.tlog *.timestamp *.meta *.manifest *.resources *.log *.lastbuildstate *.VC.db

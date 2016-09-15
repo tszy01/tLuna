@@ -17,5 +17,6 @@
 *.resources
 *.log
 *.lastbuildstate
+*.VC.db
 Intermediate/
 lib/

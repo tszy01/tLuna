@@ -17,3 +17,4 @@ del .\*.manifest /f/s/q/a
 del .\*.resources /f/s/q/a
 del .\*.log /f/s/q/a
 del .\*.lastbuildstate /f/s/q/a
+del .\*.VC.db /f/s/q/a
