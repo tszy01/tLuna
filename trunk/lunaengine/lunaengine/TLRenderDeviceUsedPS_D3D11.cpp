@@ -1,22 +1,21 @@
-#include "stdafx.h"
 #include "TLRenderDeviceUsedPS_D3D11.h"
 
 namespace TLunaEngine
 {
-	TLRenderDeviceUsedPS_D3D11::TLRenderDeviceUsedPS_D3D11():TLIRenderDeviceUsedPS(),mD3DPS(NULL)
+	RenderDeviceUsedPS_D3D11::RenderDeviceUsedPS_D3D11():RenderDeviceUsedPS(),mD3DPS(0)
 	{
 	}
 
-	TLRenderDeviceUsedPS_D3D11::~TLRenderDeviceUsedPS_D3D11()
+	RenderDeviceUsedPS_D3D11::~RenderDeviceUsedPS_D3D11()
 	{
 		if(mD3DPS)
 		{
 			mD3DPS->Release();
-			mD3DPS = NULL;
+			mD3DPS = 0;
 		}
 	}
 
-	bool TLRenderDeviceUsedPS_D3D11::initWithD3DPS(ID3D11PixelShader* d3dShader)
+	bool RenderDeviceUsedPS_D3D11::initWithD3DPS(ID3D11PixelShader* d3dShader)
 	{
 		if(mD3DPS)
 			return false;

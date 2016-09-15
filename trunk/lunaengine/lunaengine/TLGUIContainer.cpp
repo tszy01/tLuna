@@ -1,15 +1,14 @@
-#include "StdAfx.h"
 #include "TLGUIContainer.h"
-#include "TLIGUIListener.h"
+#include "TLGUIListener.h"
 
 namespace TLunaEngine{
-	TLGUIContainer::TLGUIContainer(void) : 
+	GUIContainer::GUIContainer(void) : 
 	m_iID(-1),
 	m_posX(0),
 	m_posY(0),
 	m_width(0),
 	m_height(0),
-	m_pParent(NULL),
+	m_pParent(TNULL),
 	m_posXFinal(0),
 	m_posYFinal(0),
 	m_posXParent(0),
@@ -17,16 +16,16 @@ namespace TLunaEngine{
 	m_bReCal(false),
 	m_bShow(true),
 	m_yAnimeType(0),
-	m_pListener(NULL)
+	m_pListener(TNULL)
 	{
 	}
 
-	TLGUIContainer::~TLGUIContainer(void)
+	GUIContainer::~GUIContainer(void)
 	{
 		DestroyContainer();
 	}
 
-	bool TLGUIContainer::InitContainer(int ID, TLunaEngine::TLGUIContainer *pParent, LONG x, LONG y, LONG width, LONG height,BYTE yAnimeType,TLIGUIListener* pListener)
+	bool GUIContainer::InitContainer(int ID, TLunaEngine::GUIContainer *pParent, TS32 x, TS32 y, TS32 width, TS32 height,TUByte yAnimeType,GUIListener* pListener)
 	{
 		m_iID = ID;
 		m_pParent = pParent;
@@ -48,7 +47,7 @@ namespace TLunaEngine{
 		return true;
 	}
 
-	bool TLGUIContainer::InitFadeAnime(CONTAINER_FADE_TYPE eFadeType,float fChangedPerSec,int nTimes)
+	bool GUIContainer::InitFadeAnime(CONTAINER_FADE_TYPE eFadeType,float fChangedPerSec,int nTimes)
 	{
 		if (nTimes==0 || fChangedPerSec<=0 || eFadeType == CFF_NONE)
 		{
@@ -71,7 +70,7 @@ namespace TLunaEngine{
 		return true;
 	}
 
-	void TLGUIContainer::ResetFadeAnime()
+	void GUIContainer::ResetFadeAnime()
 	{
 		m_eAnimeFadeType = CFF_NONE;
 		m_iNowFadeType = -1;
@@ -83,7 +82,7 @@ namespace TLunaEngine{
 		m_bAnimePlayedOver[CATE_FADE] = false;
 	}
 
-	void TLGUIContainer::UpdateFadeAnime(float fTimeElapsed)
+	void GUIContainer::UpdateFadeAnime(float fTimeElapsed)
 	{
 		if (m_iNowAnimeTimes[CATE_FADE] < m_nAnimeTimes[CATE_FADE] || m_nAnimeTimes[CATE_FADE] == -1)
 		{
@@ -190,7 +189,7 @@ namespace TLunaEngine{
 		}
 	}
 
-	bool TLGUIContainer::InitPicChangeAnime(int iStartIndex,int iEndIndex,float fChangedPerSec,int nTimes)
+	bool GUIContainer::InitPicChangeAnime(int iStartIndex,int iEndIndex,float fChangedPerSec,int nTimes)
 	{
 		if (nTimes==0 || fChangedPerSec<=0 || iStartIndex == -1 || iEndIndex == -1)
 		{
@@ -209,7 +208,7 @@ namespace TLunaEngine{
 		return true;
 	}
 
-	void TLGUIContainer::ResetPicChangeAnime()
+	void GUIContainer::ResetPicChangeAnime()
 	{
 		m_iPicChangeStartIndex = -1;
 		m_iPicChangeEndIndex = -1;
@@ -221,7 +220,7 @@ namespace TLunaEngine{
 		m_bAnimePlayedOver[CATE_PIC_CHANGE] = false;
 	}
 
-	void TLGUIContainer::UpdatePicChangeAnime(float fTimeElapsed)
+	void GUIContainer::UpdatePicChangeAnime(float fTimeElapsed)
 	{
 		if (m_iNowAnimeTimes[CATE_PIC_CHANGE] < m_nAnimeTimes[CATE_PIC_CHANGE] || m_nAnimeTimes[CATE_PIC_CHANGE] == -1)
 		{
@@ -257,7 +256,7 @@ namespace TLunaEngine{
 		}
 	}
 
-	bool TLGUIContainer::InitPosChangeAnime(LONG startX,LONG startY,LONG endX,LONG endY,float fChangedPerSec,int nTimes)
+	bool GUIContainer::InitPosChangeAnime(TS32 startX,TS32 startY,TS32 endX,TS32 endY,float fChangedPerSec,int nTimes)
 	{
 		m_posChangeStartX = startX;
 		m_posChangeStartY = startY;
@@ -274,7 +273,7 @@ namespace TLunaEngine{
 		return true;
 	}
 
-	void TLGUIContainer::ResetPosChangeAnime()
+	void GUIContainer::ResetPosChangeAnime()
 	{
 		m_posChangeStartX = 0;
 		m_posChangeStartY = 0;
@@ -287,7 +286,7 @@ namespace TLunaEngine{
 		m_bAnimePlayedOver[CATE_POS_CHANGE] = false;
 	}
 
-	void TLGUIContainer::UpdatePosChangeAnime(float fTimeElapsed)
+	void GUIContainer::UpdatePosChangeAnime(float fTimeElapsed)
 	{
 		if (m_iNowAnimeTimes[CATE_POS_CHANGE] < m_nAnimeTimes[CATE_POS_CHANGE] || m_nAnimeTimes[CATE_POS_CHANGE] == -1)
 		{
@@ -361,7 +360,7 @@ namespace TLunaEngine{
 		}
 	}
 
-	void TLGUIContainer::ReCalSubRect(LONG parentFinalX,LONG parentFinalY)
+	void GUIContainer::ReCalSubRect(TS32 parentFinalX,TS32 parentFinalY)
 	{
 		if (m_bReCal)
 		{
@@ -379,24 +378,24 @@ namespace TLunaEngine{
 				m_posYFinal = m_posY;
 			}
 			// 计算子控件
-			std::vector<TLGUICtrl*>::iterator itr = m_CtrlList.begin();
+			std::vector<GUICtrl*>::iterator itr = m_CtrlList.begin();
 			for (;itr!=m_CtrlList.end();itr++)
 			{
-				TLGUICtrl* pCtrl = (*itr);
+				GUICtrl* pCtrl = (*itr);
 				pCtrl->ReCalSubRect(m_posXFinal,m_posYFinal);
 			}
 			// 计算子容器
-			std::map<int,TLGUIContainer*>::iterator itrC = m_SubContainerTable.begin();
+			std::map<int,GUIContainer*>::iterator itrC = m_SubContainerTable.begin();
 			for (;itrC!=m_SubContainerTable.end();itrC++)
 			{
-				TLGUIContainer* pSubContainer = itrC->second;
+				GUIContainer* pSubContainer = itrC->second;
 				pSubContainer->ReCalSubRect(m_posXFinal,m_posYFinal);
 			}
 			m_bReCal = false;
 		}
 	}
 
-	bool TLGUIContainer::AddContainer(TLGUIContainer* pContainer)
+	bool GUIContainer::AddContainer(GUIContainer* pContainer)
 	{
 		if (!pContainer)
 		{
@@ -406,11 +405,11 @@ namespace TLunaEngine{
 		{
 			return false;
 		}
-		m_SubContainerTable.insert(std::pair<int,TLGUIContainer*>(pContainer->GetID(),pContainer));
+		m_SubContainerTable.insert(std::pair<int,GUIContainer*>(pContainer->GetID(),pContainer));
 		return true;
 	}
 
-	bool TLGUIContainer::AddCtrl(TLGUICtrl* pCtrl)
+	bool GUIContainer::AddCtrl(GUICtrl* pCtrl)
 	{
 		if (!pCtrl)
 		{
@@ -424,11 +423,11 @@ namespace TLunaEngine{
 		return true;
 	}
 
-	void TLGUIContainer::DestroyContainer()
+	void GUIContainer::DestroyContainer()
 	{
 		m_iID = -1;
-		m_pParent = NULL;
-		m_pListener = NULL;
+		m_pParent = TNULL;
+		m_pListener = TNULL;
 		m_posX = 0;
 		m_posY = 0;
 		m_width = 0;
@@ -442,19 +441,23 @@ namespace TLunaEngine{
 		ClearSubContainers();
 	}
 
-	void TLGUIContainer::RemoveSubContainer(int ID)
+	void GUIContainer::RemoveSubContainer(int ID)
 	{
-		TLGUIContainer* pSubContainer = GetSubContainer(ID);
+		GUIContainer* pSubContainer = GetSubContainer(ID);
 		if (pSubContainer)
 		{
 			// 先从Table里面把指针去掉
 			m_SubContainerTable.erase(ID);
 			// 释放内存
-			SAFE_DELETE(pSubContainer);
+			if (pSubContainer)
+			{
+				delete pSubContainer;
+				pSubContainer = 0;
+			}
 		}
 	}
 
-	bool TLGUIContainer::Update(float fTimeElapsed)
+	bool GUIContainer::Update(float fTimeElapsed)
 	{
 		if (!m_bShow)
 		{
@@ -482,83 +485,83 @@ namespace TLunaEngine{
 			ReCalSubRect(m_posXParent,m_posYParent);
 		}
 		// 计算子控件
-		std::vector<TLGUICtrl*>::iterator itr = m_CtrlList.begin();
+		std::vector<GUICtrl*>::iterator itr = m_CtrlList.begin();
 		for (;itr!=m_CtrlList.end();itr++)
 		{
-			TLGUICtrl* pCtrl = (*itr);
+			GUICtrl* pCtrl = (*itr);
 			pCtrl->Update(fTimeElapsed);
 		}
 		// 计算子容器
-		std::map<int,TLGUIContainer*>::iterator itrC = m_SubContainerTable.begin();
+		std::map<int,GUIContainer*>::iterator itrC = m_SubContainerTable.begin();
 		for (;itrC!=m_SubContainerTable.end();itrC++)
 		{
-			TLGUIContainer* pSubContainer = itrC->second;
+			GUIContainer* pSubContainer = itrC->second;
 			pSubContainer->Update(fTimeElapsed);
 		}
 		return true;
 	}
 
-	bool TLGUIContainer::Render(float fTimeElapsed)
+	bool GUIContainer::Render(float fTimeElapsed)
 	{
 		if (!m_bShow)
 		{
 			return false;
 		}
 		// 计算子控件
-		std::vector<TLGUICtrl*>::iterator itr = m_CtrlList.begin();
+		std::vector<GUICtrl*>::iterator itr = m_CtrlList.begin();
 		for (;itr!=m_CtrlList.end();itr++)
 		{
-			TLGUICtrl* pCtrl = (*itr);
+			GUICtrl* pCtrl = (*itr);
 			pCtrl->Render(fTimeElapsed);
 		}
 		// 计算子容器
-		std::map<int,TLGUIContainer*>::iterator itrC = m_SubContainerTable.begin();
+		std::map<int,GUIContainer*>::iterator itrC = m_SubContainerTable.begin();
 		for (;itrC!=m_SubContainerTable.end();itrC++)
 		{
-			TLGUIContainer* pSubContainer = itrC->second;
+			GUIContainer* pSubContainer = itrC->second;
 			pSubContainer->Render(fTimeElapsed);
 		}
 		return true;
 	}
 
-	void TLGUIContainer::SetCtrlAlpha(float fAlpha)
+	void GUIContainer::SetCtrlAlpha(float fAlpha)
 	{
 		// 计算子控件
-		std::vector<TLGUICtrl*>::iterator itr = m_CtrlList.begin();
+		std::vector<GUICtrl*>::iterator itr = m_CtrlList.begin();
 		for (;itr!=m_CtrlList.end();itr++)
 		{
-			TLGUICtrl* pCtrl = (*itr);
+			GUICtrl* pCtrl = (*itr);
 			pCtrl->SetAlpha(fAlpha);
 		}
 		// 计算子容器
-		std::map<int,TLGUIContainer*>::iterator itrC = m_SubContainerTable.begin();
+		std::map<int,GUIContainer*>::iterator itrC = m_SubContainerTable.begin();
 		for (;itrC!=m_SubContainerTable.end();itrC++)
 		{
-			TLGUIContainer* pSubContainer = itrC->second;
+			GUIContainer* pSubContainer = itrC->second;
 			pSubContainer->SetCtrlAlpha(fAlpha);
 		}
 	}
 
-	void TLGUIContainer::ShowContainer(bool bShow /* = true */)
+	void GUIContainer::ShowContainer(bool bShow /* = true */)
 	{
 		m_bShow = bShow;
 		// 计算子控件
-		std::vector<TLGUICtrl*>::iterator itr = m_CtrlList.begin();
+		std::vector<GUICtrl*>::iterator itr = m_CtrlList.begin();
 		for (;itr!=m_CtrlList.end();itr++)
 		{
-			TLGUICtrl* pCtrl = (*itr);
+			GUICtrl* pCtrl = (*itr);
 			pCtrl->ShowCtrl(bShow);
 		}
 		// 计算子容器
-		std::map<int,TLGUIContainer*>::iterator itrC = m_SubContainerTable.begin();
+		std::map<int,GUIContainer*>::iterator itrC = m_SubContainerTable.begin();
 		for (;itrC!=m_SubContainerTable.end();itrC++)
 		{
-			TLGUIContainer* pSubContainer = itrC->second;
+			GUIContainer* pSubContainer = itrC->second;
 			pSubContainer->ShowContainer(bShow);
 		}
 	}
 
-	void TLGUIContainer::OnAnimePlayedOver()
+	void GUIContainer::OnAnimePlayedOver()
 	{
 		if (m_pListener)
 		{

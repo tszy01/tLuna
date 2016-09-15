@@ -1,10 +1,9 @@
-#pragma once
+#ifndef _TLRESMGR_H_
+#define _TLRESMGR_H_
 
-#include "TSingleton.h"
-#include "TLIResObject.h"
-using namespace TLunaEngine;
+#include "TLSingleton.h"
+#include "TLResObject.h"
 #include <list>
-using namespace std;
 namespace TLunaEngine{
 
 	// 链表状态
@@ -19,21 +18,21 @@ namespace TLunaEngine{
 	 *	负责维护一个全局资源链表，这个链表存储整个场景的资源物体
 	 *	场景创建时全部加入链表，场景销毁时全部去除
 	 */
-	class TLResMgr
+	class ResMgr : public Singleton<ResMgr>
 	{
-	T_SINGLETON_DEF(TLResMgr);
-	public:
-		TLResMgr(void);
-		~TLResMgr(void);
+		friend class Singleton<ResMgr>;
+	protected:
+		ResMgr(void);
+		~ResMgr(void);
 	private:
 		// ------------- 成员 ---------------------
-		std::list<TLIResObject*> m_ResObjList;	// 链表
+		std::list<ResObject*> m_ResObjList;	// 链表
 		RES_LIST_STATE m_eListState;		// 当前状态
 	public:
 		// ------------- 调用方法 -----------------
 		// 添加到链表里面
 		// 这个List会在外部组装好
-		inline bool SetList(std::list<TLIResObject*>& list)
+		inline bool SetList(std::list<ResObject*>& list)
 		{
 			if(m_eListState!=RES_LIST_STATE_NONE)
 				return false;
@@ -49,3 +48,5 @@ namespace TLunaEngine{
 	};
 
 }
+
+#endif

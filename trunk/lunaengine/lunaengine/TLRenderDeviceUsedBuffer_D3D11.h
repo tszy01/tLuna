@@ -1,18 +1,18 @@
 #ifndef _TLRENDERDEVICEUSEDBUFFER_D3D11_H_
 #define _TLRENDERDEVICEUSEDBUFFER_D3D11_H_
 
-#include "TLIRenderDeviceUsedBuffer.h"
-#include "TLIRenderDeviceUsedResource_D3D11.h"
+#include "TLRenderDeviceUsedBuffer.h"
+#include "TLRenderDeviceUsedResource_D3D11.h"
 #include <d3d11.h>
 
 namespace TLunaEngine
 {
 	// buffer class d3d11
-	class TLRenderDeviceUsedBuffer_D3D11 : public TLIRenderDeviceUsedBuffer, public TLIRenderDeviceUsedResource_D3D11
+	class RenderDeviceUsedBuffer_D3D11 : public RenderDeviceUsedBuffer, public RenderDeviceUsedResource_D3D11
 	{
 	public:
-		TLRenderDeviceUsedBuffer_D3D11();
-		virtual ~TLRenderDeviceUsedBuffer_D3D11();
+		RenderDeviceUsedBuffer_D3D11();
+		virtual ~RenderDeviceUsedBuffer_D3D11();
 	public:
 		// get d3d resource ptr
 		virtual ID3D11Resource* getD3DResource()

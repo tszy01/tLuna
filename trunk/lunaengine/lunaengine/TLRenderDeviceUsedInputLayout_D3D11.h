@@ -1,15 +1,15 @@
 #ifndef _TLRENDERDEVICEUSEDINPUTLAYOUT_D3D11_H_
 #define _TLRENDERDEVICEUSEDINPUTLAYOUT_D3D11_H_
 
-#include "TLIRenderDeviceUsedInputLayout.h"
+#include "TLRenderDeviceUsedInputLayout.h"
 #include <d3d11.h>
 namespace TLunaEngine
 {
-	class TLRenderDeviceUsedInputLayout_D3D11 : public TLIRenderDeviceUsedInputLayout
+	class RenderDeviceUsedInputLayout_D3D11 : public RenderDeviceUsedInputLayout
 	{
 	public:
-		TLRenderDeviceUsedInputLayout_D3D11();
-		virtual ~TLRenderDeviceUsedInputLayout_D3D11();
+		RenderDeviceUsedInputLayout_D3D11();
+		virtual ~RenderDeviceUsedInputLayout_D3D11();
 	private:
 		ID3D11InputLayout* mD3DInputLayout;
 	public:

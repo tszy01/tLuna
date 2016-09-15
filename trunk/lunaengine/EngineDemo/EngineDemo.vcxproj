@@ -55,18 +55,17 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\LunaEngine;..\lua\include;..\freetype-2.1.9\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\LunaEditor;..\LunaEngine;..\lua\include;..\freetype-2.1.9\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>dxguid.lib;dinput8.lib;lua.lib;LunaEngine.lib;d3d11.lib;d3dcompiler.lib;freetype219MT.lib;FreeImage.lib;LibDDSTextureLoader.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>dxguid.lib;dinput8.lib;lua.lib;LunaEngine.lib;d3d11.lib;d3dcompiler.lib;freetype219MT.lib;FreeImage.lib;LibDDSTextureLoader.lib;LunaEditor.lib;wxmsw29ud_propgrid.lib;wxmsw29ud_adv.lib;wxmsw29ud_core.lib;wxbase29ud.lib;wxtiffd.lib;wxjpegd.lib;wxpngd.lib;wxzlibd.lib;wxregexud.lib;wxexpatd.lib;comctl32.lib;rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(SolutionDir)\..\bin\$(Configuration)\$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)\..\lib\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -82,17 +81,16 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>..\LunaEngine;..\lua\include;..\freetype-2.1.9\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\LunaEditor;..\LunaEngine;..\lua\include;..\freetype-2.1.9\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>dxguid.lib;dinput8.lib;lua.lib;LunaEngine.lib;d3d11.lib;d3dcompiler.lib;freetype219MT.lib;FreeImage.lib;LibDDSTextureLoader.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>dxguid.lib;dinput8.lib;lua.lib;LunaEngine.lib;d3d11.lib;d3dcompiler.lib;freetype219MT.lib;FreeImage.lib;LibDDSTextureLoader.lib;LunaEditor.lib;wxmsw29u_propgrid.lib;wxmsw29u_adv.lib;wxmsw29u_core.lib;wxbase29u.lib;wxtiff.lib;wxjpeg.lib;wxpng.lib;wxzlib.lib;wxregexu.lib;wxexpat.lib;comctl32.lib;rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(SolutionDir)\..\bin\$(Configuration)\$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)\..\lib\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -107,21 +105,21 @@
     </BuildLog>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="GameFunc.cpp" />
+    <ClCompile Include="GameMain.cpp" />
     <ClCompile Include="GameInput.cpp" />
+    <ClCompile Include="InputMsgMgr.cpp" />
     <ClCompile Include="LuaInitApp.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="TLGUISceneMgr.cpp" />
-    <ClCompile Include="TLMainWindow.cpp" />
+    <ClCompile Include="GUISceneMgr.cpp" />
+    <ClCompile Include="MainWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameFunc.h" />
+    <ClInclude Include="GameMain.h" />
     <ClInclude Include="GameInput.h" />
+    <ClInclude Include="InputMsgMgr.h" />
+    <ClInclude Include="KeyCodeDef.h" />
     <ClInclude Include="LuaInitApp.h" />
-    <ClInclude Include="stdafx.h" />
-    <ClInclude Include="targetvar.h" />
-    <ClInclude Include="TLGUISceneMgr.h" />
-    <ClInclude Include="TLMainWindow.h" />
+    <ClInclude Include="GUISceneMgr.h" />
+    <ClInclude Include="MainWindow.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

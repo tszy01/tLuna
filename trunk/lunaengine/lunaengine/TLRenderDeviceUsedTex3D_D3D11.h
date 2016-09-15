@@ -1,18 +1,18 @@
 #ifndef _TLRENDERDEVICEUSEDTEX3D_D3D11_H_
 #define _TLRENDERDEVICEUSEDTEX3D_D3D11_H_
 
-#include "TLIRenderDeviceUsedTex3D.h"
-#include "TLIRenderDeviceUsedResource_D3D11.h"
+#include "TLRenderDeviceUsedTex3D.h"
+#include "TLRenderDeviceUsedResource_D3D11.h"
 #include <d3d11.h>
 
 namespace TLunaEngine
 {
 	// texture 3d class
-	class TLRenderDeviceUsedTex3D_D3D11 : public TLIRenderDeviceUsedTex3D, public TLIRenderDeviceUsedResource_D3D11
+	class RenderDeviceUsedTex3D_D3D11 : public RenderDeviceUsedTex3D, public RenderDeviceUsedResource_D3D11
 	{
 	public:
-		TLRenderDeviceUsedTex3D_D3D11();
-		virtual ~TLRenderDeviceUsedTex3D_D3D11();
+		RenderDeviceUsedTex3D_D3D11();
+		virtual ~RenderDeviceUsedTex3D_D3D11();
 	public:
 		// get d3d resource ptr
 		virtual ID3D11Resource* getD3DResource()

@@ -1,17 +1,17 @@
 #ifndef _TLRENDERDEVICEUSEDRTV_D3D11_H_
 #define _TLRENDERDEVICEUSEDRTV_D3D11_H_
 
-#include "TLIRenderDeviceUsedRTV.h"
-#include "TLIRenderDeviceUsedView_D3D11.h"
+#include "TLRenderDeviceUsedRTV.h"
+#include "TLRenderDeviceUsedView_D3D11.h"
 #include <d3d11.h>
 
 namespace TLunaEngine
 {
-	class TLRenderDeviceUsedRTV_D3D11 : public TLIRenderDeviceUsedRTV, public TLIRenderDeviceUsedView_D3D11
+	class RenderDeviceUsedRTV_D3D11 : public RenderDeviceUsedRTV, public RenderDeviceUsedView_D3D11
 	{
 	public:
-		TLRenderDeviceUsedRTV_D3D11();
-		virtual ~TLRenderDeviceUsedRTV_D3D11();
+		RenderDeviceUsedRTV_D3D11();
+		virtual ~RenderDeviceUsedRTV_D3D11();
 	public:
 		// get d3d view ptr
 		virtual ID3D11View* getD3DView()

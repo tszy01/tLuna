@@ -1,14 +1,13 @@
-#pragma once
+#ifndef _GAMEINPUT_H_
+#define _GAMEINPUT_H_
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
 #include "KeyCodeDef.h"
-#include "TSingleton.h"
-using namespace TLunaEngine;
-using namespace TLunaEngine;
+#include "TLSingleton.h"
 
-class TGameInput
+class GameInput : public TLunaEngine::Singleton<GameInput>
 {
-T_SINGLETON_DEF(TGameInput);
+	friend class TLunaEngine::Singleton<GameInput>;
 private:
 	//INPUT设备指针
 	LPDIRECTINPUT8			m_pDInput;
@@ -33,7 +32,6 @@ private:
 
 	bool m_bUseJoystick;	// 是否适用手柄
 public:
-	TGameInput(void);
 	void DestroyInput();
 	//获得鼠标的X，Y,Z
 	inline LONG GetMouseX() {return m_MouseState.lX;};
@@ -63,6 +61,9 @@ public:
 	inline LPDIRECTINPUT8 GetDInput(){return m_pDInput;}
 	inline LPDIRECTINPUTDEVICE8 GetJoystick(){return m_pDInputJoystick;}
 	inline LPDIRECTINPUTDEVICE8* GetJoystickPtr(){return &m_pDInputJoystick;}
-public:
-	~TGameInput(void);
+protected:
+	GameInput(void);
+	~GameInput(void);
 };
+
+#endif

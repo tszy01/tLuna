@@ -58,7 +58,7 @@
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
@@ -78,7 +78,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
@@ -91,16 +91,13 @@
     </BuildLog>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="GlobleFunc.cpp" />
-    <ClCompile Include="stdafx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="TBinaryFileProcessor.cpp" />
-    <ClCompile Include="TConfigFile.cpp" />
-    <ClCompile Include="TConvexBody.cpp" />
-    <ClCompile Include="TDateTime.cpp" />
-    <ClCompile Include="TDegree.cpp" />
+    <ClCompile Include="TLGlobalFunc.cpp" />
+    <ClCompile Include="TLBinaryFileProcessor.cpp" />
+    <ClCompile Include="TLColorValue.cpp" />
+    <ClCompile Include="TLConfigFile.cpp" />
+    <ClCompile Include="TLConvexBody.cpp" />
+    <ClCompile Include="TLDateTime.cpp" />
+    <ClCompile Include="TLDegree.cpp" />
     <ClCompile Include="TLGlobleClass.cpp" />
     <ClCompile Include="TLGUIContainer.cpp" />
     <ClCompile Include="TLGUICtrl.cpp" />
@@ -111,10 +108,9 @@
     <ClCompile Include="TLGUIText.cpp" />
     <ClCompile Include="TLGUITextureMgr.cpp" />
     <ClCompile Include="TLImage.cpp" />
-    <ClCompile Include="TLInputMsgMgr.cpp" />
-    <ClCompile Include="TLIResObject.cpp" />
+    <ClCompile Include="TLResObject.cpp" />
     <ClCompile Include="TLLoopCtrl.cpp" />
-    <ClCompile Include="TLog.cpp" />
+    <ClCompile Include="TLLog.cpp" />
     <ClCompile Include="TLRenderDeviceCompiledShader_D3D11.cpp" />
     <ClCompile Include="TLRenderDeviceUsedBlendState_D3D11.cpp" />
     <ClCompile Include="TLRenderDeviceUsedBuffer_D3D11.cpp" />
@@ -138,34 +134,32 @@
     <ClCompile Include="TLRenderDevice_D3D11.cpp" />
     <ClCompile Include="TLRenderMgr.cpp" />
     <ClCompile Include="TLResMgr.cpp" />
-    <ClCompile Include="TLTriangle.cpp" />
-    <ClCompile Include="TLuaBase.cpp" />
-    <ClCompile Include="TMemFile.cpp" />
-    <ClCompile Include="TRadian.cpp" />
-    <ClCompile Include="TString.cpp" />
-    <ClCompile Include="TTimer.cpp" />
-    <ClCompile Include="TTxtFileReader.cpp" />
-    <ClCompile Include="TTxtFileWriter.cpp" />
-    <ClCompile Include="TZip.cpp" />
+    <ClCompile Include="TLTestTriangle.cpp" />
+    <ClCompile Include="TLLuaBase.cpp" />
+    <ClCompile Include="TLMemFile.cpp" />
+    <ClCompile Include="TLRadian.cpp" />
+    <ClCompile Include="TLString.cpp" />
+    <ClCompile Include="TLTimer.cpp" />
+    <ClCompile Include="TLTxtFileReader.cpp" />
+    <ClCompile Include="TLTxtFileWriter.cpp" />
+    <ClCompile Include="TLZip.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TConvexBody.h" />
-    <ClInclude Include="TDegree.h" />
-    <ClInclude Include="TDualQuaternion.h" />
-    <ClInclude Include="TMathUtils.h" />
-    <ClInclude Include="GlobleFunc.h" />
-    <ClInclude Include="KeyCodeDef.h" />
-    <ClInclude Include="stdafx.h" />
-    <ClInclude Include="TAABBbox.h" />
-    <ClInclude Include="targetver.h" />
-    <ClInclude Include="TArray.h" />
-    <ClInclude Include="TAutoPtr.h" />
-    <ClInclude Include="TBinaryFileProcessor.h" />
-    <ClInclude Include="TCommonTypeDef.h" />
-    <ClInclude Include="TConfigFile.h" />
-    <ClInclude Include="TDateTime.h" />
-    <ClInclude Include="TFPU.h" />
-    <ClInclude Include="THashtable.h" />
+    <ClInclude Include="TLColorValue.h" />
+    <ClInclude Include="TLConvexBody.h" />
+    <ClInclude Include="TLDegree.h" />
+    <ClInclude Include="TLDualQuaternion.h" />
+    <ClInclude Include="TLMathUtils.h" />
+    <ClInclude Include="TLGlobalFunc.h" />
+    <ClInclude Include="TLAABBox.h" />
+    <ClInclude Include="TLArray.h" />
+    <ClInclude Include="TLAutoPtr.h" />
+    <ClInclude Include="TLBinaryFileProcessor.h" />
+    <ClInclude Include="TLCommonTypeDef.h" />
+    <ClInclude Include="TLConfigFile.h" />
+    <ClInclude Include="TLDateTime.h" />
+    <ClInclude Include="TLFPU.h" />
+    <ClInclude Include="TLHashtable.h" />
     <ClInclude Include="TLGlobleClass.h" />
     <ClInclude Include="TLGUIContainer.h" />
     <ClInclude Include="TLGUICtrl.h" />
@@ -176,40 +170,39 @@
     <ClInclude Include="TLGUIPicture.h" />
     <ClInclude Include="TLGUIText.h" />
     <ClInclude Include="TLGUITextureMgr.h" />
-    <ClInclude Include="TLIGUIListener.h" />
+    <ClInclude Include="TLGUIListener.h" />
     <ClInclude Include="TLImage.h" />
-    <ClInclude Include="TLine.h" />
-    <ClInclude Include="TLInputMsgMgr.h" />
-    <ClInclude Include="TLIRenderDevice.h" />
-    <ClInclude Include="TLIRenderDeviceUsed.h" />
-    <ClInclude Include="TLIRenderDeviceUsedBlendState.h" />
-    <ClInclude Include="TLIRenderDeviceUsedBuffer.h" />
-    <ClInclude Include="TLIRenderDeviceUsedCS.h" />
-    <ClInclude Include="TLIRenderDeviceUsedDepthStencilState.h" />
-    <ClInclude Include="TLIRenderDeviceUsedDS.h" />
-    <ClInclude Include="TLIRenderDeviceUsedDSV.h" />
-    <ClInclude Include="TLIRenderDeviceUsedGS.h" />
-    <ClInclude Include="TLIRenderDeviceUsedHS.h" />
-    <ClInclude Include="TLIRenderDeviceUsedInputLayout.h" />
-    <ClInclude Include="TLIRenderDeviceUsedPS.h" />
-    <ClInclude Include="TLIRenderDeviceUsedRasterizerState.h" />
-    <ClInclude Include="TLIRenderDeviceUsedResource.h" />
-    <ClInclude Include="TLIRenderDeviceUsedRTV.h" />
-    <ClInclude Include="TLIRenderDeviceUsedSamplerState.h" />
-    <ClInclude Include="TLIRenderDeviceCompiledShader.h" />
-    <ClInclude Include="TLIRenderDeviceUsedSRV.h" />
-    <ClInclude Include="TLIRenderDeviceUsedTex1D.h" />
-    <ClInclude Include="TLIRenderDeviceUsedTex2D.h" />
-    <ClInclude Include="TLIRenderDeviceUsedTex3D.h" />
-    <ClInclude Include="TLIRenderDeviceUsedUAV.h" />
-    <ClInclude Include="TLIRenderDeviceUsedView.h" />
-    <ClInclude Include="TLIRenderDeviceUsedView_D3D11.h" />
-    <ClInclude Include="TLIRenderDeviceUsedVS.h" />
-    <ClInclude Include="TLIResObject.h" />
-    <ClInclude Include="TList.h" />
+    <ClInclude Include="TLLine.h" />
+    <ClInclude Include="TLRenderDevice.h" />
+    <ClInclude Include="TLRenderDeviceUsed.h" />
+    <ClInclude Include="TLRenderDeviceUsedBlendState.h" />
+    <ClInclude Include="TLRenderDeviceUsedBuffer.h" />
+    <ClInclude Include="TLRenderDeviceUsedCS.h" />
+    <ClInclude Include="TLRenderDeviceUsedDepthStencilState.h" />
+    <ClInclude Include="TLRenderDeviceUsedDS.h" />
+    <ClInclude Include="TLRenderDeviceUsedDSV.h" />
+    <ClInclude Include="TLRenderDeviceUsedGS.h" />
+    <ClInclude Include="TLRenderDeviceUsedHS.h" />
+    <ClInclude Include="TLRenderDeviceUsedInputLayout.h" />
+    <ClInclude Include="TLRenderDeviceUsedPS.h" />
+    <ClInclude Include="TLRenderDeviceUsedRasterizerState.h" />
+    <ClInclude Include="TLRenderDeviceUsedResource.h" />
+    <ClInclude Include="TLRenderDeviceUsedRTV.h" />
+    <ClInclude Include="TLRenderDeviceUsedSamplerState.h" />
+    <ClInclude Include="TLRenderDeviceCompiledShader.h" />
+    <ClInclude Include="TLRenderDeviceUsedSRV.h" />
+    <ClInclude Include="TLRenderDeviceUsedTex1D.h" />
+    <ClInclude Include="TLRenderDeviceUsedTex2D.h" />
+    <ClInclude Include="TLRenderDeviceUsedTex3D.h" />
+    <ClInclude Include="TLRenderDeviceUsedUAV.h" />
+    <ClInclude Include="TLRenderDeviceUsedView.h" />
+    <ClInclude Include="TLRenderDeviceUsedView_D3D11.h" />
+    <ClInclude Include="TLRenderDeviceUsedVS.h" />
+    <ClInclude Include="TLResObject.h" />
+    <ClInclude Include="TLList.h" />
     <ClInclude Include="TLLoopCtrl.h" />
-    <ClInclude Include="TLock.h" />
-    <ClInclude Include="TLog.h" />
+    <ClInclude Include="TLLock.h" />
+    <ClInclude Include="TLLog.h" />
     <ClInclude Include="TLRenderDef.h" />
     <ClInclude Include="TLRenderDeviceCompiledShader_D3D11.h" />
     <ClInclude Include="TLRenderDeviceUsedBlendState_D3D11.h" />
@@ -223,7 +216,7 @@
     <ClInclude Include="TLRenderDeviceUsedInputLayout_D3D11.h" />
     <ClInclude Include="TLRenderDeviceUsedPS_D3D11.h" />
     <ClInclude Include="TLRenderDeviceUsedRasterizerState_D3D11.h" />
-    <ClInclude Include="TLIRenderDeviceUsedResource_D3D11.h" />
+    <ClInclude Include="TLRenderDeviceUsedResource_D3D11.h" />
     <ClInclude Include="TLRenderDeviceUsedRTV_D3D11.h" />
     <ClInclude Include="TLRenderDeviceUsedSamplerState_D3D11.h" />
     <ClInclude Include="TLRenderDeviceUsedSRV_D3D11.h" />
@@ -235,32 +228,32 @@
     <ClInclude Include="TLRenderDevice_D3D11.h" />
     <ClInclude Include="TLRenderMgr.h" />
     <ClInclude Include="TLResMgr.h" />
+    <ClInclude Include="TLTestTriangle.h" />
+    <ClInclude Include="TLLuaBase.h" />
+    <ClInclude Include="TLMatrix3x3.h" />
+    <ClInclude Include="TLMatrix4x4.h" />
+    <ClInclude Include="TLMemFile.h" />
+    <ClInclude Include="TLMutex.h" />
+    <ClInclude Include="TLPlane.h" />
+    <ClInclude Include="TLPlaneBoundedVolume.h" />
+    <ClInclude Include="TLPolygon.h" />
+    <ClInclude Include="TLQuaternion.h" />
+    <ClInclude Include="TLRadian.h" />
+    <ClInclude Include="TLRay.h" />
+    <ClInclude Include="TLRotationalSpline.h" />
+    <ClInclude Include="TLSharedPtr.h" />
+    <ClInclude Include="TLSimpleSpline.h" />
+    <ClInclude Include="TLSingleton.h" />
+    <ClInclude Include="TLSphere.h" />
+    <ClInclude Include="TLString.h" />
+    <ClInclude Include="TLTimer.h" />
     <ClInclude Include="TLTriangle.h" />
-    <ClInclude Include="TLuaBase.h" />
-    <ClInclude Include="TMatrix3x3.h" />
-    <ClInclude Include="TMatrix4x4.h" />
-    <ClInclude Include="TMemFile.h" />
-    <ClInclude Include="TMutex.h" />
-    <ClInclude Include="TPlane.h" />
-    <ClInclude Include="TPlaneBoundedVolume.h" />
-    <ClInclude Include="TPolygon.h" />
-    <ClInclude Include="TQuaternion.h" />
-    <ClInclude Include="TRadian.h" />
-    <ClInclude Include="TRay.h" />
-    <ClInclude Include="TRotationalSpline.h" />
-    <ClInclude Include="TSharedPtr.h" />
-    <ClInclude Include="TSimpleSpline.h" />
-    <ClInclude Include="TSingleton.h" />
-    <ClInclude Include="TSphere.h" />
-    <ClInclude Include="TString.h" />
-    <ClInclude Include="TTimer.h" />
-    <ClInclude Include="TTriangle.h" />
-    <ClInclude Include="TTxtFileReader.h" />
-    <ClInclude Include="TTxtFileWriter.h" />
-    <ClInclude Include="TVector2.h" />
-    <ClInclude Include="TVector3.h" />
-    <ClInclude Include="TVector4.h" />
-    <ClInclude Include="TZip.h" />
+    <ClInclude Include="TLTxtFileReader.h" />
+    <ClInclude Include="TLTxtFileWriter.h" />
+    <ClInclude Include="TLVector2.h" />
+    <ClInclude Include="TLVector3.h" />
+    <ClInclude Include="TLVector4.h" />
+    <ClInclude Include="TLZip.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />

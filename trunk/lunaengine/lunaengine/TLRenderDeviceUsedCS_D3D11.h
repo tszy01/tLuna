@@ -1,16 +1,16 @@
 #ifndef _TLRENDERDEVICEUSEDCS_D3D11_H_
 #define _TLRENDERDEVICEUSEDCS_D3D11_H_
 
-#include "TLIRenderDeviceUsedCS.h"
+#include "TLRenderDeviceUsedCS.h"
 #include <d3d11.h>
 
 namespace TLunaEngine
 {
-	class TLRenderDeviceUsedCS_D3D11 : public TLIRenderDeviceUsedCS
+	class RenderDeviceUsedCS_D3D11 : public RenderDeviceUsedCS
 	{
 	public:
-		TLRenderDeviceUsedCS_D3D11();
-		virtual ~TLRenderDeviceUsedCS_D3D11();
+		RenderDeviceUsedCS_D3D11();
+		virtual ~RenderDeviceUsedCS_D3D11();
 	private:
 		ID3D11ComputeShader* mD3DCS;
 	public:

@@ -1,22 +1,21 @@
-#include "stdafx.h"
 #include "TLRenderDeviceUsedVS_D3D11.h"
 
 namespace TLunaEngine
 {
-	TLRenderDeviceUsedVS_D3D11::TLRenderDeviceUsedVS_D3D11():TLIRenderDeviceUsedVS(),mD3DVS(NULL)
+	RenderDeviceUsedVS_D3D11::RenderDeviceUsedVS_D3D11():RenderDeviceUsedVS(),mD3DVS(0)
 	{
 	}
 
-	TLRenderDeviceUsedVS_D3D11::~TLRenderDeviceUsedVS_D3D11()
+	RenderDeviceUsedVS_D3D11::~RenderDeviceUsedVS_D3D11()
 	{
 		if(mD3DVS)
 		{
 			mD3DVS->Release();
-			mD3DVS = NULL;
+			mD3DVS = 0;
 		}
 	}
 
-	bool TLRenderDeviceUsedVS_D3D11::initWithD3DVS(ID3D11VertexShader* d3dShader)
+	bool RenderDeviceUsedVS_D3D11::initWithD3DVS(ID3D11VertexShader* d3dShader)
 	{
 		if(mD3DVS)
 			return false;

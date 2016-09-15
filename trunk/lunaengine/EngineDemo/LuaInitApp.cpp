@@ -1,9 +1,8 @@
-#include "stdafx.h"
 #include "LuaInitApp.h"
 
-T_SINGLETON_IMP(CLuaInit);
+LuaInit* TLunaEngine::Singleton<LuaInit>::m_Ptr = 0;
 
-CLuaInit::CLuaInit(void) :
+LuaInit::LuaInit(void) :
 m_bWnd(false),
 m_bufferHeight(480),
 m_bufferWidth(852),
@@ -15,18 +14,18 @@ m_bUseJoystick(false)
 	m_szResDir[0] = '\0';
 }
 
-CLuaInit::~CLuaInit(void)
+LuaInit::~LuaInit(void)
 {
 }
 
-bool CLuaInit::InitWindowScript(const char *scriptFile)
+bool LuaInit::InitWindowScript(const char *scriptFile)
 {
 	if(!InitLuaBase(scriptFile))
 		return false;
 	return true;
 }
 
-void CLuaInit::LoadParameters()
+void LuaInit::LoadParameters()
 {
 	// 得到结果
 	GetVariable("bUseJoystick");
@@ -42,8 +41,8 @@ void CLuaInit::LoadParameters()
 	memcpy_s(m_szResDir,sizeof(char)*256,szResDir,sizeof(char)*256);
 	const char* szTmp=Lua_tostring(-2);
 	memcpy_s(m_szWindowText,sizeof(char)*256,szTmp,sizeof(char)*256);
-	m_bufferHeight=(UINT)Lua_tonumber(-3);
-	m_bufferWidth=(UINT)Lua_tonumber(-4);
+	m_bufferHeight = (unsigned int)Lua_tonumber(-3);
+	m_bufferWidth = (unsigned int)Lua_tonumber(-4);
 	int b=Lua_toboolean(-5);
 	if(b!=0) m_bWnd=true;
 	b=Lua_toboolean(-6);

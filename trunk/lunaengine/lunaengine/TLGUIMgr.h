@@ -1,51 +1,54 @@
-#pragma once
+#ifndef _TLGUIMGR_H_
+#define _TLGUIMGR_H_
 
-#include "TSingleton.h"
+#include "TLSingleton.h"
 #include <map>
 #include "TLGUIContainer.h"
 #include "TLGUIPicture.h"
 #include "TLGUIText.h"
-#include "TLIGUIListener.h"
-using namespace std;
-using namespace TLunaEngine;
+#include "TLGUIListener.h"
 
 namespace TLunaEngine{
 
 	/*
 	 *	UI管理类
 	 */
-	class TLGUIMgr : public TLIGUIListener
+	class GUIMgr : public Singleton<GUIMgr>, public GUIListener
 	{
-	T_SINGLETON_DEF(TLGUIMgr);
-	public:
-		TLGUIMgr(void);
-		~TLGUIMgr(void);
+		friend class Singleton<GUIMgr>;
+	protected:
+		GUIMgr(void);
+		~GUIMgr(void);
 	private:
-		TLGUIContainer* m_pRootContainer;	// 跟容器，里面不要放控件
-		TLIGUIListener* m_pSceneListener;	// 上层接收器的指针
+		GUIContainer* m_pRootContainer;	// 跟容器，里面不要放控件
+		GUIListener* m_pSceneListener;	// 上层接收器的指针
 	public:
 		// -------- 方法 --------------
-		inline TLGUIContainer* GetRootContainer()
+		inline GUIContainer* GetRootContainer()
 		{
 			return m_pRootContainer;
 		}
-		inline void SetRootContainer(TLGUIContainer* pContainer)
+		inline void SetRootContainer(GUIContainer* pContainer)
 		{
 			m_pRootContainer = pContainer;
 		}
 		// 根据ID找到容器
-		inline TLGUIContainer* FindContainer(int iID)
+		inline GUIContainer* FindContainer(int iID)
 		{
 			if (m_pRootContainer)
 			{
 				return m_pRootContainer->FindContainer(iID);
 			}
-			return NULL;
+			return TNULL;
 		}
 		// 销毁
 		inline void DestroyRootContainer()
 		{
-			SAFE_DELETE(m_pRootContainer);
+			if (m_pRootContainer)
+			{
+				delete m_pRootContainer;
+				m_pRootContainer = 0;
+			}
 		}
 		// 帧更新
 		inline void Update(float fTimeElapsed)
@@ -66,22 +69,22 @@ namespace TLunaEngine{
 		// 从文件加载
 		bool LoadFromFile(const char* file);
 		// 设置上层接收器
-		inline void SetSceneListener(TLIGUIListener* pListener)
+		inline void SetSceneListener(GUIListener* pListener)
 		{
 			m_pSceneListener = pListener;
 		}
 	private:
 		// 加载方法
 		// 加载Container
-		bool LoadContainer(FILE* stream,TLGUIContainer* pParentContainer,TLGUIContainer** ppContainer);
+		bool LoadContainer(FILE* stream,GUIContainer* pParentContainer,GUIContainer** ppContainer);
 		// 加载Ctrl
-		bool LoadCtrl(FILE* stream,TLGUIContainer* pParentContainer,TLGUICtrl** ppCtrl);
+		bool LoadCtrl(FILE* stream,GUIContainer* pParentContainer,GUICtrl** ppCtrl);
 		// 加载动画
-		bool LoadAnime(FILE* stream,TLGUIContainer* pNewContainer,BYTE yAnimeType);
+		bool LoadAnime(FILE* stream,GUIContainer* pNewContainer,TUByte yAnimeType);
 	public:
-		// ------------- 以下重写TLIGUIListener -------------------
+		// ------------- 以下重写GUIListener -------------------
 		// 动画播放完毕发送
-		virtual void OnAnimePlayedOver(int iContainerID,BYTE yAnimeType)
+		virtual void OnAnimePlayedOver(int iContainerID,TUByte yAnimeType)
 		{
 			if (m_pSceneListener)
 			{
@@ -91,3 +94,5 @@ namespace TLunaEngine{
 	};
 
 }
+
+#endif

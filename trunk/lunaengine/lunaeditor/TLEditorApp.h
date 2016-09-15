@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _TLEDITORAPP_H_
+#define _TLEDITORAPP_H_
 
 #include "wx/wxprec.h"
 #ifndef WX_PRECOMP
@@ -148,3 +149,5 @@ namespace TLunaEngine{
 	};
 
 }
+
+#endif

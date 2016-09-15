@@ -1,0 +1,60 @@
+#ifndef _TLSINGLETON_H_
+#define _TLSINGLETON_H_
+
+
+namespace TLunaEngine{
+
+	template<class T>
+	class Singleton
+	{
+	public:
+		Singleton(void)
+		{
+		}
+
+		virtual ~Singleton(void)
+		{
+		}
+	public:
+		static T* getSingletonPtr()
+		{
+			if(!m_Ptr)
+				m_Ptr = new T;
+			return m_Ptr;
+		};
+		static void delSingletonPtr()
+		{
+			if(m_Ptr)
+			{
+				delete m_Ptr;
+				m_Ptr = 0;
+			}
+		}
+	protected:
+		static T* m_Ptr;
+	};
+
+}
+
+//// Singleton Macro Define
+//#define T_SINGLETON_DEF(classname) \
+//	private:\
+//		static classname* sPtr;\
+//	public:\
+//		static classname* getSingletonPtr()\
+//		{\
+//			if(!sPtr)\
+//				sPtr = new classname();\
+//			return sPtr;\
+//		}\
+//		static void delSingletonPtr()\
+//		{\
+//			if(sPtr)\
+//				delete sPtr;\
+//			sPtr = 0;\
+//		}
+//
+//#define T_SINGLETON_IMP(classname) \
+//	classname* classname::sPtr = 0;
+
+#endif

@@ -1,22 +1,21 @@
-#include "stdafx.h"
 #include "TLRenderDeviceUsedBuffer_D3D11.h"
 namespace TLunaEngine
 {
-	TLRenderDeviceUsedBuffer_D3D11::TLRenderDeviceUsedBuffer_D3D11():
-		TLIRenderDeviceUsedBuffer(),TLIRenderDeviceUsedResource_D3D11(),mD3DBuffer(NULL)
+	RenderDeviceUsedBuffer_D3D11::RenderDeviceUsedBuffer_D3D11():
+		RenderDeviceUsedBuffer(),RenderDeviceUsedResource_D3D11(),mD3DBuffer(TNULL)
 	{
 	}
 
-	TLRenderDeviceUsedBuffer_D3D11::~TLRenderDeviceUsedBuffer_D3D11()
+	RenderDeviceUsedBuffer_D3D11::~RenderDeviceUsedBuffer_D3D11()
 	{
 		if(mD3DBuffer)
 		{
 			mD3DBuffer->Release();
-			mD3DBuffer = NULL;
+			mD3DBuffer = TNULL;
 		}
 	}
 
-	bool TLRenderDeviceUsedBuffer_D3D11::initWithD3DBuffer(ID3D11Buffer* d3dBuffer)
+	bool RenderDeviceUsedBuffer_D3D11::initWithD3DBuffer(ID3D11Buffer* d3dBuffer)
 	{
 		if(mD3DBuffer)
 			return false;

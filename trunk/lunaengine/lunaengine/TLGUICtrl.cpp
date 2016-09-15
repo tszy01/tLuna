@@ -1,11 +1,10 @@
-#include "StdAfx.h"
 #include "TLGUICtrl.h"
 namespace TLunaEngine{
 
-	TLGUICtrl::TLGUICtrl(void) : 
+	GUICtrl::GUICtrl(void) : 
 	m_eCtrlType(GUI_CTRL_NONE),
 	m_iIndex(-1),
-	m_pContainer(NULL),
+	m_pContainer(TNULL),
 	m_posX(0),
 	m_posY(0),
 	m_width(0),
@@ -17,12 +16,12 @@ namespace TLunaEngine{
 	{
 	}
 
-	TLGUICtrl::~TLGUICtrl(void)
+	GUICtrl::~GUICtrl(void)
 	{
 		DestroyCtrl();
 	}
 
-	bool TLGUICtrl::InitCtrlBase(int iIndex, TLunaEngine::TLGUIContainer *pContainer, LONG x, LONG y, LONG width, LONG height)
+	bool GUICtrl::InitCtrlBase(int iIndex, TLunaEngine::GUIContainer *pContainer, TS32 x, TS32 y, TS32 width, TS32 height)
 	{
 		m_iIndex = iIndex;
 		m_pContainer = pContainer;
@@ -35,10 +34,10 @@ namespace TLunaEngine{
 		return true;
 	}
 
-	void TLGUICtrl::DestroyCtrl()
+	void GUICtrl::DestroyCtrl()
 	{
 		m_iIndex = -1;
-		m_pContainer = NULL;
+		m_pContainer = TNULL;
 		m_posX = 0;
 		m_posY = 0;
 		m_width = 0;
@@ -47,7 +46,7 @@ namespace TLunaEngine{
 		m_posYFinal = 0;
 	}
 
-	void TLGUICtrl::ReCalSubRect(LONG containerFinalX,LONG containerFinalY)
+	void GUICtrl::ReCalSubRect(TS32 containerFinalX,TS32 containerFinalY)
 	{
 		if (m_pContainer)
 		{
@@ -61,7 +60,7 @@ namespace TLunaEngine{
 		}
 	}
 
-	bool TLGUICtrl::Update(float fTimeElapsed)
+	bool GUICtrl::Update(float fTimeElapsed)
 	{
 		if (!m_bShow)
 		{
@@ -70,7 +69,7 @@ namespace TLunaEngine{
 		return true;
 	}
 
-	bool TLGUICtrl::Render(float fTimeElapsed)
+	bool GUICtrl::Render(float fTimeElapsed)
 	{
 		if (!m_bShow)
 		{

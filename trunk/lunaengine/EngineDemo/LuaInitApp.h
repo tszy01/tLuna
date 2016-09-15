@@ -1,19 +1,18 @@
-#pragma once
-#include "tluabase.h"
-#include "TSingleton.h"
-using namespace TLunaEngine;
+#ifndef _LUAINITAPP_H_
+#define _LUAINITAPP_H_
+#include "tlluabase.h"
+#include "TLSingleton.h"
 
-class CLuaInit :
-	public TLuaBase
+class LuaInit : public TLunaEngine::Singleton<LuaInit>, public TLunaEngine::LuaBase
 {
-T_SINGLETON_DEF(CLuaInit);
-public:
-	CLuaInit(void);
-	virtual ~CLuaInit(void);
+	friend class TLunaEngine::Singleton<LuaInit>;
+protected:
+	LuaInit(void);
+	virtual ~LuaInit(void);
 public:
 	bool m_bWnd;			// 是否是窗口
-	UINT m_bufferHeight;	// 后缓冲高
-	UINT m_bufferWidth;		// 后缓冲宽
+	unsigned int m_bufferHeight;	// 后缓冲高
+	unsigned int m_bufferWidth;		// 后缓冲宽
 	float m_controlFps;		// 控制帧速率
 	bool m_bShowDebugInfo;	// 是否显示Debug信息
 	bool m_bUseJoystick;	// 是否适用手柄
@@ -23,3 +22,5 @@ public:
 	bool InitWindowScript(const char *scriptFile);
 	void LoadParameters();
 };
+
+#endif

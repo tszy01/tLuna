@@ -1,23 +1,22 @@
-#include "stdafx.h"
 #include "TLRenderDeviceUsedDSV_D3D11.h"
 
 namespace TLunaEngine
 {
-	TLRenderDeviceUsedDSV_D3D11::TLRenderDeviceUsedDSV_D3D11():
-		TLIRenderDeviceUsedDSV(),TLIRenderDeviceUsedView_D3D11(),mD3DDSV(NULL)
+	RenderDeviceUsedDSV_D3D11::RenderDeviceUsedDSV_D3D11():
+		RenderDeviceUsedDSV(),RenderDeviceUsedView_D3D11(),mD3DDSV(0)
 	{
 	}
 
-	TLRenderDeviceUsedDSV_D3D11::~TLRenderDeviceUsedDSV_D3D11()
+	RenderDeviceUsedDSV_D3D11::~RenderDeviceUsedDSV_D3D11()
 	{
 		if(mD3DDSV)
 		{
 			mD3DDSV->Release();
-			mD3DDSV = NULL;
+			mD3DDSV = 0;
 		}
 	}
 
-	bool TLRenderDeviceUsedDSV_D3D11::initWithD3DDSV(ID3D11DepthStencilView* d3dView)
+	bool RenderDeviceUsedDSV_D3D11::initWithD3DDSV(ID3D11DepthStencilView* d3dView)
 	{
 		if(mD3DDSV)
 			return false;

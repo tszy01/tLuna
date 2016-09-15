@@ -1,4 +1,3 @@
-#include "StdAfx.h"
 #include "TLEditorMainFrame.h"
 #include "TLEditorApp.h"
 //#include "gb_seappmgr.h"

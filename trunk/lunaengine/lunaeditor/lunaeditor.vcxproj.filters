@@ -18,39 +18,30 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="targetver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TLEditorMainFrame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TLEditorApp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EditorFunc.h">
+    <ClInclude Include="TLEditorMgr.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TLEditorMgr.h">
+    <ClInclude Include="TLEditorFunc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TLEditorMainFrame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TLEditorApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EditorFunc.cpp">
+    <ClCompile Include="TLEditorMgr.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TLEditorMgr.cpp">
+    <ClCompile Include="TLEditorFunc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

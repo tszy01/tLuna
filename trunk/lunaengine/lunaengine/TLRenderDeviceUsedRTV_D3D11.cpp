@@ -1,23 +1,22 @@
-#include "stdafx.h"
 #include "TLRenderDeviceUsedRTV_D3D11.h"
 
 namespace TLunaEngine
 {
-	TLRenderDeviceUsedRTV_D3D11::TLRenderDeviceUsedRTV_D3D11():
-		TLIRenderDeviceUsedRTV(),TLIRenderDeviceUsedView_D3D11(),mD3DRTV(NULL)
+	RenderDeviceUsedRTV_D3D11::RenderDeviceUsedRTV_D3D11():
+		RenderDeviceUsedRTV(),RenderDeviceUsedView_D3D11(),mD3DRTV(0)
 	{
 	}
 
-	TLRenderDeviceUsedRTV_D3D11::~TLRenderDeviceUsedRTV_D3D11()
+	RenderDeviceUsedRTV_D3D11::~RenderDeviceUsedRTV_D3D11()
 	{
 		if(mD3DRTV)
 		{
 			mD3DRTV->Release();
-			mD3DRTV = NULL;
+			mD3DRTV = 0;
 		}
 	}
 
-	bool TLRenderDeviceUsedRTV_D3D11::initWithD3DRTV(ID3D11RenderTargetView* d3dView)
+	bool RenderDeviceUsedRTV_D3D11::initWithD3DRTV(ID3D11RenderTargetView* d3dView)
 	{
 		if(mD3DRTV)
 			return false;

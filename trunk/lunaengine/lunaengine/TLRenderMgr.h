@@ -1,43 +1,44 @@
 #ifndef TL_RENDER_MGR_H
 #define TL_RENDER_MGR_H
 
-#include "TSingleton.h"
+#include "TLCommonTypeDef.h"
+#include "TLSingleton.h"
 
 namespace TLunaEngine
 {
-	class TLIRenderDevice;
+	class RenderDevice;
 
-	class TLRenderMgr
+	class RenderMgr : public Singleton<RenderMgr>
 	{
-		T_SINGLETON_DEF(TLRenderMgr);
+		friend class Singleton<RenderMgr>;
 	public:
 		enum DEVEICE_TYPE
 		{
 			DT_NONE,
 			DT_D3D11,
 		};
-	public:
-		TLRenderMgr();
-		~TLRenderMgr();
+	protected:
+		RenderMgr();
+		~RenderMgr();
 	private:
 		// 保存创建的Device
-		TLIRenderDevice* mDevice;
+		RenderDevice* mDevice;
 		// Used Device Type
 		DEVEICE_TYPE mDeviceType;
 	public:
 		// create render device
 		// only new device, please call init after this
-		TLIRenderDevice* createRenderDevice(UINT deviceType);
+		RenderDevice* createRenderDevice(TU32 deviceType);
 		// destroy render device
 		// only delete device, please call destroy before this
 		void destroyRenderDevice();
 		// get the device
-		TLIRenderDevice* getDevice()
+		RenderDevice* getDevice()
 		{
 			return mDevice;
 		};
 		// resize device buffer
-		bool resizeDeviceBuffer(UINT width,UINT height);
+		bool resizeDeviceBuffer(TU32 width,TU32 height);
 		// get device type
 		DEVEICE_TYPE getDeviceType()
 		{

@@ -1,23 +1,22 @@
-#include "stdafx.h"
 #include "TLRenderDeviceUsedDepthStencilState_D3D11.h"
 
 namespace TLunaEngine
 {
-	TLRenderDeviceUsedDepthStencilState_D3D11::TLRenderDeviceUsedDepthStencilState_D3D11():
-		TLIRenderDeviceUsedDepthStencilState(),mD3DDepthStencilState(NULL)
+	RenderDeviceUsedDepthStencilState_D3D11::RenderDeviceUsedDepthStencilState_D3D11():
+		RenderDeviceUsedDepthStencilState(),mD3DDepthStencilState(0)
 	{
 	}
 
-	TLRenderDeviceUsedDepthStencilState_D3D11::~TLRenderDeviceUsedDepthStencilState_D3D11()
+	RenderDeviceUsedDepthStencilState_D3D11::~RenderDeviceUsedDepthStencilState_D3D11()
 	{
 		if(mD3DDepthStencilState)
 		{
 			mD3DDepthStencilState->Release();
-			mD3DDepthStencilState = NULL;
+			mD3DDepthStencilState = 0;
 		}
 	}
 
-	bool TLRenderDeviceUsedDepthStencilState_D3D11::initWithD3DDepthStencilState(ID3D11DepthStencilState* d3dState)
+	bool RenderDeviceUsedDepthStencilState_D3D11::initWithD3DDepthStencilState(ID3D11DepthStencilState* d3dState)
 	{
 		if(mD3DDepthStencilState)
 			return false;

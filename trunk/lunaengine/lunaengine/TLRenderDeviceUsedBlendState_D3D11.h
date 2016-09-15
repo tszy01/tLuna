@@ -1,15 +1,15 @@
 #ifndef _TLRENDERDEVICEUSEDBLENDSTATE_D3D11_H_
 #define _TLRENDERDEVICEUSEDBLENDSTATE_D3D11_H_
 
-#include "TLIRenderDeviceUsedBlendState.h"
+#include "TLRenderDeviceUsedBlendState.h"
 #include <d3d11.h>
 namespace TLunaEngine
 {
-	class TLRenderDeviceUsedBlendState_D3D11 : public TLIRenderDeviceUsedBlendState
+	class RenderDeviceUsedBlendState_D3D11 : public RenderDeviceUsedBlendState
 	{
 	public:
-		TLRenderDeviceUsedBlendState_D3D11();
-		virtual ~TLRenderDeviceUsedBlendState_D3D11();
+		RenderDeviceUsedBlendState_D3D11();
+		virtual ~RenderDeviceUsedBlendState_D3D11();
 	private:
 		ID3D11BlendState* mD3DBlendState;
 	public:

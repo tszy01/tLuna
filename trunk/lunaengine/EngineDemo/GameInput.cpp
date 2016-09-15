@@ -1,15 +1,14 @@
-#include "stdafx.h"
 #include "GameInput.h"
 
-T_SINGLETON_IMP(TGameInput);
+GameInput* TLunaEngine::Singleton<GameInput>::m_Ptr = 0;
 
 BOOL CALLBACK EnumJoysticksCallback(const DIDEVICEINSTANCE* pdidInstance, VOID* pContext)
 {
 	HRESULT hr;
 
     // Obtain an interface to the enumerated joystick.
-	LPDIRECTINPUTDEVICE8* pJoy = TGameInput::getSingletonPtr()->GetJoystickPtr();
-	hr = TGameInput::getSingletonPtr()->GetDInput()->CreateDevice(pdidInstance->guidInstance,  
+	LPDIRECTINPUTDEVICE8* pJoy = GameInput::getSingletonPtr()->GetJoystickPtr();
+	hr = GameInput::getSingletonPtr()->GetDInput()->CreateDevice(pdidInstance->guidInstance,  
                                 pJoy, NULL);
     if(FAILED(hr)) 
 	{
@@ -42,14 +41,14 @@ BOOL CALLBACK EnumObjectsCallback( const DIDEVICEOBJECTINSTANCE* pdidoi,
         diprg.lMax              = +1000; 
     
         // Set the range for the axis
-		if( FAILED( TGameInput::getSingletonPtr()->GetJoystick()->SetProperty( DIPROP_RANGE, &diprg.diph ) ) ) 
+		if( FAILED( GameInput::getSingletonPtr()->GetJoystick()->SetProperty( DIPROP_RANGE, &diprg.diph ) ) ) 
             return DIENUM_STOP;
          
     }
 	return TRUE;
 }
 
-TGameInput::TGameInput(void) : 
+GameInput::GameInput(void) : 
 m_pDInput(NULL),
 m_pDInputKB(NULL),
 m_pDInputMouse(NULL),
@@ -58,26 +57,42 @@ m_bUseJoystick(false)
 {
 }
 
-TGameInput::~TGameInput(void)
+GameInput::~GameInput(void)
 {
 	DestroyInput();
 }
 
-void TGameInput::DestroyInput()
+void GameInput::DestroyInput()
 {
 	if(m_pDInputKB)
 		m_pDInputKB->Unacquire();
-	SAFE_RELEASE(m_pDInputKB);
+	if (m_pDInputKB)
+	{
+		m_pDInputKB->Release();
+		m_pDInputKB = 0;
+	}
 	if(m_pDInputMouse)
 		m_pDInputMouse->Unacquire();
-	SAFE_RELEASE(m_pDInputMouse);
+	if (m_pDInputMouse)
+	{
+		m_pDInputMouse->Release();
+		m_pDInputMouse = 0;
+	}
 	if(m_pDInputJoystick)
 		m_pDInputJoystick->Unacquire();
-	SAFE_RELEASE(m_pDInputJoystick);
-	SAFE_RELEASE(m_pDInput);
+	if (m_pDInputJoystick)
+	{
+		m_pDInputJoystick->Release();
+		m_pDInputJoystick = 0;
+	}
+	if (m_pDInput)
+	{
+		m_pDInput->Release();
+		m_pDInput = 0;
+	}
 }
 
-bool TGameInput::InitInput(HWND hWnd, HINSTANCE hInst,bool bUseJoystick)
+bool GameInput::InitInput(HWND hWnd, HINSTANCE hInst,bool bUseJoystick)
 {
 	//创建DX8.0设备，第一个是实例句炳，第2个是解释设备，第3个是ID号。第四个是锁定到设备指针上
 	if(DI_OK!=DirectInput8Create(hInst,DIRECTINPUT_VERSION,IID_IDirectInput8,(LPVOID*)&m_pDInput,NULL))
@@ -145,7 +160,7 @@ bool TGameInput::InitInput(HWND hWnd, HINSTANCE hInst,bool bUseJoystick)
 	return true;
 }
 
-int TGameInput::IsKeyDown(BYTE keycode)
+int GameInput::IsKeyDown(BYTE keycode)
 {
 	if(keycode<0x100)
 		return (0x80 & keycode);
@@ -153,7 +168,7 @@ int TGameInput::IsKeyDown(BYTE keycode)
 		return 0;
 }
 
-int TGameInput::IsMouseDown(BYTE i)
+int GameInput::IsMouseDown(BYTE i)
 {
 	if(i<=7 && i>=0)
 		return (0x80 & i);
@@ -161,7 +176,7 @@ int TGameInput::IsMouseDown(BYTE i)
 		return 0;
 }
 
-int TGameInput::IsJoystickDown(BYTE i)
+int GameInput::IsJoystickDown(BYTE i)
 {
 	if(!m_bUseJoystick)
 		return 0;
@@ -171,7 +186,7 @@ int TGameInput::IsJoystickDown(BYTE i)
 		return 0;
 }
 
-LRESULT TGameInput::UpdateKeyboard(ProcessInput pFunc)
+LRESULT GameInput::UpdateKeyboard(ProcessInput pFunc)
 {
 	// 把当前键盘信息，拷贝到老的键盘信息
 	memcpy(m_strKeyStateOld,m_strKeyState,sizeof(m_strKeyState));
@@ -209,7 +224,7 @@ LRESULT TGameInput::UpdateKeyboard(ProcessInput pFunc)
 	return S_OK;
 }
 
-LRESULT TGameInput::UpdateMouse(ProcessInput pFunc)
+LRESULT GameInput::UpdateMouse(ProcessInput pFunc)
 {
 	bool bSend = false;
 	// 把当前鼠标信息，拷贝到老的鼠标信息
@@ -253,7 +268,7 @@ LRESULT TGameInput::UpdateMouse(ProcessInput pFunc)
 	return S_OK;
 }
 
-LRESULT TGameInput::UpdateJoystick(ProcessInput pFunc)
+LRESULT GameInput::UpdateJoystick(ProcessInput pFunc)
 {
 	bool bSend = false;
 	memcpy(&m_JoyStateOld,&m_JoyState,sizeof(m_JoyState)); 
@@ -315,7 +330,7 @@ LRESULT TGameInput::UpdateJoystick(ProcessInput pFunc)
 	return S_OK;
 }
 
-LRESULT TGameInput::UpdateInput(ProcessInput pFunc)
+LRESULT GameInput::UpdateInput(ProcessInput pFunc)
 {
 	UpdateKeyboard(pFunc);
 	UpdateMouse(pFunc);

@@ -1,15 +1,16 @@
 #ifndef _TLEDITORMGR_H_
 #define _TLEDITORMGR_H_
 
-#include "TSingleton.h"
-#include "TString.h"
+#include "TLSingleton.h"
+#include "TLString.h"
+#include <Windows.h>
 
 namespace TLunaEngine
 {
-	class TLEditorMgr
+	class TLEditorMgr : public Singleton<TLEditorMgr>
 	{
-	T_SINGLETON_DEF(TLEditorMgr);
-	public:
+		friend class Singleton<TLEditorMgr>;
+	protected:
 		TLEditorMgr();
 		~TLEditorMgr();
 	public:
@@ -22,7 +23,7 @@ namespace TLunaEngine
 		HINSTANCE mInst;
 		LONG mWidth;
 		LONG mHeight;
-		TString mResDir;
+		String mResDir;
 	public:
 		HINSTANCE GetInstance()
 		{
@@ -39,7 +40,7 @@ namespace TLunaEngine
 			return mHeight;
 		}
 
-		const TString& GetResDir()
+		const String& GetResDir()
 		{
 			return mResDir;
 		}

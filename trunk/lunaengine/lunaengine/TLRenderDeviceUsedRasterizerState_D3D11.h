@@ -1,15 +1,15 @@
 #ifndef _TLRENDERDEVICEUSEDRASTERIZERSTATE_D3D11_H_
 #define _TLRENDERDEVICEUSEDRASTERIZERSTATE_D3D11_H_
 
-#include "TLIRenderDeviceUsedRasterizerState.h"
+#include "TLRenderDeviceUsedRasterizerState.h"
 #include <d3d11.h>
 namespace TLunaEngine
 {
-	class TLRenderDeviceUsedRasterizerState_D3D11 : public TLIRenderDeviceUsedRasterizerState
+	class RenderDeviceUsedRasterizerState_D3D11 : public RenderDeviceUsedRasterizerState
 	{
 	public:
-		TLRenderDeviceUsedRasterizerState_D3D11();
-		virtual ~TLRenderDeviceUsedRasterizerState_D3D11();
+		RenderDeviceUsedRasterizerState_D3D11();
+		virtual ~RenderDeviceUsedRasterizerState_D3D11();
 	private:
 		ID3D11RasterizerState* mD3DRasterizerState;
 	public:

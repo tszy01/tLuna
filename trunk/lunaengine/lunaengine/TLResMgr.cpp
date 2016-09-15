@@ -1,28 +1,27 @@
-#include "StdAfx.h"
 #include "TLResMgr.h"
-#include "TLog.h"
+#include "TLLog.h"
 #include <crtdbg.h>
 
 namespace TLunaEngine{
-	T_SINGLETON_IMP(TLResMgr);
+	ResMgr* Singleton<ResMgr>::m_Ptr = 0;
 
-	TLResMgr::TLResMgr(void) : m_eListState(RES_LIST_STATE_NONE)
+	ResMgr::ResMgr(void) : m_eListState(RES_LIST_STATE_NONE)
 	{
 	}
 
-	TLResMgr::~TLResMgr(void)
+	ResMgr::~ResMgr(void)
 	{
 		// 这个链表的资源要在外部删除
-		std::list<TLIResObject*>::iterator itr = m_ResObjList.begin();
+		std::list<ResObject*>::iterator itr = m_ResObjList.begin();
 		for(;itr!=m_ResObjList.end();itr++)
 		{
-			TLIResObject* pObj = (*itr);
-			pObj = NULL;
+			ResObject* pObj = (*itr);
+			pObj = 0;
 		}
 		m_ResObjList.clear();
 	}
 
-	void TLResMgr::OperateList()
+	void ResMgr::OperateList()
 	{
 		if(m_eListState!=RES_LIST_STATE_NONE)
 			return ;
@@ -30,10 +29,10 @@ namespace TLunaEngine{
 			return ;
 		m_eListState = RES_LIST_STATE_OPERATING;
 		// 迭代操作
-		std::list<TLIResObject*>::iterator itr = m_ResObjList.begin();
+		std::list<ResObject*>::iterator itr = m_ResObjList.begin();
 		for(;itr!=m_ResObjList.end();itr++)
 		{
-			TLIResObject* pObj = (*itr);
+			ResObject* pObj = (*itr);
 			RES_OBJ_STATE eState = pObj->GetResState();
 			switch(eState)
 			{
@@ -41,8 +40,8 @@ namespace TLunaEngine{
 				{
 					if(!pObj->InitResObject())
 					{
-						TLunaEngine::TLog::WriteLine(TLunaEngine::TLog::LOG_LEVEL_ERROR,true,__FILE__,__LINE__,"InitResObject Error!");
-						_ASSERT(FALSE);
+						TLunaEngine::Log::WriteLine(TLunaEngine::Log::LOG_LEVEL_ERROR,true,__FILE__,__LINE__,"InitResObject Error!");
+						_ASSERT(0);
 					}
 				}
 				break;

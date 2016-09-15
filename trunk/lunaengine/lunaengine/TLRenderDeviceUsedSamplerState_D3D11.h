@@ -1,15 +1,15 @@
 #ifndef _TLRENDERDEVICEUSEDSAMPLERSTATE_D3D11_H_
 #define _TLRENDERDEVICEUSEDSAMPLERSTATE_D3D11_H_
 
-#include "TLIRenderDeviceUsedSamplerState.h"
+#include "TLRenderDeviceUsedSamplerState.h"
 #include <d3d11.h>
 namespace TLunaEngine
 {
-	class TLRenderDeviceUsedSamplerState_D3D11 : public TLIRenderDeviceUsedSamplerState
+	class RenderDeviceUsedSamplerState_D3D11 : public RenderDeviceUsedSamplerState
 	{
 	public:
-		TLRenderDeviceUsedSamplerState_D3D11();
-		virtual ~TLRenderDeviceUsedSamplerState_D3D11();
+		RenderDeviceUsedSamplerState_D3D11();
+		virtual ~RenderDeviceUsedSamplerState_D3D11();
 	private:
 		ID3D11SamplerState* mD3DSamplerState;
 	public:

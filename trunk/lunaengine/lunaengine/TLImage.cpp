@@ -1,30 +1,30 @@
-#include "stdafx.h"
 #include "TLImage.h"
 #include "FreeImage.h"
+#include <memory.h>
 
 namespace TLunaEngine
 {
-	TLImage::TLImage(UINT width, UINT height, PIXEL_FORMAT format) : mPixelBuffer(NULL),mWidth(0),mHeight(0)
+	Image::Image(TU32 width, TU32 height, PIXEL_FORMAT format) : mPixelBuffer(TNULL),mWidth(0),mHeight(0)
 	{
 		createBuffer(width,height,format);
 	}
 
-	TLImage::TLImage(const TLImage& right) : mPixelBuffer(NULL),mWidth(0),mHeight(0)
+	Image::Image(const Image& right) : mPixelBuffer(TNULL),mWidth(0),mHeight(0)
 	{
 		createBuffer(right.mWidth,right.mHeight,right.mPixelFormat);
 		copyFromBuffer(right.mPixelBuffer);
 	}
 
-	TLImage::~TLImage()
+	Image::~Image()
 	{
 		if(mPixelBuffer)
 		{
 			delete [] mPixelBuffer;
-			mPixelBuffer = NULL;
+			mPixelBuffer = TNULL;
 		}
 	}
 
-	bool TLImage::createBuffer(UINT width, UINT height, PIXEL_FORMAT format)
+	bool Image::createBuffer(TU32 width, TU32 height, PIXEL_FORMAT format)
 	{
 		if(mPixelBuffer)
 			return false;
@@ -34,20 +34,20 @@ namespace TLunaEngine
 		{
 		case PIXEL_FORMAT_R8:
 			{
-				mPixelBuffer = new BYTE[width*height];
-				memset(mPixelBuffer,0,sizeof(BYTE)*width*height);
+				mPixelBuffer = new TUByte[width*height];
+				memset(mPixelBuffer,0,sizeof(TUByte)*width*height);
 			}
 			break;
 		case PIXEL_FORMAT_R8G8B8:
 			{
-				mPixelBuffer = new BYTE[width*height*3];
-				memset(mPixelBuffer,0,sizeof(BYTE)*width*height*3);
+				mPixelBuffer = new TUByte[width*height*3];
+				memset(mPixelBuffer,0,sizeof(TUByte)*width*height*3);
 			}
 			break;
 		case PIXEL_FORMAT_R8G8B8A8:
 			{
-				mPixelBuffer = new BYTE[width*height*4];
-				memset(mPixelBuffer,0,sizeof(BYTE)*width*height*4);
+				mPixelBuffer = new TUByte[width*height*4];
+				memset(mPixelBuffer,0,sizeof(TUByte)*width*height*4);
 			}
 			break;
 		default:
@@ -62,7 +62,7 @@ namespace TLunaEngine
 		return true;
 	}
 
-	bool TLImage::copyFromBuffer(const BYTE* pBuffer)
+	bool Image::copyFromBuffer(const TUByte* pBuffer)
 	{
 		if(!pBuffer || !mPixelBuffer)
 			return false;
@@ -70,17 +70,17 @@ namespace TLunaEngine
 		{
 		case PIXEL_FORMAT_R8:
 			{
-				memcpy(mPixelBuffer,pBuffer,sizeof(BYTE)*mWidth*mHeight);
+				memcpy(mPixelBuffer,pBuffer,sizeof(TUByte)*mWidth*mHeight);
 			}
 			break;
 		case PIXEL_FORMAT_R8G8B8:
 			{
-				memcpy(mPixelBuffer,pBuffer,sizeof(BYTE)*mWidth*mHeight*3);
+				memcpy(mPixelBuffer,pBuffer,sizeof(TUByte)*mWidth*mHeight*3);
 			}
 			break;
 		case PIXEL_FORMAT_R8G8B8A8:
 			{
-				memcpy(mPixelBuffer,pBuffer,sizeof(BYTE)*mWidth*mHeight*4);
+				memcpy(mPixelBuffer,pBuffer,sizeof(TUByte)*mWidth*mHeight*4);
 			}
 			break;
 		default:
@@ -92,25 +92,25 @@ namespace TLunaEngine
 		return true;
 	}
 
-	TLImage* TLImage::createFromMemory(const BYTE* pBuffer, UINT width, UINT height, TLImage::PIXEL_FORMAT format)
+	Image* Image::createFromMemory(const TUByte* pBuffer, TU32 width, TU32 height, Image::PIXEL_FORMAT format)
 	{
 		if(!pBuffer)
-			return NULL;
-		TLImage* pRet = new TLImage(width,height,format);
-		if(pRet->mPixelBuffer==NULL)
+			return TNULL;
+		Image* pRet = new Image(width,height,format);
+		if(pRet->mPixelBuffer==TNULL)
 		{
 			delete pRet;
-			return NULL;
+			return TNULL;
 		}
 		if(!pRet->copyFromBuffer(pBuffer))
 		{
 			delete pRet;
-			return NULL;
+			return TNULL;
 		}
 		return pRet;
 	}
 
-	bool TLImage::copyToMemory(BYTE** ppBuffer)
+	bool Image::copyToMemory(TUByte** ppBuffer)
 	{
 		if(!mPixelBuffer)
 			return false;
@@ -122,20 +122,20 @@ namespace TLunaEngine
 		{
 		case PIXEL_FORMAT_R8:
 			{
-				*ppBuffer = new BYTE[mWidth*mHeight];
-				memcpy(*ppBuffer,mPixelBuffer,sizeof(BYTE)*mWidth*mHeight);
+				*ppBuffer = new TUByte[mWidth*mHeight];
+				memcpy(*ppBuffer,mPixelBuffer,sizeof(TUByte)*mWidth*mHeight);
 			}
 			break;
 		case PIXEL_FORMAT_R8G8B8:
 			{
-				*ppBuffer = new BYTE[mWidth*mHeight*3];
-				memcpy(*ppBuffer,mPixelBuffer,sizeof(BYTE)*mWidth*mHeight*3);
+				*ppBuffer = new TUByte[mWidth*mHeight*3];
+				memcpy(*ppBuffer,mPixelBuffer,sizeof(TUByte)*mWidth*mHeight*3);
 			}
 			break;
 		case PIXEL_FORMAT_R8G8B8A8:
 			{
-				*ppBuffer = new BYTE[mWidth*mHeight*4];
-				memcpy(*ppBuffer,mPixelBuffer,sizeof(BYTE)*mWidth*mHeight*4);
+				*ppBuffer = new TUByte[mWidth*mHeight*4];
+				memcpy(*ppBuffer,mPixelBuffer,sizeof(TUByte)*mWidth*mHeight*4);
 			}
 			break;
 		default:
@@ -147,43 +147,43 @@ namespace TLunaEngine
 		return true;
 	}
 
-	TLImage* TLImage::clone()
+	Image* Image::clone()
 	{
 		if(!mPixelBuffer)
-			return NULL;
+			return TNULL;
 		if(mWidth<=0 || mHeight<=0)
-			return NULL;
-		TLImage* pRet = new TLImage(mWidth,mHeight,mPixelFormat);
-		if(pRet->mPixelBuffer==NULL)
+			return TNULL;
+		Image* pRet = new Image(mWidth,mHeight,mPixelFormat);
+		if(pRet->mPixelBuffer==TNULL)
 		{
 			delete pRet;
-			return NULL;
+			return TNULL;
 		}
 		if(!pRet->copyFromBuffer(mPixelBuffer))
 		{
 			delete pRet;
-			return NULL;
+			return TNULL;
 		}
 		return pRet;
 	}
 
-	UINT TLImage::getPixelSize()
+	TU32 Image::getPixelSize()
 	{
 		switch(mPixelFormat)
 		{
 		case PIXEL_FORMAT_R8:
 			{
-				return sizeof(BYTE)*1;
+				return sizeof(TUByte)*1;
 			}
 			break;
 		case PIXEL_FORMAT_R8G8B8:
 			{
-				return sizeof(BYTE)*3;
+				return sizeof(TUByte)*3;
 			}
 			break;
 		case PIXEL_FORMAT_R8G8B8A8:
 			{
-				return sizeof(BYTE)*4;
+				return sizeof(TUByte)*4;
 			}
 			break;
 		default:
@@ -195,7 +195,7 @@ namespace TLunaEngine
 		return 0;
 	}
 
-	UINT TLImage::getImageSize(UINT* pWidth,UINT* pHeight)
+	TU32 Image::getImageSize(TU32* pWidth,TU32* pHeight)
 	{
 		if(pWidth)
 		{
@@ -231,56 +231,56 @@ namespace TLunaEngine
 		return 0;
 	}
 
-	TLImage::PIXEL_FORMAT TLImage::getPixelFormat()
+	Image::PIXEL_FORMAT Image::getPixelFormat()
 	{
 		return mPixelFormat;
 	}
 
-	BYTE* TLImage::getBufferPointer(UINT pixelIndex)
+	TUByte* Image::getBufferPointer(TU32 pixelIndex)
 	{
 		if(!mPixelBuffer)
-			return NULL;
+			return TNULL;
 		if(mWidth==0 || mHeight==0)
-			return NULL;
+			return TNULL;
 		switch(mPixelFormat)
 		{
 		case PIXEL_FORMAT_R8:
 			{
 				if(pixelIndex>=mWidth*mHeight)
-					return NULL;
+					return TNULL;
 				return &mPixelBuffer[pixelIndex];
 			}
 			break;
 		case PIXEL_FORMAT_R8G8B8:
 			{
 				if(pixelIndex>=mWidth*mHeight*3)
-					return NULL;
+					return TNULL;
 				return &mPixelBuffer[pixelIndex*3];
 			}
 			break;
 		case PIXEL_FORMAT_R8G8B8A8:
 			{
 				if(pixelIndex>=mWidth*mHeight*4)
-					return NULL;
+					return TNULL;
 				return &mPixelBuffer[pixelIndex*4];
 			}
 			break;
 		default:
 			{
-				return NULL;
+				return TNULL;
 			}
 			break;
 		}
-		return NULL;
+		return TNULL;
 	}
 
-	bool TLImage::setRGBA(UINT pixelIndex, BYTE r, BYTE g, BYTE b, BYTE a)
+	bool Image::setRGBA(TU32 pixelIndex, TUByte r, TUByte g, TUByte b, TUByte a)
 	{
 		if(!mPixelBuffer)
 			return false;
 		if(mWidth==0 || mHeight==0)
 			return false;
-		BYTE* pBuffer = getBufferPointer(pixelIndex);
+		TUByte* pBuffer = getBufferPointer(pixelIndex);
 		if(!pBuffer)
 			return false;
 		switch(mPixelFormat)
@@ -319,13 +319,13 @@ namespace TLunaEngine
 		return true;
 	}
 
-	bool TLImage::getRGBA(UINT pixelIndex, BYTE* pR, BYTE* pG, BYTE* pB, BYTE* pA)
+	bool Image::getRGBA(TU32 pixelIndex, TUByte* pR, TUByte* pG, TUByte* pB, TUByte* pA)
 	{
 		if(!mPixelBuffer)
 			return false;
 		if(mWidth==0 || mHeight==0)
 			return false;
-		BYTE* pBuffer = getBufferPointer(pixelIndex);
+		TUByte* pBuffer = getBufferPointer(pixelIndex);
 		if(!pBuffer)
 			return false;
 		switch(mPixelFormat)
@@ -373,13 +373,13 @@ namespace TLunaEngine
 		return true;
 	}
 
-	bool TLImage::writeToFile(const char* file)
+	bool Image::writeToFile(const char* file)
 	{
 		if(!mPixelBuffer)
 			return false;
 		if(mWidth==0 || mHeight==0)
 			return false;
-		UINT pixelSize = getPixelSize();
+		TU32 pixelSize = getPixelSize();
 		if(pixelSize==0)
 			return false;
 		// call free image
@@ -387,20 +387,20 @@ namespace TLunaEngine
 		FIBITMAP* dib = FreeImage_Allocate(mWidth,mHeight,pixelSize*8);
 		if(!dib)
 			return false;
-		BYTE* bits = FreeImage_GetBits(dib);
+		TUByte* bits = FreeImage_GetBits(dib);
 		if(!bits)
 		{
 			FreeImage_Unload(dib);
 			return false;
 		}
-		BYTE* temp = bits;
-		for(UINT i=0;i<mWidth*mHeight;++i)
+		TUByte* temp = bits;
+		for(TU32 i=0;i<mWidth*mHeight;++i)
 		{
 			getRGBA(i,&temp[FI_RGBA_RED],&temp[FI_RGBA_GREEN],&temp[FI_RGBA_BLUE],&temp[FI_RGBA_ALPHA]);
 			temp += pixelSize;
 		}
 		// 翻转
-		if(FreeImage_FlipVertical(dib)==FALSE)
+		if(FreeImage_FlipVertical(dib)==TFALSE)
 		{
 			FreeImage_Unload(dib);
 			return false;
@@ -414,14 +414,14 @@ namespace TLunaEngine
 		return true;
 	}
 
-	TLImage* TLImage::createFromFile(const char* file)
+	Image* Image::createFromFile(const char* file)
 	{
 		//image format
 		FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
 		//pointer to the image, once loaded
 		FIBITMAP *dib(0);
 		//pointer to the image data
-		BYTE* bits(0);
+		TUByte* bits(0);
 		//image width and height
 		unsigned int width(0), height(0);
 		//check the file signature and deduce its format
@@ -431,18 +431,18 @@ namespace TLunaEngine
 			fif = FreeImage_GetFIFFromFilename(file);
 		//if still unkown, return failure
 		if(fif == FIF_UNKNOWN)
-			return NULL;
+			return TNULL;
 		//check that the plugin has reading capabilities and load the file
 		if(FreeImage_FIFSupportsReading(fif))
 			dib = FreeImage_Load(fif, file);
 		//if the image failed to load, return failure
 		if(!dib)
-			return NULL;
+			return TNULL;
 		// 翻转
-		if(FreeImage_FlipVertical(dib)==FALSE)
+		if(FreeImage_FlipVertical(dib)==TFALSE)
 		{
 			FreeImage_Unload(dib);
-			return NULL;
+			return TNULL;
 		}
 		// 得到一个像素的大小，单位是位
 		unsigned int pixelBits = FreeImage_GetBPP(dib);
@@ -459,7 +459,7 @@ namespace TLunaEngine
 		if((bits == 0) || (width == 0) || (height == 0))
 		{
 			FreeImage_Unload(dib);
-			return FALSE;
+			return TFALSE;
 		}
 		PIXEL_FORMAT format;
 		switch(fit)
@@ -486,7 +486,7 @@ namespace TLunaEngine
 				default:
 					{
 						FreeImage_Unload(dib);
-						return FALSE;
+						return TFALSE;
 					}
 					break;
 				}
@@ -494,19 +494,19 @@ namespace TLunaEngine
 			break;
 		default:
 			{
-				return FALSE;
+				return TFALSE;
 			}
 			break;
 		}
 		// 重新拷贝
-		BYTE* newBuff = new BYTE[rawSize*height];
+		TUByte* newBuff = new TUByte[rawSize*height];
 		if(pixelBits==32)
 		{
 			int count = 0;
 			// Calculate the number of bytes per pixel (3 for 24-bit or 4 for 32-bit)
 			int bytespp = rawSize / width;
 			for(unsigned int y = 0; y < height; y++) {
-				BYTE *bits = FreeImage_GetScanLine(dib, y);
+				TUByte *bits = FreeImage_GetScanLine(dib, y);
 				for(unsigned x = 0; x < width; x++) {
 					// Set pixel color to green with a transparency of 128
 					newBuff[count*4+0] = bits[FI_RGBA_RED];
@@ -525,7 +525,7 @@ namespace TLunaEngine
 			// Calculate the number of bytes per pixel (3 for 24-bit or 4 for 32-bit)
 			int bytespp = rawSize / width;
 			for(unsigned int y = 0; y < height; y++) {
-				BYTE *bits = FreeImage_GetScanLine(dib, y);
+				TUByte *bits = FreeImage_GetScanLine(dib, y);
 				for(unsigned x = 0; x < width; x++) {
 					// Set pixel color to green with a transparency of 128
 					newBuff[count*3+0] = bits[FI_RGBA_RED];
@@ -542,7 +542,7 @@ namespace TLunaEngine
 			memcpy(newBuff,bits,rawSize*height);
 		}
 
-		TLImage* pRet = createFromMemory(newBuff,width,height,format);
+		Image* pRet = createFromMemory(newBuff,width,height,format);
 		FreeImage_Unload(dib);
 		delete [] newBuff;
 		return pRet;

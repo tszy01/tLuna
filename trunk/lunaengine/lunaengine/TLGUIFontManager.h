@@ -1,50 +1,49 @@
-#pragma once
+#ifndef _TLGUIFONTMANAGER_H_
+#define _TLGUIFONTMANAGER_H_
 
 #include "TLGUIFont.h"
 #include "TLGUIDefine.h"
-#include "TSingleton.h"
+#include "TLSingleton.h"
 #include <map>
-#include "TVector4.h"
-using namespace std;
-using namespace TLunaEngine;
+#include "TLVector4.h"
 
 namespace TLunaEngine{
 
 	// 声明模板
-	template class TVector4<float>;
-	class TLIRenderDeviceUsedBuffer;
-	class TLIRenderDeviceUsedSRV;
-	class TLIRenderDeviceUsedVS;
-	class TLIRenderDeviceUsedPS;
-	class TLIRenderDeviceUsedGS;
-	class TLIRenderDeviceUsedDepthStencilState;
-	class TLIRenderDeviceUsedBlendState;
-	class TLIRenderDeviceUsedSamplerState;
-	class TLIRenderDeviceUsedInputLayout;
+	template class Vector4<float>;
+	class RenderDeviceUsedBuffer;
+	class RenderDeviceUsedSRV;
+	class RenderDeviceUsedVS;
+	class RenderDeviceUsedPS;
+	class RenderDeviceUsedGS;
+	class RenderDeviceUsedDepthStencilState;
+	class RenderDeviceUsedBlendState;
+	class RenderDeviceUsedSamplerState;
+	class RenderDeviceUsedInputLayout;
 
 	/*
 	 *	负责维护所有的字体，并处理统一渲染
 	 */
-	class TLGUIFontManager
+	class GUIFontManager : public Singleton<GUIFontManager>
 	{
-	T_SINGLETON_DEF(TLGUIFontManager);
-	public:
-		TLGUIFontManager(void);
-		~TLGUIFontManager(void);
+		friend class Singleton<GUIFontManager>;
+	protected:
+		GUIFontManager(void);
+		~GUIFontManager(void);
 	private:
-		TLIRenderDeviceUsedBuffer* mVB;
-		TLIRenderDeviceUsedBuffer* mVBSet;
-		TLIRenderDeviceUsedVS* mVS;
-		TLIRenderDeviceUsedPS* mPS;
-		TLIRenderDeviceUsedDepthStencilState* mDepthStencilState;
-		TLIRenderDeviceUsedBlendState* mBlendState;
-		TLIRenderDeviceUsedSamplerState* mSamplerState;
-		TLIRenderDeviceUsedInputLayout* mInputLayout;
-		TLGUIFont* m_pUseFont;	// 当前使用的字体
-		TLGUIFont* m_pDebugFont;	// 调试使用字体
-		std::map<int,TLGUIFont*> m_FontTable;	// 字体列表
-		UINT m_bufferWidth;	// 后缓冲宽
-		UINT m_bufferHeight;// 后缓冲高
+		RenderDeviceUsedBuffer* mVB;
+		RenderDeviceUsedBuffer* mVBSet;
+		RenderDeviceUsedVS* mVS;
+		RenderDeviceUsedPS* mPS;
+		RenderDeviceUsedDepthStencilState* mDepthStencilState;
+		RenderDeviceUsedBlendState* mBlendState;
+		RenderDeviceUsedSamplerState* mSamplerState;
+		RenderDeviceUsedInputLayout* mInputLayout;
+		GUIFont* m_pUseFont;	// 当前使用的字体
+		GUIFont* m_pDebugFont;	// 调试使用字体
+		std::map<int,GUIFont*> m_FontTable;	// 字体列表
+		TU32 m_bufferWidth;	// 后缓冲宽
+		TU32 m_bufferHeight;// 后缓冲高
 		wchar_t* m_pRenderText;	// 渲染时的内容
 		int m_nRenderTextLen;	// 渲染时的内容的长度
 		FT_Library	library;
@@ -60,32 +59,34 @@ namespace TLunaEngine{
 					return;
 				}
 			}
-			m_pUseFont = NULL;
-			std::map<int,TLunaEngine::TLGUIFont*>::iterator itr = m_FontTable.find(id);
+			m_pUseFont = TNULL;
+			std::map<int,TLunaEngine::GUIFont*>::iterator itr = m_FontTable.find(id);
 			if(itr!=m_FontTable.end())
 			{
 				m_pUseFont = itr->second;
 			}
 		}
 		// 添加新字体
-		int AddFont(const char* filename,UINT size,UINT texPageSize,int id);
+		int AddFont(const char* filename,TU32 size,TU32 texPageSize,int id);
 		// 从文件添加字体
 		bool AddFontFromFile(const char* filename);
 		// 渲染文字
-		bool Render(const char* text,size_t len, int x,int y, TVector4<float>& color);
+		bool Render(const char* text,size_t len, int x,int y, Vector4<float>& color);
 		// 初始化
-		bool Init(const char* effectFile,UINT bufferWidth,UINT bufferHeight);
+		bool Init(const char* effectFile,TU32 bufferWidth,TU32 bufferHeight);
 		// 销毁所有
 		void DestroyAllFont();
 		// 初始化调试字体
-		bool initDebugFont(const char* filename, UINT size, UINT texPageSize);
+		bool initDebugFont(const char* filename, TU32 size, TU32 texPageSize);
 		// 销毁调试字体
 		void deleteDebugFont();
 		// 渲染调试字体
-		bool RenderDebugFont(const char* text, size_t len, int x, int y, TVector4<float>& color);
+		bool RenderDebugFont(const char* text, size_t len, int x, int y, Vector4<float>& color);
 	private:
 		// 读取文件加载字库
 		bool LoadFont(FILE* stream);
 	};
 
 }
+
+#endif

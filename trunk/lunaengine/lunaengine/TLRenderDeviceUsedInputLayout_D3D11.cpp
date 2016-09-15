@@ -1,23 +1,22 @@
-#include "stdafx.h"
 #include "TLRenderDeviceUsedInputLayout_D3D11.h"
 
 namespace TLunaEngine
 {
-	TLRenderDeviceUsedInputLayout_D3D11::TLRenderDeviceUsedInputLayout_D3D11():
-		TLIRenderDeviceUsedInputLayout(),mD3DInputLayout(NULL)
+	RenderDeviceUsedInputLayout_D3D11::RenderDeviceUsedInputLayout_D3D11():
+		RenderDeviceUsedInputLayout(),mD3DInputLayout(0)
 	{
 	}
 
-	TLRenderDeviceUsedInputLayout_D3D11::~TLRenderDeviceUsedInputLayout_D3D11()
+	RenderDeviceUsedInputLayout_D3D11::~RenderDeviceUsedInputLayout_D3D11()
 	{
 		if(mD3DInputLayout)
 		{
 			mD3DInputLayout->Release();
-			mD3DInputLayout = NULL;
+			mD3DInputLayout = 0;
 		}
 	}
 
-	bool TLRenderDeviceUsedInputLayout_D3D11::initWithD3DInputLayout(ID3D11InputLayout* d3dInputLayout)
+	bool RenderDeviceUsedInputLayout_D3D11::initWithD3DInputLayout(ID3D11InputLayout* d3dInputLayout)
 	{
 		if(mD3DInputLayout)
 			return true;

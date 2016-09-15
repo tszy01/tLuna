@@ -1,16 +1,16 @@
 #ifndef _TLRENDERDEVICECOMPILEDSHADER_D3D11_H_
 #define _TLRENDERDEVICECOMPILEDSHADER_D3D11_H_
 
-#include "TLIRenderDeviceCompiledShader.h"
+#include "TLRenderDeviceCompiledShader.h"
 #include <d3d11.h>
 
 namespace TLunaEngine
 {
-	class TLRenderDeviceCompiledShader_D3D11 : public TLIRenderDeviceCompiledShader
+	class RenderDeviceCompiledShader_D3D11 : public RenderDeviceCompiledShader
 	{
 	public:
-		TLRenderDeviceCompiledShader_D3D11();
-		virtual ~TLRenderDeviceCompiledShader_D3D11();
+		RenderDeviceCompiledShader_D3D11();
+		virtual ~RenderDeviceCompiledShader_D3D11();
 	public:
 		// get buffer pointer
 		virtual void* getBufferPointer(); 

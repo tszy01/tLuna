@@ -1,22 +1,21 @@
-#include "StdAfx.h"
 #include "TLGUIText.h"
 #include "TLGUIFontManager.h"
 
 namespace TLunaEngine{
-	TLGUIText::TLGUIText(void) : TLGUICtrl(),
+	GUIText::GUIText(void) : GUICtrl(),
 	m_iFontID(-1),
 	m_color(),
 	m_strText("")
 	{
 	}
 
-	TLGUIText::~TLGUIText(void)
+	GUIText::~GUIText(void)
 	{
 	}
 
-	bool TLGUIText::InitGUIText(int iIndex, TLunaEngine::TLGUIContainer *pContainer, LONG x, LONG y, LONG width, LONG height, int iFontID, TVector4<float>& color)
+	bool GUIText::InitGUIText(int iIndex, TLunaEngine::GUIContainer *pContainer, TS32 x, TS32 y, TS32 width, TS32 height, int iFontID, Vector4<float>& color)
 	{
-		if (!TLGUICtrl::InitCtrlBase(iIndex,pContainer,x,y,width,height))
+		if (!GUICtrl::InitCtrlBase(iIndex,pContainer,x,y,width,height))
 		{
 			return false;
 		}
@@ -26,26 +25,26 @@ namespace TLunaEngine{
 		return true;
 	}
 
-	void TLGUIText::DestroyCtrl()
+	void GUIText::DestroyCtrl()
 	{
 		m_eCtrlType = GUI_CTRL_NONE;
 		m_iFontID = -1;
 		m_color = 0;
-		TLGUICtrl::DestroyCtrl();
+		GUICtrl::DestroyCtrl();
 	}
 
-	bool TLGUIText::Update(float fTimeElapsed)
+	bool GUIText::Update(float fTimeElapsed)
 	{
-		return TLGUICtrl::Update(fTimeElapsed);
+		return GUICtrl::Update(fTimeElapsed);
 	}
 
-	bool TLGUIText::Render(float fTimeElapsed)
+	bool GUIText::Render(float fTimeElapsed)
 	{
-		if (!TLGUICtrl::Render(fTimeElapsed))
+		if (!GUICtrl::Render(fTimeElapsed))
 		{
 			return false;
 		}
-		TLGUIFontManager* pFontMgr = TLGUIFontManager::getSingletonPtr();
+		GUIFontManager* pFontMgr = GUIFontManager::getSingletonPtr();
 		pFontMgr->UseFont(m_iFontID);
 		pFontMgr->Render(m_strText.GetString(),(size_t)m_strText.GetLength()+1,m_posXFinal,m_posYFinal,m_color);
 		return true;

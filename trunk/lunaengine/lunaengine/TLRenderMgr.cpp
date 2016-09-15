@@ -1,20 +1,19 @@
-#include "stdafx.h"
 #include "TLRenderMgr.h"
 #include "TLRenderDevice_D3D11.h"
 
 namespace TLunaEngine
 {
-	T_SINGLETON_IMP(TLRenderMgr);
+	RenderMgr* Singleton<RenderMgr>::m_Ptr = 0;
 
-	TLRenderMgr::TLRenderMgr():mDevice(0),mDeviceType(DT_NONE)
+	RenderMgr::RenderMgr():mDevice(0),mDeviceType(DT_NONE)
 	{
 	}
 
-	TLRenderMgr::~TLRenderMgr()
+	RenderMgr::~RenderMgr()
 	{
 	}
 
-	TLIRenderDevice* TLRenderMgr::createRenderDevice(UINT deviceType)
+	RenderDevice* RenderMgr::createRenderDevice(TU32 deviceType)
 	{
 		if(mDevice!=0)
 		{
@@ -22,27 +21,27 @@ namespace TLunaEngine
 		}
 		if(deviceType == DT_D3D11)
 		{
-			mDevice = new TLRenderDevice_D3D11();
+			mDevice = new RenderDevice_D3D11();
 			mDeviceType = DT_D3D11;
 			return mDevice;
 		}
 		else
 		{
-			return NULL;
+			return TNULL;
 		}
-		return NULL;
+		return TNULL;
 	}
 
-	void TLRenderMgr::destroyRenderDevice()
+	void RenderMgr::destroyRenderDevice()
 	{
 		if(mDevice)
 		{
 			delete mDevice;
-			mDevice = NULL;
+			mDevice = TNULL;
 		}
 	}
 
-	bool TLRenderMgr::resizeDeviceBuffer(UINT width,UINT height)
+	bool RenderMgr::resizeDeviceBuffer(TU32 width,TU32 height)
 	{
 		if(mDevice)
 		{

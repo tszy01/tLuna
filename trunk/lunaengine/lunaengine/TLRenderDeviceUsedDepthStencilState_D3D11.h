@@ -1,15 +1,15 @@
 #ifndef _TLRENDERDEVICEUSEDDEPTHSTENCILSTATE_D3D11_H_
 #define _TLRENDERDEVICEUSEDDEPTHSTENCILSTATE_D3D11_H_
 
-#include "TLIRenderDeviceUsedDepthStencilState.h"
+#include "TLRenderDeviceUsedDepthStencilState.h"
 #include <d3d11.h>
 namespace TLunaEngine
 {
-	class TLRenderDeviceUsedDepthStencilState_D3D11 : public TLIRenderDeviceUsedDepthStencilState
+	class RenderDeviceUsedDepthStencilState_D3D11 : public RenderDeviceUsedDepthStencilState
 	{
 	public:
-		TLRenderDeviceUsedDepthStencilState_D3D11();
-		virtual ~TLRenderDeviceUsedDepthStencilState_D3D11();
+		RenderDeviceUsedDepthStencilState_D3D11();
+		virtual ~RenderDeviceUsedDepthStencilState_D3D11();
 	private:
 		ID3D11DepthStencilState* mD3DDepthStencilState;
 	public:

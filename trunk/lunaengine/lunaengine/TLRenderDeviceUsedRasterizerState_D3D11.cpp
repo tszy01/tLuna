@@ -1,23 +1,22 @@
-#include "stdafx.h"
 #include "TLRenderDeviceUsedRasterizerState_D3D11.h"
 
 namespace TLunaEngine
 {
-	TLRenderDeviceUsedRasterizerState_D3D11::TLRenderDeviceUsedRasterizerState_D3D11():
-		TLIRenderDeviceUsedRasterizerState(),mD3DRasterizerState(NULL)
+	RenderDeviceUsedRasterizerState_D3D11::RenderDeviceUsedRasterizerState_D3D11():
+		RenderDeviceUsedRasterizerState(),mD3DRasterizerState(0)
 	{
 	}
 
-	TLRenderDeviceUsedRasterizerState_D3D11::~TLRenderDeviceUsedRasterizerState_D3D11()
+	RenderDeviceUsedRasterizerState_D3D11::~RenderDeviceUsedRasterizerState_D3D11()
 	{
 		if(mD3DRasterizerState)
 		{
 			mD3DRasterizerState->Release();
-			mD3DRasterizerState = NULL;
+			mD3DRasterizerState = 0;
 		}
 	}
 
-	bool TLRenderDeviceUsedRasterizerState_D3D11::initWithD3DRasterizerState(ID3D11RasterizerState* d3dState)
+	bool RenderDeviceUsedRasterizerState_D3D11::initWithD3DRasterizerState(ID3D11RasterizerState* d3dState)
 	{
 		if(mD3DRasterizerState)
 			return false;

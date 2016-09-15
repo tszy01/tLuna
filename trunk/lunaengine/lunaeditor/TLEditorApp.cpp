@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "TLEditorApp.h"
 #include "TLEditorMainFrame.h"
 #include "TLEditorMgr.h"

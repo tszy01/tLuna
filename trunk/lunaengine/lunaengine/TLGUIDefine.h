@@ -1,17 +1,18 @@
-#pragma once
+#ifndef _TLGUIDEFINE_H_
+#define _TLGUIDEFINE_H_
 
-#include "TVector3.h"
-#include "TVector2.h"
-#include "TVector4.h"
+#include "TLVector3.h"
+#include "TLVector2.h"
+#include "TLVector4.h"
 
 namespace TLunaEngine{
 
 	// 渲染输入结构体
-	struct _TLGUI_VERTEX_DEF
+	struct GUI_VERTEX_DEF
 	{
-		TLunaEngine::TVector3<float> Pos;
-		TLunaEngine::TVector2<float> Tex;
-		TLunaEngine::TVector4<float> Color;
+		TLunaEngine::Vector3<float> Pos;
+		TLunaEngine::Vector2<float> Tex;
+		TLunaEngine::Vector4<float> Color;
 	};
 
 	// Ctrl种类
@@ -52,3 +53,5 @@ namespace TLunaEngine{
 	};
 
 }
+
+#endif

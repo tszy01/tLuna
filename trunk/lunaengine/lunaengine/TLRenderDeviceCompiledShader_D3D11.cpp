@@ -1,35 +1,34 @@
-#include "stdafx.h"
 #include "TLRenderDeviceCompiledShader_D3D11.h"
-#include "TTxtFileReader.h"
+#include "TLTxtFileReader.h"
 #include "TLRenderMgr.h"
-#include "TLIRenderDevice.h"
+#include "TLRenderDevice.h"
 #include <d3dcompiler.h>
 
 namespace TLunaEngine
 {
-	TLRenderDeviceCompiledShader_D3D11::TLRenderDeviceCompiledShader_D3D11():TLIRenderDeviceCompiledShader(),mD3DBlob(NULL)
+	RenderDeviceCompiledShader_D3D11::RenderDeviceCompiledShader_D3D11():RenderDeviceCompiledShader(),mD3DBlob(TNULL)
 	{
 	}
 
-	TLRenderDeviceCompiledShader_D3D11::~TLRenderDeviceCompiledShader_D3D11()
+	RenderDeviceCompiledShader_D3D11::~RenderDeviceCompiledShader_D3D11()
 	{
 		if(mD3DBlob)
 		{
 			mD3DBlob->Release();
-			mD3DBlob = NULL;
+			mD3DBlob = TNULL;
 		}
 	}
 
-	void* TLRenderDeviceCompiledShader_D3D11::getBufferPointer()
+	void* RenderDeviceCompiledShader_D3D11::getBufferPointer()
 	{
 		if(mD3DBlob)
 		{
 			return mD3DBlob->GetBufferPointer();
 		}
-		return NULL;
+		return TNULL;
 	}
 
-	size_t TLRenderDeviceCompiledShader_D3D11::getBufferSize()
+	size_t RenderDeviceCompiledShader_D3D11::getBufferSize()
 	{
 		if(mD3DBlob)
 		{
@@ -38,7 +37,7 @@ namespace TLunaEngine
 		return 0;
 	}
 
-	bool TLRenderDeviceCompiledShader_D3D11::readFromFile(const char* file)
+	bool RenderDeviceCompiledShader_D3D11::readFromFile(const char* file)
 	{
 		if(!file)
 			return false;
@@ -46,7 +45,7 @@ namespace TLunaEngine
 			return false;
 		void* buffer = 0;
 		size_t readSize = 0;
-		if(!TTxtFileReader::ReadAllFile(file,"rb",&buffer,&readSize))
+		if(!TxtFileReader::ReadAllFile(file,"rb",&buffer,&readSize))
 			return false;
 		if(!buffer || readSize<=0)
 			return false;
@@ -60,7 +59,7 @@ namespace TLunaEngine
 		return true;
 	}
 
-	bool TLRenderDeviceCompiledShader_D3D11::writeToFile(const char* file)
+	bool RenderDeviceCompiledShader_D3D11::writeToFile(const char* file)
 	{
 		if(!file)
 			return false;
@@ -83,20 +82,20 @@ namespace TLunaEngine
 		return true;
 	}
 
-	bool TLRenderDeviceCompiledShader_D3D11::compileShader(const char* szFile, const char* szEntry, const char* szShaderType)
+	bool RenderDeviceCompiledShader_D3D11::compileShader(const char* szFile, const char* szEntry, const char* szShaderType)
 	{
 		if(!szFile || !szEntry || !szShaderType)
 			return false;
-		TLIRenderDevice* pDevice = TLRenderMgr::getSingletonPtr()->getDevice();
+		RenderDevice* pDevice = RenderMgr::getSingletonPtr()->getDevice();
 		if(!pDevice)
 			return false;
-		TString strModelVersion = pDevice->getShaderProfileVersion();
+		String strModelVersion = pDevice->getShaderProfileVersion();
 		if(strModelVersion=="")
 			return false;
-		TString strShaderModel = TString(szShaderType) + TString("_") + strModelVersion;
+		String strShaderModel = String(szShaderType) + String("_") + strModelVersion;
 
 		HRESULT hr = S_OK;
-		DWORD dwShaderFlags = D3DCOMPILE_ENABLE_STRICTNESS;
+		TU32 dwShaderFlags = D3DCOMPILE_ENABLE_STRICTNESS;
 #if defined( DEBUG ) || defined( _DEBUG )
 		// Set the D3DCOMPILE_DEBUG flag to embed debug information in the shaders.
 		// Setting this flag improves the shader debugging experience, but still allows 
@@ -110,10 +109,10 @@ namespace TLunaEngine
 		wchar_t* wStr = new wchar_t[strCount+1];
 		mbstowcs(wStr,szFile,strCount);
 		wStr[strCount] = L'\0';
-		hr = D3DCompileFromFile( wStr, NULL, NULL, szEntry, strShaderModel.GetString(), dwShaderFlags, 0, &mD3DBlob, &pErrorBlob );
+		hr = D3DCompileFromFile( wStr, TNULL, TNULL, szEntry, strShaderModel.GetString(), dwShaderFlags, 0, &mD3DBlob, &pErrorBlob );
 		if( FAILED(hr) )
 		{
-			if( pErrorBlob != NULL )
+			if( pErrorBlob != TNULL )
 				OutputDebugStringA( (char*)pErrorBlob->GetBufferPointer() );
 			if( pErrorBlob ) pErrorBlob->Release();
 			delete [] wStr;

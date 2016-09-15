@@ -1,11 +1,8 @@
-#include "stdafx.h"
 #include "TLLoopCtrl.h"
-#include "TTimer.h"
+#include "TLTimer.h"
 
 namespace TLunaEngine{
-	T_SINGLETON_IMP(TLLoopCtrl);
-
-	TLLoopCtrl::TLLoopCtrl(void) : 
+	LoopCtrl::LoopCtrl(void) : 
 	m_curTime(0),
 	m_lastTime(0),
 	m_lastUpdate(0),
@@ -13,7 +10,7 @@ namespace TLunaEngine{
 	m_runTime(0),
 	m_timeElapsed(0),
 	m_fps(0),
-	m_bStop(TRUE),
+	m_bStop(TTRUE),
 	m_fSecsPerFrame(0.01f),
 	m_controlTime(0),
 	m_bRender(true),
@@ -25,7 +22,7 @@ namespace TLunaEngine{
 		sprintf(m_szFPS,"fps:0123456789\0");
 	}
 
-	TLLoopCtrl::~TLLoopCtrl(void)
+	LoopCtrl::~LoopCtrl(void)
 	{
 		if(mTimer)
 		{
@@ -34,22 +31,22 @@ namespace TLunaEngine{
 		}
 	}
 
-	bool TLLoopCtrl::Init()
+	bool LoopCtrl::Init()
 	{
-		mTimer = new TTimer();
+		mTimer = new Timer();
 		return true;
 	}
 
-	void TLLoopCtrl::StartTime()
+	void LoopCtrl::StartTime()
 	{
 		if ( !m_bStop )
 		{
 			return;
 		}
 		m_lastTime = mTimer->getMilliseconds();
-		m_bStop = FALSE;
+		m_bStop = TFALSE;
 	}
-	void TLLoopCtrl::StopTime()
+	void LoopCtrl::StopTime()
 	{
 		if ( m_bStop )
 		{
@@ -57,10 +54,10 @@ namespace TLunaEngine{
 		}
 		unsigned long stopTime = mTimer->getMilliseconds();
 		m_runTime += stopTime - m_lastTime;
-		m_bStop = TRUE;
+		m_bStop = TTRUE;
 
 	}
-	void TLLoopCtrl::UpdateTime()
+	void LoopCtrl::UpdateTime()
 	{
 		if ( m_bStop )
 		{
@@ -96,7 +93,7 @@ namespace TLunaEngine{
 		m_lastTime = m_curTime;
 	}
 
-	bool TLLoopCtrl::TimeControl()
+	bool LoopCtrl::TimeControl()
 	{
 		if((float)m_controlTime<m_fSecsPerFrame*1000.0f)
 		{
@@ -108,7 +105,7 @@ namespace TLunaEngine{
 		}
 	}
 
-	void TLLoopCtrl::CalFPS()
+	void LoopCtrl::CalFPS()
 	{
 		// Update FPS
 		m_numFrames++;

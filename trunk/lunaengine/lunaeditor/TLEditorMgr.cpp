@@ -1,10 +1,9 @@
-#include "stdafx.h"
 #include "TLEditorMgr.h"
 #include "TLEditorApp.h"
-#include "GlobleFunc.h"
+#include "TLGlobalFunc.h"
 
 namespace TLunaEngine{
-	T_SINGLETON_IMP(TLEditorMgr);
+	TLEditorMgr* Singleton<TLEditorMgr>::m_Ptr = 0;
 	
 	TLEditorMgr::TLEditorMgr():mInst(NULL),mWidth(1280),mHeight(800),mResDir("")
 	{

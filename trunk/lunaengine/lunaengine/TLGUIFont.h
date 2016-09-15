@@ -1,64 +1,66 @@
-#pragma once
+#ifndef _TLGUIFONT_H_
+#define _TLGUIFONT_H_
 
 #include <ft2build.h>
 #include <freetype/freetype.h>
 #include <vector>
+#include "TLCommonTypeDef.h"
 
 namespace TLunaEngine{
-	class TLIRenderDeviceUsedSRV;
+	class RenderDeviceUsedSRV;
 	// 处理每一个文字，生成纹理
-	class TLFontGlyph
+	class FontGlyph
 	{
 	public:
 		bool cached;
-		TLFontGlyph();
-		~TLFontGlyph();
-		void cache(UINT idx,UINT size);
+		FontGlyph();
+		~FontGlyph();
+		void cache(TU32 idx,TU32 size);
 		FT_Face *face;
-		//UINT size;
-		UINT top;
-		UINT left;
-		UINT texw;
-		UINT texh;
-		UINT imgw;
-		UINT imgh;
-		INT offset;
-		UINT* texd;
-		FLOAT texStartU;
-		FLOAT texEndU;
-		FLOAT texStartV;
-		FLOAT texEndV;
-		UINT pageIndex;
+		//TU32 size;
+		TU32 top;
+		TU32 left;
+		TU32 texw;
+		TU32 texh;
+		TU32 imgw;
+		TU32 imgh;
+		TS32 offset;
+		TU32* texd;
+		TF32 texStartU;
+		TF32 texEndU;
+		TF32 texStartV;
+		TF32 texEndV;
+		TU32 pageIndex;
 	};
 
 	/*
 	 *	自制字体类，使用FreeType库
 	 */
-	class TLGUIFont
+	class GUIFont
 	{
 	public:
 
 		//! constructor
-		TLGUIFont();
+		GUIFont();
 
 		//! destructor
-		~TLGUIFont();
+		~GUIFont();
 
 		//! loads a truetype font file
-		bool InitFont(const char* filename,UINT size,UINT texPageSize,int id,FT_Library lib);
+		bool InitFont(const char* filename,TU32 size,TU32 texPageSize,int id,FT_Library lib);
 
 		//! draws an text and clips it to the specified rectangle if wanted
-		void PreDraw(int n,INT* imgw,INT* imgh,INT* texw,INT* texh,INT* offx,INT* offy,
-			FLOAT* texStartU,FLOAT* texEndU,FLOAT* texStartV,FLOAT* texEndV,UINT* pageIndex);
+		void PreDraw(int n,TS32* imgw,TS32* imgh,TS32* texw,TS32* texh,TS32* offx,TS32* offy,
+			TF32* texStartU,TF32* texEndU,TF32* texStartV,TF32* texEndV,TU32* pageIndex);
 
 		//! returns the dimension of a text
-		void GetDimension(const wchar_t* text,RECT* pRc);
+		void GetDimension(const wchar_t* text, TU32& left, TU32& right, TU32& top, TU32& bottom);
 
 		//! Calculates the index of the character in the text which is on a specific position.
-		INT GetCharacterFromPos(const wchar_t* text, INT pixel_x);
+		TS32 GetCharacterFromPos(const wchar_t* text, TS32 pixel_x);
 
-		INT GetWidthFromCharacter(wchar_t c);
-		UINT GetGlyphByChar(wchar_t c,bool& newFontCached);
+		TS32 GetWidthFromCharacter(wchar_t c);
+		TU32 GetGlyphByChar(wchar_t c,bool& newFontCached);
 
 		// catch all font to one dsv
 		bool catchAllFont();
@@ -68,22 +70,24 @@ namespace TLunaEngine{
 			return m_Id;
 		}
 
-		TLIRenderDeviceUsedSRV* getSRV(UINT pageIndex);
+		RenderDeviceUsedSRV* getSRV(TU32 pageIndex);
 	private:
-		TLFontGlyph* m_Glyphs;
+		FontGlyph* m_Glyphs;
 		FT_Library	library;
 		FT_Face		face;
 		int			m_Id;	// 全局唯一ID
-		//TLIRenderDeviceUsedSRV* mSRV;
-		//UINT mTotalWidth;
-		//UINT mTotalHeight;
-		//UINT* mPixelBuffer;
-		UINT mFontSize;
+		//RenderDeviceUsedSRV* mSRV;
+		//TU32 mTotalWidth;
+		//TU32 mTotalHeight;
+		//TU32* mPixelBuffer;
+		TU32 mFontSize;
 
-		UINT mPageCount;
-		UINT mPageSize;
-		std::vector<UINT*> mPageBufferList;
-		std::vector<TLIRenderDeviceUsedSRV*> mSRVList;
+		TU32 mPageCount;
+		TU32 mPageSize;
+		std::vector<TU32*> mPageBufferList;
+		std::vector<RenderDeviceUsedSRV*> mSRVList;
 	};
 
 }
+
+#endif

@@ -1,10 +1,12 @@
 #ifndef _TLIMAGE_H_
 #define _TLIMAGE_H_
 
+#include "TLCommonTypeDef.h"
+
 namespace TLunaEngine
 {
 	// image class
-	class TLImage
+	class Image
 	{
 	public:
 		// pixel format
@@ -17,54 +19,54 @@ namespace TLunaEngine
 	public:
 		// constructor will alloc memory for pixel
 		// use create functions for usual
-		TLImage(UINT width, UINT height, PIXEL_FORMAT format);
-		TLImage(const TLImage& right);
-		~TLImage();
+		Image(TU32 width, TU32 height, PIXEL_FORMAT format);
+		Image(const Image& right);
+		~Image();
 	public:
 		// create from file
-		static TLImage* createFromFile(const char* file);
+		static Image* createFromFile(const char* file);
 		// write to file
 		bool writeToFile(const char* file);
 		// get rgba
 		// different formats using different parameters
-		bool getRGBA(UINT pixelIndex, BYTE* pR, BYTE* pG, BYTE* pB, BYTE* pA);
+		bool getRGBA(TU32 pixelIndex, TUByte* pR, TUByte* pG, TUByte* pB, TUByte* pA);
 		// set rgba
 		// different formats using different parameters
-		bool setRGBA(UINT pixelIndex, BYTE r, BYTE g, BYTE b, BYTE a);
+		bool setRGBA(TU32 pixelIndex, TUByte r, TUByte g, TUByte b, TUByte a);
 		// get pixel format
 		PIXEL_FORMAT getPixelFormat();
 		// get image size
-		UINT getImageSize(UINT* pWidth,UINT* pHeight);
+		TU32 getImageSize(TU32* pWidth,TU32* pHeight);
 		// get pixel size
-		UINT getPixelSize();
+		TU32 getPixelSize();
 		// clone
 		// this will alloc memory
-		TLImage* clone();
+		Image* clone();
 		// copy to memory
-		bool copyToMemory(BYTE** ppBuffer);
+		bool copyToMemory(TUByte** ppBuffer);
 		// create from memory
-		static TLImage* createFromMemory(const BYTE* pBuffer, UINT width, UINT height, PIXEL_FORMAT format); 
+		static Image* createFromMemory(const TUByte* pBuffer, TU32 width, TU32 height, PIXEL_FORMAT format); 
 		// get buffer
-		const BYTE* getBuffer()
+		const TUByte* getBuffer()
 		{
 			return mPixelBuffer;
 		}
 	private:
 		// create buffer
-		bool createBuffer(UINT width, UINT height, PIXEL_FORMAT format);
+		bool createBuffer(TU32 width, TU32 height, PIXEL_FORMAT format);
 		// copy from buffer
-		bool copyFromBuffer(const BYTE* pBuffer);
+		bool copyFromBuffer(const TUByte* pBuffer);
 		// get buffer pointer
-		BYTE* getBufferPointer(UINT pixelIndex);
+		TUByte* getBufferPointer(TU32 pixelIndex);
 	private:
 		// pixel format
 		PIXEL_FORMAT mPixelFormat;
 		// width
-		UINT mWidth;
+		TU32 mWidth;
 		// height
-		UINT mHeight;
+		TU32 mHeight;
 		// pixel buffer
-		BYTE* mPixelBuffer;
+		TUByte* mPixelBuffer;
 	};
 }
 

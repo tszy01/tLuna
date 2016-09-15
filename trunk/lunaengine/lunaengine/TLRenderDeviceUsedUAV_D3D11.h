@@ -1,17 +1,17 @@
 #ifndef _TLRENDERDEVICEUSEDUAV_D3D11_H_
 #define _TLRENDERDEVICEUSEDUAV_D3D11_H_
 
-#include "TLIRenderDeviceUsedUAV.h"
-#include "TLIRenderDeviceUsedView_D3D11.h"
+#include "TLRenderDeviceUsedUAV.h"
+#include "TLRenderDeviceUsedView_D3D11.h"
 #include <d3d11.h>
 
 namespace TLunaEngine
 {
-	class TLRenderDeviceUsedUAV_D3D11 : public TLIRenderDeviceUsedUAV, public TLIRenderDeviceUsedView_D3D11
+	class RenderDeviceUsedUAV_D3D11 : public RenderDeviceUsedUAV, public RenderDeviceUsedView_D3D11
 	{
 	public:
-		TLRenderDeviceUsedUAV_D3D11();
-		virtual ~TLRenderDeviceUsedUAV_D3D11();
+		RenderDeviceUsedUAV_D3D11();
+		virtual ~RenderDeviceUsedUAV_D3D11();
 	public:
 		// get d3d view ptr
 		virtual ID3D11View* getD3DView()

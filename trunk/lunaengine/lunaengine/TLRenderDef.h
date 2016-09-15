@@ -1,6 +1,7 @@
 #ifndef _TLRENDERDEF_H_
 #define _TLRENDERDEF_H_
-#include "TString.h"
+#include "TLCommonTypeDef.h"
+#include "TLString.h"
 
 namespace TLunaEngine
 {
@@ -208,24 +209,24 @@ namespace TLunaEngine
 
 	// input layout create desc
 	struct TLRenderDeviceInputElementDesc {
-		TString					   SemanticName;
-		UINT                       SemanticIndex;
+		String					   SemanticName;
+		TU32                       SemanticIndex;
 		RENDER_DEVICE_FORMAT       Format;
-		UINT                       InputSlot;
-		UINT                       AlignedByteOffset;
+		TU32                       InputSlot;
+		TU32                       AlignedByteOffset;
 		//D3D11_INPUT_CLASSIFICATION InputSlotClass;
-		//UINT                       InstanceDataStepRate;
+		//TU32                       InstanceDataStepRate;
 	};
 
 	// VP struct
 	struct TLRenderDeviceViewport
 	{
-		FLOAT _Width;
-		FLOAT _Height;
-		FLOAT _MinDepth;
-		FLOAT _MaxDepth;
-		FLOAT _TopLeftX;
-		FLOAT _TopLeftY;
+		TF32 _Width;
+		TF32 _Height;
+		TF32 _MinDepth;
+		TF32 _MaxDepth;
+		TF32 _TopLeftX;
+		TF32 _TopLeftY;
 	};
 
 	// render device map type
@@ -242,25 +243,25 @@ namespace TLunaEngine
 	struct TLRenderDeviceMappedSubresource 
 	{
 		void *pData;
-		UINT RowPitch;
-		UINT DepthPitch;
+		TU32 RowPitch;
+		TU32 DepthPitch;
 	};
 
 	// box using by device
 	struct TLRenderDeviceBox {
-		UINT left;
-		UINT top;
-		UINT front;
-		UINT right;
-		UINT bottom;
-		UINT back;
+		TU32 left;
+		TU32 top;
+		TU32 front;
+		TU32 right;
+		TU32 bottom;
+		TU32 back;
 	};
 
 	// resource init data
 	struct TLRenderDeviceSubresourceData {
 		const void *pSysMem;
-		UINT       SysMemPitch;
-		UINT       SysMemSlicePitch;
+		TU32       SysMemPitch;
+		TU32       SysMemSlicePitch;
 	};
 
 	// shader use type
@@ -300,61 +301,61 @@ namespace TLunaEngine
 
 	// stream output decl
 	struct TLRenderDeviceSODeclarationEntry {
-		//UINT   Stream;
-		TString SemanticName;
-		UINT   SemanticIndex;
-		BYTE   StartComponent;
-		BYTE   ComponentCount;
-		//BYTE   OutputSlot;
+		//TU32   Stream;
+		String SemanticName;
+		TU32   SemanticIndex;
+		TUByte   StartComponent;
+		TUByte   ComponentCount;
+		//TUByte   OutputSlot;
 	};
 
 	// render tex3d create desc
 	struct TLRenderDeviceTex3DDesc 
 	{
-		UINT        Width;
-		UINT        Height;
-		UINT        Depth;
-		UINT        MipLevels;
+		TU32        Width;
+		TU32        Height;
+		TU32        Depth;
+		TU32        MipLevels;
 		RENDER_DEVICE_FORMAT Format;
-		UINT        BindFlags;
-		BOOL        CPUAccessFlags;
-		BOOL		GenerateMips;
+		TU32        BindFlags;
+		TBOOL        CPUAccessFlags;
+		TBOOL		GenerateMips;
 	};
 
 	// render tex2d create desc
 	struct TLRenderDeviceTex2DDesc 
 	{
-		UINT             Width;
-		UINT             Height;
-		UINT             MipLevels;
-		UINT             ArraySize;
+		TU32             Width;
+		TU32             Height;
+		TU32             MipLevels;
+		TU32             ArraySize;
 		RENDER_DEVICE_FORMAT    Format;
-		UINT			 SampleCount;
-		UINT			 SampleQuality;
-		UINT             BindFlags;
-		BOOL             CPUAccessFlags;
-		BOOL			 GenerateMips;
-		BOOL			 Cube;
+		TU32			 SampleCount;
+		TU32			 SampleQuality;
+		TU32             BindFlags;
+		TBOOL             CPUAccessFlags;
+		TBOOL			 GenerateMips;
+		TBOOL			 Cube;
 	};
 
 	// render tex1d create desc
 	struct TLRenderDeviceTex1DDesc 
 	{
-		UINT        Width;
-		UINT        MipLevels;
-		UINT        ArraySize;
+		TU32        Width;
+		TU32        MipLevels;
+		TU32        ArraySize;
 		RENDER_DEVICE_FORMAT Format;
-		UINT        BindFlags;
-		BOOL        CPUAccessFlags;
-		BOOL		GenerateMips;
+		TU32        BindFlags;
+		TBOOL        CPUAccessFlags;
+		TBOOL		GenerateMips;
 	};
 
 	// buffer create desc
 	struct TLRenderDeviceBufferDesc 
 	{
-		UINT        ByteWidth;
-		UINT        BindFlags;
-		BOOL        CPUAccessFlags;
+		TU32        ByteWidth;
+		TU32        BindFlags;
+		TBOOL        CPUAccessFlags;
 	};
 
 	// srv used resource
@@ -394,7 +395,7 @@ namespace TLunaEngine
 		// for texture 2D ms array
 		// Params[0] for FirstArraySlice
 		// Params[1] for ArraySize
-		UINT Params[4];
+		TU32 Params[4];
 	};
 
 	// rtv used resource
@@ -432,7 +433,7 @@ namespace TLunaEngine
 		// for texture 2D ms array
 		// Params[0] for FirstArraySlice
 		// Params[1] for ArraySize
-		UINT Params[3];
+		TU32 Params[3];
 	};
 
 	// dsv used resource
@@ -450,7 +451,7 @@ namespace TLunaEngine
 	struct TLRenderDeviceDSVDesc {
 		RENDER_DEVICE_FORMAT         Format;
 		RENDER_DEVICE_DSV_DIMENSION ViewDimension;
-		//UINT                Flags;
+		//TU32                Flags;
 		// for texture (1D,2D)
 		// Params[0] for MipSlice
 		// for texture array (1D,2D)
@@ -462,7 +463,7 @@ namespace TLunaEngine
 		// for texture 2D ms array
 		// Params[0] for FirstArraySlice
 		// Params[1] for ArraySize
-		UINT Params[3];
+		TU32 Params[3];
 	};
 
 	// uav used resource type
@@ -501,7 +502,7 @@ namespace TLunaEngine
 		// Params[0] for MipSlice
 		// Params[1] for FirstWSlice
 		// Params[2] for WSize
-		UINT Params[3];
+		TU32 Params[3];
 	};
 
 	// rasterizer fill mode
@@ -521,21 +522,21 @@ namespace TLunaEngine
 	struct TLRenderDeviceRasterizerDesc {
 		RENDER_DEVICE_FILL_MODE FillMode;
 		RENDER_DEVICE_CULL_MODE CullMode;
-		//BOOL            FrontCounterClockwise;
-		//INT             DepthBias;
-		//FLOAT           DepthBiasClamp;
-		//FLOAT           SlopeScaledDepthBias;
-		//BOOL            DepthClipEnable;
-		//BOOL            ScissorEnable;
-		BOOL            MultisampleEnable;
-		BOOL            AntialiasedLineEnable;
+		//TBOOL            FrontCounterClockwise;
+		//TS32             DepthBias;
+		//TF32           DepthBiasClamp;
+		//TF32           SlopeScaledDepthBias;
+		//TBOOL            DepthClipEnable;
+		//TBOOL            ScissorEnable;
+		TBOOL            MultisampleEnable;
+		TBOOL            AntialiasedLineEnable;
 
 		TLRenderDeviceRasterizerDesc()
 		{
 			FillMode = RENDER_DEVICE_FILL_SOLID;
 			CullMode = RENDER_DEVICE_CULL_BACK;
-			MultisampleEnable = FALSE;
-			AntialiasedLineEnable = FALSE;
+			MultisampleEnable = TFALSE;
+			AntialiasedLineEnable = TFALSE;
 		};
 	};
 
@@ -548,10 +549,10 @@ namespace TLunaEngine
 	// depth stencil create desc
 	// 模板不支持
 	struct TLRenderDeviceDepthStencilDesc {
-		BOOL                       DepthEnable;
+		TBOOL                       DepthEnable;
 		RENDER_DEVICE_DEPTH_WRITE_MASK     DepthWriteMask;
 		RENDER_DEVICE_COMPARISON_FUNC      DepthFunc;
-		//BOOL                       StencilEnable;
+		//TBOOL                       StencilEnable;
 		//UINT8                      StencilReadMask;
 		//UINT8                      StencilWriteMask;
 		//D3D11_DEPTH_STENCILOP_DESC FrontFace;
@@ -559,7 +560,7 @@ namespace TLunaEngine
 
 		TLRenderDeviceDepthStencilDesc()
 		{
-			DepthEnable = TRUE;
+			DepthEnable = TTRUE;
 			DepthWriteMask = RENDER_DEVICE_DEPTH_WRITE_MASK_ALL;
 			DepthFunc = RENDER_DEVICE_COMPARISON_LESS;
 		};
@@ -608,7 +609,7 @@ namespace TLunaEngine
 
 	// render target blend desc
 	struct TLRenderDeviceRenderTargetBlendDesc {
-		BOOL           BlendEnable;
+		TBOOL           BlendEnable;
 		RENDER_DEVICE_BLEND    SrcBlend;
 		RENDER_DEVICE_BLEND    DestBlend;
 		RENDER_DEVICE_BLEND_OP BlendOp;
@@ -620,13 +621,13 @@ namespace TLunaEngine
 
 	// blend create desc
 	struct TLRenderDeviceBlendDesc {
-		//BOOL                           AlphaToCoverageEnable;
-		//BOOL                           IndependentBlendEnable;
+		//TBOOL                           AlphaToCoverageEnable;
+		//TBOOL                           IndependentBlendEnable;
 		TLRenderDeviceRenderTargetBlendDesc RenderTarget[1];	// 只用第一个
 
 		TLRenderDeviceBlendDesc()
 		{
-			RenderTarget[0].BlendEnable = FALSE;
+			RenderTarget[0].BlendEnable = TFALSE;
 			RenderTarget[0].SrcBlend = RENDER_DEVICE_BLEND_ONE;
 			RenderTarget[0].DestBlend = RENDER_DEVICE_BLEND_ZERO;
 			RenderTarget[0].BlendOp = RENDER_DEVICE_BLEND_OP_ADD;
@@ -675,12 +676,12 @@ namespace TLunaEngine
 		RENDER_DEVICE_TEXTURE_ADDRESS_MODE AddressU;
 		RENDER_DEVICE_TEXTURE_ADDRESS_MODE AddressV;
 		RENDER_DEVICE_TEXTURE_ADDRESS_MODE AddressW;
-		FLOAT                      MipLODBias;
-		UINT                       MaxAnisotropy;
+		TF32                      MipLODBias;
+		TU32                       MaxAnisotropy;
 		//D3D11_COMPARISON_FUNC      ComparisonFunc;
-		FLOAT                      BorderColor[4];
-		FLOAT                      MinLOD;
-		FLOAT                      MaxLOD;
+		TF32                      BorderColor[4];
+		TF32                      MinLOD;
+		TF32                      MaxLOD;
 
 		TLRenderDeviceSamplerDesc()
 		{

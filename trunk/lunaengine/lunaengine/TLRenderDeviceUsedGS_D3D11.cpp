@@ -1,22 +1,21 @@
-#include "stdafx.h"
 #include "TLRenderDeviceUsedGS_D3D11.h"
 
 namespace TLunaEngine
 {
-	TLRenderDeviceUsedGS_D3D11::TLRenderDeviceUsedGS_D3D11():TLIRenderDeviceUsedGS(),mD3DGS(NULL)
+	RenderDeviceUsedGS_D3D11::RenderDeviceUsedGS_D3D11():RenderDeviceUsedGS(),mD3DGS(0)
 	{
 	}
 
-	TLRenderDeviceUsedGS_D3D11::~TLRenderDeviceUsedGS_D3D11()
+	RenderDeviceUsedGS_D3D11::~RenderDeviceUsedGS_D3D11()
 	{
 		if(mD3DGS)
 		{
 			mD3DGS->Release();
-			mD3DGS = NULL;
+			mD3DGS = 0;
 		}
 	}
 
-	bool TLRenderDeviceUsedGS_D3D11::initWithD3DGS(ID3D11GeometryShader* d3dShader)
+	bool RenderDeviceUsedGS_D3D11::initWithD3DGS(ID3D11GeometryShader* d3dShader)
 	{
 		if(mD3DGS)
 			return false;
