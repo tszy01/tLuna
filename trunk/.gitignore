@@ -17,3 +17,5 @@
 *.resources
 *.log
 *.lastbuildstate
+Intermediate/
+lib/
