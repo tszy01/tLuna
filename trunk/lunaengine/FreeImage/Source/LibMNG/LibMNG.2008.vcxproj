@@ -192,6 +192,9 @@
       <OutputFile>$(SolutionDir)\..\lib\$(Platform)\$(Configuration)\LibMNG.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
+    <BuildLog>
+      <Path />
+    </BuildLog>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Midl>
@@ -223,6 +226,9 @@
       <OutputFile>$(SolutionDir)\..\lib\$(Platform)\$(Configuration)\LibMNG.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
+    <BuildLog>
+      <Path />
+    </BuildLog>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="libmng_callback_xs.c" />

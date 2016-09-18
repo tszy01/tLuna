@@ -204,6 +204,9 @@ copy Release\FreeImage.lib Dist
 copy Source\FreeImage.h Dist
 </Command>
     </PostBuildEvent>
+    <BuildLog>
+      <Path />
+    </BuildLog>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Midl>
@@ -307,6 +310,9 @@ copy Debug\FreeImaged.lib Dist
 copy Source\FreeImage.h Dist
 </Command>
     </PostBuildEvent>
+    <BuildLog>
+      <Path />
+    </BuildLog>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\FreeImage\BitmapAccess.cpp" />

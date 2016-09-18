@@ -150,6 +150,9 @@
       <OutputFile>$(SolutionDir)\..\lib\$(Platform)\$(Configuration)\ZLib.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
+    <BuildLog>
+      <Path />
+    </BuildLog>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -219,6 +222,9 @@
       <OutputFile>$(SolutionDir)\..\lib\$(Platform)\$(Configuration)\ZLib.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
+    <BuildLog>
+      <Path />
+    </BuildLog>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="adler32.c" />

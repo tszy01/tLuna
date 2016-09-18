@@ -168,6 +168,9 @@
       <OutputFile>$(SolutionDir)\..\lib\$(Platform)\$(Configuration)\OpenEXR.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
+    <BuildLog>
+      <Path />
+    </BuildLog>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -237,6 +240,9 @@
       <OutputFile>$(SolutionDir)\..\lib\$(Platform)\$(Configuration)\OpenEXR.lib</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Lib>
+    <BuildLog>
+      <Path />
+    </BuildLog>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="IlmImf\ImfAttribute.cpp" />

@@ -138,6 +138,9 @@
       <Command>
       </Command>
     </PostBuildEvent>
+    <BuildLog>
+      <Path />
+    </BuildLog>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -197,6 +200,9 @@
     <Lib>
       <OutputFile>$(SolutionDir)\..\lib\$(Platform)\$(Configuration)\LibRawLite.lib</OutputFile>
     </Lib>
+    <BuildLog>
+      <Path />
+    </BuildLog>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="internal\dcraw_common.cpp" />
