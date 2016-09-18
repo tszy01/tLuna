@@ -19,8 +19,6 @@ int MainExampleGame(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmLine, 
 	_INITPARAM init;
 	init.hInst = hInstance;
 	init.nCmdShow = nCmdShow;
-	// initapp.lua必须有，并且放在exe目录下面
-	sprintf_s(init.szScriptFile,sizeof(char)*256,"initapp.lua");
 	// 调用初始化
 	if(InitGame(&init))
 	{
@@ -29,17 +27,17 @@ int MainExampleGame(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmLine, 
 		// 销毁
 		DestroyGame();
 	}
-	return 1;
+	else
+	{
+		return 1;
+	}
+	return 0;
 }
 
 bool InitGame(const _INITPARAM* pInitParam)
 {
 	if(!pInitParam)
 		return false;
-	// 读取初始化配置
-	if(!LuaInit::getSingletonPtr()->InitWindowScript(pInitParam->szScriptFile))
-		return false;
-	LuaInit::getSingletonPtr()->LoadParameters();
 	// 建立主窗口
 	// 配置结构体
 	_MAINWNDCONFIG wndConfig;
@@ -179,20 +177,47 @@ void OnCatchInputMsg(BYTE yType,void* param)
 
 int PASCAL WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmLine, int nCmdShow)
 {
+	// init variables
+	TLunaEngine::String initScriptFile("initapp.lua");
+	bool bEditor = false;
+
+	// read command
 	TLunaEngine::String strCmd(lpCmLine);
 	int nCmd = 1;
 	std::vector<TLunaEngine::String> cmds = strCmd.Split(' ', &nCmd);
-	if (cmds.size() >= 1)
+	for (int i = 0;i < (int)cmds.size();++i)
 	{
-		if (cmds[0] == "editor")
+		if (cmds[i] == "-editor")
 		{
-			if (!EditorMgr::getSingletonPtr()->InitEditorMgr(hInstance, 1280, 800, "../../../demores/"))
-				return 1;
-			int re = EditorMgr::getSingletonPtr()->RunEditor();
-			EditorMgr::getSingletonPtr()->DestroyEditorMgr();
-			EditorMgr::delSingletonPtr();
-			return re;
+			bEditor = true;
+		}
+		if (cmds[i] == "-initfile" && i + 1 < (int)cmds.size())
+		{
+			initScriptFile = cmds[i + 1];
 		}
 	}
-	return MainExampleGame(hInstance, hPrevInstance, lpCmLine, nCmdShow);
+
+	// read init script
+	if (!LuaInit::getSingletonPtr()->InitWindowScript(initScriptFile.GetString()))
+		return 1;
+	LuaInit::getSingletonPtr()->LoadParameters();
+
+	// run
+	int re = 0;
+	if (bEditor)
+	{
+		if (!EditorMgr::getSingletonPtr()->InitEditorMgr(hInstance, LuaInit::getSingletonPtr()->m_bufferWidth, 
+			LuaInit::getSingletonPtr()->m_bufferHeight, LuaInit::getSingletonPtr()->m_szResDir))
+			return 1;
+		re = EditorMgr::getSingletonPtr()->RunEditor();
+		EditorMgr::getSingletonPtr()->DestroyEditorMgr();
+		EditorMgr::delSingletonPtr();
+	}
+	else
+	{
+		re = MainExampleGame(hInstance, hPrevInstance, lpCmLine, nCmdShow);
+	}
+	
+	LuaInit::delSingletonPtr();
+	return re;
 }

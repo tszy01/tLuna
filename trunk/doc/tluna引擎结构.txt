@@ -8,6 +8,7 @@ Version 0.4.3
 3、项目升级为vs2015
 4、TLunaEditor部分功能移动到EngineDemo中，去掉TLunaEditor项目
 5、版本管理切换为Git
+6、EngineDemo运行参数修改为，-editor执行编辑器，-initfile [filename]指定初始化脚本文件
 
 0.4.3
 1、添加TColorValue类，处理颜色

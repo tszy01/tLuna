@@ -8,7 +8,6 @@ struct _INITPARAM
 {
 	HINSTANCE hInst;			// 入口应用程序实例
 	int nCmdShow;				// 主窗口的显示
-	char szScriptFile[256];		// 初始化脚本文件名
 };
 
 // 游戏循环
