@@ -22,11 +22,11 @@ bool GUISceneMgr::InitGUISceneMgr()
 
 void GUISceneMgr::DestroyGUISceneMgr()
 {
-	// UI管理
+	// UI绠＄悊
 	TLunaEngine::GUIMgr::getSingletonPtr()->DestroyRootContainer();
-	// UI渲染
+	// UI娓叉煋
 	TLunaEngine::GUITextureMgr::getSingletonPtr()->DestroyAllTex();
-	// 字体管理
+	// 瀛椾綋绠＄悊
 	TLunaEngine::GUIFontManager::getSingletonPtr()->UseFont(-1);
 	TLunaEngine::GUIFontManager::getSingletonPtr()->DestroyAllFont();
 }
@@ -78,7 +78,7 @@ void GUISceneMgr::CatchInputMsg(unsigned char yType, void* param)
 	if (yType == (TLunaEngine::TUByte)MSG_TYPE_KEY)
 	{
 		_MSG_KEY_INFO* keyInfo = (_MSG_KEY_INFO*)param;
-		// 如果在起始UI中按下回车，就跳转到游戏UI
+		// 濡傛灉鍦ㄨ捣濮婾I涓寜涓嬪洖杞︼紝灏辫烦杞埌娓告垙UI
 		if (keyInfo->btnInfo[KEY_RETURN].btnType == BUTTON_TYPE_UP)
 		{
 		}

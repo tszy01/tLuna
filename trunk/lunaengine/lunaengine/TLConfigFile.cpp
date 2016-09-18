@@ -13,7 +13,7 @@ namespace TLunaEngine{
 
 	ConfigFile::~ConfigFile(void)
 	{
-		// Èç¹ûÍâ²¿Íü¼Çµ÷ÓÃ¹Ø±ÕÎÄ¼ş
+		// å¦‚æœå¤–éƒ¨å¿˜è®°è°ƒç”¨å…³é—­æ–‡ä»¶
 		if(m_bOpen)
 		{
 			CloseFile();
@@ -22,7 +22,7 @@ namespace TLunaEngine{
 
 	bool ConfigFile::OpenFile(const char *file, ConfigFile::OPEN_FILE_TYPE type)
 	{
-		// Èç¹ûÍâ²¿Íü¼Çµ÷ÓÃ¹Ø±ÕÎÄ¼ş
+		// å¦‚æœå¤–éƒ¨å¿˜è®°è°ƒç”¨å…³é—­æ–‡ä»¶
 		if(m_bOpen || !file)
 		{
 			return false;
@@ -71,7 +71,7 @@ namespace TLunaEngine{
 		if(m_openType == OPEN_READ)
 			return false;
 		
-		// Çå¿ÕÎÄ¼ş
+		// æ¸…ç©ºæ–‡ä»¶
 		fclose(m_stream);
 		if( fopen_s(&m_stream,m_szFileName,"wt")!=0 )
 		{
@@ -79,7 +79,7 @@ namespace TLunaEngine{
 			return false;
 		}
 
-		// Ğ´ÈëÎÄ¼ş
+		// å†™å…¥æ–‡ä»¶
 		int numWrite = 0;
 		char c;
 		size_t szLen = 0;
@@ -87,7 +87,7 @@ namespace TLunaEngine{
 		StrList::iterator itr = m_list.begin();
 		for(;itr!=m_list.end();itr++)
 		{
-			// Ğ´Èëparameter
+			// å†™å…¥parameter
 			szLen = (size_t)itr->m_strParameter.GetLength();
 			numWrite = (int)fwrite(itr->m_strParameter.GetString(),sizeof(char),szLen,m_stream);
 			if(numWrite!=(int)szLen)
@@ -96,7 +96,7 @@ namespace TLunaEngine{
 				return false;
 			}
 
-			// Ğ´ÈëµÈºÅ
+			// å†™å…¥ç­‰å·
 			c = '=';
 			numWrite = (int)fwrite(&c,sizeof(char),1,m_stream);
 			if(numWrite!=1)
@@ -105,7 +105,7 @@ namespace TLunaEngine{
 				return false;
 			}
 
-			// Ğ´ÈëÖµ
+			// å†™å…¥å€¼
 			szLen = (size_t)itr->m_strValue.GetLength();
 			numWrite = (int)fwrite(itr->m_strValue.GetString(),sizeof(char),szLen,m_stream);
 			if(numWrite!=szLen)
@@ -116,7 +116,7 @@ namespace TLunaEngine{
 
 			count++;
 
-			// Ğ´Èë»»ĞĞ
+			// å†™å…¥æ¢è¡Œ
 			if(count < (int)m_list.size())
 			{
 				c = '\n';
@@ -136,12 +136,12 @@ namespace TLunaEngine{
 	{
 		if(m_bOpen)
 		{
-			// ¹Ø±ÕÎÄ¼ş
+			// å…³é—­æ–‡ä»¶
 			fclose(m_stream);
 			m_stream = 0;
-			// ÊÍ·ÅparameterºÍvalue
+			// é‡Šæ”¾parameterå’Œvalue
 			m_list.clear();
-			// ½«¸÷³ÉÔ±³õÊ¼»¯
+			// å°†å„æˆå‘˜åˆå§‹åŒ–
 			m_openType = OPEN_NONE;
 			memset(m_szFileName,0,256);
 			m_bOpen = false;
@@ -153,7 +153,7 @@ namespace TLunaEngine{
 		if(!m_bOpen || !paraName || !pBuf)
 			return;
 
-		// ±éÀúÕÒµ½parameter
+		// éå†æ‰¾åˆ°parameter
 		StrList::iterator itr = m_list.begin();
 		for(;itr!=m_list.end();itr++)
 		{
@@ -170,7 +170,7 @@ namespace TLunaEngine{
 		if(!m_bOpen || !paraName || !pBuf)
 			return;
 
-		// ±éÀúÕÒµ½parameter
+		// éå†æ‰¾åˆ°parameter
 		StrList::iterator itr = m_list.begin();
 		for(;itr!=m_list.end();itr++)
 		{
@@ -198,7 +198,7 @@ namespace TLunaEngine{
 	{
 		if(!m_bOpen || !paraName)
 			return false;
-		// ±éÀúÕÒµ½parameter
+		// éå†æ‰¾åˆ°parameter
 		StrList::iterator itr = m_list.begin();
 		int count = 0;
 		for(;itr!=m_list.end();itr++,count++)
@@ -215,28 +215,28 @@ namespace TLunaEngine{
 
 	bool ConfigFile::LoadFromFile()
 	{
-		// ½¨Ò»¸ö½á¹¹Ìå
+		// å»ºä¸€ä¸ªç»“æ„ä½“
 		FILESTR filemap;
 		filemap.m_strParameter = "";
 		filemap.m_strValue = "";
-		// ÁÙÊ±±äÁ¿
+		// ä¸´æ—¶å˜é‡
 		int numRead = 0;
 		char c;
 		char last;
 		int count = 0;
 		bool bIsPara = true;
 		char szTmp[2] = {0};
-		// Ñ­»·ÎÄ¼ş
+		// å¾ªç¯æ–‡ä»¶
 		while(feof(m_stream)==0)
 		{
-			// ¶ÁÒ»¸ö×Ö·û
+			// è¯»ä¸€ä¸ªå­—ç¬¦
 			numRead = (int)fread(&c,sizeof(char),1,m_stream);
-			// ¶ÁÈ¡ÊÇ·ñ³É¹¦
+			// è¯»å–æ˜¯å¦æˆåŠŸ
 			if(numRead!=1)
 			{
 				if(feof(m_stream))
 				{
-					// ×îºóÒ»ĞĞµÄ
+					// æœ€åä¸€è¡Œçš„
 					if(last != '\n')
 						m_list.push_back(filemap);
 					break;
@@ -244,7 +244,7 @@ namespace TLunaEngine{
 				CloseFile();
 				return false;
 			}
-			// ÅĞ¶Ï'='
+			// åˆ¤æ–­'='
 			if(c == '=')
 			{
 				bIsPara = false;
@@ -259,7 +259,7 @@ namespace TLunaEngine{
 
 				if(last != '\n')
 				{
-					// Ìí¼Óµ½Á´±í
+					// æ·»åŠ åˆ°é“¾è¡¨
 					m_list.push_back(filemap);
 					filemap.m_strParameter = "";
 					filemap.m_strValue = "";
@@ -269,7 +269,7 @@ namespace TLunaEngine{
 				continue;
 			}
 			last = c;
-			// ¸ù¾İÏÖÔÚÊÇPara»¹ÊÇValue¸³Öµ
+			// æ ¹æ®ç°åœ¨æ˜¯Paraè¿˜æ˜¯Valueèµ‹å€¼
 			if(bIsPara)
 			{
 				szTmp[0] = c;
@@ -280,7 +280,7 @@ namespace TLunaEngine{
 				szTmp[0] = c;
 				filemap.m_strValue += szTmp;
 			}
-			// °Ñcount¼ÓÒ»
+			// æŠŠcountåŠ ä¸€
 			count++;
 		}
 		return true;

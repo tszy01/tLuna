@@ -133,17 +133,17 @@ namespace TLunaEngine{
 
 	bool GUIFontManager::AddFontFromFile(const char* filename)
 	{
-		// ÏÈ¼ì²â£¬Çå¿ÕÔ­À´µÄ
+		// å…ˆæ£€æµ‹ï¼Œæ¸…ç©ºåŸæ¥çš„
 		UseFont(-1);
 		DestroyAllFont();
-		// ¶ÁÈ¡ÎÄ¼ş
+		// è¯»å–æ–‡ä»¶
 		FILE* stream = TNULL;
 		String strFile(filename);
 		if (!TxtFileReader::OpenTxtFile(strFile.GetString(),&stream))
 		{
 			return false;
 		}
-		// Æ¥ÅäµÚÒ»ĞĞ×Ö·û
+		// åŒ¹é…ç¬¬ä¸€è¡Œå­—ç¬¦
 		bool bEqual = false;
 		char strResult[1024] = {0};
 		int nCount = 1024;
@@ -157,10 +157,10 @@ namespace TLunaEngine{
 			TxtFileReader::CloseTxtFile(stream);
 			return false;
 		}
-		// ¶ÁÈ¡ÊıÁ¿
+		// è¯»å–æ•°é‡
 		int fontCount = 0;
 		TxtFileReader::ReadLineInteger(&fontCount,stream,1,' ');
-		// Ñ­»·¶ÁÈ¡
+		// å¾ªç¯è¯»å–
 		for (int i=0;i<fontCount;i++)
 		{
 			if(!LoadFont(stream))
@@ -187,7 +187,7 @@ namespace TLunaEngine{
 		// FontFile
 		char fontFile[1024] = {0};
 		TxtFileReader::ReadLineString(fontFile,stream,TNULL,TNULL,1024,TNULL);
-		// ¼ÓÔØ
+		// åŠ è½½
 		String fullFile = GlobleClass::getSingletonPtr()->m_strResDir + fontFile;
 		if(AddFont(fullFile.GetString(),fontSize,texPageSize,fontID)==-1)
 			return false;
@@ -217,7 +217,7 @@ namespace TLunaEngine{
 		TF32 blendFactor[4] = {0,0,0,0};
 		pDevice->setBlendState(mBlendState,blendFactor,0xffffffff);
 		pDevice->setDepthStencilState(mDepthStencilState);
-		// ·ÖÅääÖÈ¾ÎÄ×Ö¿Õ¼ä
+		// åˆ†é…æ¸²æŸ“æ–‡å­—ç©ºé—´
 		if ((int)len > m_nRenderTextLen || !m_pRenderText)
 		{
 			if (m_pRenderText)

@@ -60,9 +60,9 @@ namespace TLunaEngine{
 		RenderDeviceUsedInputLayout* mInputLayout;
 		RenderDeviceUsedInputLayout* mInputLayout2;
 	public:
-		// ³õÊ¼»¯
+		// åˆå§‹åŒ–
 		TBOOL InitTriangle();
-		// »æ»­
+		// ç»˜ç”»
 		void OnRender();
 	public:
 		float ta;

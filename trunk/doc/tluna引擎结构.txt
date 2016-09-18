@@ -1,259 +1,266 @@
-TLunaÏîÄ¿£º
-Version 0.4.2
+TLunaé¡¹ç›®ï¼š
+Version 0.4.3
 
 ====================== Release Note =================================================
+0.5
+1ã€æ‰€æœ‰é¡¹ç›®å¯¹åº”windows x64å¹³å°ç¼–è¯‘
+2ã€å¼•æ“Žä»¥åŠç¤ºä¾‹ç›¸å…³ä»£ç è½¬æ¢ä¸ºutf8æ ¼å¼
+3ã€é¡¹ç›®å‡çº§ä¸ºvs2015
+4ã€TLunaEditoréƒ¨åˆ†åŠŸèƒ½ç§»åŠ¨åˆ°EngineDemoä¸­ï¼ŒåŽ»æŽ‰TLunaEditoré¡¹ç›®
+5ã€ç‰ˆæœ¬ç®¡ç†åˆ‡æ¢ä¸ºGit
+
 0.4.3
-1¡¢Ìí¼ÓTColorValueÀà£¬´¦ÀíÑÕÉ«
-2¡¢ÐÞ¸ÄTFPUº¯ÊýÎÊÌâ
-3¡¢Ôö¼ÓTVector3µÄ¹¦ÄÜ½Ó¿Ú
-4¡¢Ôö¼ÓTMathUtils¹¦ÄÜ½Ó¿Ú
-5¡¢ÐÞ¸ÄTAABBBoxÀàÃû³Æ
-6¡¢ÐÞ¸ÄÍ·ÎÄ¼þ±àÒëÉ¾Ñ¡£¬Ê¹ÓÃ#ifndef¸ñÊ½
-7¡¢Í³Ò»¹æ·¶ÎÄ¼þÃû
-8¡¢È¥µôÔ¤±àÒëÍ·ÎÄ¼þ£¬ÐÞ¸ÄÈ«¾Ö¶¨ÒåÎ»ÖÃ
-9¡¢ÊäÈë¿ØÖÆÒÆ¶¯µ½ÓÎÏ·²ã£¬ÔÚÒýÇæÖÐ²»ÅÐ¶ÏÊó±êºÍ¼üÅÌ
-10¡¢ºÏ²¢ExampleEditorºÍEngineDemo£¬Í³Ò»Èë¿Ú
-11¡¢È¥µôÒ»Ð©Ê¹ÓÃWIN32ÀàÐÍµÄµØ·½
-12¡¢Ìí¼ÓÓÒÊÖ×ø±êÏµµÄ¾ØÕó¹¹ÔìµÈ£¬ÎªÓÒÊÖ×ø±êÏµÖ§³Ö×ö×¼±¸£¬Ìí¼Ó¹¹½¨Æ½Ãæ·´Éä¾ØÕó
-13¡¢Æ½Ãæ£¬Èý½ÇÐÎ£¬AABB£¬²Ã¼ôÒÔ¼°Ïà½»Ïà¹ØËã·¨
-14¡¢Í³Ò»¹æ·¶ÀàÃû³Æ
-#14¡¢Ìí¼ÓWINDOW´°¿ÚÀà
+1ã€æ·»åŠ TColorValueç±»ï¼Œå¤„ç†é¢œè‰²
+2ã€ä¿®æ”¹TFPUå‡½æ•°é—®é¢˜
+3ã€å¢žåŠ TVector3çš„åŠŸèƒ½æŽ¥å£
+4ã€å¢žåŠ TMathUtilsåŠŸèƒ½æŽ¥å£
+5ã€ä¿®æ”¹TAABBBoxç±»åç§°
+6ã€ä¿®æ”¹å¤´æ–‡ä»¶ç¼–è¯‘åˆ é€‰ï¼Œä½¿ç”¨#ifndefæ ¼å¼
+7ã€ç»Ÿä¸€è§„èŒƒæ–‡ä»¶å
+8ã€åŽ»æŽ‰é¢„ç¼–è¯‘å¤´æ–‡ä»¶ï¼Œä¿®æ”¹å…¨å±€å®šä¹‰ä½ç½®
+9ã€è¾“å…¥æŽ§åˆ¶ç§»åŠ¨åˆ°æ¸¸æˆå±‚ï¼Œåœ¨å¼•æ“Žä¸­ä¸åˆ¤æ–­é¼ æ ‡å’Œé”®ç›˜
+10ã€åˆå¹¶ExampleEditorå’ŒEngineDemoï¼Œç»Ÿä¸€å…¥å£
+11ã€åŽ»æŽ‰ä¸€äº›ä½¿ç”¨WIN32ç±»åž‹çš„åœ°æ–¹
+12ã€æ·»åŠ å³æ‰‹åæ ‡ç³»çš„çŸ©é˜µæž„é€ ç­‰ï¼Œä¸ºå³æ‰‹åæ ‡ç³»æ”¯æŒåšå‡†å¤‡ï¼Œæ·»åŠ æž„å»ºå¹³é¢åå°„çŸ©é˜µ
+13ã€å¹³é¢ï¼Œä¸‰è§’å½¢ï¼ŒAABBï¼Œè£å‰ªä»¥åŠç›¸äº¤ç›¸å…³ç®—æ³•
+14ã€ç»Ÿä¸€è§„èŒƒç±»åç§°
+#14ã€æ·»åŠ WINDOWçª—å£ç±»
 
 0.4.2
-1¡¢FONT¸ÄÓÃ´óCache£¬´óÎÆÀí»º³å
-2¡¢Ôö¼ÓTXTÎÄ±¾Ð´ÈëÀà
-3¡¢Ôö¼Ó¶þ½øÖÆÎÄ¼þ¶ÁÈ¡Ð´ÈëÀà
-4¡¢ÐÞ¸ÄXML¿âÎªtinyxml
-5¡¢ÐÞ¸ÄÊýÑ§¿âÏà¹Ø£¬¼ÓÈëOGREµÄÒ»Ð©Î»ÔËËã£¬Ôö¼Ó¼ÆËãÇÐÏòÁ¿µÄ·½·¨
-6¡¢ÍêÉÆTStringÀà£¬Ôö¼ÓshortÀàÐÍµÄÏà¹Ø×ª»»
-7¡¢ÍêÉÆTXTºÍ¶þ½øÖÆÎÄ¼þ¶ÁÐ´½Ó¿Ú£¬Ôö¼ÓlongºÍshortÀàÐÍÖ§³Ö
-8¡¢Ôö¼ÓMatrix3x3¾àÀëÀà
-9¡¢Ôö¼ÓSimpleSplineÀà
-10¡¢Ôö¼ÓRotationalSplineÀà
-11¡¢FPUÌí¼ÓÈý½Çº¯ÊýµÈ
-12¡¢Ôö¼Ó½Ç¶È´¦ÀíÀàRadianºÍDegree
-13¡¢Ôö¼ÓDualQuaternionËÄÔªÊý
-14¡¢Ôö¼ÓPlaneBoundedVolumeÀà
-15¡¢Ôö¼ÓPolygonÀà
-16¡¢Ôö¼ÓConvexBodyÀà
-17¡¢ÐÞ¸ÄÆäËüÊýÑ§¿â½Ó¿Ú
-18¡¢Éý¼¶ÖÁVS2013
+1ã€FONTæ”¹ç”¨å¤§Cacheï¼Œå¤§çº¹ç†ç¼“å†²
+2ã€å¢žåŠ TXTæ–‡æœ¬å†™å…¥ç±»
+3ã€å¢žåŠ äºŒè¿›åˆ¶æ–‡ä»¶è¯»å–å†™å…¥ç±»
+4ã€ä¿®æ”¹XMLåº“ä¸ºtinyxml
+5ã€ä¿®æ”¹æ•°å­¦åº“ç›¸å…³ï¼ŒåŠ å…¥OGREçš„ä¸€äº›ä½è¿ç®—ï¼Œå¢žåŠ è®¡ç®—åˆ‡å‘é‡çš„æ–¹æ³•
+6ã€å®Œå–„TStringç±»ï¼Œå¢žåŠ shortç±»åž‹çš„ç›¸å…³è½¬æ¢
+7ã€å®Œå–„TXTå’ŒäºŒè¿›åˆ¶æ–‡ä»¶è¯»å†™æŽ¥å£ï¼Œå¢žåŠ longå’Œshortç±»åž‹æ”¯æŒ
+8ã€å¢žåŠ Matrix3x3è·ç¦»ç±»
+9ã€å¢žåŠ SimpleSplineç±»
+10ã€å¢žåŠ RotationalSplineç±»
+11ã€FPUæ·»åŠ ä¸‰è§’å‡½æ•°ç­‰
+12ã€å¢žåŠ è§’åº¦å¤„ç†ç±»Radianå’ŒDegree
+13ã€å¢žåŠ DualQuaternionå››å…ƒæ•°
+14ã€å¢žåŠ PlaneBoundedVolumeç±»
+15ã€å¢žåŠ Polygonç±»
+16ã€å¢žåŠ ConvexBodyç±»
+17ã€ä¿®æ”¹å…¶å®ƒæ•°å­¦åº“æŽ¥å£
+18ã€å‡çº§è‡³VS2013
 
 0.4.1
-1¡¢¸ÄÎªDX11äÖÈ¾
-2¡¢ÐÞ¸ÄÒýÇæ×éÖ¯¼Ü¹¹
-3¡¢Ôö¼Ó×¨ÓÃDDS¶ÁÈ¡¿â
-4¡¢TLImage×¨ÓÃ´¦ÀíÎÆÀí×é¼þ
+1ã€æ”¹ä¸ºDX11æ¸²æŸ“
+2ã€ä¿®æ”¹å¼•æ“Žç»„ç»‡æž¶æž„
+3ã€å¢žåŠ ä¸“ç”¨DDSè¯»å–åº“
+4ã€TLImageä¸“ç”¨å¤„ç†çº¹ç†ç»„ä»¶
 
 0.4.0
-1¡¢ÐÞ¸ÄÉú³ÉÄ¿Â¼
-2¡¢ÐÞ¸Ä½á¹¹
-3¡¢È¥µô¹ØÓÚGUISceneÉè¼Æ£¬È«²¿¸ÄÎªGUISceneMgrÍ³Ò»´¦Àí£¬½ñºóÒÔContainerÎªµ¥Î»´¦ÀíÂß¼­
-4¡¢ÐÞ¸Äinitapp.luaÎ»ÖÃ£¬±äÎªEXEÏàÍ¬Ä¿Â¼ÏÂ
-5¡¢GUI³õÊ¼»¯×ÖÌå£¬ÎÆÀíÂ·¾¶²»ÔÙÐèÒªÉèÖÃ×ÊÔ´¸úÂ·¾¶£¬´úÂëÀïÃæ»á×Ô¶¯Ìí¼Ó
-6¡¢Ìí¼Ó¶àÏß³ÌËøÖ§³Ö
-7¡¢Ìí¼ÓwxWidgets
-8¡¢Ìí¼ÓLunaEditor¹¤³Ì£¬±à¼­Æ÷»ù´¡²¿·Ö´î½¨Íê³É
-9¡¢Ìí¼ÓExampleEditor¹¤³Ì£¬ÓÃÓÚÆô¶¯±à¼­Æ÷
-10¡¢¸ÄÎªunicode±àÂë
-11¡¢Ìí¼ÓÒýÓÃ¼ÆÊýµÄÖÇÄÜÖ¸Õë
-12¡¢äÖÈ¾²¿·Ö¸ÄÔì£¬Ê¹ÓÃD3D11
-13¡¢TStringÇ³¿½±´
-14¡¢TString¶Ôwchar_tµÄÖ§³Ö
+1ã€ä¿®æ”¹ç”Ÿæˆç›®å½•
+2ã€ä¿®æ”¹ç»“æž„
+3ã€åŽ»æŽ‰å…³äºŽGUISceneè®¾è®¡ï¼Œå…¨éƒ¨æ”¹ä¸ºGUISceneMgrç»Ÿä¸€å¤„ç†ï¼Œä»ŠåŽä»¥Containerä¸ºå•ä½å¤„ç†é€»è¾‘
+4ã€ä¿®æ”¹initapp.luaä½ç½®ï¼Œå˜ä¸ºEXEç›¸åŒç›®å½•ä¸‹
+5ã€GUIåˆå§‹åŒ–å­—ä½“ï¼Œçº¹ç†è·¯å¾„ä¸å†éœ€è¦è®¾ç½®èµ„æºè·Ÿè·¯å¾„ï¼Œä»£ç é‡Œé¢ä¼šè‡ªåŠ¨æ·»åŠ 
+6ã€æ·»åŠ å¤šçº¿ç¨‹é”æ”¯æŒ
+7ã€æ·»åŠ wxWidgets
+8ã€æ·»åŠ LunaEditorå·¥ç¨‹ï¼Œç¼–è¾‘å™¨åŸºç¡€éƒ¨åˆ†æ­å»ºå®Œæˆ
+9ã€æ·»åŠ ExampleEditorå·¥ç¨‹ï¼Œç”¨äºŽå¯åŠ¨ç¼–è¾‘å™¨
+10ã€æ”¹ä¸ºunicodeç¼–ç 
+11ã€æ·»åŠ å¼•ç”¨è®¡æ•°çš„æ™ºèƒ½æŒ‡é’ˆ
+12ã€æ¸²æŸ“éƒ¨åˆ†æ”¹é€ ï¼Œä½¿ç”¨D3D11
+13ã€TStringæµ…æ‹·è´
+14ã€TStringå¯¹wchar_tçš„æ”¯æŒ
 
 0.3.4
-1¡¢ÐÞ¸ÄTLoopCtrlÊ±¼ä¿ØÖÆ¼ÆËã
-2¡¢Ê¹ÓÃVisual Studio 2012±àÒë
-3¡¢D3D10°æ±¾Ê¹ÓÃVS2012ÐÂSDK
-4¡¢Ê¹ÓÃMAX2013SDK±àÒëMAX¹¤¾ß
-5¡¢ÐÞ¸ÄFreeImageµÄÊ¹ÓÃ
+1ã€ä¿®æ”¹TLoopCtrlæ—¶é—´æŽ§åˆ¶è®¡ç®—
+2ã€ä½¿ç”¨Visual Studio 2012ç¼–è¯‘
+3ã€D3D10ç‰ˆæœ¬ä½¿ç”¨VS2012æ–°SDK
+4ã€ä½¿ç”¨MAX2013SDKç¼–è¯‘MAXå·¥å…·
+5ã€ä¿®æ”¹FreeImageçš„ä½¿ç”¨
 
 0.3.3
-1¡¢ÐÞ¸ÄFreeType³õÊ¼»¯Á÷³Ì
+1ã€ä¿®æ”¹FreeTypeåˆå§‹åŒ–æµç¨‹
 
 0.3.2
-1¡¢Ìí¼Ó±àÒëFXµÄ³ÌÐò
-2¡¢¶ÁÈ¡EffectÊ¹ÓÃ±àÒë³öµÄfxoÎÄ¼þ
-3¡¢¿ªÊ¼Ê¹ÓÃFreeImage¶ÁÈ¡Í¼Æ¬ÎÄ¼þ
-4¡¢È¥µô¶ÔÓÚD3DXµÄÒÀÀµ
+1ã€æ·»åŠ ç¼–è¯‘FXçš„ç¨‹åº
+2ã€è¯»å–Effectä½¿ç”¨ç¼–è¯‘å‡ºçš„fxoæ–‡ä»¶
+3ã€å¼€å§‹ä½¿ç”¨FreeImageè¯»å–å›¾ç‰‡æ–‡ä»¶
+4ã€åŽ»æŽ‰å¯¹äºŽD3DXçš„ä¾èµ–
 
 0.1.6 --> 0.2.0
-1¡¢µ¼³ö²å¼þ¸ÄÎª3DSMAX2011°æ
-2¡¢DirectX¿â¸ÄÎª9.29.1962.0£¬¼´2010Äê6ÔÂ°æ
-3¡¢3DMAXÖ»µ¼³ödiffuse²ÄÖÊ
+1ã€å¯¼å‡ºæ’ä»¶æ”¹ä¸º3DSMAX2011ç‰ˆ
+2ã€DirectXåº“æ”¹ä¸º9.29.1962.0ï¼Œå³2010å¹´6æœˆç‰ˆ
+3ã€3DMAXåªå¯¼å‡ºdiffuseæè´¨
 
 0.1.5 --> 0.1.6
-1¡¢ÐÞ¸Äµ¼³ö²å¼þ£¬²»ÔÙÊ¹ÓÃIGame½Ó¿Úµ¼³öÎÆÀí×ø±ê£¬Ê¹ÓÃmaxµÄmeshµ¼³ö
-2¡¢µ¼³ö²å¼þ£¬¶¥µã¶¯»­Ö§³ÖÎÆÀíUV¶¯»­
-3¡¢µ¼³ö²å¼þ£¬¶¥µã¶¯»­µ¼³öÖ§³Ö¶àMESH
-4¡¢¿ÉÒÔ»­³öÈ«²¿´æÔÚMESHÎÄ¼þÖÐµÄÄ£ÐÍ
-5¡¢¶¥µã¶¯»­µ¼³öÐÞ¸Ä£¬Ö§³Ö¶àMESH´¦Àí£¬MESH±ØÐëÓëÄ£ÐÍÎÄ¼þÖÐµÄMESHÒ»Ò»¶ÔÓ¦
+1ã€ä¿®æ”¹å¯¼å‡ºæ’ä»¶ï¼Œä¸å†ä½¿ç”¨IGameæŽ¥å£å¯¼å‡ºçº¹ç†åæ ‡ï¼Œä½¿ç”¨maxçš„meshå¯¼å‡º
+2ã€å¯¼å‡ºæ’ä»¶ï¼Œé¡¶ç‚¹åŠ¨ç”»æ”¯æŒçº¹ç†UVåŠ¨ç”»
+3ã€å¯¼å‡ºæ’ä»¶ï¼Œé¡¶ç‚¹åŠ¨ç”»å¯¼å‡ºæ”¯æŒå¤šMESH
+4ã€å¯ä»¥ç”»å‡ºå…¨éƒ¨å­˜åœ¨MESHæ–‡ä»¶ä¸­çš„æ¨¡åž‹
+5ã€é¡¶ç‚¹åŠ¨ç”»å¯¼å‡ºä¿®æ”¹ï¼Œæ”¯æŒå¤šMESHå¤„ç†ï¼ŒMESHå¿…é¡»ä¸Žæ¨¡åž‹æ–‡ä»¶ä¸­çš„MESHä¸€ä¸€å¯¹åº”
 
-// -------------------------------------------- ¿ª·¢»·¾³ ---------------------------------------------------
+// -------------------------------------------- å¼€å‘çŽ¯å¢ƒ ---------------------------------------------------
 
-¿ª·¢IDE: Microsoft Visual Studio 2012
-¿ª·¢²Ù×÷ÏµÍ³: Microsoft Windows 8
+å¼€å‘IDE: Microsoft Visual Studio 2012
+å¼€å‘æ“ä½œç³»ç»Ÿ: Microsoft Windows 8
 
-ÒÀÀµÍâ²¿¿â£º
-FreeImage -- Í¼Æ¬×ÊÔ´¿â 3.15.1
-FreeType -- ÎÄ×ÖäÖÈ¾¿â 2.1.9
+ä¾èµ–å¤–éƒ¨åº“ï¼š
+FreeImage -- å›¾ç‰‡èµ„æºåº“ 3.15.1
+FreeType -- æ–‡å­—æ¸²æŸ“åº“ 2.1.9
 lua -- lua script
 xerces -- xml library
 zlib -- zlib library
-3DMax 2013 SDK -- 3DMAX¿ª·¢°ü
-LibDDSTextureLoader -- DXÊ¾ÀýµÄ´úÂë£¬¶ÁÈ¡DDS
+3DMax 2013 SDK -- 3DMAXå¼€å‘åŒ…
+LibDDSTextureLoader -- DXç¤ºä¾‹çš„ä»£ç ï¼Œè¯»å–DDS
 
-// ---------------------------------------------------- ÏîÄ¿½éÉÜ --------------------------------------------
+// ---------------------------------------------------- é¡¹ç›®ä»‹ç» --------------------------------------------
 
-maxProject1ÏîÄ¿£º
-3DMax2011²å¼þ£¬¿ÉÒÔµ¼³öTMesh
+maxProject1é¡¹ç›®ï¼š
+3DMax2011æ’ä»¶ï¼Œå¯ä»¥å¯¼å‡ºTMesh
 
-compileFxÏîÄ¿£º
-HLSL´úÂë±àÒë¹¤¾ß
+compileFxé¡¹ç›®ï¼š
+HLSLä»£ç ç¼–è¯‘å·¥å…·
 
-LunaEngineÏîÄ¿£º
-ÊýÑ§²¿·Ö
-TVector3<T>:3dÏòÁ¿
-TVector2<T>:2dÏòÁ¿
-TMatrix4x4<T>:4X4¾ØÕó,Ê¹ÓÃÁËTVector3<T>µÄ¶¨Òå
-TRay<T>:ÉäÏßÀà,Ê¹ÓÃÁËTVector3<T>,TMatrix4x4<T>µÄ¶¨Òå
-TLine<T>:Ïß¶ÎÀà
-TTriangle<T>:Èý½ÇÐÎ
-TPlane<T>:Æ½Ãæ
-TAABBbox<T>:AABB°üÎ§ºÐ
-TSphere<T>:°üÎ§Çò
-TQuaternion<T>:ËÄÔªÊýÀà
-×¢:
-1¡¢ËùÓÐTMathÉæ¼°µ½µÄ×ø±êÏµ,¾ùÒÔ×óÊÖ×ø±êÏµÎª×¼(XÏòÓÒ,YÏòÉÏ,ZÏòÀï)
-2¡¢ËùÓÐÏòÁ¿ÎªºáÏòÁ¿,3DÏòÁ¿µãW=1,ÉäÏßW=0
-4¡¢½Ç¶È¾ùÒÔÄæÊ±ÕëÎªÕý,Ä¬ÈÏ·¶Î§0-360¶È,ÑØ×ø±êÖáÕý·½ÏòÎª0¶È
-5¡¢ËùÓÐ¶ÔÍâ½Ó¿ÚµÄ½Ç¶È±ØÐëÊ¹ÓÃ½Ç¶È,ÔÚÄÚ²¿×ª³É»¡¶È
-6¡¢Ã»ÓÐÏòÁ¿*¾ØÕóµÄÖ±½ÓÖØÔØ,ÐèÒªµ÷ÓÃ×ª»»º¯Êý²ÅÄÜ×ª»»ÏòÁ¿
-7¡¢¾ØÕó¶ÔÏòÁ¿µÄ×ª»»ÔÚTMatrix4x4<T>ÖÐ
-8¡¢ÆäËüÍ¼ÔªµÄ×ª»»¾ù·ÅÔÚ×Ô¼ºµÄÀàÀïÊµÏÖ
+LunaEngineé¡¹ç›®ï¼š
+æ•°å­¦éƒ¨åˆ†
+TVector3<T>:3då‘é‡
+TVector2<T>:2då‘é‡
+TMatrix4x4<T>:4X4çŸ©é˜µ,ä½¿ç”¨äº†TVector3<T>çš„å®šä¹‰
+TRay<T>:å°„çº¿ç±»,ä½¿ç”¨äº†TVector3<T>,TMatrix4x4<T>çš„å®šä¹‰
+TLine<T>:çº¿æ®µç±»
+TTriangle<T>:ä¸‰è§’å½¢
+TPlane<T>:å¹³é¢
+TAABBbox<T>:AABBåŒ…å›´ç›’
+TSphere<T>:åŒ…å›´çƒ
+TQuaternion<T>:å››å…ƒæ•°ç±»
+æ³¨:
+1ã€æ‰€æœ‰TMathæ¶‰åŠåˆ°çš„åæ ‡ç³»,å‡ä»¥å·¦æ‰‹åæ ‡ç³»ä¸ºå‡†(Xå‘å³,Yå‘ä¸Š,Zå‘é‡Œ)
+2ã€æ‰€æœ‰å‘é‡ä¸ºæ¨ªå‘é‡,3Då‘é‡ç‚¹W=1,å°„çº¿W=0
+4ã€è§’åº¦å‡ä»¥é€†æ—¶é’ˆä¸ºæ­£,é»˜è®¤èŒƒå›´0-360åº¦,æ²¿åæ ‡è½´æ­£æ–¹å‘ä¸º0åº¦
+5ã€æ‰€æœ‰å¯¹å¤–æŽ¥å£çš„è§’åº¦å¿…é¡»ä½¿ç”¨è§’åº¦,åœ¨å†…éƒ¨è½¬æˆå¼§åº¦
+6ã€æ²¡æœ‰å‘é‡*çŸ©é˜µçš„ç›´æŽ¥é‡è½½,éœ€è¦è°ƒç”¨è½¬æ¢å‡½æ•°æ‰èƒ½è½¬æ¢å‘é‡
+7ã€çŸ©é˜µå¯¹å‘é‡çš„è½¬æ¢åœ¨TMatrix4x4<T>ä¸­
+8ã€å…¶å®ƒå›¾å…ƒçš„è½¬æ¢å‡æ”¾åœ¨è‡ªå·±çš„ç±»é‡Œå®žçŽ°
 
-ÄÚ´æ²¿·Ö
-TArray<T>:Ò»¸ö¿ÉÒÔ¶¯Ì¬Ìí¼ÓÔªËØµÄÊý×é
-THashtable<T>:Ò»¸ö<Key,Value>¶ÔµÄÁ´±í
-TList<T>:Ò»¸öË«ÏòÁ´±í
-×¢Òâ:½ñºóÔÚÉè¼Æµ½ÒÔÉÏÄÚ´æÊý¾Ý½á¹¹µÄÊ±ºò,¾¡Á¿Ê¹ÓÃÕâÐ©½á¹¹,»òÕßSTLµÄ½á¹¹,²»Òª×Ô¼ºÔÙÁíÍâ×ö´¦ÀíÁË
+å†…å­˜éƒ¨åˆ†
+TArray<T>:ä¸€ä¸ªå¯ä»¥åŠ¨æ€æ·»åŠ å…ƒç´ çš„æ•°ç»„
+THashtable<T>:ä¸€ä¸ª<Key,Value>å¯¹çš„é“¾è¡¨
+TList<T>:ä¸€ä¸ªåŒå‘é“¾è¡¨
+æ³¨æ„:ä»ŠåŽåœ¨è®¾è®¡åˆ°ä»¥ä¸Šå†…å­˜æ•°æ®ç»“æž„çš„æ—¶å€™,å°½é‡ä½¿ç”¨è¿™äº›ç»“æž„,æˆ–è€…STLçš„ç»“æž„,ä¸è¦è‡ªå·±å†å¦å¤–åšå¤„ç†äº†
 
-ÆäËü»ù±¾´¦Àí
-TConfigFile:¼òµ¥µÄÖµ¶ÔÎÄ¼þ²Ù×÷Àà
-TMemFile:ÄÚ´æÎÄ¼þÓ³Éä
-TLog:ÈÕÖ¾ÏµÍ³
-TTxtFileReader:ÓÃÓÚ¶ÁÈ¡TXTÎÄ±¾ÎÄ¼þµÄÊý¾Ý
-TDateTime:ÈÕÆÚÊ±¼ä²Ù×÷
-TAutoPtr<T>:ÖÇÄÜÖ¸Õë
-TString:×Ö·û´®Àà
-TSingleton<T>:µ¥ÀýÄ£Ê½,ÐèÒª×ÓÀà¼Ì³ÐÊ¹ÓÃ
-TCommonTypeDef.h -- ¶¨ÒåÒ»Ð©»ù±¾
-TSharePtr<T>£ºÒýÓÃ¼ÆÊýÖÇÄÜÖ¸Õë
-TMutex£º»¥³âÐÅºÅ
-TLock£º»¥³âËø
+å…¶å®ƒåŸºæœ¬å¤„ç†
+TConfigFile:ç®€å•çš„å€¼å¯¹æ–‡ä»¶æ“ä½œç±»
+TMemFile:å†…å­˜æ–‡ä»¶æ˜ å°„
+TLog:æ—¥å¿—ç³»ç»Ÿ
+TTxtFileReader:ç”¨äºŽè¯»å–TXTæ–‡æœ¬æ–‡ä»¶çš„æ•°æ®
+TDateTime:æ—¥æœŸæ—¶é—´æ“ä½œ
+TAutoPtr<T>:æ™ºèƒ½æŒ‡é’ˆ
+TString:å­—ç¬¦ä¸²ç±»
+TSingleton<T>:å•ä¾‹æ¨¡å¼,éœ€è¦å­ç±»ç»§æ‰¿ä½¿ç”¨
+TCommonTypeDef.h -- å®šä¹‰ä¸€äº›åŸºæœ¬
+TSharePtr<T>ï¼šå¼•ç”¨è®¡æ•°æ™ºèƒ½æŒ‡é’ˆ
+TMutexï¼šäº’æ–¥ä¿¡å·
+TLockï¼šäº’æ–¥é”
 
-¹ØÓÚÑ¹Ëõ
+å…³äºŽåŽ‹ç¼©
 Dependence:zlib,1.2.3
 Dependence:tbase
-TZip:Ñ¹ËõºÍ½âÑ¹ËõÏà¹Ø²Ù×÷
-TZipÑ¹ËõºóÎÄ¼þ¸ñÊ½:
-OrigSize<int> Ñ¹ËõÖ®Ç°µÄÎÄ¼þ×Ü´óÐ¡,ÓÃÓÚÖÆÔì»º³åÇø
--->FileNum<int> ÎÄ¼þ×ÜÊý
+TZip:åŽ‹ç¼©å’Œè§£åŽ‹ç¼©ç›¸å…³æ“ä½œ
+TZipåŽ‹ç¼©åŽæ–‡ä»¶æ ¼å¼:
+OrigSize<int> åŽ‹ç¼©ä¹‹å‰çš„æ–‡ä»¶æ€»å¤§å°,ç”¨äºŽåˆ¶é€ ç¼“å†²åŒº
+-->FileNum<int> æ–‡ä»¶æ€»æ•°
 {
--->NameSize<int> ÎÄ¼þÃû³¤¶È
--->Name<char[]> ÎÄ¼þÃû(²»°üÀ¨Ô­Ê¼Â·¾¶)
--->ContentSize<int> ÄÚÈÝ´óÐ¡(×Ö½Ú)
--->Content<byte[]> ÎÄ¼þÄÚÈÝ
+-->NameSize<int> æ–‡ä»¶åé•¿åº¦
+-->Name<char[]> æ–‡ä»¶å(ä¸åŒ…æ‹¬åŽŸå§‹è·¯å¾„)
+-->ContentSize<int> å†…å®¹å¤§å°(å­—èŠ‚)
+-->Content<byte[]> æ–‡ä»¶å†…å®¹
 }
-×¢:-->±íÊ¾ÊÇÑ¹ËõÖ®ºóµÄÊý¾Ý,<>±íÊ¾¿Õ¼ä´óÐ¡
+æ³¨:-->è¡¨ç¤ºæ˜¯åŽ‹ç¼©ä¹‹åŽçš„æ•°æ®,<>è¡¨ç¤ºç©ºé—´å¤§å°
 
-lua½Å±¾²¿·Ö
+luaè„šæœ¬éƒ¨åˆ†
 Dependence:lua,5.1
-TLuaBase:Lua½Å±¾½âÎö»ù´¡Àà
+TLuaBase:Luaè„šæœ¬è§£æžåŸºç¡€ç±»
 
-XML²¿·Ö
+XMLéƒ¨åˆ†
 Dependence:Xerces,3.1.0
-TXMLBase:XML×ÛºÏ´¦Àí
+TXMLBase:XMLç»¼åˆå¤„ç†
 
-ÒýÇæÂß¼­²¿·Ö
-_DEVICECONFIG -- D3D³õÊ¼»¯ÓÃ½á¹¹Ìå
-TD3D10Dev -- ¶ÔÓ¦D3D10µÄÉè±¸½Ó¿Ú¼°Ö÷Òªº¯Êý
-TD3DObject -- ¶ÔÓ¦D3D10ÖÐµÄÏà¹Ø½Ó¿Ú£¬Ã¿Ò»¸öÎïÌå¶ÔÓ¦Ò»¸ö
-GlobleFunc.h -- Ìá¹©È«¾Ö¶ÔÍâ½Ó¿Ú
-TLGUIDefine.h -- ¶¨ÒåGUIÏà¹Ø
-TLTriangle -- ²âÊÔÓÃÈý½ÇÐÎ
-TLResMgr -- ×ÊÔ´¼ÓÔØÊÍ·Å¹ÜÀí
-TLIResObject -- ×ÊÔ´ÎïÌå£¬ÎïÌå¹«¹²½Ó¿Ú
-TLLoopCtrl -- Ê±¼ä¿ØÖÆÀà
-TLGUIFont -- ×ÖÌåÀà
-TLGUIFontManager -- ×ÖÌå¹ÜÀíÀà£¬Í³Ò»×ÖÌå¶ÔÍâ½Ó¿Ú
-TLGUITextureMgr -- UIÎÆÀí¹ÜÀíÀà£¬¸ºÔðÎÆÀíäÖÈ¾
-TLGUIMgr -- UI¿Ø¼þÍ³Ò»¹ÜÀí
-TLGUIContainer -- UIÈÝÆ÷Àà
-TLGUICtrl -- UI¿Ø¼þÀà
-TLGUIPicture -- Í¼Æ¬Àà¿Ø¼þ
-TLGUIText -- ÎÄ×ÖÀà¿Ø¼þ
-TLGlobleClass -- ´æ´¢È«¾Ö±äÁ¿ºÍ·½·¨
-TLIGUIListener -- ÏûÏ¢´«µÝ½Ó¿Ú£¬Ö»Ìá¹©º¯Êý¶¨Òå
-KeyCodeDef.h -- ¶¨ÒåÐéÄâ¼üÖµ
-TLInputMsgMgr -- Í³Ò»½ÓÊÜGameInput´«¹ýÀ´µÄÏûÏ¢
-TTimer -- Ê±¼ä¼ÆËã
-TLImage -- ´¦ÀíÎÆÀíÀà
+å¼•æ“Žé€»è¾‘éƒ¨åˆ†
+_DEVICECONFIG -- D3Dåˆå§‹åŒ–ç”¨ç»“æž„ä½“
+TD3D10Dev -- å¯¹åº”D3D10çš„è®¾å¤‡æŽ¥å£åŠä¸»è¦å‡½æ•°
+TD3DObject -- å¯¹åº”D3D10ä¸­çš„ç›¸å…³æŽ¥å£ï¼Œæ¯ä¸€ä¸ªç‰©ä½“å¯¹åº”ä¸€ä¸ª
+GlobleFunc.h -- æä¾›å…¨å±€å¯¹å¤–æŽ¥å£
+TLGUIDefine.h -- å®šä¹‰GUIç›¸å…³
+TLTriangle -- æµ‹è¯•ç”¨ä¸‰è§’å½¢
+TLResMgr -- èµ„æºåŠ è½½é‡Šæ”¾ç®¡ç†
+TLIResObject -- èµ„æºç‰©ä½“ï¼Œç‰©ä½“å…¬å…±æŽ¥å£
+TLLoopCtrl -- æ—¶é—´æŽ§åˆ¶ç±»
+TLGUIFont -- å­—ä½“ç±»
+TLGUIFontManager -- å­—ä½“ç®¡ç†ç±»ï¼Œç»Ÿä¸€å­—ä½“å¯¹å¤–æŽ¥å£
+TLGUITextureMgr -- UIçº¹ç†ç®¡ç†ç±»ï¼Œè´Ÿè´£çº¹ç†æ¸²æŸ“
+TLGUIMgr -- UIæŽ§ä»¶ç»Ÿä¸€ç®¡ç†
+TLGUIContainer -- UIå®¹å™¨ç±»
+TLGUICtrl -- UIæŽ§ä»¶ç±»
+TLGUIPicture -- å›¾ç‰‡ç±»æŽ§ä»¶
+TLGUIText -- æ–‡å­—ç±»æŽ§ä»¶
+TLGlobleClass -- å­˜å‚¨å…¨å±€å˜é‡å’Œæ–¹æ³•
+TLIGUIListener -- æ¶ˆæ¯ä¼ é€’æŽ¥å£ï¼Œåªæä¾›å‡½æ•°å®šä¹‰
+KeyCodeDef.h -- å®šä¹‰è™šæ‹Ÿé”®å€¼
+TLInputMsgMgr -- ç»Ÿä¸€æŽ¥å—GameInputä¼ è¿‡æ¥çš„æ¶ˆæ¯
+TTimer -- æ—¶é—´è®¡ç®—
+TLImage -- å¤„ç†çº¹ç†ç±»
 
-äÖÈ¾²¿·Ö
-TLRenderMgr -- ¸ºÔðÍ³Ò»¹ÜÀíäÖÈ¾Æ÷
-TLIRenderDevice -- äÖÈ¾Æ÷½Ó¿Ú
-TLIRenderDeviceUsed -- °üÀ¨×Ó½Ó¿Ú£¬ÓÃÓÚ´¦Àí¸÷ÖÖäÖÈ¾Ó²¼þÊ¹ÓÃµÄ¶«Î÷
-TLRenderDevice_D3D11 -- D3D11ÊµÏÖµÄäÖÈ¾Æ÷
-TLRender...äÖÈ¾Ê¹ÓÃµÄÈ«²¿½Ó¿Ú
+æ¸²æŸ“éƒ¨åˆ†
+TLRenderMgr -- è´Ÿè´£ç»Ÿä¸€ç®¡ç†æ¸²æŸ“å™¨
+TLIRenderDevice -- æ¸²æŸ“å™¨æŽ¥å£
+TLIRenderDeviceUsed -- åŒ…æ‹¬å­æŽ¥å£ï¼Œç”¨äºŽå¤„ç†å„ç§æ¸²æŸ“ç¡¬ä»¶ä½¿ç”¨çš„ä¸œè¥¿
+TLRenderDevice_D3D11 -- D3D11å®žçŽ°çš„æ¸²æŸ“å™¨
+TLRender...æ¸²æŸ“ä½¿ç”¨çš„å…¨éƒ¨æŽ¥å£
 
-LunaEditorÏîÄ¿£º
-±à¼­Æ÷¹¤³Ì
-EditorFunc -- Èë¿Ú
-TLEditorMgr -- Í³Ò»¹ÜÀíÀà
-TLEditorMainFrame -- Ö÷´°¿Ú
-TLEditorApp -- wxµÄÈë¿Ú
+LunaEditoré¡¹ç›®ï¼š
+ç¼–è¾‘å™¨å·¥ç¨‹
+EditorFunc -- å…¥å£
+TLEditorMgr -- ç»Ÿä¸€ç®¡ç†ç±»
+TLEditorMainFrame -- ä¸»çª—å£
+TLEditorApp -- wxçš„å…¥å£
 
-EngineDemoÏîÄ¿£º
-TGameInput -- Ê¹ÓÃDInput·â×°½Ó¿Ú£¬´¦Àí¼üÅÌ£¬Êó±ê£¬ÊÖ±úÊäÈë
-GameFunc.h -- È«¾Öº¯Êý
-_INITPARAM -- ³õÊ¼»¯Êý¾Ý
-_MAINWNDCONFIG -- Ö÷´°¿Ú³õÊ¼»¯½á¹¹Ìå
-TLGUISceneDef.h -- GUI³¡¾°ÐèÒªÓÃµ½µÄ¶¨Òå
-CLuaInit -- ³õÊ¼»¯½Å±¾½Ó¿Ú
-TLMainWindow -- Ö÷´°¿Ú
-TLIGUIScene -- GUI³¡¾°Àà£¬ÐèÒªÉÏ²ãÅÉÉú
-TLGUISceneMgr -- GUI³¡¾°¹ÜÀí
-TStartGUIScene -- ÓÎÏ·Èë¿ÚGUI
-TGameUIListener -- ÉÏ²ã¼àÌýUIÏûÏ¢µÄÀà£¬È«¾ÖÎ¨Ò»ÊµÀý
+EngineDemoé¡¹ç›®ï¼š
+TGameInput -- ä½¿ç”¨DInputå°è£…æŽ¥å£ï¼Œå¤„ç†é”®ç›˜ï¼Œé¼ æ ‡ï¼Œæ‰‹æŸ„è¾“å…¥
+GameFunc.h -- å…¨å±€å‡½æ•°
+_INITPARAM -- åˆå§‹åŒ–æ•°æ®
+_MAINWNDCONFIG -- ä¸»çª—å£åˆå§‹åŒ–ç»“æž„ä½“
+TLGUISceneDef.h -- GUIåœºæ™¯éœ€è¦ç”¨åˆ°çš„å®šä¹‰
+CLuaInit -- åˆå§‹åŒ–è„šæœ¬æŽ¥å£
+TLMainWindow -- ä¸»çª—å£
+TLIGUIScene -- GUIåœºæ™¯ç±»ï¼Œéœ€è¦ä¸Šå±‚æ´¾ç”Ÿ
+TLGUISceneMgr -- GUIåœºæ™¯ç®¡ç†
+TStartGUIScene -- æ¸¸æˆå…¥å£GUI
+TGameUIListener -- ä¸Šå±‚ç›‘å¬UIæ¶ˆæ¯çš„ç±»ï¼Œå…¨å±€å”¯ä¸€å®žä¾‹
 
-ExampleEditorÏîÄ¿£º
-Æô¶¯±à¼­Æ÷
+ExampleEditoré¡¹ç›®ï¼š
+å¯åŠ¨ç¼–è¾‘å™¨
 
-====================== Ä¿Â¼ËµÃ÷ =====================================================
-ÎÄ¼þË÷Òý£º
-demores -- TLuna ÐÂ°æÒýÇæDEMOÓÃ×ÊÔ´
-doc -- ¿ª·¢ÏîÄ¿Ïà¹ØÎÄµµ
-lunaengine -- TLuna ÐÂ°æÒýÇæÏà¹Ø´úÂë
-bin -- Éú³ÉÄ¿Â¼
-lib -- ÒÀÀµ¿âÉú³ÉÄ¿Â¼
-Intermediate -- ÖÐ¼äÎÄ¼þÄ¿Â¼
+====================== ç›®å½•è¯´æ˜Ž =====================================================
+æ–‡ä»¶ç´¢å¼•ï¼š
+demores -- TLuna æ–°ç‰ˆå¼•æ“ŽDEMOç”¨èµ„æº
+doc -- å¼€å‘é¡¹ç›®ç›¸å…³æ–‡æ¡£
+lunaengine -- TLuna æ–°ç‰ˆå¼•æ“Žç›¸å…³ä»£ç 
+bin -- ç”Ÿæˆç›®å½•
+lib -- ä¾èµ–åº“ç”Ÿæˆç›®å½•
+Intermediate -- ä¸­é—´æ–‡ä»¶ç›®å½•
 
-demores£ºÐèÒªÔÚÅäÖÃÎÄ¼þÀïÃæÐ´ºÃ´ËÎÄ¼þ¼ÐµØÖ·£¬±íÊ¾×ÊÔ´¸ùÄ¿Â¼
-config£º¸÷ÖÖÅäÖÃÎÄ¼þ
-gui£ºUIÏà¹ØÎÄ¼þ
-script£ºLUA½Å±¾
-shader£ºHLSL EFFECTÎÄ¼þ
-texture£ºÎÆÀíÎÄ¼þ
-model£ºÄ£ÐÍÎÄ¼þ
-map£ºµØÍ¼ÎÄ¼þ
+demoresï¼šéœ€è¦åœ¨é…ç½®æ–‡ä»¶é‡Œé¢å†™å¥½æ­¤æ–‡ä»¶å¤¹åœ°å€ï¼Œè¡¨ç¤ºèµ„æºæ ¹ç›®å½•
+configï¼šå„ç§é…ç½®æ–‡ä»¶
+guiï¼šUIç›¸å…³æ–‡ä»¶
+scriptï¼šLUAè„šæœ¬
+shaderï¼šHLSL EFFECTæ–‡ä»¶
+textureï¼šçº¹ç†æ–‡ä»¶
+modelï¼šæ¨¡åž‹æ–‡ä»¶
+mapï¼šåœ°å›¾æ–‡ä»¶
 
-====================== ²âÊÔÊý¾Ý =====================================================
-pentium D 2.0GHz  7300GT  ×î¸ß¾¡200fps		ÅË
-athlon 64 x2 2.0GHz  7300LE ×î¸ß¾¡70fps		Ê±
-athlon 64 x2 2.0GHz  x1950Pro ×î¸ß¾¡500fps	¼Ò
-pentium D 3.0GHz  GMA3000  ×î¸ß¾¡70fps		×Ô
+====================== æµ‹è¯•æ•°æ® =====================================================
+pentium D 2.0GHz  7300GT  æœ€é«˜å°½200fps		æ½˜
+athlon 64 x2 2.0GHz  7300LE æœ€é«˜å°½70fps		æ—¶
+athlon 64 x2 2.0GHz  x1950Pro æœ€é«˜å°½500fps	å®¶
+pentium D 3.0GHz  GMA3000  æœ€é«˜å°½70fps		è‡ª
 
-½áÂÛ
-CPUµÄÐÔÄÜ²»ÊÇ×î¹Ø¼üµÄ£¬µ«»¹ÊÇÓÐÒ»¶¨×÷ÓÃ£¬¿ÉÒÔ¿´³öa64x2 2.0G ºÍ pD 3.0G µÄÐÔÄÜÏàµ±
-GPUµÄÐÔÄÜÊÇ¹Ø¼ü£¬Ö÷Òª²î±ðÊÇÏÔ´æÎ»¿í£¬äÖÈ¾¹ÜÏßµÄÊýÁ¿£¬¿ÉÒÔ¿´³ö7300LE ºÍ GMA3000 µÄÐÔÄÜÏàµ±£¬ºóÕßÊÇÒ»¿î¼¯³ÉÏÔ¿¨
+ç»“è®º
+CPUçš„æ€§èƒ½ä¸æ˜¯æœ€å…³é”®çš„ï¼Œä½†è¿˜æ˜¯æœ‰ä¸€å®šä½œç”¨ï¼Œå¯ä»¥çœ‹å‡ºa64x2 2.0G å’Œ pD 3.0G çš„æ€§èƒ½ç›¸å½“
+GPUçš„æ€§èƒ½æ˜¯å…³é”®ï¼Œä¸»è¦å·®åˆ«æ˜¯æ˜¾å­˜ä½å®½ï¼Œæ¸²æŸ“ç®¡çº¿çš„æ•°é‡ï¼Œå¯ä»¥çœ‹å‡º7300LE å’Œ GMA3000 çš„æ€§èƒ½ç›¸å½“ï¼ŒåŽè€…æ˜¯ä¸€æ¬¾é›†æˆæ˜¾å¡

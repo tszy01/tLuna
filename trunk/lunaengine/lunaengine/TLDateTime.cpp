@@ -45,7 +45,7 @@ namespace TLunaEngine{
 	void DateTime::AddOneDay()
 	{
 		int newDay = m_Day + 1;
-		bool bRun = m_Year % 4 == 0 && m_Year % 100 !=0 || m_Year % 400 ==0; //ÈòÄê¿ÉÒÔ±»4»òÕß400Õû³ı µ«ÊÇ²»ÄÜ±»100Õû³ı
+		bool bRun = m_Year % 4 == 0 && m_Year % 100 !=0 || m_Year % 400 ==0; //é—°å¹´å¯ä»¥è¢«4æˆ–è€…400æ•´é™¤ ä½†æ˜¯ä¸èƒ½è¢«100æ•´é™¤
 		bool bAddMonth = false;
 		if(m_Month==2)
 		{
@@ -92,7 +92,7 @@ namespace TLunaEngine{
 	void DateTime::SubOneDay()
 	{
 		int newDay = m_Day - 1;
-		bool bRun = m_Year % 4 == 0 && m_Year % 100 !=0 || m_Year % 400 ==0; //ÈòÄê¿ÉÒÔ±»4»òÕß400Õû³ı µ«ÊÇ²»ÄÜ±»100Õû³ı
+		bool bRun = m_Year % 4 == 0 && m_Year % 100 !=0 || m_Year % 400 ==0; //é—°å¹´å¯ä»¥è¢«4æˆ–è€…400æ•´é™¤ ä½†æ˜¯ä¸èƒ½è¢«100æ•´é™¤
 		bool bSubMonth = false;
 		if(newDay<=0)
 			bSubMonth = true;
@@ -154,27 +154,27 @@ namespace TLunaEngine{
 		switch(dow)
 		{
 		case 0:
-			return String("ĞÇÆÚÒ»");
+			return String("MON");
 		case 1:
-			return String("ĞÇÆÚ¶ş");
+			return String("TUE");
 		case 2:
-			return String("ĞÇÆÚÈı");
+			return String("WED");
 		case 3:
-			return String("ĞÇÆÚËÄ");
+			return String("THU");
 		case 4:
-			return String("ĞÇÆÚÎå");
+			return String("FRI");
 		case 5:
-			return String("ĞÇÆÚÁù");
+			return String("SET");
 		case 6:
-			return String("ĞÇÆÚÈÕ");
+			return String("SUN");
 		}
-		return String("´íÎó");
+		return String("ERROR");
 	}
 
 	String DateTime::GetDateString()
 	{
 		String strRe;
-		strRe.Format("%dÄê%dÔÂ%dÈÕ",m_Year,m_Month,m_Day);
+		strRe.Format("%d - %d - %d",m_Year,m_Month,m_Day);
 		return strRe;
 	}
 

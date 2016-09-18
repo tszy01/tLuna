@@ -11,7 +11,7 @@
 namespace TLunaEngine{
 
 	/*
-	 *	UI¹ÜÀíÀà
+	 *	UIç®¡ç†ç±»
 	 */
 	class GUIMgr : public Singleton<GUIMgr>, public GUIListener
 	{
@@ -20,10 +20,10 @@ namespace TLunaEngine{
 		GUIMgr(void);
 		~GUIMgr(void);
 	private:
-		GUIContainer* m_pRootContainer;	// ¸úÈİÆ÷£¬ÀïÃæ²»Òª·Å¿Ø¼ş
-		GUIListener* m_pSceneListener;	// ÉÏ²ã½ÓÊÕÆ÷µÄÖ¸Õë
+		GUIContainer* m_pRootContainer;	// è·Ÿå®¹å™¨ï¼Œé‡Œé¢ä¸è¦æ”¾æ§ä»¶
+		GUIListener* m_pSceneListener;	// ä¸Šå±‚æ¥æ”¶å™¨çš„æŒ‡é’ˆ
 	public:
-		// -------- ·½·¨ --------------
+		// -------- æ–¹æ³• --------------
 		inline GUIContainer* GetRootContainer()
 		{
 			return m_pRootContainer;
@@ -32,7 +32,7 @@ namespace TLunaEngine{
 		{
 			m_pRootContainer = pContainer;
 		}
-		// ¸ù¾İIDÕÒµ½ÈİÆ÷
+		// æ ¹æ®IDæ‰¾åˆ°å®¹å™¨
 		inline GUIContainer* FindContainer(int iID)
 		{
 			if (m_pRootContainer)
@@ -41,7 +41,7 @@ namespace TLunaEngine{
 			}
 			return TNULL;
 		}
-		// Ïú»Ù
+		// é”€æ¯
 		inline void DestroyRootContainer()
 		{
 			if (m_pRootContainer)
@@ -50,7 +50,7 @@ namespace TLunaEngine{
 				m_pRootContainer = 0;
 			}
 		}
-		// Ö¡¸üĞÂ
+		// å¸§æ›´æ–°
 		inline void Update(float fTimeElapsed)
 		{
 			if (m_pRootContainer)
@@ -58,7 +58,7 @@ namespace TLunaEngine{
 				m_pRootContainer->Update(fTimeElapsed);
 			}
 		}
-		// Ö¡äÖÈ¾
+		// å¸§æ¸²æŸ“
 		inline void Render(float fTimeElapsed)
 		{
 			if (m_pRootContainer)
@@ -66,24 +66,24 @@ namespace TLunaEngine{
 				m_pRootContainer->Render(fTimeElapsed);
 			}
 		}
-		// ´ÓÎÄ¼ş¼ÓÔØ
+		// ä»æ–‡ä»¶åŠ è½½
 		bool LoadFromFile(const char* file);
-		// ÉèÖÃÉÏ²ã½ÓÊÕÆ÷
+		// è®¾ç½®ä¸Šå±‚æ¥æ”¶å™¨
 		inline void SetSceneListener(GUIListener* pListener)
 		{
 			m_pSceneListener = pListener;
 		}
 	private:
-		// ¼ÓÔØ·½·¨
-		// ¼ÓÔØContainer
+		// åŠ è½½æ–¹æ³•
+		// åŠ è½½Container
 		bool LoadContainer(FILE* stream,GUIContainer* pParentContainer,GUIContainer** ppContainer);
-		// ¼ÓÔØCtrl
+		// åŠ è½½Ctrl
 		bool LoadCtrl(FILE* stream,GUIContainer* pParentContainer,GUICtrl** ppCtrl);
-		// ¼ÓÔØ¶¯»­
+		// åŠ è½½åŠ¨ç”»
 		bool LoadAnime(FILE* stream,GUIContainer* pNewContainer,TUByte yAnimeType);
 	public:
-		// ------------- ÒÔÏÂÖØĞ´GUIListener -------------------
-		// ¶¯»­²¥·ÅÍê±Ï·¢ËÍ
+		// ------------- ä»¥ä¸‹é‡å†™GUIListener -------------------
+		// åŠ¨ç”»æ’­æ”¾å®Œæ¯•å‘é€
 		virtual void OnAnimePlayedOver(int iContainerID,TUByte yAnimeType)
 		{
 			if (m_pSceneListener)

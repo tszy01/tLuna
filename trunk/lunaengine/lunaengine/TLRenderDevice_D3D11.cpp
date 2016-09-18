@@ -1085,7 +1085,7 @@ namespace TLunaEngine {
 				data.pSysMem = pInitData->pSysMem;
 			}
 
-			// ¹¹Ôì
+			// æž„é€ 
 			ID3D11Buffer* pBuffer;
 			HRESULT hr = m_pd3dDevice->CreateBuffer( &bd, pInitData ? &data : TNULL, &pBuffer );
 			if( FAILED( hr ) )
@@ -1145,7 +1145,7 @@ namespace TLunaEngine {
 				}
 			}
 
-			// ¹¹Ôì
+			// æž„é€ 
 			ID3D11Texture1D* d3dTex;
 			HRESULT hr = m_pd3dDevice->CreateTexture1D(&desc,pInitData?data:0,&d3dTex);
 			if(data)
@@ -1218,7 +1218,7 @@ namespace TLunaEngine {
 				}
 			}
 
-			// ¹¹Ôì
+			// æž„é€ 
 			ID3D11Texture2D* d3dTex;
 			HRESULT hr = m_pd3dDevice->CreateTexture2D(&desc,pInitData?data:0,&d3dTex);
 			if(data)
@@ -1284,7 +1284,7 @@ namespace TLunaEngine {
 				}
 			}
 
-			// ¹¹Ôì
+			// æž„é€ 
 			ID3D11Texture3D* d3dTex;
 			HRESULT hr = m_pd3dDevice->CreateTexture3D(&desc,pInitData?data:0,&d3dTex);
 			if(data)

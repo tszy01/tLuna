@@ -9,7 +9,7 @@
 
 namespace TLunaEngine{
 
-	// ÉùÃ÷Ä£°å
+	// å£°æ˜æ¨¡æ¿
 	template class Vector4<float>;
 	class RenderDeviceUsedBuffer;
 	class RenderDeviceUsedSRV;
@@ -22,7 +22,7 @@ namespace TLunaEngine{
 	class RenderDeviceUsedInputLayout;
 
 	/*
-	 *	¸ºÔğÎ¬»¤ËùÓĞµÄ×ÖÌå£¬²¢´¦ÀíÍ³Ò»äÖÈ¾
+	 *	è´Ÿè´£ç»´æŠ¤æ‰€æœ‰çš„å­—ä½“ï¼Œå¹¶å¤„ç†ç»Ÿä¸€æ¸²æŸ“
 	 */
 	class GUIFontManager : public Singleton<GUIFontManager>
 	{
@@ -39,19 +39,19 @@ namespace TLunaEngine{
 		RenderDeviceUsedBlendState* mBlendState;
 		RenderDeviceUsedSamplerState* mSamplerState;
 		RenderDeviceUsedInputLayout* mInputLayout;
-		GUIFont* m_pUseFont;	// µ±Ç°Ê¹ÓÃµÄ×ÖÌå
-		GUIFont* m_pDebugFont;	// µ÷ÊÔÊ¹ÓÃ×ÖÌå
-		std::map<int,GUIFont*> m_FontTable;	// ×ÖÌåÁĞ±í
-		TU32 m_bufferWidth;	// ºó»º³å¿í
-		TU32 m_bufferHeight;// ºó»º³å¸ß
-		wchar_t* m_pRenderText;	// äÖÈ¾Ê±µÄÄÚÈİ
-		int m_nRenderTextLen;	// äÖÈ¾Ê±µÄÄÚÈİµÄ³¤¶È
+		GUIFont* m_pUseFont;	// å½“å‰ä½¿ç”¨çš„å­—ä½“
+		GUIFont* m_pDebugFont;	// è°ƒè¯•ä½¿ç”¨å­—ä½“
+		std::map<int,GUIFont*> m_FontTable;	// å­—ä½“åˆ—è¡¨
+		TU32 m_bufferWidth;	// åç¼“å†²å®½
+		TU32 m_bufferHeight;// åç¼“å†²é«˜
+		wchar_t* m_pRenderText;	// æ¸²æŸ“æ—¶çš„å†…å®¹
+		int m_nRenderTextLen;	// æ¸²æŸ“æ—¶çš„å†…å®¹çš„é•¿åº¦
 		FT_Library	library;
 	public:
-		// ÉèÖÃµ±Ç°Ê¹ÓÃ×ÖÌå
+		// è®¾ç½®å½“å‰ä½¿ç”¨å­—ä½“
 		inline void UseFont(int id)
 		{
-			// Èç¹ûÏÖÔÚÊ¹ÓÃµÄ¾ÍÊÇµ±Ç°×ÖÌå¾Í²»ÔÙÉèÖÃÁË
+			// å¦‚æœç°åœ¨ä½¿ç”¨çš„å°±æ˜¯å½“å‰å­—ä½“å°±ä¸å†è®¾ç½®äº†
 			if (m_pUseFont)
 			{
 				if (m_pUseFont->GetId() == id)
@@ -66,24 +66,24 @@ namespace TLunaEngine{
 				m_pUseFont = itr->second;
 			}
 		}
-		// Ìí¼ÓĞÂ×ÖÌå
+		// æ·»åŠ æ–°å­—ä½“
 		int AddFont(const char* filename,TU32 size,TU32 texPageSize,int id);
-		// ´ÓÎÄ¼şÌí¼Ó×ÖÌå
+		// ä»æ–‡ä»¶æ·»åŠ å­—ä½“
 		bool AddFontFromFile(const char* filename);
-		// äÖÈ¾ÎÄ×Ö
+		// æ¸²æŸ“æ–‡å­—
 		bool Render(const char* text,size_t len, int x,int y, Vector4<float>& color);
-		// ³õÊ¼»¯
+		// åˆå§‹åŒ–
 		bool Init(const char* effectFile,TU32 bufferWidth,TU32 bufferHeight);
-		// Ïú»ÙËùÓĞ
+		// é”€æ¯æ‰€æœ‰
 		void DestroyAllFont();
-		// ³õÊ¼»¯µ÷ÊÔ×ÖÌå
+		// åˆå§‹åŒ–è°ƒè¯•å­—ä½“
 		bool initDebugFont(const char* filename, TU32 size, TU32 texPageSize);
-		// Ïú»Ùµ÷ÊÔ×ÖÌå
+		// é”€æ¯è°ƒè¯•å­—ä½“
 		void deleteDebugFont();
-		// äÖÈ¾µ÷ÊÔ×ÖÌå
+		// æ¸²æŸ“è°ƒè¯•å­—ä½“
 		bool RenderDebugFont(const char* text, size_t len, int x, int y, Vector4<float>& color);
 	private:
-		// ¶ÁÈ¡ÎÄ¼ş¼ÓÔØ×Ö¿â
+		// è¯»å–æ–‡ä»¶åŠ è½½å­—åº“
 		bool LoadFont(FILE* stream);
 	};
 

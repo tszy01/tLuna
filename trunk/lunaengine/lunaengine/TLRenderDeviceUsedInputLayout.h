@@ -5,7 +5,7 @@
 
 namespace TLunaEngine
 {
-	// InputLayout½Ó¿Ú
+	// InputLayoutæ¥å£
 	class RenderDeviceUsedInputLayout : public RenderDeviceUsed
 	{
 	public:

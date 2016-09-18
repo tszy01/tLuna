@@ -1,9 +1,9 @@
 #ifndef _TLCONFIGFILE_H_
 #define _TLCONFIGFILE_H_
 
-// ÎÄ¼ş´¦ÀíÀà£¬ÓÃÓÚ´¦ÀíÒÔÏÂÀàĞÍÎÄ¼ş
+// æ–‡ä»¶å¤„ç†ç±»ï¼Œç”¨äºå¤„ç†ä»¥ä¸‹ç±»å‹æ–‡ä»¶
 // Name=Value
-// ²»ÄÜ¿Õ¸ñ£¬²»ÄÜ»»ĞĞ
+// ä¸èƒ½ç©ºæ ¼ï¼Œä¸èƒ½æ¢è¡Œ
 
 #include <list>
 
@@ -26,7 +26,7 @@ namespace TLunaEngine{
 	public:
 		~ConfigFile(void);
 	public:
-		// ´ò¿ª·½Ê½Ã¶¾Ù
+		// æ‰“å¼€æ–¹å¼æšä¸¾
 		enum OPEN_FILE_TYPE
 		{
 			OPEN_NONE,
@@ -35,27 +35,27 @@ namespace TLunaEngine{
 			OPEN_WRITE_AND_READ,
 		};
 	protected:
-		// ÎÄ¼şÖ¸Õë
+		// æ–‡ä»¶æŒ‡é’ˆ
 		FILE* m_stream;
-		// ÏÖÔÚÊÇ²»ÊÇÒÑ¾­¼ÓÔØÁËÎÄ¼ş
+		// ç°åœ¨æ˜¯ä¸æ˜¯å·²ç»åŠ è½½äº†æ–‡ä»¶
 		bool m_bOpen;
-		// ±£´æËùÓĞ¼üÖµ¶Ô
+		// ä¿å­˜æ‰€æœ‰é”®å€¼å¯¹
 		StrList m_list;
-		// ´ò¿ªµÄ·½Ê½
+		// æ‰“å¼€çš„æ–¹å¼
 		OPEN_FILE_TYPE m_openType;
-		// ±£´æÎÄ¼şÃû
+		// ä¿å­˜æ–‡ä»¶å
 		char m_szFileName[256];
 	protected:
-		// ´ÓÎÄ¼ş¼ÓÔØparaºÍvalue
+		// ä»æ–‡ä»¶åŠ è½½paraå’Œvalue
 		bool LoadFromFile();
 	public:
-		// ´ò¿ª²¢¼ÓÔØÎÄ¼ş
+		// æ‰“å¼€å¹¶åŠ è½½æ–‡ä»¶
 		bool OpenFile(const char* file,OPEN_FILE_TYPE type);
-		// ¹Ø±ÕÎÄ¼ş
+		// å…³é—­æ–‡ä»¶
 		void CloseFile();
-		// ¸üĞÂĞŞ¸ÄÖ®ºóµÄÖµµ½ÎÄ¼ş
+		// æ›´æ–°ä¿®æ”¹ä¹‹åçš„å€¼åˆ°æ–‡ä»¶
 		bool UpdateFile(); 
-		// µÃµ½Ä³¸öÖµ
+		// å¾—åˆ°æŸä¸ªå€¼
 		void GetParameter(const char* paraName, String* pBuf);
 		inline int GetParameterAsInt(const char* paraName)
 		{
@@ -99,7 +99,7 @@ namespace TLunaEngine{
 			GetParameter(paraName,&strTmp);
 			return strTmp.GetStringAsBool();
 		}
-		// ÔÚÄÚ´æÖĞĞŞ¸ÄÄ³¸öÖµ
+		// åœ¨å†…å­˜ä¸­ä¿®æ”¹æŸä¸ªå€¼
 		void ChangeParameter(const char* paraName, const String* pBuf);
 		inline void ChangeParameter(const char* paraName, int value)
 		{
@@ -140,7 +140,7 @@ namespace TLunaEngine{
 			else
 				ChangeParameter(paraName,1);
 		}
-		// Ìí¼ÓÒ»×é
+		// æ·»åŠ ä¸€ç»„
 		void AddParameter(const char* paraName, const String* pBuf);
 		inline void AddParameter(const char* paraName, int value)
 		{
@@ -181,9 +181,9 @@ namespace TLunaEngine{
 			else
 				AddParameter(paraName,1);
 		}
-		// ÕÒµ½Ãû×Ö
+		// æ‰¾åˆ°åå­—
 		bool FindParameter(const char* paraName, int* pIndex);
-		// µÃµ½ListµÄ¸öÊı
+		// å¾—åˆ°Listçš„ä¸ªæ•°
 		inline int GetListNum(){return (int)m_list.size();}
 	};
 

@@ -12,8 +12,8 @@ extern "C"{
 
 namespace TLunaEngine{
 
-	// LuaÉÏ²ã·â×°Àà,¼Ì³Ð±¾Àà,´¦ÀíÌØ¶¨µÄ½Å±¾
-	// Éæ¼°µ½µÄlua»ù´¡¿âÒÔ¼°luabind¿âµÄº¯Êý,ÍÆ¼öÖ±½ÓÊ¹ÓÃ¿âº¯Êý
+	// Luaä¸Šå±‚å°è£…ç±»,ç»§æ‰¿æœ¬ç±»,å¤„ç†ç‰¹å®šçš„è„šæœ¬
+	// æ¶‰åŠåˆ°çš„luaåŸºç¡€åº“ä»¥åŠluabindåº“çš„å‡½æ•°,æŽ¨èç›´æŽ¥ä½¿ç”¨åº“å‡½æ•°
 
 	class LuaBase
 	{
@@ -23,23 +23,23 @@ namespace TLunaEngine{
 		virtual ~LuaBase(void);
 
 	protected:
-		// ³ÉÔ±±äÁ¿
+		// æˆå‘˜å˜é‡
 		lua_State *m_state;			// lua state
 	public:
-		// ³ÉÔ±·½·¨
+		// æˆå‘˜æ–¹æ³•
 		bool InitLuaBase(const char *luaFile);
 		void SetVariable(char *varName);
 		void GetVariable(char *varName);
 		void CloseLuaBase();
 		void Pop(int n);
-		// C++µ÷ÓÃluaº¯Êý
-		// Èç¹ûÊÇÓÃlua»ù±¾¿âµ÷ÓÃ£¬ÇëÊ¹ÓÃ±¾º¯Êý£¬²¢ÇÒÔÚµ÷ÓÃÖ®ºóÐèÒªpop³öN¸ö·µ»ØÖµ
+		// C++è°ƒç”¨luaå‡½æ•°
+		// å¦‚æžœæ˜¯ç”¨luaåŸºæœ¬åº“è°ƒç”¨ï¼Œè¯·ä½¿ç”¨æœ¬å‡½æ•°ï¼Œå¹¶ä¸”åœ¨è°ƒç”¨ä¹‹åŽéœ€è¦popå‡ºNä¸ªè¿”å›žå€¼
 		bool CallFunction(int nargs,int nresults);
 		inline lua_State* GetState(){return m_state;}
 
 	protected:
 
-		// ---------------------------- À©Õ¹luaÈ«¾Öº¯Êý ------------------------
+		// ---------------------------- æ‰©å±•luaå…¨å±€å‡½æ•° ------------------------
 
 		/*
 		** access functions (stack -> C)

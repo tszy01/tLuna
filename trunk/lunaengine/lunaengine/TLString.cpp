@@ -12,7 +12,7 @@
 #include <string>
 #include <limits>
 #include <vector>
-#include <stdio.h>        //-- c ÓïÑÔµÄÍ·ÎÄ¼ş
+#include <stdio.h>        //-- c è¯­è¨€çš„å¤´æ–‡ä»¶
 #include <stdlib.h>
 #include <time.h>
 #include <tchar.h>
@@ -1826,9 +1826,9 @@ namespace TLunaEngine{
 	{
 		if(!fullname)
 			return;
-		// È¥³ıÇ°ÃæµÄÂ·¾­
+		// å»é™¤å‰é¢çš„è·¯ç»
 		char *pch = strrchr( fullname, '\\');
-		// Èç¹ûĞèÒª±£´æÃû×Ö¾Í±£´æ
+		// å¦‚æœéœ€è¦ä¿å­˜åå­—å°±ä¿å­˜
 		if(filename!=0)
 		{
 			if(pch)
@@ -1841,7 +1841,7 @@ namespace TLunaEngine{
 			}
 		}
 		pch = strrchr( fullname, '\\');
-		// Èç¹ûĞèÒª±£´æÂ·¾¶¾Í±£´æ
+		// å¦‚æœéœ€è¦ä¿å­˜è·¯å¾„å°±ä¿å­˜
 		if(pathname!=0)
 		{
 			if(pch)

@@ -12,7 +12,7 @@ InputMsgMgr::~InputMsgMgr(void)
 
 void InputMsgMgr::CatchInputMsg(unsigned char yType, void *param)
 {
-	// 迭代调用函数指针
+	// 杩唬璋冪敤鍑芥暟鎸囬拡
 	std::list<ProcessInput>::iterator itr = m_CalledFuncList.begin();
 	for(;itr!=m_CalledFuncList.end();++itr)
 	{

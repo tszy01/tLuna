@@ -6,7 +6,7 @@ namespace TLunaEngine{
 
 	class GUIContainer;
 	/*
-	 *	GUI¿Ø¼ş¸¸Àà£¬ÓÃÓÚÅÉÉú
+	 *	GUIæ§ä»¶çˆ¶ç±»ï¼Œç”¨äºæ´¾ç”Ÿ
 	 */
 	class GUICtrl
 	{
@@ -14,57 +14,57 @@ namespace TLunaEngine{
 		GUICtrl(void);
 		virtual ~GUICtrl(void);
 	protected:
-		GUI_CTRL_TYPE m_eCtrlType;	// ¿Ø¼şÀàĞÍ
-		int m_iIndex;				// ¿Ø¼şÔÚÈİÆ÷ÖĞË÷Òı
-		GUIContainer* m_pContainer;	// Ö¸ÏòÈİÆ÷
-		bool m_bShow;				// ÊÇ·ñÏÔÊ¾
-		float m_fAlpha;				// ALPHAÖµ
+		GUI_CTRL_TYPE m_eCtrlType;	// æ§ä»¶ç±»å‹
+		int m_iIndex;				// æ§ä»¶åœ¨å®¹å™¨ä¸­ç´¢å¼•
+		GUIContainer* m_pContainer;	// æŒ‡å‘å®¹å™¨
+		bool m_bShow;				// æ˜¯å¦æ˜¾ç¤º
+		float m_fAlpha;				// ALPHAå€¼
 
-		// ------ ÒÔÏÂÊÇÏà¶ÔÓÚÈİÆ÷µÄÎ»ÖÃºÍ´óĞ¡ --------
+		// ------ ä»¥ä¸‹æ˜¯ç›¸å¯¹äºå®¹å™¨çš„ä½ç½®å’Œå¤§å° --------
 		TS32 m_posX;
 		TS32 m_posY;
 		TS32 m_width;
 		TS32 m_height;
-		// ------ ÒÔÏÂÊÇ¼ÆËã³öµÄ¾ø¶ÔÎ»ÖÃºÍ´óĞ¡ ----------
+		// ------ ä»¥ä¸‹æ˜¯è®¡ç®—å‡ºçš„ç»å¯¹ä½ç½®å’Œå¤§å° ----------
 		TS32 m_posXFinal;
 		TS32 m_posYFinal;
 	public:
-		// ------ ÒÔÏÂÊÇĞèÒª×ÓÀàÖØĞ´·½·¨ --------------
-		// Ïú»Ù
+		// ------ ä»¥ä¸‹æ˜¯éœ€è¦å­ç±»é‡å†™æ–¹æ³• --------------
+		// é”€æ¯
 		virtual void DestroyCtrl();
-		// ¸üĞÂ
+		// æ›´æ–°
 		virtual bool Update(float fTimeElapsed);
-		// äÖÈ¾
+		// æ¸²æŸ“
 		virtual bool Render(float fTimeElapsed);
-		// ÉèÖÃALPHA
+		// è®¾ç½®ALPHA
 		virtual void SetAlpha(float fAlpha)
 		{
 			m_fAlpha = fAlpha;
 		}
 	protected:
-		// ------ ÒÔÏÂÎª×ÓÀàµ÷ÓÃ ----------------------
-		// ³õÊ¼»¯
-		// ×ÓÀàÔÚ³õÊ¼»¯ÖĞ±ØĞëµ÷ÓÃ´Ëº¯Êı
+		// ------ ä»¥ä¸‹ä¸ºå­ç±»è°ƒç”¨ ----------------------
+		// åˆå§‹åŒ–
+		// å­ç±»åœ¨åˆå§‹åŒ–ä¸­å¿…é¡»è°ƒç”¨æ­¤å‡½æ•°
 		bool InitCtrlBase(int iIndex,GUIContainer* pContainer,TS32 x,TS32 y,TS32 width,TS32 height);
 	public:
-		// µÃµ½Ë÷Òı
+		// å¾—åˆ°ç´¢å¼•
 		inline int GetIndex()
 		{
 			return m_iIndex;
 		}
-		// ÀàĞÍ
+		// ç±»å‹
 		inline GUI_CTRL_TYPE GetType()
 		{
 			return m_eCtrlType;
 		}
-		// ÖØĞÂ¼ÆËã×Ó¿Ø¼ş¾ø¶ÔÎ»ÖÃ
+		// é‡æ–°è®¡ç®—å­æ§ä»¶ç»å¯¹ä½ç½®
 		void ReCalSubRect(TS32 containerFinalX,TS32 containerFinalY);
-		// ÉèÖÃÊÇ·ñÏÔÊ¾
+		// è®¾ç½®æ˜¯å¦æ˜¾ç¤º
 		inline void ShowCtrl(bool bShow = true)
 		{
 			m_bShow = bShow;
 		}
-		// ÊÇ·ñÏÔÊ¾
+		// æ˜¯å¦æ˜¾ç¤º
 		inline bool IsShow()
 		{
 			return m_bShow;

@@ -7,7 +7,7 @@ namespace TLunaEngine{
 	class List
 	{
 	public:
-		// ----------------- ½Úµã -----------------------
+		// ----------------- èŠ‚ç‚¹ -----------------------
 		struct LIST_NODE
 		{
 			T Value;
@@ -16,7 +16,7 @@ namespace TLunaEngine{
 			LIST_NODE() : Next(0),Prev(0){}
 		};
 		// ----------------------------------------------
-		// ---------------- µü´úÆ÷ ----------------------
+		// ---------------- è¿­ä»£å™¨ ----------------------
 		class Iterator
 		{
 		public:
@@ -47,21 +47,21 @@ namespace TLunaEngine{
 			clear();
 		};
 	protected:
-		// ÆğÊ¼Ö¸Õë
+		// èµ·å§‹æŒ‡é’ˆ
 		LIST_NODE* m_First;
-		// Ä©Î²Ö¸Õë
+		// æœ«å°¾æŒ‡é’ˆ
 		LIST_NODE* m_Last;
-		// ´óĞ¡
+		// å¤§å°
 		int m_Size;
 	public:
-		// ¿½±´¹¹Ôì
+		// æ‹·è´æ„é€ 
 		List(const List<T>& other) : m_First(0), m_Last(0), m_Size(0)
 		{
 			Clone(other);
 		}
-		// -------------- ³ÉÔ± --------------------------
+		// -------------- æˆå‘˜ --------------------------
 
-		// ¿ËÂ¡
+		// å…‹éš†
 		inline void Clone(const List<T>& other)
 		{
 			if(&other == this)
@@ -77,18 +77,18 @@ namespace TLunaEngine{
 			}
 		}
 
-		// ÖØÔØ=
+		// é‡è½½=
 		inline List<T>& operator=(const List<T>& other)
 		{
 			Clone(other);
 			return *this;
 		}
-		// µÃµ½´óĞ¡
+		// å¾—åˆ°å¤§å°
 		inline int size() const
 		{
 			return m_Size;
 		}
-		// Çå¿Õ
+		// æ¸…ç©º
 		inline void clear()
 		{
 			while(m_First)
@@ -100,12 +100,12 @@ namespace TLunaEngine{
 			m_Last = 0;
 			m_Size = 0;
 		}
-		// ÊÇ·ñÎª¿ÕÁ´±í
+		// æ˜¯å¦ä¸ºç©ºé“¾è¡¨
 		inline bool empty() const
 		{
 			return (m_First == 0);
 		}
-		// ´Óºó·½²åÈë
+		// ä»åæ–¹æ’å…¥
 		inline void push_back(const T& value)
 		{
 			LIST_NODE* node = new LIST_NODE;
@@ -119,7 +119,7 @@ namespace TLunaEngine{
 
 			m_Last = node;
 		}
-		// ´ÓÇ°Ãæ²åÈë
+		// ä»å‰é¢æ’å…¥
 		inline void push_front(const T& value)
 		{
 			LIST_NODE* node = new LIST_NODE;
@@ -137,22 +137,22 @@ namespace TLunaEngine{
 				m_First = node;
 			}
 		}
-		// ·µ»Øm_FirstÖ¸Õë
+		// è¿”å›m_FirstæŒ‡é’ˆ
 		inline Iterator begin()
 		{
 			return Iterator(m_First);
 		}
-		// ·µ»Ø0
+		// è¿”å›0
 		inline Iterator end()
 		{
 			return Iterator(0);
 		}
-		// ·µ»ØlastÖ¸Õë
+		// è¿”å›lastæŒ‡é’ˆ
 		inline Iterator last()
 		{
 			return Iterator(m_Last);
 		}
-		// ÔÚÄ³½ÚµãÖ®ºó²åÈë
+		// åœ¨æŸèŠ‚ç‚¹ä¹‹åæ’å…¥
 		inline void insert_after(const Iterator& it, const T& value)
 		{
 			LIST_NODE* node = new LIST_NODE;
@@ -166,7 +166,7 @@ namespace TLunaEngine{
 			if (it.Current == m_Last)
 				m_Last = node;
 		}
-		// ÔÚÄ³½ÚµãÖ®Ç°²åÈë
+		// åœ¨æŸèŠ‚ç‚¹ä¹‹å‰æ’å…¥
 		inline void insert_before(const Iterator& it, const T& value)
 		{
 			LIST_NODE* node = new LIST_NODE;
@@ -180,7 +180,7 @@ namespace TLunaEngine{
 			if (it.Current == m_First)
 				m_First = node;
 		}
-		// É¾³ıÄ³¸ö½Úµã
+		// åˆ é™¤æŸä¸ªèŠ‚ç‚¹
 		inline Iterator erase(Iterator& it)
 		{
 			Iterator returnIterator(it);
@@ -206,7 +206,7 @@ namespace TLunaEngine{
 			--m_Size;
 			return returnIterator;
 		}
-		// ÖØÔØ[]
+		// é‡è½½[]
 		inline T& operator[](int iPos)
 		{
 			Iterator itr = begin();
@@ -221,7 +221,7 @@ namespace TLunaEngine{
 			}
 			return m_First->Value;
 		}
-		// µÃµ½Öµ
+		// å¾—åˆ°å€¼
 		inline bool GetValue(int iPos,T& value)
 		{
 			Iterator itr = begin();

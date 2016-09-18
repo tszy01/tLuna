@@ -27,7 +27,7 @@ namespace TLunaEngine{
 		{
 			return TFALSE;
 		}
-		// Æ¥ÅäµÚÒ»ĞĞ×Ö·û
+		// åŒ¹é…ç¬¬ä¸€è¡Œå­—ç¬¦
 		bool bEqual = false;
 		char strCmp[16] = {0};
 		sprintf_s(strCmp,16,"TUI_CTRL_100");
@@ -43,15 +43,15 @@ namespace TLunaEngine{
 			TxtFileReader::CloseTxtFile(stream);
 			return false;
 		}
-		// ¿ªÊ¼¼ÓÔØÈİÆ÷
+		// å¼€å§‹åŠ è½½å®¹å™¨
 		if (m_pRootContainer)
 		{
-			Log::WriteLine(Log::LOG_LEVEL_ERROR,true,__FILE__,__LINE__,"ÒÑ¾­ÓĞ¸úÈİÆ÷ÁË");
+			Log::WriteLine(Log::LOG_LEVEL_ERROR,true,__FILE__,__LINE__,"Root Container is not null");
 			return false;
 		}
 		if (!LoadContainer(stream,TNULL,&m_pRootContainer))
 		{
-			Log::WriteLine(Log::LOG_LEVEL_ERROR,true,__FILE__,__LINE__,"¼ÓÔØÊ§°Ü");
+			Log::WriteLine(Log::LOG_LEVEL_ERROR,true,__FILE__,__LINE__,"Load failed");
 			TxtFileReader::CloseTxtFile(stream);
 			return false;
 		}
@@ -65,13 +65,13 @@ namespace TLunaEngine{
 		{
 			return false;
 		}
-		// ×¼±¸±äÁ¿
+		// å‡†å¤‡å˜é‡
 		int containerID = -1;
 		int rc[4] = {0};
 		int ctrlNum = 0;
 		int subContainerNum = 0;
 		int iAnimeType = 0;
-		// ÁÙÊ±±äÁ¿
+		// ä¸´æ—¶å˜é‡
 		char strResult[1024] = {0};
 		int nCount = 1024;
 		bool bEqual = false;
@@ -91,11 +91,11 @@ namespace TLunaEngine{
 		TxtFileReader::ReadLineInteger(rc,stream,4,',');
 		// AnimeType
 		TxtFileReader::ReadLineInteger(&iAnimeType,stream,1,' ');
-		// Éú³ÉContainer
+		// ç”ŸæˆContainer
 		GUIContainer* pNewContainer = new GUIContainer();
 		(*ppContainer) = pNewContainer;
-		// Éú³ÉÒ»¸ö¼ÓÒ»¸ö
-		// Èç¹ûÊ§°Ü£¬Í³Ò»Ïú»Ù£¬·ÀÖ¹ÄÚ´æĞ¹Â©
+		// ç”Ÿæˆä¸€ä¸ªåŠ ä¸€ä¸ª
+		// å¦‚æœå¤±è´¥ï¼Œç»Ÿä¸€é”€æ¯ï¼Œé˜²æ­¢å†…å­˜æ³„æ¼
 		if (pParentContainer)
 		{
 			pParentContainer->AddContainer(pNewContainer);
@@ -124,7 +124,7 @@ namespace TLunaEngine{
 				return false;
 			}
 		}
-		// ¸ù¾İ¶¯»­ÀàĞÍ¼ÓÔØ¶¯»­
+		// æ ¹æ®åŠ¨ç”»ç±»å‹åŠ è½½åŠ¨ç”»
 		if (!LoadAnime(stream,pNewContainer,(TUByte)iAnimeType))
 		{
 			return false;
@@ -146,7 +146,7 @@ namespace TLunaEngine{
 			int nAnimeTimes = 0;
 			if (yAnimeType & CAT_FADE)
 			{
-				// µ­Èëµ­³ö
+				// æ·¡å…¥æ·¡å‡º
 				int iFadeType = -1;
 				TxtFileReader::ReadLineInteger(&iFadeType,stream,1,' ');
 				TxtFileReader::ReadLineFloat(&fChangedPerSec,stream,1,' ');
@@ -158,7 +158,7 @@ namespace TLunaEngine{
 			}
 			if (yAnimeType & CAT_PIC_CHANGE)
 			{
-				// Í¼Æ¬Ö¡¶¯»­
+				// å›¾ç‰‡å¸§åŠ¨ç”»
 				int iStartIndex = -1;
 				int iEndIndex = -1;
 				TxtFileReader::ReadLineInteger(&iStartIndex,stream,1,' ');
@@ -172,7 +172,7 @@ namespace TLunaEngine{
 			}
 			if (yAnimeType & CAT_POS_CHANGE)
 			{
-				// Î»ÖÃÖ¡¶¯»­
+				// ä½ç½®å¸§åŠ¨ç”»
 				TS32 iStartPos[2] = {0};
 				TS32 iEndPos[2] = {0};
 				TxtFileReader::ReadLineInteger(iStartPos,stream,2,',');
@@ -194,11 +194,11 @@ namespace TLunaEngine{
 		{
 			return false;
 		}
-		// ×¼±¸±äÁ¿
+		// å‡†å¤‡å˜é‡
 		int index = -1;
 		int rc[4] = {0};
 		int type = 0;
-		// ÁÙÊ±±äÁ¿
+		// ä¸´æ—¶å˜é‡
 		char strResult[1024] = {0};
 		int nCount = 1024;
 		bool bEqual = false;
@@ -218,7 +218,7 @@ namespace TLunaEngine{
 		TxtFileReader::ReadLineInteger(rc,stream,4,',');
 		// Type
 		TxtFileReader::ReadLineInteger(&type,stream,1,' ');
-		// Éú³ÉCtrl
+		// ç”ŸæˆCtrl
 		if (type == GUI_CTRL_PICTURE)
 		{
 			GUICtrl* pNewCtrl = new GUIPicture();
@@ -226,7 +226,7 @@ namespace TLunaEngine{
 			pParentContainer->AddCtrl(pNewCtrl);
 			int texID = -1;
 			float texRC[4] = {0};
-			// ×¢ÒâÕâÀïÃ»ÓĞÅĞ¶ÏTEXIDµÄºÏ·¨ĞÔ
+			// æ³¨æ„è¿™é‡Œæ²¡æœ‰åˆ¤æ–­TEXIDçš„åˆæ³•æ€§
 			TxtFileReader::ReadLineInteger(&texID,stream,1,' ');
 			TxtFileReader::ReadLineFloat(texRC,stream,4,',');
 			GUIPicture* pPicture = (GUIPicture*)pNewCtrl;
@@ -243,7 +243,7 @@ namespace TLunaEngine{
 			pParentContainer->AddCtrl(pNewCtrl);
 			int fontID = -1;
 			float fontColor[4] = {0};
-			// ×¢ÒâÕâÀïÃ»ÓĞÅĞ¶ÏfontIDµÄºÏ·¨ĞÔ
+			// æ³¨æ„è¿™é‡Œæ²¡æœ‰åˆ¤æ–­fontIDçš„åˆæ³•æ€§
 			TxtFileReader::ReadLineInteger(&fontID,stream,1,' ');
 			TxtFileReader::ReadLineFloat(fontColor,stream,4,',');
 			GUIText* pText = (GUIText*)pNewCtrl;

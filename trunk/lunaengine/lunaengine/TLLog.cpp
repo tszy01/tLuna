@@ -4,7 +4,7 @@
 
 namespace TLunaEngine{
 
-	// ³õÊ¼»¯¾²Ì¬³ÉÔ±
+	// åˆå§‹åŒ–é™æ€æˆå‘˜
 	TLunaEngine::String* Log::m_filterArray = 0;
 	int Log::m_filterCount = 0;
 	char Log::m_logPath[256] = {0};
@@ -29,7 +29,7 @@ namespace TLunaEngine{
 		if(!ConfigFile.OpenFile(configFile,ConfigFile::OPEN_READ))
 			return false;
 		sprintf_s(m_logPath,256,"%s",logPath);
-		// ¶ÁÈ¡ÌŞ³ıÁĞ±í
+		// è¯»å–å‰”é™¤åˆ—è¡¨
 		String strTmp;
 		ConfigFile.GetParameter("FilterCount",&strTmp);
 		m_filterCount = atoi(strTmp.GetString());
@@ -45,7 +45,7 @@ namespace TLunaEngine{
 			ConfigFile.GetParameter(sz,&strTmp);
 			m_filterArray[i] = strTmp;
 		}
-		// ¶ÁÈ¡ÊÇ·ñ´ò¿ªĞ´ÈÕÖ¾
+		// è¯»å–æ˜¯å¦æ‰“å¼€å†™æ—¥å¿—
 		strTmp = "";
 		ConfigFile.GetParameter("OpenWriteLog",&strTmp);
 		int boolean = atoi(strTmp.GetString());
@@ -53,11 +53,11 @@ namespace TLunaEngine{
 			m_bOpen=false;
 		else
 			m_bOpen=true;
-		// ¶ÁÈ¡×îµÍÊä³öµÈ¼¶
+		// è¯»å–æœ€ä½è¾“å‡ºç­‰çº§
 		strTmp = "";
 		ConfigFile.GetParameter("LogLevel",&strTmp);
 		m_minLevel = (LOG_LEVEL)atoi(strTmp.GetString());
-		// ÊÇ·ñ´ò¿ªÊä³ö´°¿Ú
+		// æ˜¯å¦æ‰“å¼€è¾“å‡ºçª—å£
 		strTmp = "";
 		ConfigFile.GetParameter("OutputConsole",&strTmp);
 		boolean = atoi(strTmp.GetString());
@@ -66,7 +66,7 @@ namespace TLunaEngine{
 		else
 			m_bUseConsole=true;
 		ConfigFile.CloseFile();
-		// ³õÊ¼»¯Êä³ö´°¿ÚÏà¹Ø
+		// åˆå§‹åŒ–è¾“å‡ºçª—å£ç›¸å…³
 		if (m_bUseConsole)
 		{
 			::AllocConsole();
@@ -94,32 +94,32 @@ namespace TLunaEngine{
 
 	void Log::WriteLine(LOG_LEVEL level,bool bTrue, char* codeName, int codeLine, char *content)
 	{
-		// ¿ÉÒÔÃ»ÓĞÄÚÈİ
-		// µ«ÊÇ±ØĞëÓĞPath
+		// å¯ä»¥æ²¡æœ‰å†…å®¹
+		// ä½†æ˜¯å¿…é¡»æœ‰Path
 		if(!m_logPath)
 			return;
-		// Èç¹ûÃ»ÓĞ¿ªÆô
+		// å¦‚æœæ²¡æœ‰å¼€å¯
 		if(!m_bOpen)
 			return;
-		// Èç¹ûµÈ¼¶²»¹»
+		// å¦‚æœç­‰çº§ä¸å¤Ÿ
 		if(level < m_minLevel)
 			return;
-		// Èç¹û±í´ïÊ½²»³ÉÁ¢
+		// å¦‚æœè¡¨è¾¾å¼ä¸æˆç«‹
 		if(!bTrue)
 			return;
-		// ¹ıÂËÎÄ¼şÃûÖĞµÄÂ·¾¶
+		// è¿‡æ»¤æ–‡ä»¶åä¸­çš„è·¯å¾„
 		String strCode(codeName);
 		for(int i=0;i<m_filterCount&&m_filterArray;i++)
 		{
 			if(strCode.Find(m_filterArray[i],0,false)!=-1)
 				return;
 		}
-		// µÃµ½ÏÖÔÚÊ±¼äµÄ×Ö·û´®
+		// å¾—åˆ°ç°åœ¨æ—¶é—´çš„å­—ç¬¦ä¸²
 		SYSTEMTIME sysTime;
 		::GetLocalTime(&sysTime);
 		String strTime;
 		strTime.Format("%d:%d:%d",sysTime.wHour,sysTime.wMinute,sysTime.wSecond);
-		// ×îºóĞ´ÈëµÄÄÚÈİ
+		// æœ€åå†™å…¥çš„å†…å®¹
 		// codeInfo date time content\n
 		String strWrite;
 		if(content)
@@ -130,8 +130,8 @@ namespace TLunaEngine{
 		{
 			strWrite.Format("%s(%d) %s\n",codeName,codeLine,strTime.GetString());
 		}
-		// ×îºóĞ´Èë
-		// ºÏ³ÉÎÄ¼şÃû
+		// æœ€åå†™å…¥
+		// åˆæˆæ–‡ä»¶å
 		String strLogFile;
 		strLogFile.Format("%s%d_%d_%d.log",m_logPath,sysTime.wYear,sysTime.wMonth,sysTime.wDay);
 		FILE* stream;
@@ -152,20 +152,20 @@ namespace TLunaEngine{
 	{
 		if(!m_bUseConsole)
 			return;
-		// ¿ÉÒÔÃ»ÓĞÄÚÈİ
-		// µ«ÊÇ±ØĞëÓĞPath
+		// å¯ä»¥æ²¡æœ‰å†…å®¹
+		// ä½†æ˜¯å¿…é¡»æœ‰Path
 		if(!m_hConsole)
 			return;
-		// Èç¹ûÃ»ÓĞ¿ªÆô
+		// å¦‚æœæ²¡æœ‰å¼€å¯
 		if(!m_bOpen)
 			return;
-		// Èç¹ûµÈ¼¶²»¹»
+		// å¦‚æœç­‰çº§ä¸å¤Ÿ
 		if(level < m_minLevel)
 			return;
-		// Èç¹û±í´ïÊ½²»³ÉÁ¢
+		// å¦‚æœè¡¨è¾¾å¼ä¸æˆç«‹
 		if(!bTrue)
 			return;
-		// ×îºóĞ´ÈëµÄÄÚÈİ
+		// æœ€åå†™å…¥çš„å†…å®¹
 		// codeInfo date time content\n
 		String strWrite;
 		if(content)

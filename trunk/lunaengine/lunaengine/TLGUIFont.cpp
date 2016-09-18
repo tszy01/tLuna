@@ -147,7 +147,7 @@ namespace TLunaEngine{
 		if (FT_New_Face( library,filename,0,&face )){
 			return	false;
 		}
-		// ´´½¨ÎÄ×Ö¸öÌå
+		// åˆ›å»ºæ–‡å­—ä¸ªä½“
 		m_Glyphs = new FontGlyph[face->num_glyphs];
 		for (int i = 0;i < face->num_glyphs;i++){
 			m_Glyphs[i].face = &face;
@@ -175,9 +175,9 @@ namespace TLunaEngine{
 	{
 		if(mPageSize==0)
 			return false;
-		// °Ú·Å¹æÔò
-		// ´Ó´óµ½Ğ¡£¬ÏÈ°Ú·Å´óµÄ£¬È»ºó°Ú·ÅĞ¡µÄ£¬Êú×Å°Ú£¬Ò»ÁĞÎªÒ»ĞĞ
-		// µÚÒ»±é´æ·Åµ½mapÖĞ
+		// æ‘†æ”¾è§„åˆ™
+		// ä»å¤§åˆ°å°ï¼Œå…ˆæ‘†æ”¾å¤§çš„ï¼Œç„¶åæ‘†æ”¾å°çš„ï¼Œç«–ç€æ‘†ï¼Œä¸€åˆ—ä¸ºä¸€è¡Œ
+		// ç¬¬ä¸€éå­˜æ”¾åˆ°mapä¸­
 		std::map<TU32,std::vector<int>> texHeightMap;
 		TU32 maxHeight=0,minHeight=0,count=0;
 		for (int i = 0;i < face->num_glyphs;i++){
@@ -201,7 +201,7 @@ namespace TLunaEngine{
 		}
 		if(maxHeight==0 || minHeight==0 || count==0)
 			return false;
-		// ¼ÆËãbufferµÄ´óĞ¡
+		// è®¡ç®—bufferçš„å¤§å°
 		TU32 totalHeight=0,nowHeight=maxHeight;
 		TU32 fontCountPerLine=0;
 		TU32 nextWidth = 0;
@@ -247,7 +247,7 @@ namespace TLunaEngine{
 		{
 			pageCount++;
 		}
-		// ·ÖÅä¿Õ¼ä£¬¿½±´ÎÆÀí
+		// åˆ†é…ç©ºé—´ï¼Œæ‹·è´çº¹ç†
 		for(TU32 iPage=0;iPage<pageCount-mPageCount;++iPage)
 		{
 			TU32* newBuffer = new TU32[mPageSize*mPageSize];
@@ -382,7 +382,7 @@ namespace TLunaEngine{
 			nowHeight >>= 1;
 			fontCountPerLine <<= 1;
 		}
-		// ¹¹½¨äÖÈ¾×é½¨
+		// æ„å»ºæ¸²æŸ“ç»„å»º
 		std::vector<RenderDeviceUsedSRV*>::iterator itrSRV = mSRVList.begin();
 		for(;itrSRV!=mSRVList.end();++itrSRV)
 		{

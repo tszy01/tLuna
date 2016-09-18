@@ -171,16 +171,16 @@ namespace TLunaEngine{
 
 	TBOOL GUITextureMgr::LoadTexFromFile(const char *file)
 	{
-		// ÏÈ¼ì²â£¬Çå¿ÕÔ­À´µÄ
+		// å…ˆæ£€æµ‹ï¼Œæ¸…ç©ºåŸæ¥çš„
 		DestroyAllTex();
-		// ¶ÁÈ¡ÎÄ¼ş
+		// è¯»å–æ–‡ä»¶
 		FILE* stream = TNULL;
 		String strFile(file);
 		if (!TxtFileReader::OpenTxtFile(strFile.GetString(),&stream))
 		{
 			return TFALSE;
 		}
-		// Æ¥ÅäµÚÒ»ĞĞ×Ö·û
+		// åŒ¹é…ç¬¬ä¸€è¡Œå­—ç¬¦
 		bool bEqual = false;
 		char strResult[1024] = {0};
 		int nCount = 1024;
@@ -194,10 +194,10 @@ namespace TLunaEngine{
 			TxtFileReader::CloseTxtFile(stream);
 			return TFALSE;
 		}
-		// ¶ÁÈ¡ÊıÁ¿
+		// è¯»å–æ•°é‡
 		int texCount = 0;
 		TxtFileReader::ReadLineInteger(&texCount,stream,1,' ');
-		// Ñ­»·¶ÁÈ¡
+		// å¾ªç¯è¯»å–
 		for (int i=0;i<texCount;i++)
 		{
 			if(!LoadTexArray(stream))
@@ -341,7 +341,7 @@ namespace TLunaEngine{
 		}
 		RenderDevice* pDevice = RenderMgr::getSingletonPtr()->getDevice();
 		TLunaEngine::Vector4<float> color(1.0f,1.0f,1.0f,alpha);
-		// ¼ÆËã
+		// è®¡ç®—
 		float xFinal = -1.0f + ((float)(x))/m_bufferWidth * 2.0f;
 		float yFinal = (-1.0f + ((float)(y))/m_bufferHeight * 2.0f) * -1.0f;
 		float xLen = ((float)(width))/m_bufferWidth * 2.0f;

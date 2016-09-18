@@ -10,54 +10,54 @@ namespace TLunaEngine{
 		TxtFileWriter(void);
 		~TxtFileWriter(void);
 	public:
-		// ´ò¿ªÒ»¸öTxtµÄÎÄ¼ş
-		// ·µ»Ø£ºÊÇ·ñ³É¹¦
-		// in filename:ÎÄ¼şÃû
-		// out ppStream:·µ»ØµÄÎÄ¼şÖ¸Õë
+		// æ‰“å¼€ä¸€ä¸ªTxtçš„æ–‡ä»¶
+		// è¿”å›ï¼šæ˜¯å¦æˆåŠŸ
+		// in filename:æ–‡ä»¶å
+		// out ppStream:è¿”å›çš„æ–‡ä»¶æŒ‡é’ˆ
 		static bool OpenTxtFile(const char* filename,FILE** ppStream);
 
-		// ¹Ø±ÕÒ»¸öTMeshµÄÎÄ¼ş
-		// ·µ»Ø£ºÎŞ
-		// in pStream:ÎÄ¼şÖ¸Õë
+		// å…³é—­ä¸€ä¸ªTMeshçš„æ–‡ä»¶
+		// è¿”å›ï¼šæ— 
+		// in pStream:æ–‡ä»¶æŒ‡é’ˆ
 		static void CloseTxtFile(FILE* pStream);
 
-		// Ğ´ÈëÒ»ĞĞ×Ö·û´®
-		// ·µ»Ø£ºÊÇ·ñ³É¹¦
-		// in strWrite:·µ»ØµÄ½á¹û×Ö·û´®
-		// in pStream:ÎÄ¼şÖ¸Õë
-		// in nCount:Ğ´Èë×Ö·û¸öÊı
+		// å†™å…¥ä¸€è¡Œå­—ç¬¦ä¸²
+		// è¿”å›ï¼šæ˜¯å¦æˆåŠŸ
+		// in strWrite:è¿”å›çš„ç»“æœå­—ç¬¦ä¸²
+		// in pStream:æ–‡ä»¶æŒ‡é’ˆ
+		// in nCount:å†™å…¥å­—ç¬¦ä¸ªæ•°
 		static bool WriteLineString(const char* strWrite,FILE* pStream,int nCount);
 
-		// Ğ´ÈëÒ»ĞĞÕûÊı
-		// ·µ»Ø£ºÊÇ·ñ³É¹¦
-		// int aiResult:ÕûĞÎÊı×é
-		// in pStream:ÎÄ¼şÖ¸Õë
-		// in nCount:ĞèÒª¶Á¼¸¸öÕûĞÎÊı¾İ
-		// in splice:ÓÃÓÚ·Ö¸îN¸öÊı¾İµÄ×Ö·û
+		// å†™å…¥ä¸€è¡Œæ•´æ•°
+		// è¿”å›ï¼šæ˜¯å¦æˆåŠŸ
+		// int aiResult:æ•´å½¢æ•°ç»„
+		// in pStream:æ–‡ä»¶æŒ‡é’ˆ
+		// in nCount:éœ€è¦è¯»å‡ ä¸ªæ•´å½¢æ•°æ®
+		// in splice:ç”¨äºåˆ†å‰²Nä¸ªæ•°æ®çš„å­—ç¬¦
 		static bool WriteLineInteger(const int* aiWrite,FILE* pStream,int nCount,char splice);
 
-		// Ğ´ÈëÒ»ĞĞlong
-		// ·µ»Ø£ºÊÇ·ñ³É¹¦
-		// int alWrite:ÕûĞÎÊı×é
-		// in pStream:ÎÄ¼şÖ¸Õë
-		// in nCount:ĞèÒª¶Á¼¸¸öÕûĞÎÊı¾İ
-		// in splice:ÓÃÓÚ·Ö¸îN¸öÊı¾İµÄ×Ö·û
+		// å†™å…¥ä¸€è¡Œlong
+		// è¿”å›ï¼šæ˜¯å¦æˆåŠŸ
+		// int alWrite:æ•´å½¢æ•°ç»„
+		// in pStream:æ–‡ä»¶æŒ‡é’ˆ
+		// in nCount:éœ€è¦è¯»å‡ ä¸ªæ•´å½¢æ•°æ®
+		// in splice:ç”¨äºåˆ†å‰²Nä¸ªæ•°æ®çš„å­—ç¬¦
 		static bool WriteLineLong(const long* alWrite,FILE* pStream,int nCount,char splice);
 
-		// Ğ´ÈëÒ»ĞĞÎŞ·ûºÅÕûÊı
-		// ·µ»Ø£ºÊÇ·ñ³É¹¦
-		// in auWrite:ÕûĞÎÊı×é
-		// in pStream:ÎÄ¼şÖ¸Õë
-		// in nCount:ĞèÒª¶Á¼¸¸öÕûĞÎÊı¾İ
-		// in splice:ÓÃÓÚ·Ö¸îN¸öÊı¾İµÄ×Ö·û
+		// å†™å…¥ä¸€è¡Œæ— ç¬¦å·æ•´æ•°
+		// è¿”å›ï¼šæ˜¯å¦æˆåŠŸ
+		// in auWrite:æ•´å½¢æ•°ç»„
+		// in pStream:æ–‡ä»¶æŒ‡é’ˆ
+		// in nCount:éœ€è¦è¯»å‡ ä¸ªæ•´å½¢æ•°æ®
+		// in splice:ç”¨äºåˆ†å‰²Nä¸ªæ•°æ®çš„å­—ç¬¦
 		static bool WriteLineUInteger(const unsigned int* auWrite,FILE* pStream,int nCount,char splice);
 
-		// Ğ´ÈëÒ»ĞĞÎŞ·ûºÅlong
-		// ·µ»Ø£ºÊÇ·ñ³É¹¦
-		// in aulWrite:ÕûĞÎÊı×é
-		// in pStream:ÎÄ¼şÖ¸Õë
-		// in nCount:ĞèÒª¶Á¼¸¸öÕûĞÎÊı¾İ
-		// in splice:ÓÃÓÚ·Ö¸îN¸öÊı¾İµÄ×Ö·û
+		// å†™å…¥ä¸€è¡Œæ— ç¬¦å·long
+		// è¿”å›ï¼šæ˜¯å¦æˆåŠŸ
+		// in aulWrite:æ•´å½¢æ•°ç»„
+		// in pStream:æ–‡ä»¶æŒ‡é’ˆ
+		// in nCount:éœ€è¦è¯»å‡ ä¸ªæ•´å½¢æ•°æ®
+		// in splice:ç”¨äºåˆ†å‰²Nä¸ªæ•°æ®çš„å­—ç¬¦
 		static bool WriteLineULong(const unsigned long* aulWrite,FILE* pStream,int nCount,char splice);
 
 		// write short
@@ -66,24 +66,24 @@ namespace TLunaEngine{
 		// write ushort
 		static bool WriteLineUShort(const unsigned short* ausWrite,FILE* pStream,int nCount,char splice);
 
-		// Ğ´ÈëÒ»ĞĞ¸¡µãÊı
-		// ·µ»Ø£ºÊÇ·ñ³É¹¦
-		// in afWrite:¸¡µãÊı×é
-		// in pStream:ÎÄ¼şÖ¸Õë
-		// in nCount:ĞèÒª¶Á¼¸¸ö¸¡µãÊıÊı¾İ
-		// in splice:ÓÃÓÚ·Ö¸îN¸öÊı¾İµÄ×Ö·û
+		// å†™å…¥ä¸€è¡Œæµ®ç‚¹æ•°
+		// è¿”å›ï¼šæ˜¯å¦æˆåŠŸ
+		// in afWrite:æµ®ç‚¹æ•°ç»„
+		// in pStream:æ–‡ä»¶æŒ‡é’ˆ
+		// in nCount:éœ€è¦è¯»å‡ ä¸ªæµ®ç‚¹æ•°æ•°æ®
+		// in splice:ç”¨äºåˆ†å‰²Nä¸ªæ•°æ®çš„å­—ç¬¦
 		static bool WriteLineFloat(const float* afWrite,FILE* pStream,int nCount,char splice);
 
-		// Ğ´ÈëÒ»ĞĞË«¾«¶È
-		// ·µ»Ø£ºÊÇ·ñ³É¹¦
-		// in adWrite:¸¡µãÊı×é
-		// in pStream:ÎÄ¼şÖ¸Õë
-		// in nCount:ĞèÒª¶Á¼¸¸ö¸¡µãÊıÊı¾İ
-		// in splice:ÓÃÓÚ·Ö¸îN¸öÊı¾İµÄ×Ö·û
+		// å†™å…¥ä¸€è¡ŒåŒç²¾åº¦
+		// è¿”å›ï¼šæ˜¯å¦æˆåŠŸ
+		// in adWrite:æµ®ç‚¹æ•°ç»„
+		// in pStream:æ–‡ä»¶æŒ‡é’ˆ
+		// in nCount:éœ€è¦è¯»å‡ ä¸ªæµ®ç‚¹æ•°æ•°æ®
+		// in splice:ç”¨äºåˆ†å‰²Nä¸ªæ•°æ®çš„å­—ç¬¦
 		static bool WriteLineDouble(const double* adWrite,FILE* pStream,int nCount,char splice);
 
-		// Ğ´ÈëÈ«²¿ÎÄ±¾ÄÚÈİ
-		// ·µ»Ø£ºÊÇ·ñ³É¹¦
+		// å†™å…¥å…¨éƒ¨æ–‡æœ¬å†…å®¹
+		// è¿”å›ï¼šæ˜¯å¦æˆåŠŸ
 		// buffer,in,write data
 		// writeByte,in,write size
 		// szFile,in,file name to write

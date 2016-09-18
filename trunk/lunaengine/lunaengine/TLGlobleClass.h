@@ -7,11 +7,11 @@
 
 namespace TLunaEngine{
 
-	// ÀàÉùÃ÷
+	// ç±»å£°æ˜
 	class TestTriangle;
 	class LoopCtrl;
 	/*
-	 *	±¾Àà´æ´¢È«¾Ö¾²Ì¬±äÁ¿£¬¾²Ì¬·½·¨
+	 *	æœ¬ç±»å­˜å‚¨å…¨å±€é™æ€å˜é‡ï¼Œé™æ€æ–¹æ³•
 	 */
 	class GlobleClass : public Singleton<GlobleClass>
 	{
@@ -20,27 +20,27 @@ namespace TLunaEngine{
 		GlobleClass(void);
 		~GlobleClass(void);
 	public:
-		// ÁÙÊ±ÓÃ -----------------------
+		// ä¸´æ—¶ç”¨ -----------------------
 		TestTriangle* m_pTri;
-		// ±£´æ×ÊÔ´¸úÂ·¾¶
+		// ä¿å­˜èµ„æºè·Ÿè·¯å¾„
 		TLunaEngine::String m_strResDir;
-		// DEBUGĞÅÏ¢Ê¹ÓÃ×ÖÌå
+		// DEBUGä¿¡æ¯ä½¿ç”¨å­—ä½“
 		//TLunaEngine::TD3DFont* m_pDebugFont;
-		// ÊÇ·ñÏÔÊ¾DEBUGĞÅÏ¢
+		// æ˜¯å¦æ˜¾ç¤ºDEBUGä¿¡æ¯
 		bool m_bShowDebugInfo;
-		// ÊÇ·ñÎª±à¼­Æ÷
+		// æ˜¯å¦ä¸ºç¼–è¾‘å™¨
 		bool m_bEditor;
 		// loop control
 		LoopCtrl* mLoopCtrl;
 	public:
-		// ----- ·½·¨ -------------------
-		// ³õÊ¼»¯
+		// ----- æ–¹æ³• -------------------
+		// åˆå§‹åŒ–
 		bool InitGlobleClass();
-		// Ïú»Ù
+		// é”€æ¯
 		void DestroyGlobleClass();
-		// Ö¡¸üĞÂ
+		// å¸§æ›´æ–°
 		bool OnUpdate(float fTimeElapsed);
-		// Ö¡äÖÈ¾
+		// å¸§æ¸²æŸ“
 		bool OnRender(float fTimeElapsed);
 		// update loop control
 		void updateLoopCtrl();

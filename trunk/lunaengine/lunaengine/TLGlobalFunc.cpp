@@ -16,36 +16,36 @@ namespace TLunaEngine{
 	bool Init(HWND hWnd,HINSTANCE hInst,TBOOL bWnd,TS32 lWidth,TS32 lHeight,
 							 float fSecsPerFrame,const char* szResDir,bool bShowDebugInfo)
 	{
-		// ¼ÇÂ¼×ÊÔ´¸ùÄ¿Â¼
+		// è®°å½•èµ„æºæ ¹ç›®å½•
 		GlobleClass::getSingletonPtr()->m_strResDir = TLunaEngine::String(szResDir);
-		// ³õÊ¼»¯ÈÕÖ¾
+		// åˆå§‹åŒ–æ—¥å¿—
 		TLunaEngine::String strLogConfig = GlobleClass::getSingletonPtr()->m_strResDir + "config\\logconfig.txt";
 		TLunaEngine::String strLogDir = GlobleClass::getSingletonPtr()->m_strResDir + "log\\";
 		if(!TLunaEngine::Log::InitLogSystem(strLogConfig.GetString(),strLogDir.GetString()))
 			return false;
-		// ½¨Á¢D3DÉè±¸
+		// å»ºç«‹D3Dè®¾å¤‡
 		TLunaEngine::RenderDevice* device = TLunaEngine::RenderMgr::getSingletonPtr()->createRenderDevice(TLunaEngine::RenderMgr::DT_D3D11);
 		if(!device)
 			return false;
 		if(!device->InitDevice(hWnd,bWnd,lWidth,lHeight))
 			return false;
-		// ³õÊ¼»¯×ÊÔ´²Ù×÷¹ÜÀí
+		// åˆå§‹åŒ–èµ„æºæ“ä½œç®¡ç†
 		ResMgr* pResMgr = ResMgr::getSingletonPtr();
 
-		// ---------------- GUI²¿·Ö -------------------------
-		// ×ÖÌå¹ÜÀí
+		// ---------------- GUIéƒ¨åˆ† -------------------------
+		// å­—ä½“ç®¡ç†
 		GUIFontManager* pFontMgr = GUIFontManager::getSingletonPtr();
 		TLunaEngine::String strFontEffect = GlobleClass::getSingletonPtr()->m_strResDir + "shader\\gui\\guidefault.fx";
 		if(!pFontMgr->Init(strFontEffect.GetString(),lWidth,lHeight))
 			return false;
-		// UIäÖÈ¾
+		// UIæ¸²æŸ“
 		GUITextureMgr* pGUIRender = GUITextureMgr::getSingletonPtr();
 		TLunaEngine::String strGUIRenderEffect = GlobleClass::getSingletonPtr()->m_strResDir + "shader\\gui\\guidefault.fx";
 		if (!pGUIRender->Init(lWidth,lHeight,strGUIRenderEffect.GetString()))
 		{
 			return false;
 		}
-		// UI¹ÜÀí
+		// UIç®¡ç†
 		GUIMgr* pGUIMgr = GUIMgr::getSingletonPtr();
 
 		// GlobleClass
@@ -60,12 +60,12 @@ namespace TLunaEngine{
 
 	bool OnLoopCtrlUpdate(float* pTimeElapsed)
 	{
-		// Ê±¼ä¿ØÖÆ
+		// æ—¶é—´æŽ§åˆ¶
 		GlobleClass::getSingletonPtr()->updateLoopCtrl();
-		// Èç¹ûÊ±¼ä¿ØÖÆÖÐ¾Í·µ»Øfalse
+		// å¦‚æžœæ—¶é—´æŽ§åˆ¶ä¸­å°±è¿”å›žfalse
 		if (GlobleClass::getSingletonPtr()->getLoopCtrlCanRender()==false)
 			return true;
-		// ¼ÆËãfps
+		// è®¡ç®—fps
 		GlobleClass::getSingletonPtr()->calcFPS();
 		if (pTimeElapsed)
 		{
@@ -77,7 +77,7 @@ namespace TLunaEngine{
 	// Loop Engine
 	bool OnSceneUpdate(float fTimeElapsed)
 	{
-		// -------- GUI²¿·Ö -------------------------
+		// -------- GUIéƒ¨åˆ† -------------------------
 		GUIMgr* pGUIMgr = GUIMgr::getSingletonPtr();
 		pGUIMgr->Update(fTimeElapsed);
 		// GlobleClass
@@ -87,30 +87,30 @@ namespace TLunaEngine{
 
 	bool OnSceneRender(float fTimeElapsed)
 	{
-		// äÖÈ¾Ñ­»·
+		// æ¸²æŸ“å¾ªçŽ¯
 		TLunaEngine::RenderDevice* device = TLunaEngine::RenderMgr::getSingletonPtr()->getDevice();
 		device->BeginRender();
-		// -------- GUI²¿·Ö -------------------------
-		// GUI²¿·ÖÒªÇó×îºóÔÙ»­£¬GUIÈ¡ÏûµÄÉî¶È´¦Àí
+		// -------- GUIéƒ¨åˆ† -------------------------
+		// GUIéƒ¨åˆ†è¦æ±‚æœ€åŽå†ç”»ï¼ŒGUIå–æ¶ˆçš„æ·±åº¦å¤„ç†
 		GUIMgr* pGUIMgr = GUIMgr::getSingletonPtr();
 		pGUIMgr->Render(fTimeElapsed);
 		// GlobleClass
 		GlobleClass::getSingletonPtr()->OnRender(fTimeElapsed);
-		// ½áÊøäÖÈ¾
+		// ç»“æŸæ¸²æŸ“
 		device->EndRender();
 		return true;
 	}
 
 	bool OnGameLoop(UserLoop pLoop)
 	{
-		// ÏÈ¼ÆËãÖ¡¿ØÖÆ
+		// å…ˆè®¡ç®—å¸§æŽ§åˆ¶
 		float timeElapsed = 0;
 		if (TLunaEngine::OnLoopCtrlUpdate(&timeElapsed))
 		{
-			// µ÷ÓÃÉÏ²ãÂß¼­
+			// è°ƒç”¨ä¸Šå±‚é€»è¾‘
 			if(pLoop)
 				pLoop(timeElapsed);
-			// ÒýÇæÑ­»·
+			// å¼•æ“Žå¾ªçŽ¯
 			if(TLunaEngine::OnSceneUpdate(timeElapsed))
 			{
 				if(TLunaEngine::OnSceneRender(timeElapsed))
@@ -126,20 +126,20 @@ namespace TLunaEngine{
 		// GlobleClass
 		GlobleClass::getSingletonPtr()->DestroyGlobleClass();
 		GlobleClass::delSingletonPtr();
-		// UI¹ÜÀí
+		// UIç®¡ç†
 		GUIMgr::delSingletonPtr();
-		// UIäÖÈ¾
+		// UIæ¸²æŸ“
 		GUITextureMgr::delSingletonPtr();
-		// ×ÖÌå¹ÜÀí
+		// å­—ä½“ç®¡ç†
 		GUIFontManager::getSingletonPtr()->UseFont(-1);
 		GUIFontManager::delSingletonPtr();
-		// ×ÊÔ´²Ù×÷¹ÜÀí
+		// èµ„æºæ“ä½œç®¡ç†
 		ResMgr::delSingletonPtr();
-		// Ïú»ÙÉè±¸
+		// é”€æ¯è®¾å¤‡
 		TLunaEngine::RenderMgr::getSingletonPtr()->getDevice()->DestroyDevice();
 		TLunaEngine::RenderMgr::getSingletonPtr()->destroyRenderDevice();
 		TLunaEngine::RenderMgr::delSingletonPtr();
-		// ÈÕÖ¾ÏµÍ³
+		// æ—¥å¿—ç³»ç»Ÿ
 		TLunaEngine::Log::DestroyLogSystem();
 		return true;
 	}
@@ -152,41 +152,41 @@ namespace TLunaEngine{
 		return true;
 	}
 
-	// ------------- ÒÔÏÂÊÇ¸ø±à¼­Æ÷µ÷ÓÃµÄ·½·¨£¬ÓÎÏ·ÖÐ²»ÄÜÊ¹ÓÃ --------------------------------
+	// ------------- ä»¥ä¸‹æ˜¯ç»™ç¼–è¾‘å™¨è°ƒç”¨çš„æ–¹æ³•ï¼Œæ¸¸æˆä¸­ä¸èƒ½ä½¿ç”¨ --------------------------------
 
-	// ³õÊ¼»¯
+	// åˆå§‹åŒ–
 	bool InitForEditor(HWND hWnd,HINSTANCE hInst,TS32 lWidth,TS32 lHeight,const char* szResDir)
 	{
-		// ¼ÇÂ¼×ÊÔ´¸ùÄ¿Â¼
+		// è®°å½•èµ„æºæ ¹ç›®å½•
 		GlobleClass::getSingletonPtr()->m_strResDir = TLunaEngine::String(szResDir);
-		// ³õÊ¼»¯ÈÕÖ¾
+		// åˆå§‹åŒ–æ—¥å¿—
 		TLunaEngine::String strLogConfig = GlobleClass::getSingletonPtr()->m_strResDir + "config\\logconfig.txt";
 		TLunaEngine::String strLogDir = GlobleClass::getSingletonPtr()->m_strResDir + "log\\";
 		if(!TLunaEngine::Log::InitLogSystem(strLogConfig.GetString(),strLogDir.GetString()))
 			return false;
-		// ½¨Á¢D3DÉè±¸
+		// å»ºç«‹D3Dè®¾å¤‡
 		TLunaEngine::RenderDevice* device = TLunaEngine::RenderMgr::getSingletonPtr()->createRenderDevice(TLunaEngine::RenderMgr::DT_D3D11);
 		if(!device)
 			return false;
 		if(!device->InitDevice(hWnd,TTRUE,lWidth,lHeight))
 			return false;
-		// ³õÊ¼»¯×ÊÔ´²Ù×÷¹ÜÀí
+		// åˆå§‹åŒ–èµ„æºæ“ä½œç®¡ç†
 		ResMgr* pResMgr = ResMgr::getSingletonPtr();
 
-		// ---------------- GUI²¿·Ö -------------------------
-		// ×ÖÌå¹ÜÀí
+		// ---------------- GUIéƒ¨åˆ† -------------------------
+		// å­—ä½“ç®¡ç†
 		GUIFontManager* pFontMgr = GUIFontManager::getSingletonPtr();
 		TLunaEngine::String strFontEffect = GlobleClass::getSingletonPtr()->m_strResDir + "shader\\gui\\guidefault.fx";
 		if(!pFontMgr->Init(strFontEffect.GetString(),lWidth,lHeight))
 			return false;
-		// UIäÖÈ¾
+		// UIæ¸²æŸ“
 		GUITextureMgr* pGUIRender = GUITextureMgr::getSingletonPtr();
 		TLunaEngine::String strGUIRenderEffect = GlobleClass::getSingletonPtr()->m_strResDir + "shader\\gui\\guidefault.fx";
 		if (!pGUIRender->Init(lWidth,lHeight,strGUIRenderEffect.GetString()))
 		{
 			return false;
 		}
-		// UI¹ÜÀí
+		// UIç®¡ç†
 		GUIMgr* pGUIMgr = GUIMgr::getSingletonPtr();
 
 		// GlobleClass
@@ -199,10 +199,10 @@ namespace TLunaEngine{
 		return true;
 	}
 
-	// Ñ­»·
+	// å¾ªçŽ¯
 	bool OnSceneUpdateForEditor(float fTimeElapsed)
 	{
-		// -------- GUI²¿·Ö -------------------------
+		// -------- GUIéƒ¨åˆ† -------------------------
 		GUIMgr* pGUIMgr = GUIMgr::getSingletonPtr();
 		pGUIMgr->Update(fTimeElapsed);
 		// GlobleClass
@@ -212,40 +212,40 @@ namespace TLunaEngine{
 
 	bool OnSceneRenderForEditor(float fTimeElapsed)
 	{
-		// äÖÈ¾Ñ­»·
+		// æ¸²æŸ“å¾ªçŽ¯
 		TLunaEngine::RenderDevice* device = TLunaEngine::RenderMgr::getSingletonPtr()->getDevice();
 		device->BeginRender();
-		// -------- GUI²¿·Ö -------------------------
-		// GUI²¿·ÖÒªÇó×îºóÔÙ»­£¬GUIÈ¡ÏûµÄÉî¶È´¦Àí
+		// -------- GUIéƒ¨åˆ† -------------------------
+		// GUIéƒ¨åˆ†è¦æ±‚æœ€åŽå†ç”»ï¼ŒGUIå–æ¶ˆçš„æ·±åº¦å¤„ç†
 		GUIMgr* pGUIMgr = GUIMgr::getSingletonPtr();
 		pGUIMgr->Render(fTimeElapsed);
 		// GlobleClass
 		GlobleClass::getSingletonPtr()->OnRender(fTimeElapsed);
-		// ½áÊøäÖÈ¾
+		// ç»“æŸæ¸²æŸ“
 		device->EndRender();
 		return true;
 	}
 
-	// Ïú»Ù
+	// é”€æ¯
 	bool DestroyForEditor()
 	{
 		// GlobleClass
 		GlobleClass::getSingletonPtr()->DestroyGlobleClass();
 		GlobleClass::delSingletonPtr();
-		// UI¹ÜÀí
+		// UIç®¡ç†
 		GUIMgr::delSingletonPtr();
-		// UIäÖÈ¾
+		// UIæ¸²æŸ“
 		GUITextureMgr::delSingletonPtr();
-		// ×ÖÌå¹ÜÀí
+		// å­—ä½“ç®¡ç†
 		GUIFontManager::getSingletonPtr()->UseFont(-1);
 		GUIFontManager::delSingletonPtr();
-		// ×ÊÔ´²Ù×÷¹ÜÀí
+		// èµ„æºæ“ä½œç®¡ç†
 		ResMgr::delSingletonPtr();
-		// Ïú»ÙÉè±¸
+		// é”€æ¯è®¾å¤‡
 		TLunaEngine::RenderMgr::getSingletonPtr()->getDevice()->DestroyDevice();
 		TLunaEngine::RenderMgr::getSingletonPtr()->destroyRenderDevice();
 		TLunaEngine::RenderMgr::delSingletonPtr();
-		// ÈÕÖ¾ÏµÍ³
+		// æ—¥å¿—ç³»ç»Ÿ
 		TLunaEngine::Log::DestroyLogSystem();
 		return true;
 	}

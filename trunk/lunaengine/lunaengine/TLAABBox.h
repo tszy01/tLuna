@@ -16,13 +16,13 @@ namespace TLunaEngine{
 		AABBox(const Vector3<T>& init): Min(init), Max(init) {}
 		//! Constructor with min edge and max edge as single values, not vectors.
 		AABBox(T minx, T miny, T minz, T maxx, T maxy, T maxz): Min(minx, miny, minz), Max(maxx, maxy, maxz) {}
-		// ¿½±´
+		// æ‹·è´
 		AABBox(const AABBox<T>& other)
 		{
 			Min = other.Min;
 			Max = other.Max;
 		}
-		// Îö¹¹
+		// ææ„
 		~AABBox()
 		{
 		}
@@ -36,7 +36,7 @@ namespace TLunaEngine{
 		/** \param other box to compare with.
 		\return True if both boxes are different, else false. */
 		inline bool operator!=(const AABBox<T>& other) const { return !(Min == other.Min && other.Max == Max);}
-		// ¸³Öµ
+		// èµ‹å€¼
 		inline AABBox<T>& operator=(const AABBox<T>& other)
 		{
 			Min = other.Min;
@@ -249,7 +249,7 @@ namespace TLunaEngine{
 			return (Max - Min) * (T)0.5f;
 		}
 
-		// X,Y,ZµÄ´óĞ¡²î
+		// X,Y,Zçš„å¤§å°å·®
 		inline T	GetWidth() const
 		{ return Max.X - Min.X;					}
 		inline T	GetHeight()	const

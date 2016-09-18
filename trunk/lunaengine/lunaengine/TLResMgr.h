@@ -6,17 +6,17 @@
 #include <list>
 namespace TLunaEngine{
 
-	// Á´±í×´Ì¬
+	// é“¾è¡¨çŠ¶æ€
 	enum RES_LIST_STATE
 	{
-		RES_LIST_STATE_NONE	= 0,	// ÎŞ×´Ì¬
-		RES_LIST_STATE_OPERATING= 1,// ÕıÔÚÑ­»·²Ù×÷
-		RES_LIST_STATE_ADDING	= 2,// ÕıÔÚÌí¼ÓÔªËØ
+		RES_LIST_STATE_NONE	= 0,	// æ— çŠ¶æ€
+		RES_LIST_STATE_OPERATING= 1,// æ­£åœ¨å¾ªç¯æ“ä½œ
+		RES_LIST_STATE_ADDING	= 2,// æ­£åœ¨æ·»åŠ å…ƒç´ 
 	};
 
 	/*
-	 *	¸ºÔğÎ¬»¤Ò»¸öÈ«¾Ö×ÊÔ´Á´±í£¬Õâ¸öÁ´±í´æ´¢Õû¸ö³¡¾°µÄ×ÊÔ´ÎïÌå
-	 *	³¡¾°´´½¨Ê±È«²¿¼ÓÈëÁ´±í£¬³¡¾°Ïú»ÙÊ±È«²¿È¥³ı
+	 *	è´Ÿè´£ç»´æŠ¤ä¸€ä¸ªå…¨å±€èµ„æºé“¾è¡¨ï¼Œè¿™ä¸ªé“¾è¡¨å­˜å‚¨æ•´ä¸ªåœºæ™¯çš„èµ„æºç‰©ä½“
+	 *	åœºæ™¯åˆ›å»ºæ—¶å…¨éƒ¨åŠ å…¥é“¾è¡¨ï¼Œåœºæ™¯é”€æ¯æ—¶å…¨éƒ¨å»é™¤
 	 */
 	class ResMgr : public Singleton<ResMgr>
 	{
@@ -25,13 +25,13 @@ namespace TLunaEngine{
 		ResMgr(void);
 		~ResMgr(void);
 	private:
-		// ------------- ³ÉÔ± ---------------------
-		std::list<ResObject*> m_ResObjList;	// Á´±í
-		RES_LIST_STATE m_eListState;		// µ±Ç°×´Ì¬
+		// ------------- æˆå‘˜ ---------------------
+		std::list<ResObject*> m_ResObjList;	// é“¾è¡¨
+		RES_LIST_STATE m_eListState;		// å½“å‰çŠ¶æ€
 	public:
-		// ------------- µ÷ÓÃ·½·¨ -----------------
-		// Ìí¼Óµ½Á´±íÀïÃæ
-		// Õâ¸öList»áÔÚÍâ²¿×é×°ºÃ
+		// ------------- è°ƒç”¨æ–¹æ³• -----------------
+		// æ·»åŠ åˆ°é“¾è¡¨é‡Œé¢
+		// è¿™ä¸ªListä¼šåœ¨å¤–éƒ¨ç»„è£…å¥½
 		inline bool SetList(std::list<ResObject*>& list)
 		{
 			if(m_eListState!=RES_LIST_STATE_NONE)
@@ -41,9 +41,9 @@ namespace TLunaEngine{
 			m_eListState = RES_LIST_STATE_NONE;
 			return true;
 		}
-		// µÃµ½µ±Ç°×´Ì¬
+		// å¾—åˆ°å½“å‰çŠ¶æ€
 		inline RES_LIST_STATE GetListState(){return m_eListState;}
-		// µü´úÁ´±í½øĞĞ²Ù×÷
+		// è¿­ä»£é“¾è¡¨è¿›è¡Œæ“ä½œ
 		void OperateList();
 	};
 

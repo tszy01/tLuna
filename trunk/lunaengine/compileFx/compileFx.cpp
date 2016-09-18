@@ -6,53 +6,53 @@
 
 void GanerateFiles(std::string& dir,const char* profile)
 {
-	// Éú³ÉÎÄ¼şÃû
+	// ç”Ÿæˆæ–‡ä»¶å
 	char szName[4096]={0};
 	strcpy(szName,dir.c_str());
 	strcat(szName,"\\*.*");
 
 	/*CString strMsg;
-	strMsg.Format("²éÕÒÄ¿Â¼ËùÓĞÎÄ¼ş:%s",szName);
+	strMsg.Format("æŸ¥æ‰¾ç›®å½•æ‰€æœ‰æ–‡ä»¶:%s",szName);
 	m_strMsg=strMsg;
 	UpdateData(FALSE);*/
-	printf("²éÕÒÄ¿Â¼ËùÓĞÎÄ¼ş:%s\n",szName);
+	printf("æŸ¥æ‰¾ç›®å½•æ‰€æœ‰æ–‡ä»¶:%s\n",szName);
 
-	// ²éÕÒµÚÒ»¸öÎÄ¼ş
+	// æŸ¥æ‰¾ç¬¬ä¸€ä¸ªæ–‡ä»¶
 	WIN32_FIND_DATAA wfdNewFile;
 	HANDLE hNewFile;
 	hNewFile=::FindFirstFileA(szName,&wfdNewFile);
 	if(hNewFile==INVALID_HANDLE_VALUE)
 	{
-		printf("²éÕÒÎÄ¼şÊ§°Ü\n");
+		printf("æŸ¥æ‰¾æ–‡ä»¶å¤±è´¥\n");
 		return ;
 	}
-	// Ñ­»·²éÕÒºóÃæµÄÎÄ¼ş
+	// å¾ªç¯æŸ¥æ‰¾åé¢çš„æ–‡ä»¶
 	do
 	{
-		// Ìø¹ı..Õâ¼¸¸öÎÄ¼ş¼Ğ
+		// è·³è¿‡..è¿™å‡ ä¸ªæ–‡ä»¶å¤¹
 		if (wfdNewFile.cFileName[0] != '.' && wfdNewFile.cFileName[0] != '$')
 		{
-			// ¼ì²âÊÇ·ñÎªÎÄ¼ş¼Ğ
+			// æ£€æµ‹æ˜¯å¦ä¸ºæ–‡ä»¶å¤¹
 			if(wfdNewFile.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 			{
-				// ÎÄ¼ş¼Ğ
+				// æ–‡ä»¶å¤¹
 				std::string nextDir;
 				char dirName[4096]={0};
 				sprintf_s(dirName,4096,"%s\\%s",dir.c_str(),wfdNewFile.cFileName);
 				nextDir = std::string(dirName);
 				//nextDir.Format("%s\\%s",dir.GetString(),wfdNewFile.cFileName);
 
-				//strMsg.Format("±éÀúÏÂÒ»¼¶Ä¿Â¼:%s",nextDir);
+				//strMsg.Format("éå†ä¸‹ä¸€çº§ç›®å½•:%s",nextDir);
 				//m_strMsg=strMsg;
 				//UpdateData(FALSE);
-				printf("±éÀúÏÂÒ»¼¶Ä¿Â¼:%s\n",nextDir.c_str());
+				printf("éå†ä¸‹ä¸€çº§ç›®å½•:%s\n",nextDir.c_str());
 
-				// µÚ¹é±éÀú×ÓÎÄ¼ş¼Ğ
+				// ç¬¬å½’éå†å­æ–‡ä»¶å¤¹
 				GanerateFiles(nextDir,profile);
 			}
 			else
 			{
-				// ÎÄ¼ş
+				// æ–‡ä»¶
 				//int newDirLen=m_strNewDir.GetLength();
 				//CString newFile;
 				//newFile.Format("%s\\%s",dir.GetString(),wfdNewFile.cFileName);
@@ -60,12 +60,12 @@ void GanerateFiles(std::string& dir,const char* profile)
 				char theName[1024] = {0};
 				sprintf_s(theName,1024,"%s\\%s",dir.c_str(),wfdNewFile.cFileName);
 
-				//strMsg.Format("ÕÒµ½Ò»¸öÎÄ¼ş:%s",newFile);
+				//strMsg.Format("æ‰¾åˆ°ä¸€ä¸ªæ–‡ä»¶:%s",newFile);
 				//m_strMsg=strMsg;
 				//UpdateData(FALSE);
-				printf("ÕÒµ½Ò»¸öÎÄ¼ş:%s\n",theName);
+				printf("æ‰¾åˆ°ä¸€ä¸ªæ–‡ä»¶:%s\n",theName);
 
-				// Ìæ»»ºó×º
+				// æ›¿æ¢åç¼€
 				std::string theFile(theName);
 				std::basic_string <char>::size_type pos = theFile.find(".fx");
 				std::basic_string <char>::size_type pos2 = theFile.find(".fxo");
@@ -75,30 +75,30 @@ void GanerateFiles(std::string& dir,const char* profile)
 					newFile = newFile + ".fxo";
 					char szCmd[4096] = {0};
 					sprintf_s(szCmd,4096,"fxc /T %s /Fo %s %s",profile,newFile.c_str(),theFile.c_str());
-					printf("Ö´ĞĞ:%s",szCmd);
+					printf("æ‰§è¡Œ:%s",szCmd);
 					::system(szCmd);
 				}
 			}
 		}
 		
-		// ²éÕÒÏÂÒ»¸öÎÄ¼ş
+		// æŸ¥æ‰¾ä¸‹ä¸€ä¸ªæ–‡ä»¶
 		if(::FindNextFileA(hNewFile,&wfdNewFile)==0)
 		{
 			if(GetLastError()==ERROR_NO_MORE_FILES)
 			{
-				//strMsg.Format("´ËÄ¿Â¼½áÊø");
+				//strMsg.Format("æ­¤ç›®å½•ç»“æŸ");
 				//m_strMsg=strMsg;
 				//UpdateData(FALSE);
-				printf("´ËÄ¿Â¼½áÊø\n");
+				printf("æ­¤ç›®å½•ç»“æŸ\n");
 			}
 			else
 			{
-				//MessageBox("²éÕÒÎÄ¼şÊ§°Ü");
+				//MessageBox("æŸ¥æ‰¾æ–‡ä»¶å¤±è´¥");
 			}
 			break;
 		}
 	}while(true);
-	// ¹Ø±Õ²éÕÒ
+	// å…³é—­æŸ¥æ‰¾
 	FindClose(hNewFile);
 }
 

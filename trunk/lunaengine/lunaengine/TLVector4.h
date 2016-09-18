@@ -7,7 +7,7 @@
 namespace TLunaEngine{
 
 	/*
-	 *	Ê¹ÓÃOgreµÄVector4
+	 *	ä½¿ç”¨Ogreçš„Vector4
 	 */
 	template <typename T>
 	class Vector4
@@ -263,7 +263,7 @@ namespace TLunaEngine{
 			return *this;
 		}
 
-		// µÃµ½Êı×é
+		// å¾—åˆ°æ•°ç»„
 		inline void GetArray(T* value)
 		{
 			if (!value)
@@ -276,7 +276,7 @@ namespace TLunaEngine{
 			value[3] = W;
 		}
 
-		// È«²¿ÖÃ0
+		// å…¨éƒ¨ç½®0
 		inline Vector4<T>& SetZero()
 		{
 			X = (T)0;
@@ -286,7 +286,7 @@ namespace TLunaEngine{
 			return *this;
 		}
 
-		// µ¥Î»»¯this
+		// å•ä½åŒ–this
 		inline Vector4<T>& normalize()
 		{
 			T l = X*X + Y*Y + Z*Z + W*W;
@@ -300,7 +300,7 @@ namespace TLunaEngine{
 			return *this;
 		}
 
-		// ³¤¶È
+		// é•¿åº¦
 		inline T getLength() const { return (T) sqrt((TF64)(X*X + Y*Y + Z*Z + W*W)); }
 
 		/** Calculates the dot (scalar) product of this vector with another.

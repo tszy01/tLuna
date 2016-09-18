@@ -3,13 +3,13 @@
 #include <Windows.h>
 #include "TLSingleton.h"
 
-// ³õÊ¼»¯´°¿ÚÓÃ½á¹¹Ìå
+// åˆå§‹åŒ–çª—å£ç”¨ç»“æ„ä½“
 struct _MAINWNDCONFIG
 {
-	bool bWnd;	// ÊÇ·ñÎª´°¿Ú
-	UINT bufferWidth;	// ºó»º³å¿í
-	UINT bufferHeight;	// ºó»º³å¸ß
-	char szWindowText[256];	// ´°¿ÚÃû³Æ
+	bool bWnd;	// æ˜¯å¦ä¸ºçª—å£
+	UINT bufferWidth;	// åç¼“å†²å®½
+	UINT bufferHeight;	// åç¼“å†²é«˜
+	char szWindowText[256];	// çª—å£åç§°
 
 	_MAINWNDCONFIG()
 	{
@@ -24,38 +24,38 @@ protected:
 	MainWindow(void);
 	~MainWindow(void);
 private:
-	// Ó¦ÓÃ³ÌĞòÊµÀı
+	// åº”ç”¨ç¨‹åºå®ä¾‹
 	HINSTANCE m_hInst;
-	// ´°¿Ú¾ä±ú
+	// çª—å£å¥æŸ„
 	HWND m_hWnd;
-	// ¿í¶È±È
+	// å®½åº¦æ¯”
 	float m_widthPro;
-	// ¸ß¶È±È
+	// é«˜åº¦æ¯”
 	float m_heightPro;
-	// ÊÇ·ñÎª´°¿Ú
+	// æ˜¯å¦ä¸ºçª—å£
 	bool m_bWnd;
-	// ´°¿Ú¿í¸ß
+	// çª—å£å®½é«˜
 	LONG m_windowWidth;
 	LONG m_windowHeight;
-	// ¿Í»§Çø¿í¸ß
+	// å®¢æˆ·åŒºå®½é«˜
 	LONG m_clientWidth;
 	LONG m_clientHeight;
 public:
-	// ³õÊ¼»¯´°¿Ú
+	// åˆå§‹åŒ–çª—å£
 	HRESULT InitWindow(HINSTANCE hInst,int nCmdShow,const _MAINWNDCONFIG* config);
-	// Ïú»Ù´°¿Ú
+	// é”€æ¯çª—å£
 	void DestroyWindow();
-	// ¼ÆËã±ÈÀı
+	// è®¡ç®—æ¯”ä¾‹
 	void CalcRectPro();
-	// µÃµ½´°¿Ú¾ä±ú
+	// å¾—åˆ°çª—å£å¥æŸ„
 	inline HWND GetHwnd(){return m_hWnd;}
-	// ÊÇ·ñÎª´°¿ÚÄ£Ê½
+	// æ˜¯å¦ä¸ºçª—å£æ¨¡å¼
 	inline bool IsWnd(){return m_bWnd;}
-	// µÃµ½Êó±êÔÚ»º³åÇøÖĞÎ»ÖÃ
+	// å¾—åˆ°é¼ æ ‡åœ¨ç¼“å†²åŒºä¸­ä½ç½®
 	void GetCursorPosInBuffer(float* x,float* y);
 	// on size changed
 	void onSizeChanged(UINT width, UINT height);
-	// µÃµ½ÊıÖµ
+	// å¾—åˆ°æ•°å€¼
 	inline LONG GetWindowWidth(){return m_windowWidth;}
 	inline LONG GetWindowHeight(){return m_windowHeight;}
 	inline LONG GetClientWidth(){return m_clientWidth;}

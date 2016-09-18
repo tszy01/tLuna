@@ -9,7 +9,7 @@ namespace TLunaEngine{
 	{
 		if(!file || !ppStream)
 			return false;
-		// ´ò¿ªÎÄ¼ş
+		// æ‰“å¼€æ–‡ä»¶
 		*ppStream = fopen(file,mode);
 		if(*ppStream==0)
 		{
@@ -117,11 +117,11 @@ namespace TLunaEngine{
 	{
 		if(!strWrite || !pStream)
 			return false;
-		// ÏÈĞ´ÊıÁ¿
+		// å…ˆå†™æ•°é‡
 		size_t charCount = count;
 		if(fwrite(&charCount,sizeof(size_t),1,pStream)!=1)
 			return false;
-		// Ğ´ÄÚÈİ
+		// å†™å†…å®¹
 		if(fwrite(strWrite,sizeof(char),count,pStream) < count)
 			return false;
 		return true;
@@ -255,7 +255,7 @@ namespace TLunaEngine{
 			return false;
 		}
 		memset(strResult,0,nCount);
-		// ¶ÁÈ¡´óĞ¡
+		// è¯»å–å¤§å°
 		size_t strLen = 0;
 		if(fread(&strLen,sizeof(size_t),1,pStream)!=1)
 			return false;

@@ -10,57 +10,57 @@ namespace TLunaEngine{
 		TxtFileReader(void);
 		~TxtFileReader(void);
 	public:
-		// ´ò¿ªÒ»¸öTMeshµÄÎÄ¼ş
-		// ·µ»Ø£ºÊÇ·ñ³É¹¦
-		// in filename:ÎÄ¼şÃû
-		// out ppStream:·µ»ØµÄÎÄ¼şÖ¸Õë
+		// æ‰“å¼€ä¸€ä¸ªTMeshçš„æ–‡ä»¶
+		// è¿”å›ï¼šæ˜¯å¦æˆåŠŸ
+		// in filename:æ–‡ä»¶å
+		// out ppStream:è¿”å›çš„æ–‡ä»¶æŒ‡é’ˆ
 		static bool OpenTxtFile(const char* filename,FILE** ppStream);
 
-		// ¹Ø±ÕÒ»¸öTMeshµÄÎÄ¼ş
-		// ·µ»Ø£ºÎŞ
-		// in pStream:ÎÄ¼şÖ¸Õë
+		// å…³é—­ä¸€ä¸ªTMeshçš„æ–‡ä»¶
+		// è¿”å›ï¼šæ— 
+		// in pStream:æ–‡ä»¶æŒ‡é’ˆ
 		static void CloseTxtFile(FILE* pStream);
 
-		// ¶ÁÈ¡Ò»ĞĞ×Ö·û´®
-		// ·µ»Ø£ºÊÇ·ñ³É¹¦
-		// out strResult:·µ»ØµÄ½á¹û×Ö·û´®
-		// in pStream:ÎÄ¼şÖ¸Õë
-		// in strCmp:±È½ÏµÄ×Ö·û´®£¬Èç¹û²»ĞèÒª±È½Ï£¬´«0
-		// out bEqual:ÊÇ·ñºÍ±È½ÏµÄ×Ö·û¶ÎÆ¥Åä£¬Èç¹ûÃ»ÓĞ±È½Ï£¬´«0
-		// in nCount:Ò»¹²¿ÉÒÔ×°¼¸¸ö×Ö·û
-		// out pReadCount:·µ»ØÊµ¼Ê¶ÁÈ¡µÄ×Ö·û
+		// è¯»å–ä¸€è¡Œå­—ç¬¦ä¸²
+		// è¿”å›ï¼šæ˜¯å¦æˆåŠŸ
+		// out strResult:è¿”å›çš„ç»“æœå­—ç¬¦ä¸²
+		// in pStream:æ–‡ä»¶æŒ‡é’ˆ
+		// in strCmp:æ¯”è¾ƒçš„å­—ç¬¦ä¸²ï¼Œå¦‚æœä¸éœ€è¦æ¯”è¾ƒï¼Œä¼ 0
+		// out bEqual:æ˜¯å¦å’Œæ¯”è¾ƒçš„å­—ç¬¦æ®µåŒ¹é…ï¼Œå¦‚æœæ²¡æœ‰æ¯”è¾ƒï¼Œä¼ 0
+		// in nCount:ä¸€å…±å¯ä»¥è£…å‡ ä¸ªå­—ç¬¦
+		// out pReadCount:è¿”å›å®é™…è¯»å–çš„å­—ç¬¦
 		static bool ReadLineString(char* strResult,FILE* pStream,char* strCmp,bool* bEqual,int nCount,int* pReadCount);
 
-		// ¶ÁÈ¡Ò»ĞĞÕûÊı
-		// ·µ»Ø£ºÊÇ·ñ³É¹¦
-		// out aiResult:·µ»ØµÄÕûĞÎÊı×é
-		// in pStream:ÎÄ¼şÖ¸Õë
-		// in nCount:ĞèÒª¶Á¼¸¸öÕûĞÎÊı¾İ
-		// in splice:ÓÃÓÚ·Ö¸îN¸öÊı¾İµÄ×Ö·û
+		// è¯»å–ä¸€è¡Œæ•´æ•°
+		// è¿”å›ï¼šæ˜¯å¦æˆåŠŸ
+		// out aiResult:è¿”å›çš„æ•´å½¢æ•°ç»„
+		// in pStream:æ–‡ä»¶æŒ‡é’ˆ
+		// in nCount:éœ€è¦è¯»å‡ ä¸ªæ•´å½¢æ•°æ®
+		// in splice:ç”¨äºåˆ†å‰²Nä¸ªæ•°æ®çš„å­—ç¬¦
 		static bool ReadLineInteger(int* aiResult,FILE* pStream,int nCount,char splice);
 
-		// ¶ÁÈ¡Ò»ĞĞlong
-		// ·µ»Ø£ºÊÇ·ñ³É¹¦
-		// out alResult:·µ»ØµÄÕûĞÎÊı×é
-		// in pStream:ÎÄ¼şÖ¸Õë
-		// in nCount:ĞèÒª¶Á¼¸¸öÕûĞÎÊı¾İ
-		// in splice:ÓÃÓÚ·Ö¸îN¸öÊı¾İµÄ×Ö·û
+		// è¯»å–ä¸€è¡Œlong
+		// è¿”å›ï¼šæ˜¯å¦æˆåŠŸ
+		// out alResult:è¿”å›çš„æ•´å½¢æ•°ç»„
+		// in pStream:æ–‡ä»¶æŒ‡é’ˆ
+		// in nCount:éœ€è¦è¯»å‡ ä¸ªæ•´å½¢æ•°æ®
+		// in splice:ç”¨äºåˆ†å‰²Nä¸ªæ•°æ®çš„å­—ç¬¦
 		static bool ReadLineLong(long* alResult,FILE* pStream,int nCount,char splice);
 
-		// ¶ÁÈ¡Ò»ĞĞÎŞ·ûºÅÕûÊı
-		// ·µ»Ø£ºÊÇ·ñ³É¹¦
-		// out auResult:·µ»ØµÄÕûĞÎÊı×é
-		// in pStream:ÎÄ¼şÖ¸Õë
-		// in nCount:ĞèÒª¶Á¼¸¸öÕûĞÎÊı¾İ
-		// in splice:ÓÃÓÚ·Ö¸îN¸öÊı¾İµÄ×Ö·û
+		// è¯»å–ä¸€è¡Œæ— ç¬¦å·æ•´æ•°
+		// è¿”å›ï¼šæ˜¯å¦æˆåŠŸ
+		// out auResult:è¿”å›çš„æ•´å½¢æ•°ç»„
+		// in pStream:æ–‡ä»¶æŒ‡é’ˆ
+		// in nCount:éœ€è¦è¯»å‡ ä¸ªæ•´å½¢æ•°æ®
+		// in splice:ç”¨äºåˆ†å‰²Nä¸ªæ•°æ®çš„å­—ç¬¦
 		static bool ReadLineUInteger(unsigned int* auResult,FILE* pStream,int nCount,char splice);
 
-		// ¶ÁÈ¡Ò»ĞĞÎŞ·ûºÅlong
-		// ·µ»Ø£ºÊÇ·ñ³É¹¦
-		// out aulResult:·µ»ØµÄÕûĞÎÊı×é
-		// in pStream:ÎÄ¼şÖ¸Õë
-		// in nCount:ĞèÒª¶Á¼¸¸öÕûĞÎÊı¾İ
-		// in splice:ÓÃÓÚ·Ö¸îN¸öÊı¾İµÄ×Ö·û
+		// è¯»å–ä¸€è¡Œæ— ç¬¦å·long
+		// è¿”å›ï¼šæ˜¯å¦æˆåŠŸ
+		// out aulResult:è¿”å›çš„æ•´å½¢æ•°ç»„
+		// in pStream:æ–‡ä»¶æŒ‡é’ˆ
+		// in nCount:éœ€è¦è¯»å‡ ä¸ªæ•´å½¢æ•°æ®
+		// in splice:ç”¨äºåˆ†å‰²Nä¸ªæ•°æ®çš„å­—ç¬¦
 		static bool ReadLineULong(unsigned long* aulResult,FILE* pStream,int nCount,char splice);
 
 		// read short
@@ -69,29 +69,29 @@ namespace TLunaEngine{
 		// read ushort
 		static bool ReadLineUShort(unsigned short* ausResult,FILE* pStream,int nCount,char splice);
 
-		// ¶ÁÈ¡Ò»ĞĞ¸¡µãÊı
-		// ·µ»Ø£ºÊÇ·ñ³É¹¦
-		// out afResult:·µ»ØµÄ¸¡µãÊı×é
-		// in pStream:ÎÄ¼şÖ¸Õë
-		// in nCount:ĞèÒª¶Á¼¸¸ö¸¡µãÊıÊı¾İ
-		// in splice:ÓÃÓÚ·Ö¸îN¸öÊı¾İµÄ×Ö·û
+		// è¯»å–ä¸€è¡Œæµ®ç‚¹æ•°
+		// è¿”å›ï¼šæ˜¯å¦æˆåŠŸ
+		// out afResult:è¿”å›çš„æµ®ç‚¹æ•°ç»„
+		// in pStream:æ–‡ä»¶æŒ‡é’ˆ
+		// in nCount:éœ€è¦è¯»å‡ ä¸ªæµ®ç‚¹æ•°æ•°æ®
+		// in splice:ç”¨äºåˆ†å‰²Nä¸ªæ•°æ®çš„å­—ç¬¦
 		static bool ReadLineFloat(float* afResult,FILE* pStream,int nCount,char splice);
 
-		// ¶ÁÈ¡Ò»ĞĞË«¾«¶È
-		// ·µ»Ø£ºÊÇ·ñ³É¹¦
-		// out adResult:·µ»ØµÄ¸¡µãÊı×é
-		// in pStream:ÎÄ¼şÖ¸Õë
-		// in nCount:ĞèÒª¶Á¼¸¸ö¸¡µãÊıÊı¾İ
-		// in splice:ÓÃÓÚ·Ö¸îN¸öÊı¾İµÄ×Ö·û
+		// è¯»å–ä¸€è¡ŒåŒç²¾åº¦
+		// è¿”å›ï¼šæ˜¯å¦æˆåŠŸ
+		// out adResult:è¿”å›çš„æµ®ç‚¹æ•°ç»„
+		// in pStream:æ–‡ä»¶æŒ‡é’ˆ
+		// in nCount:éœ€è¦è¯»å‡ ä¸ªæµ®ç‚¹æ•°æ•°æ®
+		// in splice:ç”¨äºåˆ†å‰²Nä¸ªæ•°æ®çš„å­—ç¬¦
 		static bool ReadLineDouble(double* adResult,FILE* pStream,int nCount,char splice);
 
-		// ¶ÁÈ¡È«²¿ÎÄ±¾ÄÚÈİ
-		// ·µ»Ø£ºÊÇ·ñ³É¹¦
+		// è¯»å–å…¨éƒ¨æ–‡æœ¬å†…å®¹
+		// è¿”å›ï¼šæ˜¯å¦æˆåŠŸ
 		// buffer,out,receivs read data
 		// readByte,out,receivs read data size
 		// szFile,in,file name to read
 		// mode,in,read mode
-		// note:º¯Êı±¾Éí»áÎªbuffer·ÖÅäÄÚ´æ£¬ÇëÔÚÍâ²¿ÊÍ·Å
+		// note:å‡½æ•°æœ¬èº«ä¼šä¸ºbufferåˆ†é…å†…å­˜ï¼Œè¯·åœ¨å¤–éƒ¨é‡Šæ”¾
 		static bool ReadAllFile(const char* szFile,const char* mode,void** buffer,size_t* readByte);
 	};
 

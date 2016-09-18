@@ -21,7 +21,7 @@ namespace TLunaEngine{
 			assert(false);
 			return false;
 		}
-		// 打开文件
+		// 鎵撳紑鏂囦欢
 		int re = fopen_s(ppStream,filename,"wt");
 		if(*ppStream==0 || re!=0)
 		{

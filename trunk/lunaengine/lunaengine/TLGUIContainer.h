@@ -13,7 +13,7 @@ namespace TLunaEngine{
 	class GUIListener;
 
 	/*
-	 *	ÈİÆ÷Àà£¬¿ÉÒÔ±»¼Ì³Ğ£¬ÈİÆ÷°üº¬ÆäËüÈİÆ÷£¬°üº¬¿Ø¼ş
+	 *	å®¹å™¨ç±»ï¼Œå¯ä»¥è¢«ç»§æ‰¿ï¼Œå®¹å™¨åŒ…å«å…¶å®ƒå®¹å™¨ï¼ŒåŒ…å«æ§ä»¶
 	 */
 	class GUIContainer
 	{
@@ -21,102 +21,102 @@ namespace TLunaEngine{
 		GUIContainer(void);
 		~GUIContainer(void);
 	private:
-		std::map<int,GUIContainer*> m_SubContainerTable;		// ×ÓÈİÆ÷Á´±í
-		std::vector<GUICtrl*> m_CtrlList;								// ¿Ø¼şÁ´±í
-		int m_iID;													// ÈİÆ÷ID
-		GUIContainer* m_pParent;									// ¸¸ÈİÆ÷
-		GUIListener* m_pListener;								// ÏûÏ¢ÉÏ²ã²¶»ñ
-		bool m_bShow;												// ÊÇ·ñÏÔÊ¾
+		std::map<int,GUIContainer*> m_SubContainerTable;		// å­å®¹å™¨é“¾è¡¨
+		std::vector<GUICtrl*> m_CtrlList;								// æ§ä»¶é“¾è¡¨
+		int m_iID;													// å®¹å™¨ID
+		GUIContainer* m_pParent;									// çˆ¶å®¹å™¨
+		GUIListener* m_pListener;								// æ¶ˆæ¯ä¸Šå±‚æ•è·
+		bool m_bShow;												// æ˜¯å¦æ˜¾ç¤º
 
-		// ------ ÒÔÏÂÊÇÏà¶ÔÓÚ¸¸ÈİÆ÷µÄÎ»ÖÃºÍ´óĞ¡ --------
-		// ¸¸ÈİÆ÷Èç¹ûÃ»ÓĞ£¬ÄÇ¾ÍÊÇÏà¶ÔÓÚÕû¸ö´°¿ÚµÄ
+		// ------ ä»¥ä¸‹æ˜¯ç›¸å¯¹äºçˆ¶å®¹å™¨çš„ä½ç½®å’Œå¤§å° --------
+		// çˆ¶å®¹å™¨å¦‚æœæ²¡æœ‰ï¼Œé‚£å°±æ˜¯ç›¸å¯¹äºæ•´ä¸ªçª—å£çš„
 		TS32 m_posX;
 		TS32 m_posY;
 		TS32 m_width;
 		TS32 m_height;
 
-		// ------ ÒÔÏÂÊÇ¼ÆËã³öµÄ¾ø¶ÔÎ»ÖÃºÍ´óĞ¡ ----------
+		// ------ ä»¥ä¸‹æ˜¯è®¡ç®—å‡ºçš„ç»å¯¹ä½ç½®å’Œå¤§å° ----------
 		TS32 m_posXParent;
 		TS32 m_posYParent;
 		TS32 m_posXFinal;
 		TS32 m_posYFinal;
-		bool m_bReCal;		// ÊÇ·ñÖØĞÂ¼ÆËã
+		bool m_bReCal;		// æ˜¯å¦é‡æ–°è®¡ç®—
 
-		// ----- ÒÔÏÂÊÇ¶¯»­À©Õ¹²¿·Ö ---------------------
-		// ----- ³ıÁËAnimeTypeÊ£ÏÂµÄ¶¼²»¹¹ÔìÁËºÍÎö¹¹ÁË --
-		// ¶¯»­ÖÖÀà
-		// ÕâÊÇ¸öÃ¶¾Ù²¢¼¯£¬¿ÉÄÜº¬ÓĞ¶àÖÖ¶¯»­
+		// ----- ä»¥ä¸‹æ˜¯åŠ¨ç”»æ‰©å±•éƒ¨åˆ† ---------------------
+		// ----- é™¤äº†AnimeTypeå‰©ä¸‹çš„éƒ½ä¸æ„é€ äº†å’Œææ„äº† --
+		// åŠ¨ç”»ç§ç±»
+		// è¿™æ˜¯ä¸ªæšä¸¾å¹¶é›†ï¼Œå¯èƒ½å«æœ‰å¤šç§åŠ¨ç”»
 		TUByte m_yAnimeType;
-		// ¶¯»­²¥·Å´ÎÊı
-		// -1ÎŞÏŞÑ­»·£¬0Í£ÔÚµÚÒ»Ö¡£¬²¥·ÅÍêºóÍ£ÔÚ×îºóÒ»Ö¡
-		// CATE_COUNT 0Îªµ­Èëµ­³ö£¬1ÎªÍ¼Æ¬¶¯»­£¬2ÎªÎ»ÖÃ¶¯»­
+		// åŠ¨ç”»æ’­æ”¾æ¬¡æ•°
+		// -1æ— é™å¾ªç¯ï¼Œ0åœåœ¨ç¬¬ä¸€å¸§ï¼Œæ’­æ”¾å®Œååœåœ¨æœ€åä¸€å¸§
+		// CATE_COUNT 0ä¸ºæ·¡å…¥æ·¡å‡ºï¼Œ1ä¸ºå›¾ç‰‡åŠ¨ç”»ï¼Œ2ä¸ºä½ç½®åŠ¨ç”»
 		int m_nAnimeTimes[CATE_COUNT];
-		// µ±Ç°¶¯»­ÊÇµÚ¼¸´Î²¥·Å£¬´Ó0¿ªÊ¼£¬²¥ÍêÒ»´Î+1
+		// å½“å‰åŠ¨ç”»æ˜¯ç¬¬å‡ æ¬¡æ’­æ”¾ï¼Œä»0å¼€å§‹ï¼Œæ’­å®Œä¸€æ¬¡+1
 		int m_iNowAnimeTimes[CATE_COUNT];
-		// Ã¿Ãë±ä»»µÄ¸¡µãÊıÖµ
-		// Ã¿ÃëALPHA±ä»¯Öµ -- µ­Èëµ­³öĞ§¹û
-		// Ã¿ÃëÍ¼Æ¬±ä»»¼¸¸ö -- Í¼Æ¬Ö¡¶¯»­
-		// Ã¿ÃëÎ»ÖÃ¸Ä±ä¼¸¸öÏñËØ -- Î»ÖÃÖ¡¶¯»­
+		// æ¯ç§’å˜æ¢çš„æµ®ç‚¹æ•°å€¼
+		// æ¯ç§’ALPHAå˜åŒ–å€¼ -- æ·¡å…¥æ·¡å‡ºæ•ˆæœ
+		// æ¯ç§’å›¾ç‰‡å˜æ¢å‡ ä¸ª -- å›¾ç‰‡å¸§åŠ¨ç”»
+		// æ¯ç§’ä½ç½®æ”¹å˜å‡ ä¸ªåƒç´  -- ä½ç½®å¸§åŠ¨ç”»
 		float m_nAnimeChangedPerSec[CATE_COUNT];
-		// Ã¿Ãë¼ÆÊı±ä»¯
-		// Õâ¸ö¼ÆÊı¸ù¾İÀàĞÍ²»Í¬£¬ÖØÖÃµÄ·½Ê½Ò²²»Í¬£¬Òª×öµ½Âú×ã×îĞ¡µ¥Î»+1Ê±²ÅÖØÖÃ
+		// æ¯ç§’è®¡æ•°å˜åŒ–
+		// è¿™ä¸ªè®¡æ•°æ ¹æ®ç±»å‹ä¸åŒï¼Œé‡ç½®çš„æ–¹å¼ä¹Ÿä¸åŒï¼Œè¦åšåˆ°æ»¡è¶³æœ€å°å•ä½+1æ—¶æ‰é‡ç½®
 		float m_nAnimeChangedTimeCount[CATE_COUNT];
-		// ¶¯»­ÊÇ·ñ²¥·ÅÍê³É
+		// åŠ¨ç”»æ˜¯å¦æ’­æ”¾å®Œæˆ
 		bool m_bAnimePlayedOver[CATE_COUNT];
 
-		// ------ ÒÔÏÂÊÇµ­Èëµ­³öÏà¹Ø --------------------
-		// µ­Èëµ­³öÖÖÀà
+		// ------ ä»¥ä¸‹æ˜¯æ·¡å…¥æ·¡å‡ºç›¸å…³ --------------------
+		// æ·¡å…¥æ·¡å‡ºç§ç±»
 		CONTAINER_FADE_TYPE m_eAnimeFadeType;
-		// µ±Ç°ÕıÔÚÄÄÖÖ×´Ì¬
-		// -1Î´ÔÚ¶¯»­ÖĞ£¬0µ­Èë£¬1µ­³ö
+		// å½“å‰æ­£åœ¨å“ªç§çŠ¶æ€
+		// -1æœªåœ¨åŠ¨ç”»ä¸­ï¼Œ0æ·¡å…¥ï¼Œ1æ·¡å‡º
 		int m_iNowFadeType;
-		// µ±Ç°µÄALPHAÖµ
+		// å½“å‰çš„ALPHAå€¼
 		float m_fNowAlpha;
-		// ----- Í¼Æ¬Ö¡¶¯»­Ïà¹Ø -------------------------
-		// ÆğÊ¼¿Ø¼şË÷Òı
+		// ----- å›¾ç‰‡å¸§åŠ¨ç”»ç›¸å…³ -------------------------
+		// èµ·å§‹æ§ä»¶ç´¢å¼•
 		int m_iPicChangeStartIndex;
-		// ½áÊø¿Ø¼şË÷Òı£¬ºÍ¿ªÊ¼Ö®¼äÒªÊÇÁ¬ĞøµÄ
+		// ç»“æŸæ§ä»¶ç´¢å¼•ï¼Œå’Œå¼€å§‹ä¹‹é—´è¦æ˜¯è¿ç»­çš„
 		int m_iPicChangeEndIndex;
-		// ÏÖÔÚ²¥·ÅµÄ¿Ø¼şË÷Òı
-		// -1Î´ÔÚ¶¯»­ÖĞ
+		// ç°åœ¨æ’­æ”¾çš„æ§ä»¶ç´¢å¼•
+		// -1æœªåœ¨åŠ¨ç”»ä¸­
 		int m_iNowPicChangeIndex;
-		// ---- Î»ÖÃÖ¡¶¯»­ ------------------------------
-		// ¿ªÊ¼Î»ÖÃ
+		// ---- ä½ç½®å¸§åŠ¨ç”» ------------------------------
+		// å¼€å§‹ä½ç½®
 		TS32 m_posChangeStartX;
 		TS32 m_posChangeStartY;
-		// ½áÊøÎ»ÖÃ
+		// ç»“æŸä½ç½®
 		TS32 m_posChangeEndX;
 		TS32 m_posChangeEndY;
 	public:
-		// ------ ÒÔÏÂÊÇ·½·¨ ----------------------------
-		// ³õÊ¼»¯
+		// ------ ä»¥ä¸‹æ˜¯æ–¹æ³• ----------------------------
+		// åˆå§‹åŒ–
 		bool InitContainer(int ID,GUIContainer* pParent,TS32 x,TS32 y,TS32 width,TS32 height,TUByte yAnimeType,GUIListener* pListener);
-		// ³õÊ¼»¯¶¯»­
+		// åˆå§‹åŒ–åŠ¨ç”»
 		bool InitFadeAnime(CONTAINER_FADE_TYPE eFadeType,float fChangedPerSec,int nTimes);
 		bool InitPicChangeAnime(int iStartIndex,int iEndIndex,float fChangedPerSec,int nTimes);
 		bool InitPosChangeAnime(TS32 startX,TS32 startY,TS32 endX,TS32 endY,float fChangedPerSec,int nTimes);
-		// ÖØÖÃ¶¯»­
+		// é‡ç½®åŠ¨ç”»
 		void ResetFadeAnime();
 		void ResetPicChangeAnime();
 		void ResetPosChangeAnime();
-		// ¸üĞÂÖ¡¼ÆËã¶¯»­
+		// æ›´æ–°å¸§è®¡ç®—åŠ¨ç”»
 		void UpdateFadeAnime(float fTimeElapsed);
 		void UpdatePicChangeAnime(float fTimeElapsed);
 		void UpdatePosChangeAnime(float fTimeElapsed);
-		// ÖØĞÂ¼ÆËã×Ó¿Ø¼ş¾ø¶ÔÎ»ÖÃ
+		// é‡æ–°è®¡ç®—å­æ§ä»¶ç»å¯¹ä½ç½®
 		void ReCalSubRect(TS32 parentFinalX,TS32 parentFinalY);
-		// Ìí¼Ó¿Ø¼ş
+		// æ·»åŠ æ§ä»¶
 		bool AddCtrl(GUICtrl* pCtrl);
-		// Ìí¼ÓÈİÆ÷
+		// æ·»åŠ å®¹å™¨
 		bool AddContainer(GUIContainer* pContainer);
-		// É¾³ıÈİÆ÷
+		// åˆ é™¤å®¹å™¨
 		void RemoveSubContainer(int ID);
-		// µÃµ½ID
+		// å¾—åˆ°ID
 		inline int GetID()
 		{
 			return m_iID;
 		}
-		// µÃµ½¿Ø¼ş
+		// å¾—åˆ°æ§ä»¶
 		inline GUICtrl* GetCtrl(int iIndex)
 		{
 			GUICtrl* pCtrl = TNULL;
@@ -125,7 +125,7 @@ namespace TLunaEngine{
 			pCtrl = m_CtrlList[iIndex];
 			return pCtrl;
 		}
-		// µÃµ½ÈİÆ÷
+		// å¾—åˆ°å®¹å™¨
 		inline GUIContainer* GetSubContainer(int iID)
 		{
 			GUIContainer* pContainer = TNULL;
@@ -134,15 +134,15 @@ namespace TLunaEngine{
 				return itr->second;
 			return pContainer;
 		}
-		// µİ¹éÕÒÈİÆ÷
+		// é€’å½’æ‰¾å®¹å™¨
 		inline GUIContainer* FindContainer(int iID)
 		{
-			// ÏÈ±È½Ï×Ô¼º
+			// å…ˆæ¯”è¾ƒè‡ªå·±
 			if (m_iID == iID)
 			{
 				return this;
 			}
-			// µ÷ÓÃ×ÓÈİÆ÷µÄ·½·¨
+			// è°ƒç”¨å­å®¹å™¨çš„æ–¹æ³•
 			std::map<int,GUIContainer*>::iterator itr = m_SubContainerTable.begin();
 			for (;itr!=m_SubContainerTable.end();itr++)
 			{
@@ -155,7 +155,7 @@ namespace TLunaEngine{
 			}
 			return TNULL;
 		}
-		// É¾³ı¿Ø¼ş
+		// åˆ é™¤æ§ä»¶
 		inline void ClearCtrls()
 		{
 			std::vector<GUICtrl*>::iterator itr = m_CtrlList.begin();
@@ -170,7 +170,7 @@ namespace TLunaEngine{
 			}
 			m_CtrlList.clear();
 		}
-		// É¾³ı×ÓÈİÆ÷
+		// åˆ é™¤å­å®¹å™¨
 		inline void ClearSubContainers()
 		{
 			std::map<int,GUIContainer*>::iterator itr = m_SubContainerTable.begin();
@@ -185,7 +185,7 @@ namespace TLunaEngine{
 			}
 			m_SubContainerTable.clear();
 		}
-		// ÊÇÈİÆ÷ÖØĞÂ¼ÆËã¾ø¶ÔÎ»ÖÃ
+		// æ˜¯å®¹å™¨é‡æ–°è®¡ç®—ç»å¯¹ä½ç½®
 		inline void MakeReCal(bool bReCal = true)
 		{
 			m_bReCal = bReCal;
@@ -196,41 +196,41 @@ namespace TLunaEngine{
 				pSubContainer->MakeReCal(bReCal);
 			}
 		}
-		// µÃµ½ÊÇ·ñÏÔÊ¾
+		// å¾—åˆ°æ˜¯å¦æ˜¾ç¤º
 		inline bool IsShow()
 		{
 			return m_bShow;
 		}
-		// ÉèÖÃÊÇ·ñÏÔÊ¾
+		// è®¾ç½®æ˜¯å¦æ˜¾ç¤º
 		void ShowContainer(bool bShow = true);
-		// ÉèÖÃÎ»ÖÃ
-		// Ö»ÄÜÉèÖÃÎ»ÖÃ£¬²»ÄÜÉèÖÃ´óĞ¡
+		// è®¾ç½®ä½ç½®
+		// åªèƒ½è®¾ç½®ä½ç½®ï¼Œä¸èƒ½è®¾ç½®å¤§å°
 		void SetPosition(TS32 x,TS32 y)
 		{
 			m_posX = x;
 			m_posY = y;
 			MakeReCal(true);
 		}
-		// ÉèÖÃ¿Ø¼şALPHA
+		// è®¾ç½®æ§ä»¶ALPHA
 		void SetCtrlAlpha(float fAlpha);
-		// ÉèÖÃ¶¯»­ÀàĞÍ
+		// è®¾ç½®åŠ¨ç”»ç±»å‹
 		inline void SetAnimeType(TUByte yType)
 		{
 			m_yAnimeType = yType;
 		}
-		// µÃµ½¶¯»­ÀàĞÍ
+		// å¾—åˆ°åŠ¨ç”»ç±»å‹
 		inline TUByte GetAnimeType()
 		{
 			return m_yAnimeType;
 		}
-		// ¶¯»­½áÊøÊ±µ÷ÓÃµÄº¯Êı
+		// åŠ¨ç”»ç»“æŸæ—¶è°ƒç”¨çš„å‡½æ•°
 		void OnAnimePlayedOver();
 	public:
-		// Ïú»Ù
+		// é”€æ¯
 		void DestroyContainer();
-		// ¸üĞÂ
+		// æ›´æ–°
 		bool Update(float fTimeElapsed);
-		// äÖÈ¾
+		// æ¸²æŸ“
 		bool Render(float fTimeElapsed);
 	};
 

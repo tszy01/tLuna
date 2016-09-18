@@ -16,7 +16,7 @@ namespace TLunaEngine{
 		String(void);
 		~String(void);
 	public:
-		// ÖØÔØº¯Êı
+		// é‡è½½å‡½æ•°
 		String(const char *szContent);
 		String(const wchar_t *szContent);
 		String(const String &strContent);
@@ -92,7 +92,7 @@ namespace TLunaEngine{
 		bool operator <(const String &strRight) const; 
 		char operator [](int pos) const;
 	public:
-		// ½«×Ö·û´®±ä³É¸÷ÖÖÀàĞÍ
+		// å°†å­—ç¬¦ä¸²å˜æˆå„ç§ç±»å‹
 		const char * GetString() const;
 		SharedPtr<wchar_t> GetWString() const;
 		int GetStringAsInt() const;
@@ -102,35 +102,35 @@ namespace TLunaEngine{
 		unsigned long GetStringAsULong() const;
 		double GetStringAsDouble() const;
 		bool GetStringAsBool() const;
-		// µÃµ½×Ö·û´®³¤¶È
+		// å¾—åˆ°å­—ç¬¦ä¸²é•¿åº¦
 		int GetLength() const{return m_nLength;}
-		// ¸ô¶Ï×Ö·û´®
+		// éš”æ–­å­—ç¬¦ä¸²
 		String Mid(int startPos,int count) const;
 		String Mid(int startPos) const;
-		// Éú³É×Ö·û´®
+		// ç”Ÿæˆå­—ç¬¦ä¸²
 		void Format(const char *format, ...);
-		// ²éÕÒ×Ö·û´®Î»ÖÃ
+		// æŸ¥æ‰¾å­—ç¬¦ä¸²ä½ç½®
 		int Find(const char *szFind,int startPos,bool bRight) const;
 		int Find(const wchar_t *szFind,int startPos,bool bRight) const;
 		int Find(const String& strFind,int startPos,bool bRight) const;
-		// ·Ö½â×Ö·û´®
+		// åˆ†è§£å­—ç¬¦ä¸²
 		std::vector<String> Split(char sz,int* pCount) const;
 		std::vector<String> Split(wchar_t sz, int* pCount) const;
-		//// É¾³ı·ÖÅäµÄ¿Õ¼äÓÃ
-		//// Õâ¸öº¯Êı½â¾ö¿çDLLÊÍ·Å¿Õ¼äÎÊÌâ
+		//// åˆ é™¤åˆ†é…çš„ç©ºé—´ç”¨
+		//// è¿™ä¸ªå‡½æ•°è§£å†³è·¨DLLé‡Šæ”¾ç©ºé—´é—®é¢˜
 		//inline void ClearSplitList(std::list<String>& list)
 		//{
 		//	list.clear();
 		//}
-		// ×Ö·û´®´óĞ´»¯
+		// å­—ç¬¦ä¸²å¤§å†™åŒ–
 		String& MakeUpper();
-		// ×Ö·û´®Ğ¡Ğ´»¯
+		// å­—ç¬¦ä¸²å°å†™åŒ–
 		String& MakeLower();
 		// set char using index
 		String& SetCharAt(int pos,char value);
 		String& SetCharAt(int pos,wchar_t value);
 	public:
-		// -------------- Ò»Ğ©ºÍ×Ö·û´®ÓĞ¹ØµÄÈ«¾Ö·½·¨ --------
+		// -------------- ä¸€äº›å’Œå­—ç¬¦ä¸²æœ‰å…³çš„å…¨å±€æ–¹æ³• --------
 		static void CutFilePath(char* fullname,char* filename=0,char* pathname=0);
 		// --------------------------------------------------
 	};

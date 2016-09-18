@@ -11,14 +11,14 @@ namespace TLunaEngine{
 		Triangle() {}
 		//! Constructor for triangle with given three vertices
 		Triangle(const Vector3<T>& v1,const Vector3<T>& v2,const Vector3<T>& v3) : pointA(v1), pointB(v2), pointC(v3) {}
-		// ¿½±´
+		// æ‹·è´
 		Triangle(const Triangle<T>& other) 
 		{
 			pointA = other.pointA;
 			pointB = other.pointB;
 			pointC = other.pointC;
 		}
-		// Îö¹¹
+		// ææ„
 		~Triangle()
 		{
 		}
@@ -35,7 +35,7 @@ namespace TLunaEngine{
 			return !(*this==other);
 		}
 
-		// ¸³Öµ
+		// èµ‹å€¼
 		inline Triangle<T>& operator=(const Triangle<T>& other)
 		{
 			pointA = other.pointA;
@@ -189,7 +189,7 @@ namespace TLunaEngine{
 		Vector3<T> pointB;
 		Vector3<T> pointC;
 
-		// p1ÊÇ·ñÔÚp2,a,bµÄÄÚ²¿
+		// p1æ˜¯å¦åœ¨p2,a,bçš„å†…éƒ¨
 		inline bool isOnSameSide(const Vector3<T>& p1, const Vector3<T>& p2,
 			const Vector3<T>& a, const Vector3<T>& b) const
 		{

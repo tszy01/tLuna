@@ -4,7 +4,7 @@
 
 namespace TLunaEngine{
 	/*
-	 *	´¦ÀíÍ¼Æ¬µÄ¿Ø¼ş
+	 *	å¤„ç†å›¾ç‰‡çš„æ§ä»¶
 	 */
 	class GUIPicture : public GUICtrl
 	{
@@ -12,23 +12,23 @@ namespace TLunaEngine{
 		GUIPicture(void);
 		virtual ~GUIPicture(void);
 	protected:
-		int m_iTexID;	// Ê¹ÓÃµÄÎÆÀíµÄID
-		// ------------ ÒÔÏÂÊÇÎÆÀíÓ³Éä²¿·Ö -------
+		int m_iTexID;	// ä½¿ç”¨çš„çº¹ç†çš„ID
+		// ------------ ä»¥ä¸‹æ˜¯çº¹ç†æ˜ å°„éƒ¨åˆ† -------
 		float m_texX;
 		float m_texY;
 		float m_texR;
 		float m_texB;
 	public:
-		// ------- ÒÔÏÂÊÇÖØĞ´¸¸Àà·½·¨ ------------
-		// Ïú»Ù
+		// ------- ä»¥ä¸‹æ˜¯é‡å†™çˆ¶ç±»æ–¹æ³• ------------
+		// é”€æ¯
 		virtual void DestroyCtrl();
-		// ¸üĞÂ
+		// æ›´æ–°
 		virtual bool Update(float fTimeElapsed);
-		// äÖÈ¾
+		// æ¸²æŸ“
 		virtual bool Render(float fTimeElapsed);
 	public:
-		// ------ ÒÔÏÂÊÇ±¾Àà·½·¨ ----------------
-		// ³õÊ¼»¯
+		// ------ ä»¥ä¸‹æ˜¯æœ¬ç±»æ–¹æ³• ----------------
+		// åˆå§‹åŒ–
 		bool InitGUIPicture(int iIndex,GUIContainer* pContainer,TS32 x,TS32 y,TS32 width,TS32 height,int iTexID,float texX,float texY,float texR,float texB);
 	};
 

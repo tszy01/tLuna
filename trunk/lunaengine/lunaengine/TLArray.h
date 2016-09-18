@@ -14,27 +14,27 @@ namespace TLunaEngine{
 		Array(void);
 		~Array(void);
 	protected:
-		// ------------------- ³ÉÔ± -------------------------
+		// ------------------- æˆå‘˜ -------------------------
 
-		// Ö¸ÏòµÚÒ»¸öÔªËØ
+		// æŒ‡å‘ç¬¬ä¸€ä¸ªå…ƒç´ 
 		T* m_pFront;
-		// Ò»¹²ÓĞ¼¸¸öÓĞĞ§
+		// ä¸€å…±æœ‰å‡ ä¸ªæœ‰æ•ˆ
 		int m_nUsed;
-		// Ò»¹²¿ª±ÙµÄ¸öÊı
+		// ä¸€å…±å¼€è¾Ÿçš„ä¸ªæ•°
 		int m_nAlloc;
-		// TµÄ´óĞ¡
+		// Tçš„å¤§å°
 		size_t m_eleSize;
-		// µ±Ç°¿ª±ÙµÄ¿Õ¼ä´óĞ¡
+		// å½“å‰å¼€è¾Ÿçš„ç©ºé—´å¤§å°
 		size_t m_nowSize;
 
 		// --------------------------------------------------
 	public:
-		// ------------------ ¹«¹²º¯Êı ---------------------
+		// ------------------ å…¬å…±å‡½æ•° ---------------------
 
-		// ¹¹Ôìº¯Êı
-		// elementSize:TµÄ´óĞ¡
-		// nAlloc:Ô¤ÏÈ¿ª±Ù¼¸¸ö
-		// eleInit:³õÊ¼»¯µÄÖµ
+		// æ„é€ å‡½æ•°
+		// elementSize:Tçš„å¤§å°
+		// nAlloc:é¢„å…ˆå¼€è¾Ÿå‡ ä¸ª
+		// eleInit:åˆå§‹åŒ–çš„å€¼
 		inline Array(size_t elementSize,int nAlloc,T& eleInit)
 		{
 			m_eleSize = elementSize;
@@ -49,8 +49,8 @@ namespace TLunaEngine{
 			m_nUsed = 0;
 		};
 
-		// ¹¹Ôìº¯Êı,Ö»³õÊ¼»¯TµÄ´óĞ¡
-		// elementSize:TµÄ´óĞ¡
+		// æ„é€ å‡½æ•°,åªåˆå§‹åŒ–Tçš„å¤§å°
+		// elementSize:Tçš„å¤§å°
 		inline Array(size_t elementSize)
 		{
 			m_eleSize = elementSize;
@@ -60,14 +60,14 @@ namespace TLunaEngine{
 			m_pFront = 0;
 		}
 
-		// ¿½±´¹¹Ôì
+		// æ‹·è´æ„é€ 
 		inline Array(Array& other)
 		{
 			m_pFront = 0;
 			Clone(other);
 		}
 
-		// ¿ËÂ¡
+		// å…‹éš†
 		inline void Clone(Array<T>& other)
 		{
 			if(m_pFront)
@@ -84,14 +84,14 @@ namespace TLunaEngine{
 			m_nUsed = origAlloc;
 		}
 
-		// ÖØĞ´¸³Öµ²Ù×÷
+		// é‡å†™èµ‹å€¼æ“ä½œ
 		inline Array<T>& operator=(Array<T>& other)
 		{
 			Clone(other);
 			return *this;
 		}
 
-		// ÓÉÊı×é¹¹Ôì
+		// ç”±æ•°ç»„æ„é€ 
 		inline Array(T* pArray,size_t elementSize,int arrayLen)
 		{
 			int origAlloc = arrayLen;
@@ -104,45 +104,45 @@ namespace TLunaEngine{
 			m_nUsed = origAlloc;
 		}
 
-		// ÖØ·ÖÅä¿Õ¼ä
-		// Èç¹û±ÈÔ­À´ÉÙ£¬Ö»¸´ÖÆÒ»²¿·ÖÄÚÈİ
-		// Èç¹û±ÈÔ­À´¶à£¬¸´ÖÆËùÓĞÄÚÈİ
-		// nAlloc:ĞÂµÄ¿Õ¼äÓĞ¼¸¸öÔªËØ
-		// eleInit:³õÊ¼»¯µÄÖµ
+		// é‡åˆ†é…ç©ºé—´
+		// å¦‚æœæ¯”åŸæ¥å°‘ï¼Œåªå¤åˆ¶ä¸€éƒ¨åˆ†å†…å®¹
+		// å¦‚æœæ¯”åŸæ¥å¤šï¼Œå¤åˆ¶æ‰€æœ‰å†…å®¹
+		// nAlloc:æ–°çš„ç©ºé—´æœ‰å‡ ä¸ªå…ƒç´ 
+		// eleInit:åˆå§‹åŒ–çš„å€¼
 		inline bool ReAlloc(int nAlloc,T& eleInit)
 		{
 			if(m_eleSize==0 || nAlloc<=0)
 				return false;
-			// ÏÈ·ÖÅä
+			// å…ˆåˆ†é…
 			size_t destSize = m_eleSize*nAlloc;
 			T* pNewMem = (T*)malloc(destSize);
-			// ¶ÔÄÚ´æ¸³ÖµÄ¬ÈÏ¹¹ÔìµÄT
+			// å¯¹å†…å­˜èµ‹å€¼é»˜è®¤æ„é€ çš„T
 			for(int i=0;i<nAlloc;i++)
 			{
 				T* pSeek = pNewMem + i;
 				memcpy(pSeek,&eleInit,m_eleSize);
 			}
-			// ÓÃµÄÉÙ
+			// ç”¨çš„å°‘
 			if(m_nUsed <= nAlloc)
 			{
-				// °ÑÊ¹ÓÃµÄ¸´ÖÆ½øÈ¥
+				// æŠŠä½¿ç”¨çš„å¤åˆ¶è¿›å»
 				if(m_nUsed > 0 && m_pFront)
 				{
 					memcpy(pNewMem,m_pFront,m_nUsed*m_eleSize);
 				}
 			}
-			// ÓÃµÄ¶à
+			// ç”¨çš„å¤š
 			else
 			{
-				// ¸´ÖÆnAlloc¸ö
+				// å¤åˆ¶nAllocä¸ª
 				if(m_pFront)
 				{
 					memcpy(pNewMem,m_pFront,nAlloc*m_eleSize);
 				}
-				// Ê¹ÓÃÁËnAlloc¸ö
+				// ä½¿ç”¨äº†nAllocä¸ª
 				m_nUsed = nAlloc;
 			}
-			// ³ÉÔ±¸³Öµ£¬Ïú»ÙÔ­À´µÄ
+			// æˆå‘˜èµ‹å€¼ï¼Œé”€æ¯åŸæ¥çš„
 			if(m_pFront)
 			{
 				free(m_pFront);
@@ -153,14 +153,14 @@ namespace TLunaEngine{
 			return true;
 		};
 
-		// µÃµ½ÔªËØµÄ·½·¨
+		// å¾—åˆ°å…ƒç´ çš„æ–¹æ³•
 		inline T& GetElement(int iPos)
 		{
 			T* pSeek = m_pFront + iPos;
 			return *pSeek;
 		}
 
-		// ÉèÖÃÔªËØµÄ·½·¨
+		// è®¾ç½®å…ƒç´ çš„æ–¹æ³•
 		inline void SetElement(int iPos,T& ele)
 		{
 			if(iPos<0)
@@ -177,7 +177,7 @@ namespace TLunaEngine{
 			}
 		};
 
-		// ÖØÔØ[]
+		// é‡è½½[]
 		inline T& operator[](int iPos)
 		{
 			if(iPos<0)
@@ -195,31 +195,31 @@ namespace TLunaEngine{
 			return (*pSeek);
 		}
 
-		// µÃµ½³¤¶È
+		// å¾—åˆ°é•¿åº¦
 		inline int GetLength()
 		{
 			return m_nUsed;
 		};
 		
-		// µÃµ½ÏÖÔÚ¿ª±ÙµÄ³¤¶È
+		// å¾—åˆ°ç°åœ¨å¼€è¾Ÿçš„é•¿åº¦
 		inline int GetAlloc()
 		{
 			return m_nAlloc;
 		};
 
-		// µÃµ½ÔªËØ´óĞ¡
+		// å¾—åˆ°å…ƒç´ å¤§å°
 		inline size_t GetElementSize()
 		{
 			return m_eleSize;
 		};
 
-		// µÃµ½¶ÔÓ¦µÄÄÚ´æ
+		// å¾—åˆ°å¯¹åº”çš„å†…å­˜
 		inline T* GetBuffer()
 		{
 			return m_pFront;
 		};
 
-		// µÃµ½ÆÕÍ¨Êı×é
+		// å¾—åˆ°æ™®é€šæ•°ç»„
 		inline int GetBuffer(T** ppBuffer)
 		{
 			if(!ppBuffer)
@@ -232,7 +232,7 @@ namespace TLunaEngine{
 			return m_nUsed;
 		}
 
-		// Çå¿ÕÊı×é
+		// æ¸…ç©ºæ•°ç»„
 		inline void Clear()
 		{
 			if(m_pFront)
@@ -245,16 +245,16 @@ namespace TLunaEngine{
 			m_nAlloc = 0;
 		};
 
-		// ¿Õ¼äÊÇ·ñÒÑ¾­Âú
+		// ç©ºé—´æ˜¯å¦å·²ç»æ»¡
 		inline bool IsFull()
 		{
 			return m_nUsed == m_nAlloc;
 		}
 
-		// ´ÓÄ©Î²Ìí¼ÓÒ»¸öÔªËØ
+		// ä»æœ«å°¾æ·»åŠ ä¸€ä¸ªå…ƒç´ 
 		inline void Push_Back(T& ele)
 		{
-			// Èç¹û¿Õ¼ä²»¹»ÏÈ¿ª±Ù¿Õ¼ä
+			// å¦‚æœç©ºé—´ä¸å¤Ÿå…ˆå¼€è¾Ÿç©ºé—´
 			if(IsFull())
 			{
 				ReAlloc(m_nAlloc+1,ele);

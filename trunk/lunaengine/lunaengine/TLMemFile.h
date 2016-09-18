@@ -9,30 +9,30 @@ namespace TLunaEngine{
 		MemFile(void);
 		~MemFile(void);
 	protected:
-		char m_szPath[1024];	// 路径
-		char m_szName[1024];	// 名字
-		unsigned char* m_pContent;		// 内容
-		int m_ContentSize;		// 内容大小
+		char m_szPath[1024];	// 璺緞
+		char m_szName[1024];	// 鍚嶅瓧
+		unsigned char* m_pContent;		// 鍐呭
+		int m_ContentSize;		// 鍐呭澶у皬
 	public:
-		// 清空内存
+		// 娓呯┖鍐呭瓨
 		void ResetMem();
-		// 得到内容大小
+		// 寰楀埌鍐呭澶у皬
 		inline int GetContentSize(){return m_ContentSize;}
-		// 设置内容
+		// 璁剧疆鍐呭
 		void SetContent(unsigned char* pContent,int size);
-		// 得到内容
+		// 寰楀埌鍐呭
 		int GetContent(unsigned char** pContent);
-		// 设置全名
+		// 璁剧疆鍏ㄥ悕
 		void SetFullName(char* fullname);
-		// 得到全名
+		// 寰楀埌鍏ㄥ悕
 		void GetFullName(char* fullname);
-		// 设置路径
+		// 璁剧疆璺緞
 		void SetPath(char* path);
-		// 得到路径
+		// 寰楀埌璺緞
 		void GetPath(char* path);
-		// 设置名字
+		// 璁剧疆鍚嶅瓧
 		void SetName(char* name);
-		// 得到名字
+		// 寰楀埌鍚嶅瓧
 		void GetName(char* name);
 	};
 

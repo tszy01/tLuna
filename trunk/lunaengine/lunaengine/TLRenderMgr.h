@@ -21,7 +21,7 @@ namespace TLunaEngine
 		RenderMgr();
 		~RenderMgr();
 	private:
-		// 保存创建的Device
+		// 淇濆瓨鍒涘缓鐨凞evice
 		RenderDevice* mDevice;
 		// Used Device Type
 		DEVEICE_TYPE mDeviceType;

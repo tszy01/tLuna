@@ -12,7 +12,7 @@ BOOL CALLBACK EnumJoysticksCallback(const DIDEVICEINSTANCE* pdidInstance, VOID* 
                                 pJoy, NULL);
     if(FAILED(hr)) 
 	{
-		MessageBoxA(NULL,"³õÊ¼»¯ÊÖ±úÊ§°Ü","ERROR",NULL);
+		MessageBoxA(NULL,"Joystick init failed","ERROR",NULL);
 		PostQuitMessage(0);
 		return FALSE;
 	}
@@ -94,53 +94,53 @@ void GameInput::DestroyInput()
 
 bool GameInput::InitInput(HWND hWnd, HINSTANCE hInst,bool bUseJoystick)
 {
-	//´´½¨DX8.0Éè±¸£¬µÚÒ»¸öÊÇÊµÀı¾ä±ş£¬µÚ2¸öÊÇ½âÊÍÉè±¸£¬µÚ3¸öÊÇIDºÅ¡£µÚËÄ¸öÊÇËø¶¨µ½Éè±¸Ö¸ÕëÉÏ
+	//åˆ›å»ºDX8.0è®¾å¤‡ï¼Œç¬¬ä¸€ä¸ªæ˜¯å®ä¾‹å¥ç‚³ï¼Œç¬¬2ä¸ªæ˜¯è§£é‡Šè®¾å¤‡ï¼Œç¬¬3ä¸ªæ˜¯IDå·ã€‚ç¬¬å››ä¸ªæ˜¯é”å®šåˆ°è®¾å¤‡æŒ‡é’ˆä¸Š
 	if(DI_OK!=DirectInput8Create(hInst,DIRECTINPUT_VERSION,IID_IDirectInput8,(LPVOID*)&m_pDInput,NULL))
 	{
-		MessageBoxA(hWnd,"´´½¨DirectInput ¶ÔÏóÊ§°Ü!","ERROR",MB_ICONERROR|MB_OK);
+		MessageBoxA(hWnd,"åˆ›å»ºDirectInput å¯¹è±¡å¤±è´¥!","ERROR",MB_ICONERROR|MB_OK);
 		return false;
 	}
-	//´´½¨¼üÅÌÉè±¸
+	//åˆ›å»ºé”®ç›˜è®¾å¤‡
 	if(DI_OK!=m_pDInput->CreateDevice(GUID_SysKeyboard,&m_pDInputKB,NULL))
 	{
-		MessageBoxA(hWnd,"´´½¨¼üÅÌÉè±¸Ê§°Ü!","ERROR",MB_ICONERROR|MB_OK);
+		MessageBoxA(hWnd,"åˆ›å»ºé”®ç›˜è®¾å¤‡å¤±è´¥!","ERROR",MB_ICONERROR|MB_OK);
 		return false;
 	}
-	//ÉèÖÃÊı¾İ¸ñÊ½		
+	//è®¾ç½®æ•°æ®æ ¼å¼		
 	if(DI_OK!=	m_pDInputKB->SetDataFormat(&c_dfDIKeyboard)) 
 	{
-		MessageBoxA(hWnd,"ÉèÖÃ¼üÅÌÊı¾İ¸ñÊ½Ê§°Ü!","ERROR",MB_ICONERROR|MB_OK); 
+		MessageBoxA(hWnd,"è®¾ç½®é”®ç›˜æ•°æ®æ ¼å¼å¤±è´¥!","ERROR",MB_ICONERROR|MB_OK); 
 		return false;
 	}
 
-	//Èç¹ûÊ§°Ü£¬»ñÈ¡Êı¾İÊ±ÔÙ³¢ÊÔ»ñÈ¡
+	//å¦‚æœå¤±è´¥ï¼Œè·å–æ•°æ®æ—¶å†å°è¯•è·å–
 	m_pDInputKB->SetCooperativeLevel(hWnd,DISCL_NONEXCLUSIVE|DISCL_FOREGROUND); 
 	m_pDInputKB->Acquire();
-	//Çå³ı¼üÅÌ×´Ì¬
+	//æ¸…é™¤é”®ç›˜çŠ¶æ€
 	memset(&m_strKeyState,0,sizeof(m_strKeyState));		
 	memset(&m_strKeyStateOld,0,sizeof(m_strKeyState));
 
-	//´´½¨Êó±êÉè±¸
+	//åˆ›å»ºé¼ æ ‡è®¾å¤‡
 	if(DI_OK!=m_pDInput->CreateDevice(GUID_SysMouse,&m_pDInputMouse,NULL))
 	{
-		MessageBoxA(hWnd,"´´½¨Êó±êÉè±¸Ê§°Ü!","ERROR",MB_ICONERROR|MB_OK);
+		MessageBoxA(hWnd,"åˆ›å»ºé¼ æ ‡è®¾å¤‡å¤±è´¥!","ERROR",MB_ICONERROR|MB_OK);
 		return false;
 	}
-	//ÉèÖÃÊı¾İ¸ñÊ½
+	//è®¾ç½®æ•°æ®æ ¼å¼
 	if(DI_OK!=	m_pDInputMouse->SetDataFormat(&c_dfDIMouse)) 
 	{
-		MessageBoxA(hWnd,"ÉèÖÃÊó±êÊı¾İ¸ñÊ½Ê§°Ü!","ERROR",MB_ICONERROR|MB_OK); 
+		MessageBoxA(hWnd,"è®¾ç½®é¼ æ ‡æ•°æ®æ ¼å¼å¤±è´¥!","ERROR",MB_ICONERROR|MB_OK); 
 		return false;
 	}
 
 	m_pDInputMouse->SetCooperativeLevel(hWnd,DISCL_NONEXCLUSIVE|DISCL_FOREGROUND); 
-	m_pDInputMouse->Acquire();	//Èç¹ûÊ§°Ü£¬»ñÈ¡Êı¾İÊ±ÔÙ³¢ÊÔ»ñÈ¡
+	m_pDInputMouse->Acquire();	//å¦‚æœå¤±è´¥ï¼Œè·å–æ•°æ®æ—¶å†å°è¯•è·å–
 
-	//Çå³ıÊó±ê×´Ì¬
+	//æ¸…é™¤é¼ æ ‡çŠ¶æ€
 	memset(&m_MouseState,0,sizeof(m_MouseState));		
 	memset(&m_MouseStateOld,0,sizeof(m_MouseState));
 
-	// ´´½¨ÊÖ±ú
+	// åˆ›å»ºæ‰‹æŸ„
 	m_bUseJoystick=bUseJoystick;
 	if(m_bUseJoystick)
 	{
@@ -153,7 +153,7 @@ bool GameInput::InitInput(HWND hWnd, HINSTANCE hInst,bool bUseJoystick)
 			return false;
 		m_pDInputJoystick->Poll();
 		m_pDInputJoystick->Acquire();
-		//Çå³ıÊÖ±ú×´Ì¬
+		//æ¸…é™¤æ‰‹æŸ„çŠ¶æ€
 		memset(&m_JoyState,0,sizeof(m_JoyState));		
 		memset(&m_JoyStateOld,0,sizeof(m_JoyState));
 	}
@@ -188,23 +188,23 @@ int GameInput::IsJoystickDown(BYTE i)
 
 LRESULT GameInput::UpdateKeyboard(ProcessInput pFunc)
 {
-	// °Ñµ±Ç°¼üÅÌĞÅÏ¢£¬¿½±´µ½ÀÏµÄ¼üÅÌĞÅÏ¢
+	// æŠŠå½“å‰é”®ç›˜ä¿¡æ¯ï¼Œæ‹·è´åˆ°è€çš„é”®ç›˜ä¿¡æ¯
 	memcpy(m_strKeyStateOld,m_strKeyState,sizeof(m_strKeyState));
 	if(DI_OK!=m_pDInputKB->GetDeviceState(sizeof(m_strKeyState),m_strKeyState))
 	{	
-		memset(&m_strKeyState,0,sizeof(m_strKeyState));	//Çå³ıÉÏÒ»´ÎµÄ×´Ì¬
+		memset(&m_strKeyState,0,sizeof(m_strKeyState));	//æ¸…é™¤ä¸Šä¸€æ¬¡çš„çŠ¶æ€
 		m_pDInputKB->Acquire();
 		return E_FAIL;
 	}
-	// ÊÇ·ñ·¢ËÍ
+	// æ˜¯å¦å‘é€
 	bool bSend = false;
-	// ±éÀú¼üÅÌÏûÏ¢Éú³É½á¹¹Ìå·¢ËÍ
+	// éå†é”®ç›˜æ¶ˆæ¯ç”Ÿæˆç»“æ„ä½“å‘é€
 	_MSG_KEY_INFO keyInfo;
 	for(int i=0;i<256;i++)
 	{
 		keyInfo.btnInfo[i].btnCode = m_strKeyState[i];
 		keyInfo.btnInfo[i].btnType = BUTTON_TYPE_NONE;
-		// Èç¹ûÊÇ°´ÏÂ¾ÍÖ±½ÓÉú³ÉÏûÏ¢
+		// å¦‚æœæ˜¯æŒ‰ä¸‹å°±ç›´æ¥ç”Ÿæˆæ¶ˆæ¯
 		if(IsKeyDown(m_strKeyState[i]))
 		{
 			keyInfo.btnInfo[i].btnType = BUTTON_TYPE_DOWN;
@@ -216,7 +216,7 @@ LRESULT GameInput::UpdateKeyboard(ProcessInput pFunc)
 			bSend = true;
 		}
 	}
-	// ·¢ËÍ¼üÅÌÏûÏ¢
+	// å‘é€é”®ç›˜æ¶ˆæ¯
 	if(pFunc && bSend)
 	{
 		pFunc((BYTE)MSG_TYPE_KEY,&keyInfo);
@@ -227,22 +227,22 @@ LRESULT GameInput::UpdateKeyboard(ProcessInput pFunc)
 LRESULT GameInput::UpdateMouse(ProcessInput pFunc)
 {
 	bool bSend = false;
-	// °Ñµ±Ç°Êó±êĞÅÏ¢£¬¿½±´µ½ÀÏµÄÊó±êĞÅÏ¢
+	// æŠŠå½“å‰é¼ æ ‡ä¿¡æ¯ï¼Œæ‹·è´åˆ°è€çš„é¼ æ ‡ä¿¡æ¯
 	memcpy(&m_MouseStateOld,&m_MouseState,sizeof(m_MouseState));  
 	if(DI_OK!=m_pDInputMouse->GetDeviceState(sizeof(m_MouseState),&m_MouseState))
 	{	
-		memset(&m_MouseState,0,sizeof(m_MouseState));	//Çå³ıÉÏÒ»´ÎµÄ×´Ì¬
+		memset(&m_MouseState,0,sizeof(m_MouseState));	//æ¸…é™¤ä¸Šä¸€æ¬¡çš„çŠ¶æ€
 		m_pDInputMouse->Acquire();
 		return E_FAIL;
 	}
-	// Êó±êÏûÏ¢
+	// é¼ æ ‡æ¶ˆæ¯
 	_MSG_MOUSE_INFO mouseInfo;
-	// ±éÀú4¸ö°´¼ü
+	// éå†4ä¸ªæŒ‰é”®
 	for(int i=0;i<4;i++)
 	{
 		mouseInfo.btnInfo[i].btnCode = m_MouseState.rgbButtons[i];
 		mouseInfo.btnInfo[i].btnType = BUTTON_TYPE_NONE;
-		// Èç¹ûÊÇ°´ÏÂ¾ÍÖ±½ÓÉú³ÉÏûÏ¢
+		// å¦‚æœæ˜¯æŒ‰ä¸‹å°±ç›´æ¥ç”Ÿæˆæ¶ˆæ¯
 		if(IsMouseDown(m_MouseState.rgbButtons[i]))
 		{
 			mouseInfo.btnInfo[i].btnType = BUTTON_TYPE_DOWN;
@@ -254,13 +254,13 @@ LRESULT GameInput::UpdateMouse(ProcessInput pFunc)
 			bSend = true;
 		}
 	}
-	// ÖáÊıÖµ
+	// è½´æ•°å€¼
 	mouseInfo.lX = m_MouseState.lX;
 	mouseInfo.lY = m_MouseState.lY;
 	mouseInfo.lZ = m_MouseState.lZ;
 	if(mouseInfo.lX!=0 || mouseInfo.lY!=0 || mouseInfo.lZ!=0)
 		bSend = true;
-	// ·¢ËÍÊó±êÏûÏ¢
+	// å‘é€é¼ æ ‡æ¶ˆæ¯
 	if(pFunc && bSend)
 	{
 		pFunc((BYTE)MSG_TYPE_MOUSE,&mouseInfo);
@@ -281,19 +281,19 @@ LRESULT GameInput::UpdateJoystick(ProcessInput pFunc)
 	}
 	if(DI_OK!=m_pDInputJoystick->GetDeviceState(sizeof(m_JoyState),&m_JoyState))
 	{	
-		memset(&m_JoyState,0,sizeof(m_JoyState));	//Çå³ıÉÏÒ»´ÎµÄ×´Ì¬
+		memset(&m_JoyState,0,sizeof(m_JoyState));	//æ¸…é™¤ä¸Šä¸€æ¬¡çš„çŠ¶æ€
 		m_JoyState.rgdwPOV[0] = -1;
 		m_pDInputJoystick->Acquire();
 		return E_FAIL;
 	}
-	// ÊÖ±úÏûÏ¢
+	// æ‰‹æŸ„æ¶ˆæ¯
 	_MSG_JOYS_INFO joysInfo;
-	// ±éÀú32¸ö¼ü
+	// éå†32ä¸ªé”®
 	for(int i=0;i<32;i++)
 	{
 		joysInfo.btnInfo[i].btnCode = m_JoyState.rgbButtons[i];
 		joysInfo.btnInfo[i].btnType = BUTTON_TYPE_NONE;
-		// Èç¹ûÊÇ°´ÏÂ¾ÍÖ±½ÓÉú³ÉÏûÏ¢
+		// å¦‚æœæ˜¯æŒ‰ä¸‹å°±ç›´æ¥ç”Ÿæˆæ¶ˆæ¯
 		if(IsJoystickDown(m_JoyState.rgbButtons[i]))
 		{
 			joysInfo.btnInfo[i].btnType = BUTTON_TYPE_DOWN;
@@ -305,14 +305,14 @@ LRESULT GameInput::UpdateJoystick(ProcessInput pFunc)
 			bSend = true;
 		}
 	}
-	// ×óÒ¡¸Ë£¬ÓÒÒ¡¸Ë
+	// å·¦æ‘‡æ†ï¼Œå³æ‘‡æ†
 	joysInfo.lX = m_JoyState.lX;
 	joysInfo.lY = m_JoyState.lY;
 	joysInfo.lZ = m_JoyState.lZ;
 	joysInfo.lRZ = m_JoyState.lRz;
 	if(joysInfo.lX!=0 || joysInfo.lY!=0 || joysInfo.lZ!=0 || joysInfo.lRZ!=0)
 		bSend = true;
-	// Èç¹û×óÒ¡¸Ë¿ªÆô£¬ËÄ¸ö·½Ïò¼üµÄÊµÊ±Êı¾İ
+	// å¦‚æœå·¦æ‘‡æ†å¼€å¯ï¼Œå››ä¸ªæ–¹å‘é”®çš„å®æ—¶æ•°æ®
 	joysInfo.rgdwPOV = m_JoyState.rgdwPOV[0];
 	if(m_JoyState.rgdwPOV[0] != (DWORD)-1)
 	{
@@ -322,7 +322,7 @@ LRESULT GameInput::UpdateJoystick(ProcessInput pFunc)
 	{
 		bSend = true;
 	}
-	// ·¢ËÍÊÖ±úÏûÏ¢
+	// å‘é€æ‰‹æŸ„æ¶ˆæ¯
 	if(pFunc && bSend)
 	{
 		pFunc((BYTE)MSG_TYPE_JOYS,&joysInfo);
@@ -334,7 +334,7 @@ LRESULT GameInput::UpdateInput(ProcessInput pFunc)
 {
 	UpdateKeyboard(pFunc);
 	UpdateMouse(pFunc);
-	// ÊÖ±ú
+	// æ‰‹æŸ„
 	if(m_bUseJoystick)
 	{
 		UpdateJoystick(pFunc);

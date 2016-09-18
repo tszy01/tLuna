@@ -13,40 +13,40 @@ namespace TLunaEngine{
 	public:
 		enum LOG_LEVEL
 		{
-			LOG_LEVEL_INFO	= 1,	// пео╒хуж╬
-			LOG_LEVEL_WARNING	= 2,// ╬╞╦Фхуж╬
-			LOG_LEVEL_ERROR	= 3,	// ╢МнСхуж╬
+			LOG_LEVEL_INFO	= 1,	// Д©║Ф│╞Ф≈╔Е©≈
+			LOG_LEVEL_WARNING	= 2,// Х╜╕Е▒┼Ф≈╔Е©≈
+			LOG_LEVEL_ERROR	= 3,	// И■≥Х╞╞Ф≈╔Е©≈
 		};
 	protected:
-		// ╠ё╢ФлчЁЩб╥╬╤ап╠М
-		// ╨╛сплчЁЩб╥╬╤╣д╢ЗбКнд╪ЧцШ╫╚╡╩╠╩йДЁЖ╣╫хуж╬
+		// Д©²Е╜≤Е┴■И≥╓Х╥╞Е╬└Е┬≈Х║╗
+		// Е░╚Ф°┴Е┴■И≥╓Х╥╞Е╬└Г └Д╩ёГ═│Ф√┤Д╩╤Е░█Е╟├Д╦█Х╒╚Х╬⌠Е┤╨Е┬╟Ф≈╔Е©≈
 		static String* m_filterArray;
-		// лчЁЩап╠М╢Сп║
+		// Е┴■И≥╓Е┬≈Х║╗Е╓╖Е╟▐
 		static int m_filterCount;
-		// ╠ё╢Фхуж╬б╥╬╤
+		// Д©²Е╜≤Ф≈╔Е©≈Х╥╞Е╬└
 		static char m_logPath[256];
-		// ╢сеДжцнд╪Ч╤ах║йг╥Я╢Р©╙п╢хуж╬
+		// Д╩▌И┘█Г╫╝Ф√┤Д╩╤Х╞╩Е▐√Ф≤╞Е░╕Ф┴⌠Е╪─Е├≥Ф≈╔Е©≈
 		static bool m_bOpen;
-		// ╢сеДжцнд╪Ч╤ах║╣двН╣м╣х╪╤
+		// Д╩▌И┘█Г╫╝Ф√┤Д╩╤Х╞╩Е▐√Г └Ф°─Д╫▌Г╜┴Г╨╖
 		static LOG_LEVEL m_minLevel;
-		// йДЁЖ╢╟©з╬Д╠З
+		// Х╬⌠Е┤╨Г╙≈Е▐ёЕ▐╔Ф÷└
 		static /*HANDLE*/void* m_hConsole;
-		// йг╥ЯйДЁЖ╣╫╢╟©з
+		// Ф≤╞Е░╕Х╬⌠Е┤╨Е┬╟Г╙≈Е▐ё
 		static bool m_bUseConsole;
 	public:
-		// ЁУй╪╩╞
-		// configFile:еДжцнд╪Ч
-		// logPath:хуж╬╠ё╢Фб╥╬╤
+		// Е┬²Е╖▀Е▄√
+		// configFile:И┘█Г╫╝Ф√┤Д╩╤
+		// logPath:Ф≈╔Е©≈Д©²Е╜≤Х╥╞Е╬└
 		static bool InitLogSystem(const char* configFile, const char* logPath);
-		// оЗ╩ыхуж╬о╣мЁ
+		// И■─Ф╞│Ф≈╔Е©≈ГЁ╩Г╩÷
 		static void DestroyLogSystem();
-		// п╢хуж╬
-		// п╢Ёинд╪Чё╛хуж╬нд╪ЧцШ╦Яй╫:YY_MM_DD.logё╛нд╠╬нд╪Ч
-		// level:╠╬хуж╬╣д╣х╪╤
-		// bTrue:р╩╦Ж╠М╢Ой╫ё╛н╙уФй╠п╢хК
-		// codeName:р╩╟Ц╢╚__FILE__ё╛нд╪ЧцШ
-		// condLine:р╩╟Ц╢╚__LINE__ё╛кЫтзппйЩ
-		// content:хуж╬дзхщё╛хуж╬╫Ан╡вт╤╞╪с\nпнЁир╩пп
+		// Е├≥Ф≈╔Е©≈
+		// Е├≥Ф┬░Ф√┤Д╩╤О╪▄Ф≈╔Е©≈Ф√┤Д╩╤Е░█Ф═╪Е╪▐:YY_MM_DD.logО╪▄Ф√┤Ф°╛Ф√┤Д╩╤
+		// level:Ф°╛Ф≈╔Е©≈Г └Г╜┴Г╨╖
+		// bTrue:Д╦─Д╦╙Х║╗Х╬╬Е╪▐О╪▄Д╦╨Г°÷Ф≈╤Е├≥Е┘╔
+		// codeName:Д╦─Х┬╛Д╪═__FILE__О╪▄Ф√┤Д╩╤Е░█
+		// condLine:Д╦─Х┬╛Д╪═__LINE__О╪▄Ф┴─Е°╗Х║▄Ф∙╟
+		// content:Ф≈╔Е©≈Е├┘Е╝╧О╪▄Ф≈╔Е©≈Г╩⌠Е╟╬Х┤╙Е┼╗Е┼═\nЕ╫╒Ф┬░Д╦─Х║▄
 		static void WriteLine(LOG_LEVEL level,bool bTrue,char* codeName,int codeLine,char* content);
 		static void WriteTConsole(LOG_LEVEL level,bool bTrue,char* content);
 	};

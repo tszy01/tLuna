@@ -95,7 +95,7 @@ namespace TLunaEngine{
 			return 0;
 		char szNoPath[1024] = {0};
 		TLunaEngine::String::CutFilePath(filename,szNoPath);
-		// ÎÄ¼şÃû²¿·Ö
+		// æ–‡ä»¶åéƒ¨åˆ†
 		int namelen = (int)strlen(szNoPath);
 		int lastsize = m_TempSize;
 		if(lastsize==0)
@@ -117,7 +117,7 @@ namespace TLunaEngine{
 		m_TempSize+=sizeof(int);
 		memcpy(m_TempBuf+m_TempSize,szNoPath,namelen);
 		m_TempSize+=namelen;
-		// ÎÄ¼şÄÚÈİ²¿·Ö
+		// æ–‡ä»¶å†…å®¹éƒ¨åˆ†
 		FILE* file = 0;
 		int re = fopen_s(&file,filename,"r");
 		if(re!=0)
@@ -206,7 +206,7 @@ namespace TLunaEngine{
 	{
 		if(!zipname)
 			return 0;
-		// ¶ÁZIPÎÄ¼ş
+		// è¯»ZIPæ–‡ä»¶
 		FILE* file = 0;
 		int re = fopen_s(&file,zipname,"r");
 		if(re!=0)
@@ -242,11 +242,11 @@ namespace TLunaEngine{
 				break;
 		}while(true);
 		fclose(file);
-		// ¶ÁÔ­³ß´ç
+		// è¯»åŸå°ºå¯¸
 		int origsize = *((int*)tmpbuf);
 		if(origsize<=0)
 			return 0;
-		// ½âÑ¹Ëõ
+		// è§£å‹ç¼©
 		unsigned char* out = new unsigned char[origsize];
 		if(inf(tmpbuf+sizeof(int),tmpsize-sizeof(int),out,origsize)!=Z_OK)
 		{
@@ -275,14 +275,14 @@ namespace TLunaEngine{
 			return 0;
 		int num=0;
 		int offset=0;
-		// ÎÄ¼şÊıÁ¿
+		// æ–‡ä»¶æ•°é‡
 		m_FileNum = (int)(*m_TempBuf);
 		offset+=sizeof(int);
 		if(ppMemFile && m_FileNum>0)
 		{
 			(*ppMemFile) = new MemFile[m_FileNum];
 		}
-		// Ñ­»·Éú³ÉÎÄ¼ş
+		// å¾ªç¯ç”Ÿæˆæ–‡ä»¶
 		for(int i=0;i<m_FileNum;i++)
 		{
 			char szName[1024]={0};
@@ -290,13 +290,13 @@ namespace TLunaEngine{
 			unsigned char* pContent=0;
 			int conSize=0;
 
-			// ÎÄ¼şÃû²¿·Ö
+			// æ–‡ä»¶åéƒ¨åˆ†
 			num=(int)(*(m_TempBuf+offset));
 			offset+=sizeof(int);
 			memcpy(szName,m_TempBuf+offset,num);
 			sprintf_s(szFull,1024,"%s%s",dirname,szName);
 			offset+=num;
-			// ÎÄ¼şÄÚÈİ
+			// æ–‡ä»¶å†…å®¹
 			num=(int)(*(m_TempBuf+offset));
 			offset+=sizeof(int);
 			pContent=new unsigned char[num];
@@ -304,7 +304,7 @@ namespace TLunaEngine{
 			conSize=num;
 			offset+=num;
 
-			// Éú³É
+			// ç”Ÿæˆ
 			if(bBuildFile)
 			{
 				FILE* outfile = 0;

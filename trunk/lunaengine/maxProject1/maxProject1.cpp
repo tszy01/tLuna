@@ -142,7 +142,7 @@ Modifier* FindSkinModifier(INode* pNode)
 }
 
 
-// µÃµ½Mesh,VictoryÓÃ·½·¨
+// å¾—åˆ°Mesh,Victoryç”¨æ–¹æ³•
 class NullView : public View
 {
 public:
@@ -229,7 +229,7 @@ void VNormal::Normalize() {
    if (next) next->Normalize(); 
 }
 
-// SDKÖĞ¼ÆËã·¨ÏßµÄ·½·¨
+// SDKä¸­è®¡ç®—æ³•çº¿çš„æ–¹æ³•
 void ComputeVertexNormals(Mesh *mesh,VECTOR3* pNors,Matrix3 tm)
 {
 	Face *face;  
@@ -271,7 +271,7 @@ void ComputeVertexNormals(Mesh *mesh,VECTOR3* pNors,Matrix3 tm)
    } 
 }
 
-// ¼ÆËãÕæÕıµÄ·¨Ïß,Ä£ĞÍ¿Õ¼ä,Cal3DÓÃ·½·¨
+// è®¡ç®—çœŸæ­£çš„æ³•çº¿,æ¨¡å‹ç©ºé—´,Cal3Dç”¨æ–¹æ³•
 Point3 GetVertexNormal(Mesh* maxMesh,int faceId, int vertexId)
 {
   // get the "rendered" vertex
@@ -320,7 +320,7 @@ Point3 GetVertexNormal(Mesh* maxMesh,int faceId, int vertexId)
   return maxMesh->getFaceNormal(faceId);
 }
 
-// Ğı×ª¾ØÕó
+// æ—‹è½¬çŸ©é˜µ
 Matrix3 TransposeMatrix(Matrix3 matrix)
 {
 	float transpose[4][3];
@@ -347,7 +347,7 @@ Matrix3 TransposeMatrix(Matrix3 matrix)
 	return transposeMatrix;
 }
 
-// Cal3D,µÃµ½½ÚµãTM
+// Cal3D,å¾—åˆ°èŠ‚ç‚¹TM
 Matrix3 GetNodeTMByCal3D(INode *pNode, float time)
 {
 	// initialize matrix with the identity
@@ -394,7 +394,7 @@ Matrix3 GetNodeTMByCal3D(INode *pNode, float time)
 	return tm;
 }
 
-// Cal3D,µÃµ½¹Ç÷À¿Õ¼äµÄÄæ¾ØÕó,È¥µôËõ·Å
+// Cal3D,å¾—åˆ°éª¨éª¼ç©ºé—´çš„é€†çŸ©é˜µ,å»æ‰ç¼©æ”¾
 Matrix3 GetTranslationAndRotationBoneSpace(INode *pNode, float time, Point3& translation, Quat& rotation)
 {
 	Matrix3 tm;
@@ -427,7 +427,7 @@ Matrix3 GetTranslationAndRotationBoneSpace(INode *pNode, float time, Point3& tra
 
 	return tm;
 }
-// Cal3DµÃµ½faceµÄmatid
+// Cal3Då¾—åˆ°faceçš„matid
 int GetFaceMaterialId(int faceId,Mesh* maxMesh,std::vector<StdMat*> matlist)
 {
 	// get the material id of the face
@@ -455,10 +455,10 @@ int GetFaceMaterialId(int faceId,Mesh* maxMesh,std::vector<StdMat*> matlist)
 	return materialId;
 }
 
-// ¸ù¾İÃû×ÖÕÒµ½matlistÖĞµÄmat
+// æ ¹æ®åå­—æ‰¾åˆ°matlistä¸­çš„mat
 
 
-// Ò»Ğ©È«¾Öº¯Êı
+// ä¸€äº›å…¨å±€å‡½æ•°
 TCHAR *FixupName (const TCHAR *buf)
 {
 	static TCHAR buffer[256];
@@ -480,8 +480,8 @@ class maxProject1 : public SceneExport {
 	public:
 		
 		static HWND hParams;
-		int				staticFrame;				// ¹Ì¶¨Îª0
-		int				framePerSample;				// ¹Ì¶¨Îª4
+		int				staticFrame;				// å›ºå®šä¸º0
+		int				framePerSample;				// å›ºå®šä¸º4
 		
 		int				ExtCount();					// Number of extensions supported
 		const TCHAR *	Ext(int n);					// Extension #n (i.e. "3DS")
@@ -501,44 +501,44 @@ class maxProject1 : public SceneExport {
 		maxProject1();
 		~maxProject1();	
 
-		// ±äÁ¿
-		IGameScene * pIgame;		// API½Ó¿Ú
-		FILE * m_saveFile;			// ÎÄ¼şÖ¸Õë
-		MatList m_listMat;			// ²ÄÖÊÁ´±í
-		MeshList m_listMesh;		// MeshÁ´±í
-		_SKELETON* m_pSkeletonRoot;	// ¹Ç÷ÀÊ÷¸ù
-		BOOL m_bExportSkeletonMesh;	// ÊÇ·ñÎª¹Ç÷À¶¯»­
-		//BOOL m_bExportMesh;			// ÊÇ·ñµ¼³ö¹Ç÷ÀÄ£ĞÍ
-		BOOL m_bExportAnime;		// ÊÇ·ñµ¼³ö¶¯»­
-		BOOL m_bExportVertexAnime;	// ÊÇ·ñµ¼³ö¶¥µã¶¯»­
-		BOOL m_bExportNodeAnime;	// ÊÇ·ñµ¼³ö½Úµã¶¯»­
-		std::vector<StdMat*> m_stdMatList;	// ±»µ¼³öµÄ±ê×¼²ÄÖÊ
-		char m_szAnimeName[256];		// AnimeSetµÄÃû×Ö
-		// ·½·¨
-		void ExportSceneInfo();		// µ¼³ö³¡¾°ĞÅÏ¢
-		void ExportMaterials();		// µ¼³ö²ÄÖÊĞÅÏ¢
-		void ExportChildNodeInfo(IGameNode * child,_SKELETON* pRoot);	// µ¼³ö½ÚµãĞÅÏ¢
-		void CopyMeshInfoToFile();	// °Ñµ¼³öµ½ÄÚ´æÖĞµÄMeshĞÅÏ¢´æµ½ÎÄ¼şÖĞ
+		// å˜é‡
+		IGameScene * pIgame;		// APIæ¥å£
+		FILE * m_saveFile;			// æ–‡ä»¶æŒ‡é’ˆ
+		MatList m_listMat;			// æè´¨é“¾è¡¨
+		MeshList m_listMesh;		// Meshé“¾è¡¨
+		_SKELETON* m_pSkeletonRoot;	// éª¨éª¼æ ‘æ ¹
+		BOOL m_bExportSkeletonMesh;	// æ˜¯å¦ä¸ºéª¨éª¼åŠ¨ç”»
+		//BOOL m_bExportMesh;			// æ˜¯å¦å¯¼å‡ºéª¨éª¼æ¨¡å‹
+		BOOL m_bExportAnime;		// æ˜¯å¦å¯¼å‡ºåŠ¨ç”»
+		BOOL m_bExportVertexAnime;	// æ˜¯å¦å¯¼å‡ºé¡¶ç‚¹åŠ¨ç”»
+		BOOL m_bExportNodeAnime;	// æ˜¯å¦å¯¼å‡ºèŠ‚ç‚¹åŠ¨ç”»
+		std::vector<StdMat*> m_stdMatList;	// è¢«å¯¼å‡ºçš„æ ‡å‡†æè´¨
+		char m_szAnimeName[256];		// AnimeSetçš„åå­—
+		// æ–¹æ³•
+		void ExportSceneInfo();		// å¯¼å‡ºåœºæ™¯ä¿¡æ¯
+		void ExportMaterials();		// å¯¼å‡ºæè´¨ä¿¡æ¯
+		void ExportChildNodeInfo(IGameNode * child,_SKELETON* pRoot);	// å¯¼å‡ºèŠ‚ç‚¹ä¿¡æ¯
+		void CopyMeshInfoToFile();	// æŠŠå¯¼å‡ºåˆ°å†…å­˜ä¸­çš„Meshä¿¡æ¯å­˜åˆ°æ–‡ä»¶ä¸­
 		void CopyMeshInfoToFileForVA();
-		void CopySkeletonInfoToFile(_SKELETON* pRoot);	// ´æ´¢¹Ç÷ÀĞÅÏ¢
-		void CopyAnimeInfoToFile(_SKELETON* pRoot);	// ´æ´¢¶¯»­ĞÅÏ¢
+		void CopySkeletonInfoToFile(_SKELETON* pRoot);	// å­˜å‚¨éª¨éª¼ä¿¡æ¯
+		void CopyAnimeInfoToFile(_SKELETON* pRoot);	// å­˜å‚¨åŠ¨ç”»ä¿¡æ¯
 
-		// ¹¹ÔìÕæÕı¶¥µã
+		// æ„é€ çœŸæ­£é¡¶ç‚¹
 		void UpdateMapForTex(std::map<int,VERTEXDESC*>* pMap,FACE* pFace,MESH* pMesh);
 		void UpdateMapForTexForVA(std::map<int,VERTEXDESC*>* pMap,FACE* pFace,MESH* pMesh,int ikey);
 		void UpdateTangentVector(VERTEXDESC* pV0,VERTEXDESC* pV1,VERTEXDESC* pV2);
 		void UpdateMapForNormal(std::map<int,VERTEXDESC*>* pMap,FACE* pFace,MESH* pMesh);
 
-		// ×Ó·½·¨
-		void DumpMaterial(IGameMaterial * mat, int index, int matID = -1);		// µ¼³öÃ¿¸ö²ÄÖÊ
-		void DumpTexture(IGameMaterial * mat, TEXTUREMAP * texMap);				// µ¼³öÎÆÀí
-		void DumpMatrix(Matrix3 tm,MATRIX* pMatrix);							// µ¼³ö¾ØÕó
-		void DumpMesh(IGameMesh *gm,INode* pNode,MESH* pMesh);					// µ¼³öMesh
-		void DumpVertexAnime(IGameMesh* gm,INode* pNode,MESH* pMesh);			// µ¼³ö¶¥µã¶¯»­
-		void DumpSampleKeys(IGameControl *sc,IGameControlType Type,_SKELETON* pNode);	// µ¼³ö¹Ø¼üÖ¡Êı¾İ
-		void DumpPhysique(Modifier* modifier,MESH* pMesh,INode* pNode);					// µ¼³öPhysique
-		void DumpSkin(Modifier* modifier,MESH* pMesh,INode*pNode);						// µ¼³öSkin
-		void DumpControl(Control* control,INode* maxNode,_SKELETON* pNode);				// µ¼³ö¶¯»­
+		// å­æ–¹æ³•
+		void DumpMaterial(IGameMaterial * mat, int index, int matID = -1);		// å¯¼å‡ºæ¯ä¸ªæè´¨
+		void DumpTexture(IGameMaterial * mat, TEXTUREMAP * texMap);				// å¯¼å‡ºçº¹ç†
+		void DumpMatrix(Matrix3 tm,MATRIX* pMatrix);							// å¯¼å‡ºçŸ©é˜µ
+		void DumpMesh(IGameMesh *gm,INode* pNode,MESH* pMesh);					// å¯¼å‡ºMesh
+		void DumpVertexAnime(IGameMesh* gm,INode* pNode,MESH* pMesh);			// å¯¼å‡ºé¡¶ç‚¹åŠ¨ç”»
+		void DumpSampleKeys(IGameControl *sc,IGameControlType Type,_SKELETON* pNode);	// å¯¼å‡ºå…³é”®å¸§æ•°æ®
+		void DumpPhysique(Modifier* modifier,MESH* pMesh,INode* pNode);					// å¯¼å‡ºPhysique
+		void DumpSkin(Modifier* modifier,MESH* pMesh,INode*pNode);						// å¯¼å‡ºSkin
+		void DumpControl(Control* control,INode* maxNode,_SKELETON* pNode);				// å¯¼å‡ºåŠ¨ç”»
 };
 
 
@@ -588,7 +588,7 @@ INT_PTR CALLBACK maxProject1OptionsDlgProc(HWND hWnd,UINT message,WPARAM wParam,
 					::GetDlgItemTextA(hWnd,IDC_EDIT1,imp->m_szAnimeName,255);
 					if((strlen(imp->m_szAnimeName)==0) && (imp->m_bExportSkeletonMesh || imp->m_bExportVertexAnime || imp->m_bExportNodeAnime) && imp->m_bExportAnime)
 					{
-						MessageBoxA(hWnd,"ÇëÊäÈëÓĞĞ§Ãû³Æ","´íÎó",MB_OK);
+						MessageBoxA(hWnd, "Name is Empty", "Error", MB_OK);
 					}
 					else
 					{
@@ -733,7 +733,7 @@ void maxProject1::ExportSceneInfo()
 	struct tm *newtime;
 	time_t aclock;
 
-	// Ğ´ÎÄ¼ş
+	// å†™æ–‡ä»¶
 	char sz[1024]={0};
 
 	time( &aclock );
@@ -742,22 +742,22 @@ void maxProject1::ExportSceneInfo()
 	TSTR today = _tasctime(newtime);	// The date string has a \n appended.
 	today.remove(today.length()-1);		// Remove the \n
 
-	//// Ğ´ÎÄ¼ş
+	//// å†™æ–‡ä»¶
 	//// StartFrame
 	//sprintf(sz,"%d\n",pIgame->GetSceneStartTime() / pIgame->GetSceneTicks());
 	//fwrite(sz,sizeof(char),strlen(sz),m_saveFile);
 
-	//// Ğ´ÎÄ¼ş
+	//// å†™æ–‡ä»¶
 	//// EndFrame
 	//sprintf(sz,"%d\n",pIgame->GetSceneEndTime() / pIgame->GetSceneTicks());
 	//fwrite(sz,sizeof(char),strlen(sz),m_saveFile);
 
-	//// Ğ´ÎÄ¼ş
+	//// å†™æ–‡ä»¶
 	//// FrameRate
 	//sprintf(sz,"%d\n",GetFrameRate());
 	//fwrite(sz,sizeof(char),strlen(sz),m_saveFile);
 
-	//// Ğ´ÎÄ¼ş
+	//// å†™æ–‡ä»¶
 	//// TicksPerFrame
 	//sprintf(sz,"%d\n",pIgame->GetSceneTicks());
 	//fwrite(sz,sizeof(char),strlen(sz),m_saveFile);
@@ -766,14 +766,14 @@ void maxProject1::ExportSceneInfo()
 	count = (pIgame->GetSceneEndTime() / pIgame->GetSceneTicks()) -
 		(pIgame->GetSceneStartTime() / pIgame->GetSceneTicks()) + 1;
 
-	// Ğ´Èë×ÜÖ¡Êı
+	// å†™å…¥æ€»å¸§æ•°
 	sprintf(sz,"%d\n",count);
 	fwrite(sz,sizeof(char),strlen(sz),m_saveFile);
 
 	for(int i=0;i<count;i++)
 	{
 		float time = (float)i/(float)GetFrameRate();
-		// Ã¿Ö¡Ê±¼ä
+		// æ¯å¸§æ—¶é—´
 		sprintf(sz,"%f\n",time);
 		fwrite(sz,sizeof(char),strlen(sz),m_saveFile);
 	}
@@ -788,7 +788,7 @@ void maxProject1::ExportMaterials()
 
 	m_listMat.clear();
 
-	// Ğ´ÎÄ¼ş
+	// å†™æ–‡ä»¶
 	char sz[1024]={0};
 
 	for(int j =0;j<matCount;j++)
@@ -796,8 +796,8 @@ void maxProject1::ExportMaterials()
 		DumpMaterial(pIgame->GetRootMaterial(j),j);
 	}
 
-	// È«²¿¶¼µ¼³öµ½ÄÚ´æÖ®ºó,Í³Ò»Ğ´ÈëÎÄ¼ş
-	// µ¼³öµÄÊıÁ¿
+	// å…¨éƒ¨éƒ½å¯¼å‡ºåˆ°å†…å­˜ä¹‹å,ç»Ÿä¸€å†™å…¥æ–‡ä»¶
+	// å¯¼å‡ºçš„æ•°é‡
 	sprintf(sz,"%d\n",m_listMat.size());
 	fwrite(sz,sizeof(char),strlen(sz),m_saveFile);
 	MatList::iterator itr = m_listMat.begin();
@@ -816,17 +816,17 @@ void maxProject1::ExportMaterials()
 		// Specular
 		sprintf(sz,"%f %f %f\n",p->_Specular[0],p->_Specular[1],p->_Specular[2]);
 		fwrite(sz,sizeof(char),strlen(sz),m_saveFile);
-		// ÎÆÀíÊıÁ¿
+		// çº¹ç†æ•°é‡
 		sprintf(sz,"%d\n",p->_TexMap._Count);
 		fwrite(sz,sizeof(char),strlen(sz),m_saveFile);
-		// Ñ­»·ÎÆÀí
+		// å¾ªç¯çº¹ç†
 		for(int i=0;i<p->_TexMap._Count;i++)
 		{
-			// BitmapÎÄ¼şÃû
+			// Bitmapæ–‡ä»¶å
 			sprintf(sz,"%s\n",p->_TexMap._pTexs[i]._szFile);
 			fwrite(sz,sizeof(char),strlen(sz),m_saveFile);
 		}
-		// ÊÍ·ÅµôÄÚ´æ
+		// é‡Šæ”¾æ‰å†…å­˜
 		delete p;
 		p = NULL;
 	}
@@ -838,11 +838,11 @@ void maxProject1::DumpMaterial(IGameMaterial *mat,int index,int matID)
 	TSTR buf;
 	IGameProperty *prop;
 
-	// Ğ´ÎÄ¼ş
+	// å†™æ–‡ä»¶
 	char sz[1024]={0};
 
 	// ********************
-	// Ö»µ¼³öStandardÀàĞÍµÄ
+	// åªå¯¼å‡ºStandardç±»å‹çš„
 	if(wcscmp(mat->GetMaterialClass(),L"Standard")==0)
 	//if(!mat->IsMultiType())
 	{
@@ -892,7 +892,7 @@ void maxProject1::DumpTexture(IGameMaterial * mat, TEXTUREMAP * texMap)
 {
 	//int texCount = mat->GetNumberOfTextureMaps();
 
-	//// 0Ò²µ¼³ö
+	//// 0ä¹Ÿå¯¼å‡º
 	////if(texCount==0) return;
 
 	//TSTR buf;
@@ -911,7 +911,7 @@ void maxProject1::DumpTexture(IGameMaterial * mat, TEXTUREMAP * texMap)
 	//	IGameTextureMap * tex = mat->GetIGameTextureMap(i);
 	//	int mapSlot = tex->GetStdMapSlot();
 	//	//TODO: Add attributes 'Source', 'UAddress', 'VAddress', 'WAddress', 'MapChannel'
-	//	// ÕâÀïÒªÇóÃÀÊõ±ØĞëÊÇBitmapTexture
+	//	// è¿™é‡Œè¦æ±‚ç¾æœ¯å¿…é¡»æ˜¯BitmapTexture
 	//	if(tex->IsEntitySupported())	//its a bitmap texture
 	//	{
 	//		// TODO: Add elements MapStrength, MapOffset, ...
@@ -923,7 +923,7 @@ void maxProject1::DumpTexture(IGameMaterial * mat, TEXTUREMAP * texMap)
 	//texMap->_Count = 1;
 	//texMap->_pTexs = new TEXTURE[1];
 
-	// Ê¹ÓÃcal3dµÄ·½·¨Ö»±£´æ1ºÅÍ¨µÀµÄÎÆÀí
+	// ä½¿ç”¨cal3dçš„æ–¹æ³•åªä¿å­˜1å·é€šé“çš„çº¹ç†
 	StdMat* maxMat = (StdMat*)mat->GetMaxMaterial();
 
 	// loop through all maps of the material
@@ -963,7 +963,7 @@ void maxProject1::DumpTexture(IGameMaterial * mat, TEXTUREMAP * texMap)
 					sprintf(texMap->_pTexs[0]._szFile,"%s",strFilename.substr(pos + 1).data());
 				}
 
-				// ÕâÀï±£´æuv¶¯»­ĞÅÏ¢
+				// è¿™é‡Œä¿å­˜uvåŠ¨ç”»ä¿¡æ¯
 				int keyCount = 0;
 				keyCount = (pIgame->GetSceneEndTime() / pIgame->GetSceneTicks()) -
 					(pIgame->GetSceneStartTime() / pIgame->GetSceneTicks()) + 1;
@@ -975,7 +975,7 @@ void maxProject1::DumpTexture(IGameMaterial * mat, TEXTUREMAP * texMap)
 					for(int iKey=0;iKey<keyCount;iKey++)
 					{
 						TimeValue time = iKey * pIgame->GetSceneTicks();
-						// ÕâÀïÊ¼ÖÕ±£´æµÚ0¸öµã£¬ÒòÎªÃ¿¸öµã¶¼ÊÇÒ»ÑùµÄ
+						// è¿™é‡Œå§‹ç»ˆä¿å­˜ç¬¬0ä¸ªç‚¹ï¼Œå› ä¸ºæ¯ä¸ªç‚¹éƒ½æ˜¯ä¸€æ ·çš„
 						texMap->_pTexs[0]._UVOff[iKey]._X = pStdUVGen->GetUOffs(time);
 						texMap->_pTexs[0]._UVOff[iKey]._Y = pStdUVGen->GetVOffs(time);
 					}
@@ -993,53 +993,53 @@ void maxProject1::ExportChildNodeInfo(IGameNode *child,_SKELETON* pRoot)
 	IGameKeyTab scalekeys;
 	TSTR buf,data;
 
-	// Ğ´ÎÄ¼ş
+	// å†™æ–‡ä»¶
 	char sz[1024]={0};
 	INode* maxNode = child->GetMaxNode();
 
-	// ÓÀÔ¶²»ÊÇGroupOwner
+	// æ°¸è¿œä¸æ˜¯GroupOwner
 	if(!child->IsGroupOwner())
 	{
 		ULONG  handle = child->GetMaxNode()->GetHandle();
 		IGameObject * obj = child->GetIGameObject();
 		IGameObject::MaxType T = obj->GetMaxType();
 
-		// Ğ´ÎÄ¼ş
+		// å†™æ–‡ä»¶
 		// ObjectType
-		// 6:¹Ç÷À
+		// 6:éª¨éª¼
 		// 2:Mesh
-		// ÆäËüÖÖÀà²»µ¼³ö
+		// å…¶å®ƒç§ç±»ä¸å¯¼å‡º
 		int objType = obj->GetIGameType();
 
 		switch(objType)
 		{
-			// ¹Ç÷À
+			// éª¨éª¼
 			case IGameObject::IGAME_BONE:
 			{
-				// ÏÈ°Ñ½Úµã·ÅÈëÊ÷
+				// å…ˆæŠŠèŠ‚ç‚¹æ”¾å…¥æ ‘
 				_SKELETON* pNew = new _SKELETON();
 				pNew->_pChildList = new std::list<_SKELETON*>();
 				pRoot->_pChildList->push_back(pNew);
 				pNew->_pParent = pRoot;
-				// Ğ´ÎÄ¼ş
+				// å†™æ–‡ä»¶
 				// NodeName
 				sprintf(pNew->_szName,"%s",FixupName (child->GetName()));
-				// Ğ´ÎÄ¼ş
+				// å†™æ–‡ä»¶
 				// NodeID
 				pNew->_ID = child->GetNodeID();
-				// µ¼³ö¾ØÕó
+				// å¯¼å‡ºçŸ©é˜µ
 				Matrix3 parentTM = maxNode->GetParentTM(0);
 				parentTM.Invert();
 				Matrix3 thisTM = maxNode->GetNodeTM(0) * parentTM;
 				DumpMatrix(thisTM,&pNew->_Mat);
 				pNew->_Mat.ChangeYZ();
-				// µ¼³ö¹Ø¼üÖ¡
+				// å¯¼å‡ºå…³é”®å¸§
 				DumpControl(maxNode->GetTMController(),maxNode,pNew);
-				// ÕâÀï¹æ¶¨MeshÊÇ²»ÄÜÓĞ×Ó½ÚµãµÄ
+				// è¿™é‡Œè§„å®šMeshæ˜¯ä¸èƒ½æœ‰å­èŠ‚ç‚¹çš„
 				for(int i=0;i<child->GetChildCount();i++)
 				{
 					IGameNode * newchild = child->GetNodeChild(i);
-					// µÚ¹æ×Ó½Úµã
+					// ç¬¬è§„å­èŠ‚ç‚¹
 					ExportChildNodeInfo(newchild,pNew);
 				}
 			}
@@ -1054,43 +1054,43 @@ void maxProject1::ExportChildNodeInfo(IGameNode *child,_SKELETON* pRoot)
 				Modifier* modi = FindPhysiqueModifier(maxNode);
 				Modifier* skinmod = FindSkinModifier(maxNode);
 
-				// µ¼³öÈ¨ÖØĞÅÏ¢
-				// È¨ÖØµÈĞÅÏ¢ Modifiers
+				// å¯¼å‡ºæƒé‡ä¿¡æ¯
+				// æƒé‡ç­‰ä¿¡æ¯ Modifiers
 				//int numMod = gM->GetNumModifiers();
-				//bool bDump = false;	// ÊÇ·ñµ¼³ö,ÕâÀï¹æ¶¨Èç¹û²»ÊÇÃÉÆ¤¾Í²»µ¼ÁË
+				//bool bDump = false;	// æ˜¯å¦å¯¼å‡º,è¿™é‡Œè§„å®šå¦‚æœä¸æ˜¯è’™çš®å°±ä¸å¯¼äº†
 				//IGameSkin* skin = NULL;
-				//// ÕâÀï×î¶àÖ»ÄÜÓĞÒ»¸öÃÉÆ¤
+				//// è¿™é‡Œæœ€å¤šåªèƒ½æœ‰ä¸€ä¸ªè’™çš®
 				//if(numMod==1)
 				//{
-				//	// µ¼³öÈ¨ÖØ
+				//	// å¯¼å‡ºæƒé‡
 				//	IGameModifier * m = gM->GetIGameModifier(0);
 				//	if(m->IsSkin())
 				//	{
-				//		// ÕâÀï±ØĞëÊÇSkin
+				//		// è¿™é‡Œå¿…é¡»æ˜¯Skin
 				//		skin = (IGameSkin*)m;
 				//		bDump = true;
 				//	}
 				//}
 
-				// ÕâÀïµÄÅĞ¶Ï,Èç¹û×ß²»½øÀ´,ÊôÓÚ·Ç·¨,²»×ö´¦Àí
+				// è¿™é‡Œçš„åˆ¤æ–­,å¦‚æœèµ°ä¸è¿›æ¥,å±äºéæ³•,ä¸åšå¤„ç†
 				if(true)
 				{
-					// Ğı×ª¾ØÕó
+					// æ—‹è½¬çŸ©é˜µ
 					MATRIX matTrans = MATRIX();
 					DumpMatrix(maxNode->GetNodeTM(0),&matTrans);
 					matTrans.ChangeYZ();
-					// ½¨Á¢Ò»¸öMesh
+					// å»ºç«‹ä¸€ä¸ªMesh
 					MESH* newMesh = new MESH();
-					// ¾ØÕó
+					// çŸ©é˜µ
 					newMesh->_Mat = matTrans;
-					// µ¼³öMeshÊı¾İ
+					// å¯¼å‡ºMeshæ•°æ®
 					DumpMesh(gM,maxNode,newMesh);
-					// µ¼³öMeshÊı¾İÖ®ºó²ÅÄÜµ¼³ö¶¥µã¶¯»­
+					// å¯¼å‡ºMeshæ•°æ®ä¹‹åæ‰èƒ½å¯¼å‡ºé¡¶ç‚¹åŠ¨ç”»
 					if(this->m_bExportVertexAnime)
 					{
 						DumpVertexAnime(gM,maxNode,newMesh);
 					}
-					// µ¼³öÃÉÆ¤ĞÅÏ¢
+					// å¯¼å‡ºè’™çš®ä¿¡æ¯
 					if(modi!=NULL)
 					{
 						DumpPhysique(modi,newMesh,maxNode);
@@ -1099,7 +1099,7 @@ void maxProject1::ExportChildNodeInfo(IGameNode *child,_SKELETON* pRoot)
 					{
 						DumpSkin(skinmod,newMesh,maxNode);
 					}
-					// ¼ÓÈëÁ´±í
+					// åŠ å…¥é“¾è¡¨
 					m_listMesh.push_back(newMesh);
 				}
 			}
@@ -1169,7 +1169,7 @@ void maxProject1::DumpPhysique(Modifier* modifier,MESH* pMesh,INode* pNode)
 					pMesh->_pSkinVertices[vert]._pBoneIDs = new int[boneCount];
 					pMesh->_pSkinVertices[vert]._pWeights = new float[boneCount];
 					Point3 offsetPos = Point3(0,0,0);
-					Point3 origNor = Point3(0,0,0);	// ÕâÀïÈË¹¤ChangeYZ,ÎªÁË±£Ö¤ºóÃæµÄÔËËã
+					Point3 origNor = Point3(0,0,0);	// è¿™é‡Œäººå·¥ChangeYZ,ä¸ºäº†ä¿è¯åé¢çš„è¿ç®—
 					Point3 tmpNor = Point3(pMesh->_pNormals[vert]._X,pMesh->_pNormals[vert]._Z,pMesh->_pNormals[vert]._Y);
 					Matrix3 tmNoTrans = pNode->GetObjTMAfterWSM(0);
 					tmNoTrans.NoTrans();
@@ -1243,14 +1243,14 @@ void maxProject1::DumpPhysique(Modifier* modifier,MESH* pMesh,INode* pNode)
 					pMesh->_pNormals[vert].ChangeYZ();
 					localData->ReleaseVertexInterface (vertexInterface);
 				}
-				// ¹Ç÷ÀÊıÁ¿
+				// éª¨éª¼æ•°é‡
 				pMesh->_BoneCount = (int)tmpMap.size();
 				if(pMesh->_BoneCount>0)
 				{
 					pMesh->_pBoneMatrices = new MATRIX[pMesh->_BoneCount];
 					pMesh->_pBoneIDs = new int[pMesh->_BoneCount];
 				}
-				// ¹Ç÷À³õÊ¼¾ØÕó
+				// éª¨éª¼åˆå§‹çŸ©é˜µ
 				std::map<int,INode*>::iterator itr = tmpMap.begin();
 				for(int i=0;itr!=tmpMap.end();++itr,++i)
 				{
@@ -1306,14 +1306,14 @@ void maxProject1::DumpSkin(Modifier* modifier,MESH* pMesh,INode*pNode)
 						}
 					}
 				}
-				// ¹Ç÷ÀÊıÁ¿
+				// éª¨éª¼æ•°é‡
 				pMesh->_BoneCount = (int)tmpMap.size();
 				if(pMesh->_BoneCount>0)
 				{
 					pMesh->_pBoneMatrices = new MATRIX[pMesh->_BoneCount];
 					pMesh->_pBoneIDs = new int[pMesh->_BoneCount];
 				}
-				// ¹Ç÷À³õÊ¼¾ØÕó
+				// éª¨éª¼åˆå§‹çŸ©é˜µ
 				std::map<int,INode*>::iterator itr = tmpMap.begin();
 				for(int i=0;itr!=tmpMap.end();++itr,++i)
 				{
@@ -1338,8 +1338,8 @@ void maxProject1::DumpSampleKeys(IGameControl *sc,IGameControlType Type,_SKELETO
 	IGameControl * c = sc;
 	char sz[1024] = {0};
 
-	// framePerSample:FrameRate¹Ì¶¨Îª1
-	// Relative:Ä¬ÈÏÎªÕæ,¾ÍÊÇÏà¶Ô¸¸¹Ç÷ÀµÄÒÆ¶¯
+	// framePerSample:FrameRateå›ºå®šä¸º1
+	// Relative:é»˜è®¤ä¸ºçœŸ,å°±æ˜¯ç›¸å¯¹çˆ¶éª¨éª¼çš„ç§»åŠ¨
 	c->GetFullSampledKeys(Key,framePerSample,IGameControlType(Type),true);
 
 	// Key Count
@@ -1351,11 +1351,11 @@ void maxProject1::DumpSampleKeys(IGameControl *sc,IGameControlType Type,_SKELETO
 	{
 		int fc = Key[i].t;
 		// time
-		// ºÁÃë
+		// æ¯«ç§’
 		pNode->_pKeys[i]._Time = fc;
 
-		// ÕâÀïÖ»µ¼³ö¾ØÕó
-		// ¶øÇÒ¿Ï¶¨Òª×ßÕâ¸ö·ÖÖ§
+		// è¿™é‡Œåªå¯¼å‡ºçŸ©é˜µ
+		// è€Œä¸”è‚¯å®šè¦èµ°è¿™ä¸ªåˆ†æ”¯
 		if(Type == IGAME_TM)
 		{
 			//Even though its a 4x4 we dump it as a 4x3 ;-)
@@ -1443,7 +1443,7 @@ void maxProject1::DumpVertexAnime(IGameMesh* gm,INode* pNode,MESH* pMesh)
 		//	Point2 n;
 		//	if(gm->GetTexVertex(i,n))
 		//	{
-		//		// ÎÆÀíÓ³Éä
+		//		// çº¹ç†æ˜ å°„
 		//		pMesh->_pTexVertices[i] = VECTOR3(n.x,n.y + 1.0f,0);
 		//	}
 		//}
@@ -1482,7 +1482,7 @@ void maxProject1::DumpVertexAnime(IGameMesh* gm,INode* pNode,MESH* pMesh)
 								StdUVGen* pStdUVGen = (StdUVGen*)pTexmap->GetTheUVGen();
 								if(pStdUVGen)
 								{
-									// Ã¿¸öµã¶ÔÓ¦µÄ²ÄÖÊ¿ÉÄÜ²»Ò»Ñù£¬ËùÒÔËûÃÇµÄÎÆÀí¶¯»­Ò²²»Ò»Ñù
+									// æ¯ä¸ªç‚¹å¯¹åº”çš„æè´¨å¯èƒ½ä¸ä¸€æ ·ï¼Œæ‰€ä»¥ä»–ä»¬çš„çº¹ç†åŠ¨ç”»ä¹Ÿä¸ä¸€æ ·
 									pMesh->_pVATUVOff[ikey][texIndex]._X = pStdUVGen->GetUOffs(time);
 									pMesh->_pVATUVOff[ikey][texIndex]._Y = pStdUVGen->GetVOffs(time);
 								}
@@ -1502,7 +1502,7 @@ void maxProject1::DumpVertexAnime(IGameMesh* gm,INode* pNode,MESH* pMesh)
 				pMesh->_pVANormals[ikey][vertexIndex].ChangeYZ();
 			}
 
-			//// ¶ÔÓ¦µÄ²ÄÖÊµÄÃû×Ö,Ã»ÓĞ²ÄÖÊÌîNone
+			//// å¯¹åº”çš„æè´¨çš„åå­—,æ²¡æœ‰æè´¨å¡«None
 			//IGameMaterial* pFaceMat = gm->GetMaterialFromFace(n);
 			//if(pFaceMat)
 			//{
@@ -1536,20 +1536,20 @@ void maxProject1::DumpMatrix(Matrix3 tm,MATRIX* pMatrix)
 
 	if(pMatrix == NULL)
 	{
-		// Ğ´ÎÄ¼ş
+		// å†™æ–‡ä»¶
 		// Translation
 		//sprintf(sz,"%f %f %f\n",ap.t.x,ap.t.y,ap.t.z);
 		//fwrite(sz,sizeof(char),strlen(sz),m_saveFile);
 
-		// Ğ´ÎÄ¼ş
+		// å†™æ–‡ä»¶
 		// Rotation
-		// ²»ÓÃËÄÔªÊı
+		// ä¸ç”¨å››å…ƒæ•°
 		//sprintf(sz,"%f %f %f %f\n",rotAxis.x, rotAxis.y, rotAxis.z, rotAngle);
 		//fwrite(sz,sizeof(char),strlen(sz),m_saveFile);
 
-		// Ğ´ÎÄ¼ş
+		// å†™æ–‡ä»¶
 		// Scale
-		// ²»ÓÃËÄÔªÊı
+		// ä¸ç”¨å››å…ƒæ•°
 		//sprintf(sz,"%f %f %f\n", ap.k.x, ap.k.y, ap.k.z);
 		//fwrite(sz,sizeof(char),strlen(sz),m_saveFile);
 
@@ -1570,10 +1570,10 @@ void maxProject1::DumpMatrix(Matrix3 tm,MATRIX* pMatrix)
 void maxProject1::DumpMesh(IGameMesh *gm,INode* pNode,MESH* pMesh)
 {
 	TSTR buf;
-	// Ğ´ÎÄ¼ş
+	// å†™æ–‡ä»¶
 	char sz[1024]={0};
 
-	// ÕâÀïstaticFrameÈ¡0
+	// è¿™é‡ŒstaticFrameå–0
 	Mesh* maxMesh = FindMesh(pNode,0);
 	Matrix3 tm = pNode->GetObjectTM(0);
 
@@ -1619,7 +1619,7 @@ void maxProject1::DumpMesh(IGameMesh *gm,INode* pNode,MESH* pMesh)
 	//	Point3 v; 
 	//	if(gm->GetVertex(i,v,true))
 	//	{
-	//		// µã×ø±ê
+	//		// ç‚¹åæ ‡
 	//		pMesh->_pPositions[i] = VECTOR3(v.x,v.y,v.z);
 	//	}
 	//}
@@ -1633,7 +1633,7 @@ void maxProject1::DumpMesh(IGameMesh *gm,INode* pNode,MESH* pMesh)
 	//	Point3 n;
 	//	if(gm->GetNormal(i,n,true))
 	//	{
-	//		// ·¨Ïß×ø±ê
+	//		// æ³•çº¿åæ ‡
 	//		pMesh->_pNormals[i] = VECTOR3(n.x,n.y,n.z);
 	//	}
 	//}
@@ -1647,7 +1647,7 @@ void maxProject1::DumpMesh(IGameMesh *gm,INode* pNode,MESH* pMesh)
 	//	Point2 n;
 	//	if(gm->GetTexVertex(i,n))
 	//	{
-	//		// ÎÆÀíÓ³Éä
+	//		// çº¹ç†æ˜ å°„
 	//		pMesh->_pTexVertices[i] = VECTOR3(n.x,n.y + 1.0f,0);
 	//	}
 	//}
@@ -1676,7 +1676,7 @@ void maxProject1::DumpMesh(IGameMesh *gm,INode* pNode,MESH* pMesh)
 			pMesh->_pNormals[vertexIndex].ChangeYZ();
 		}
 
-		// ¶ÔÓ¦µÄ²ÄÖÊµÄÃû×Ö,Ã»ÓĞ²ÄÖÊÌîNone
+		// å¯¹åº”çš„æè´¨çš„åå­—,æ²¡æœ‰æè´¨å¡«None
 		IGameMaterial* pFaceMat = gm->GetMaterialFromFace(n);
 		if(pFaceMat)
 		{
@@ -1695,7 +1695,7 @@ void maxProject1::UpdateMapForTex(std::map<int,VERTEXDESC*>* pMap,FACE* pFace,ME
 	{
 		return;
 	}
-	// Ñ­»·Èı¸öµã
+	// å¾ªç¯ä¸‰ä¸ªç‚¹
 	for(int i=0;i<3;i++)
 	{
 		int posIndex = pFace->_PositionIndex[i];
@@ -1709,17 +1709,17 @@ void maxProject1::UpdateMapForTex(std::map<int,VERTEXDESC*>* pMap,FACE* pFace,ME
 		{
 			thisVertex->_Skin = pMesh->_pSkinVertices[posIndex];
 		}
-		// µü´úÓ°Éä
+		// è¿­ä»£å½±å°„
 		std::map<int,VERTEXDESC*>::iterator itr = pMap->begin();
 		bool bFind = false;
 		for(;itr!=pMap->end();++itr)
 		{
 			VERTEXDESC* tmpVertex = itr->second;
-			// Èç¹ûÓĞÒ»¸öºÍÎ»ÖÃÏàµÈµÄ
+			// å¦‚æœæœ‰ä¸€ä¸ªå’Œä½ç½®ç›¸ç­‰çš„
 			if(tmpVertex->_Position == thisVertex->_Position)
 			{
-				// Èç¹ûÎÆÀíÒ²ÏàµÈ,Ôò¸³ÖµË÷Òı¸øFace
-				// Èç¹ûÎÆÀí²»µÈ,Ôò¼ÌĞøÑ­»·
+				// å¦‚æœçº¹ç†ä¹Ÿç›¸ç­‰,åˆ™èµ‹å€¼ç´¢å¼•ç»™Face
+				// å¦‚æœçº¹ç†ä¸ç­‰,åˆ™ç»§ç»­å¾ªç¯
 				if(tmpVertex->_Tex == thisVertex->_Tex)
 				{
 					itr->second->_Normal = thisVertex->_Normal;
@@ -1730,7 +1730,7 @@ void maxProject1::UpdateMapForTex(std::map<int,VERTEXDESC*>* pMap,FACE* pFace,ME
 				}
 			}
 		}
-		// Èç¹ûÃ»ÓĞÕÒµ½Ò»¸öÆ¥ÅäµÄ,Ôò²åÈëÒ»¸öĞÂÖµ,È»ºó¸³ÖµË÷Òı¸øFace
+		// å¦‚æœæ²¡æœ‰æ‰¾åˆ°ä¸€ä¸ªåŒ¹é…çš„,åˆ™æ’å…¥ä¸€ä¸ªæ–°å€¼,ç„¶åèµ‹å€¼ç´¢å¼•ç»™Face
 		if(!bFind)
 		{
 			pMap->insert(pair<int,VERTEXDESC*>((int)pMap->size(),thisVertex));
@@ -1750,7 +1750,7 @@ void maxProject1::UpdateMapForTexForVA(std::map<int,VERTEXDESC*>* pMap,FACE* pFa
 	{
 		return;
 	}
-	// Ñ­»·Èı¸öµã
+	// å¾ªç¯ä¸‰ä¸ªç‚¹
 	for(int i=0;i<3;i++)
 	{
 		int posIndex = pFace->_PositionIndex[i];
@@ -1759,7 +1759,7 @@ void maxProject1::UpdateMapForTexForVA(std::map<int,VERTEXDESC*>* pMap,FACE* pFa
 		VERTEXDESC* thisVertex = new VERTEXDESC();
 		thisVertex->_Position = pMesh->_pVAPositions[ikey][posIndex];
 		thisVertex->_Tex = pMesh->_pTexVertices[texIndex];
-		// Ã¿¸öµã¶ÔÓ¦µÄUVOFF¿ÉÄÜ²»Ò»Ñù£¬ËùÒÔÒªÔÚÕâÀï¼ÆËã
+		// æ¯ä¸ªç‚¹å¯¹åº”çš„UVOFFå¯èƒ½ä¸ä¸€æ ·ï¼Œæ‰€ä»¥è¦åœ¨è¿™é‡Œè®¡ç®—
 		thisVertex->_Tex._X -= pMesh->_pVATUVOff[ikey][texIndex]._X;
 		thisVertex->_Tex._Y -= pMesh->_pVATUVOff[ikey][texIndex]._Y;
 		thisVertex->_Normal = pMesh->_pVANormals[ikey][normalIndex];
@@ -1767,17 +1767,17 @@ void maxProject1::UpdateMapForTexForVA(std::map<int,VERTEXDESC*>* pMap,FACE* pFa
 		{
 			thisVertex->_Skin = pMesh->_pSkinVertices[posIndex];
 		}*/
-		// µü´úÓ°Éä
+		// è¿­ä»£å½±å°„
 		std::map<int,VERTEXDESC*>::iterator itr = pMap->begin();
 		bool bFind = false;
 		for(;itr!=pMap->end();++itr)
 		{
 			VERTEXDESC* tmpVertex = itr->second;
-			// Èç¹ûÓĞÒ»¸öºÍÎ»ÖÃÏàµÈµÄ
+			// å¦‚æœæœ‰ä¸€ä¸ªå’Œä½ç½®ç›¸ç­‰çš„
 			if(tmpVertex->_Position == thisVertex->_Position)
 			{
-				// Èç¹ûÎÆÀíÒ²ÏàµÈ,Ôò¸³ÖµË÷Òı¸øFace
-				// Èç¹ûÎÆÀí²»µÈ,Ôò¼ÌĞøÑ­»·
+				// å¦‚æœçº¹ç†ä¹Ÿç›¸ç­‰,åˆ™èµ‹å€¼ç´¢å¼•ç»™Face
+				// å¦‚æœçº¹ç†ä¸ç­‰,åˆ™ç»§ç»­å¾ªç¯
 				if(tmpVertex->_Tex == thisVertex->_Tex)
 				{
 					itr->second->_Normal = thisVertex->_Normal;
@@ -1788,7 +1788,7 @@ void maxProject1::UpdateMapForTexForVA(std::map<int,VERTEXDESC*>* pMap,FACE* pFa
 				}
 			}
 		}
-		// Èç¹ûÃ»ÓĞÕÒµ½Ò»¸öÆ¥ÅäµÄ,Ôò²åÈëÒ»¸öĞÂÖµ,È»ºó¸³ÖµË÷Òı¸øFace
+		// å¦‚æœæ²¡æœ‰æ‰¾åˆ°ä¸€ä¸ªåŒ¹é…çš„,åˆ™æ’å…¥ä¸€ä¸ªæ–°å€¼,ç„¶åèµ‹å€¼ç´¢å¼•ç»™Face
 		if(!bFind)
 		{
 			pMap->insert(pair<int,VERTEXDESC*>((int)pMap->size(),thisVertex));
@@ -1836,7 +1836,7 @@ void maxProject1::UpdateMapForNormal(std::map<int,VERTEXDESC*>* pMap,FACE* pFace
 	{
 		return;
 	}
-	// Ñ­»·Èı¸öµã
+	// å¾ªç¯ä¸‰ä¸ªç‚¹
 	for(int i=0;i<3;i++)
 	{
 		int posIndex = pFace->_PositionIndex[i];
@@ -1850,17 +1850,17 @@ void maxProject1::UpdateMapForNormal(std::map<int,VERTEXDESC*>* pMap,FACE* pFace
 		{
 			thisVertex->_Skin = pMesh->_pSkinVertices[posIndex];
 		}
-		// µü´úÓ°Éä
+		// è¿­ä»£å½±å°„
 		std::map<int,VERTEXDESC*>::iterator itr = pMap->begin();
 		bool bFind = false;
 		for(;itr!=pMap->end();++itr)
 		{
 			VERTEXDESC* tmpVertex = itr->second;
-			// Õâ¸öÊ±ºòFACEÀïÃæÒÑ¾­ÓĞË÷ÒıÁË
+			// è¿™ä¸ªæ—¶å€™FACEé‡Œé¢å·²ç»æœ‰ç´¢å¼•äº†
 			if(itr->first == pFace->_FinalIndex[i])
 			{
-				// Èç¹û·¨ÏßÏàµÈ£¬¾ÍÊ²Ã´Ò²²»×ö
-				// Èç¹û·¨Ïß²»µÈ£¬×îºóÔÙÌí¼Ó
+				// å¦‚æœæ³•çº¿ç›¸ç­‰ï¼Œå°±ä»€ä¹ˆä¹Ÿä¸åš
+				// å¦‚æœæ³•çº¿ä¸ç­‰ï¼Œæœ€åå†æ·»åŠ 
 				if(tmpVertex->_Normal == thisVertex->_Normal)
 				{
 					bFind = true;
@@ -1871,7 +1871,7 @@ void maxProject1::UpdateMapForNormal(std::map<int,VERTEXDESC*>* pMap,FACE* pFace
 				break;
 			}
 		}
-		// Èç¹ûÃ»ÓĞÕÒµ½Ò»¸öÆ¥ÅäµÄ,Ôò²åÈëÒ»¸öĞÂÖµ,È»ºó¸³ÖµË÷Òı¸øFace
+		// å¦‚æœæ²¡æœ‰æ‰¾åˆ°ä¸€ä¸ªåŒ¹é…çš„,åˆ™æ’å…¥ä¸€ä¸ªæ–°å€¼,ç„¶åèµ‹å€¼ç´¢å¼•ç»™Face
 		if(!bFind)
 		{
 			pMap->insert(pair<int,VERTEXDESC*>((int)pMap->size(),thisVertex));
@@ -1899,7 +1899,7 @@ int	maxProject1::DoExport(const TCHAR *name,ExpInterface *ei,Interface *i, BOOL 
 		return TRUE;
 
 	// *******************************************
-	// ³õÊ¼»¯ÎÄ¼ş
+	// åˆå§‹åŒ–æ–‡ä»¶
 	m_saveFile = _tfopen(name,L"w+");
 	if(m_saveFile==NULL)
 	{
@@ -1909,28 +1909,28 @@ int	maxProject1::DoExport(const TCHAR *name,ExpInterface *ei,Interface *i, BOOL 
 	// *******************************************
 
 	char sz[1024]={0};
-	// ÎÄ¼şÍ·
-	// Èç¹ûÊÇ¹Ç÷À¶¯»­,²¢ÇÒµ¼³ö¶¯»­Ê±
+	// æ–‡ä»¶å¤´
+	// å¦‚æœæ˜¯éª¨éª¼åŠ¨ç”»,å¹¶ä¸”å¯¼å‡ºåŠ¨ç”»æ—¶
 	if((this->m_bExportSkeletonMesh || this->m_bExportVertexAnime || this->m_bExportNodeAnime) && (this->m_bExportAnime))
 	{
 		sprintf(sz,"TANIME_100\n");
 		fwrite(sz,sizeof(char),strlen(sz),m_saveFile);
-		// ÒÔÏÂĞ´Èë¶¯»­ÀàĞÍ
+		// ä»¥ä¸‹å†™å…¥åŠ¨ç”»ç±»å‹
 		if(this->m_bExportSkeletonMesh)
 		{
-			// ¹Ç÷À¶¯»­
+			// éª¨éª¼åŠ¨ç”»
 			sprintf(sz,"SKELETONANIME\n");
 			fwrite(sz,sizeof(char),strlen(sz),m_saveFile);
 		}
 		else if(this->m_bExportVertexAnime)
 		{
-			// ¶¥µã¶¯»­
+			// é¡¶ç‚¹åŠ¨ç”»
 			sprintf(sz,"VERTEXANIME\n");
 			fwrite(sz,sizeof(char),strlen(sz),m_saveFile);
 		}
 		else if(this->m_bExportNodeAnime)
 		{
-			// ¹ì¼£¶¯»­
+			// è½¨è¿¹åŠ¨ç”»
 			sprintf(sz,"NODEANIME\n");
 			fwrite(sz,sizeof(char),strlen(sz),m_saveFile);
 		}
@@ -1941,33 +1941,33 @@ int	maxProject1::DoExport(const TCHAR *name,ExpInterface *ei,Interface *i, BOOL 
 		fwrite(sz,sizeof(char),strlen(sz),m_saveFile);
 	}
 
-	// Ò»Ğ©³õÊ¼»¯¹¤×÷
+	// ä¸€äº›åˆå§‹åŒ–å·¥ä½œ
 	Interface * ip = GetCOREInterface();
 	pIgame = GetIGameInterface();
 	IGameConversionManager * cm = GetConversionManager();
 	//	cm->SetUserCoordSystem(Whacky);
-	// ÕâÀï¹Ì¶¨ÊÇD3D×ø±êÏµ
+	// è¿™é‡Œå›ºå®šæ˜¯D3Dåæ ‡ç³»
 	cm->SetCoordSystem(IGameConversionManager::IGAME_D3D);
 	//	pIgame->SetPropertyFile(_T("hello world"));
 	bool exportSelected = (options & SCENE_EXPORT_SELECTED) ? true : false;
 	pIgame->InitialiseIGame(exportSelected);
-	// ÕâÀïÏÈ¸øÒ»¸ö¹Ì¶¨Öµ0
+	// è¿™é‡Œå…ˆç»™ä¸€ä¸ªå›ºå®šå€¼0
 	pIgame->SetStaticFrame(0);
 
-	// ³¡¾°
-	// Èç¹ûµ¼³ö¶¯»­Ê±
+	// åœºæ™¯
+	// å¦‚æœå¯¼å‡ºåŠ¨ç”»æ—¶
 	if((this->m_bExportSkeletonMesh || this->m_bExportVertexAnime || this->m_bExportNodeAnime) && this->m_bExportAnime)
 	{
 		ExportSceneInfo();
 	}
-	// ²ÄÖÊ
-	// Èç¹ûµ¼³öÄ£ĞÍµÄÊ±ºò
+	// æè´¨
+	// å¦‚æœå¯¼å‡ºæ¨¡å‹çš„æ—¶å€™
 	else
 	{
 		ExportMaterials();
 	}
 
-	// ½Úµã
+	// èŠ‚ç‚¹
 	m_listMesh.clear();
 	m_pSkeletonRoot = new _SKELETON();
 	m_pSkeletonRoot->_pChildList = new std::list<_SKELETON*>();
@@ -1981,16 +1981,16 @@ int	maxProject1::DoExport(const TCHAR *name,ExpInterface *ei,Interface *i, BOOL 
 		ExportChildNodeInfo(pGameNode,m_pSkeletonRoot);
 	}
 
-	// Èç¹ûÊÇÒ»ÖÖ¶¯»­
+	// å¦‚æœæ˜¯ä¸€ç§åŠ¨ç”»
 	if((this->m_bExportSkeletonMesh || this->m_bExportVertexAnime || this->m_bExportNodeAnime) && this->m_bExportAnime)
 	{
 		if(this->m_bExportSkeletonMesh)
 		{
-			// ÏÈµ¼³öÃû³Æ
+			// å…ˆå¯¼å‡ºåç§°
 			sprintf(sz,"%s\n",m_szAnimeName);
 			fwrite(sz,sizeof(char),strlen(sz),m_saveFile);
-			// ¹Ç÷À´Ó¸ùµÄµÚÒ»¸öº¢×Ó¿ªÊ¼Ğ´Æğ
-			// ÏÈ°ÑµÚÒ»²ãµÄÊıÁ¿Êä³ö
+			// éª¨éª¼ä»æ ¹çš„ç¬¬ä¸€ä¸ªå­©å­å¼€å§‹å†™èµ·
+			// å…ˆæŠŠç¬¬ä¸€å±‚çš„æ•°é‡è¾“å‡º
 			sprintf(sz,"%d\n",m_pSkeletonRoot->_pChildList->size());
 			fwrite(sz,sizeof(char),strlen(sz),m_saveFile);
 			std::list<_SKELETON*>::iterator itr = m_pSkeletonRoot->_pChildList->begin();
@@ -1999,25 +1999,25 @@ int	maxProject1::DoExport(const TCHAR *name,ExpInterface *ei,Interface *i, BOOL 
 		}
 		else if(this->m_bExportVertexAnime)
 		{
-			// ¶¥µã¶¯»­
-			// ÏÈµ¼³öÃû³Æ
+			// é¡¶ç‚¹åŠ¨ç”»
+			// å…ˆå¯¼å‡ºåç§°
 			sprintf(sz,"%s\n",m_szAnimeName);
 			fwrite(sz,sizeof(char),strlen(sz),m_saveFile);
-			// µ¼³ö¶¥µã
+			// å¯¼å‡ºé¡¶ç‚¹
 			CopyMeshInfoToFileForVA();
 		}
 		else if(this->m_bExportNodeAnime)
 		{
-			// ¹ì¼£¶¯»­
+			// è½¨è¿¹åŠ¨ç”»
 		}
 	}
-	// Èç¹ûÊÇÄ£ĞÍ
+	// å¦‚æœæ˜¯æ¨¡å‹
 	else
 	{
-		// ÏÖÔÚÍ³Ò»µ¼³öµ½ÎÄ¼ş
+		// ç°åœ¨ç»Ÿä¸€å¯¼å‡ºåˆ°æ–‡ä»¶
 		CopyMeshInfoToFile();
-		// ¹Ç÷À´Ó¸ùµÄµÚÒ»¸öº¢×Ó¿ªÊ¼Ğ´Æğ
-		// ÏÈ°ÑµÚÒ»²ãµÄÊıÁ¿Êä³ö
+		// éª¨éª¼ä»æ ¹çš„ç¬¬ä¸€ä¸ªå­©å­å¼€å§‹å†™èµ·
+		// å…ˆæŠŠç¬¬ä¸€å±‚çš„æ•°é‡è¾“å‡º
 		sprintf(sz,"%d\n",m_pSkeletonRoot->_pChildList->size());
 		fwrite(sz,sizeof(char),strlen(sz),m_saveFile);
 		std::list<_SKELETON*>::iterator itr = m_pSkeletonRoot->_pChildList->begin();
@@ -2025,16 +2025,16 @@ int	maxProject1::DoExport(const TCHAR *name,ExpInterface *ei,Interface *i, BOOL 
 			CopySkeletonInfoToFile((*itr));
 	}
 
-	// Ïú»Ù
+	// é”€æ¯
 	m_listMesh.clear();
 	delete m_pSkeletonRoot;
 	m_pSkeletonRoot = NULL;
 	pIgame->ReleaseIGame();
 
-	// ** ¹Ø±ÕÎÄ¼ş ************
+	// ** å…³é—­æ–‡ä»¶ ************
 
 	fclose(m_saveFile);
-	::MessageBoxA(NULL,"µ¼³öÍê±Ï","ÕıÈ·",NULL);
+	::MessageBoxA(NULL,"å¯¼å‡ºå®Œæ¯•","æ­£ç¡®",NULL);
 
 	// ************************
 
@@ -2051,7 +2051,7 @@ void maxProject1::CopyMeshInfoToFile()
 		return;
 	}
 
-	// -------------------------- Í³Ò»¶¥µã,¸üĞÂÖ¸Ïò -----------------------------
+	// -------------------------- ç»Ÿä¸€é¡¶ç‚¹,æ›´æ–°æŒ‡å‘ -----------------------------
 	VertexDescMap* tmpMap = new VertexDescMap[m_listMesh.size()];
 	MeshList::iterator itr = m_listMesh.begin();
 	int count = 0;
@@ -2071,11 +2071,11 @@ void maxProject1::CopyMeshInfoToFile()
 	}
 	// --------------------------------------------------------------------------
 
-	// MeshÁ´±í
+	// Meshé“¾è¡¨
 	// MeshCount
 	sprintf(sz,"%d\n",m_listMesh.size());
 	fwrite(sz,sizeof(char),strlen(sz),m_saveFile);
-	// µü´úÁ´±í
+	// è¿­ä»£é“¾è¡¨
 	itr = m_listMesh.begin();
 	count = 0;
 	for(;itr!=m_listMesh.end();++itr,++count)
@@ -2126,7 +2126,7 @@ void maxProject1::CopyMeshInfoToFile()
 			// BoneCount
 			sprintf(sz,"%d\n",desc._Skin._BoneCount);
 			fwrite(sz,sizeof(char),strlen(sz),m_saveFile);
-			// Ñ­»·¼ÇÂ¼È¨ÖØĞÅÏ¢
+			// å¾ªç¯è®°å½•æƒé‡ä¿¡æ¯
 			for(int j=0;j<desc._Skin._BoneCount;j++)
 			{
 				sprintf(sz,"%d %f\n",desc._Skin._pBoneIDs[j],desc._Skin._pWeights[j]);
@@ -2195,7 +2195,7 @@ void maxProject1::CopyMeshInfoToFile()
 		fwrite(sz,sizeof(char),strlen(sz),m_saveFile);
 	}
 
-	// Ïú»Ù×ÊÔ´
+	// é”€æ¯èµ„æº
 	itr = m_listMesh.begin();
 	count = 0;
 	for(;itr!=m_listMesh.end();++itr,++count)
@@ -2225,7 +2225,7 @@ void maxProject1::CopyMeshInfoToFileForVA()
 		return;
 	}
 
-	// -------------------------- Í³Ò»¶¥µã,¸üĞÂÖ¸Ïò -----------------------------
+	// -------------------------- ç»Ÿä¸€é¡¶ç‚¹,æ›´æ–°æŒ‡å‘ -----------------------------
 	MeshList::iterator itr = m_listMesh.begin();
 	int meshCount = 0;
 	VertexDescMap** tmpMap = new VertexDescMap*[m_listMesh.size()];
@@ -2238,7 +2238,7 @@ void maxProject1::CopyMeshInfoToFileForVA()
 			MessageBoxA(NULL,"Error","KeyCountError",MB_OK);
 			return;
 		}
-		// Éú³ÉÃ¿Ò»Ö¡µÄµã¼¯
+		// ç”Ÿæˆæ¯ä¸€å¸§çš„ç‚¹é›†
 		tmpMap[meshCount] = new VertexDescMap[pMesh->_KeyCount];
 		for(;count<pMesh->_KeyCount;count++)
 		{
@@ -2254,7 +2254,7 @@ void maxProject1::CopyMeshInfoToFileForVA()
 	// MeshCount
 	sprintf(sz,"%d\n",m_listMesh.size());
 	fwrite(sz,sizeof(char),strlen(sz),m_saveFile);
-	// MeshÁ´±í
+	// Meshé“¾è¡¨
 	itr = m_listMesh.begin();
 	meshCount = 0;
 	for(;itr!=m_listMesh.end();++itr,++meshCount)
@@ -2267,7 +2267,7 @@ void maxProject1::CopyMeshInfoToFileForVA()
 		// KeyCount
 		sprintf(sz,"%d\n",pMesh->_KeyCount);
 		fwrite(sz,sizeof(char),strlen(sz),m_saveFile);
-		// µü´ú¹Ø¼üÖ¡
+		// è¿­ä»£å…³é”®å¸§
 		for(;count<pMesh->_KeyCount;count++)
 		{
 			// Calculate Tangent
@@ -2315,7 +2315,7 @@ void maxProject1::CopyMeshInfoToFileForVA()
 		fwrite(sz,sizeof(char),strlen(sz),m_saveFile);
 	}
 
-	// Ïú»Ù×ÊÔ´
+	// é”€æ¯èµ„æº
 	itr = m_listMesh.begin();
 	meshCount = 0;
 	for(;itr!=m_listMesh.end();++itr,++meshCount)

@@ -547,7 +547,7 @@ namespace TLunaEngine
 	};
 
 	// depth stencil create desc
-	// ģ�岻֧��
+	// 模板不支持
 	struct TLRenderDeviceDepthStencilDesc {
 		TBOOL                       DepthEnable;
 		RENDER_DEVICE_DEPTH_WRITE_MASK     DepthWriteMask;
@@ -623,7 +623,7 @@ namespace TLunaEngine
 	struct TLRenderDeviceBlendDesc {
 		//TBOOL                           AlphaToCoverageEnable;
 		//TBOOL                           IndependentBlendEnable;
-		TLRenderDeviceRenderTargetBlendDesc RenderTarget[1];	// ֻ�õ�һ��
+		TLRenderDeviceRenderTargetBlendDesc RenderTarget[1];	// 只用第一个
 
 		TLRenderDeviceBlendDesc()
 		{

@@ -6,7 +6,7 @@
 #include <math.h>
 
 /**
-*	Ê¹ÓÃirrlichtµÄMath·½·¨
+*	ä½¿ç”¨irrlichtçš„Mathæ–¹æ³•
 */
 
 namespace TLunaEngine{
@@ -233,7 +233,7 @@ namespace TLunaEngine{
 		return s32_min (s32_max(value,low), high);
 	}
 
-	// ------------------------ ÒÔÏÂ¶¼ÊÇ½«·ûµã×ª»»³ÉÕûÊıÀ´ÔËËã ------------------------
+	// ------------------------ ä»¥ä¸‹éƒ½æ˜¯å°†ç¬¦ç‚¹è½¬æ¢æˆæ•´æ•°æ¥è¿ç®— ------------------------
 
 	/*
 		TF32 IEEE-754 bit represenation
@@ -269,7 +269,7 @@ namespace TLunaEngine{
 		return ( ((TU32 *) &(f)));
 	}
 
-	// ÒÔÏÂ¶¨Òå²»Òª¸Ä³Éconst
+	// ä»¥ä¸‹å®šä¹‰ä¸è¦æ”¹æˆconst
 	#define F32_VALUE_0		0x00000000
 	#define F32_VALUE_1		0x3f800000
 	#define F32_SIGN_BIT		0x80000000U
@@ -377,7 +377,7 @@ namespace TLunaEngine{
 		state ^= ( ( -condition >> 31 ) ^ state ) & mask;
 	}
 
-	// ±Èx+0.5Ğ¡µÄ×î´óÕûÊı
+	// æ¯”x+0.5å°çš„æœ€å¤§æ•´æ•°
 	inline  TF32 round_( TF32 x )
 	{
 		return floorf( x + 0.5f );
@@ -390,7 +390,7 @@ namespace TLunaEngine{
 	#endif
 	}
 
-	// ¿ª·½µÄµ¹Êı
+	// å¼€æ–¹çš„å€’æ•°
 	inline TF32 reciprocal_squareroot( TF32 x)
 	{
 		// comes from NVIDIA
@@ -409,13 +409,13 @@ namespace TLunaEngine{
 	}
 
 
-	// µ¹Êı
+	// å€’æ•°
 	inline TF32 reciprocal (  TF32 f )
 	{
 		return 1.f / f;
 	}
 
-	// µ¹Êı¿ìËÙËã·¨
+	// å€’æ•°å¿«é€Ÿç®—æ³•
 	inline TF32 reciprocal_approxim (  TF32 p )
 	{
 		register TU32 x = 0x7F000000 - IR ( p );
@@ -423,7 +423,7 @@ namespace TLunaEngine{
 		return r * (2.0f - p * r);
 	}
 
-	// ±ÈxĞ¡µÄ×î´óÕûÊı
+	// æ¯”xå°çš„æœ€å¤§æ•´æ•°
 	inline TS32 floor32(TF32 x)
 	{
 	#if defined(_MSC_VER) && !defined(_WIN64)
@@ -441,7 +441,7 @@ namespace TLunaEngine{
 	#endif
 	}
 
-	// ±Èx´óµÄ×îĞ¡ÕûÊı
+	// æ¯”xå¤§çš„æœ€å°æ•´æ•°
 	inline TS32 ceil32 ( TF32 x )
 	{
 	#if defined(_MSC_VER) && !defined(_WIN64)
@@ -459,7 +459,7 @@ namespace TLunaEngine{
 	#endif
 	}
 
-	// ±Èx+0.5Ğ¡µÄ×î´óÕûÊı
+	// æ¯”x+0.5å°çš„æœ€å¤§æ•´æ•°
 	inline TS32 round32(TF32 x)
 	{
 	#if defined(_MSC_VER) && !defined(_WIN64)
@@ -485,7 +485,7 @@ namespace TLunaEngine{
 		return a < b ? (a < c ? a : c) : (b < c ? b : c);
 	}
 
-	// x¼õÈ¥±ÈxĞ¡µÄ×î´óÕûÊı
+	// xå‡å»æ¯”xå°çš„æœ€å¤§æ•´æ•°
 	inline TF32 fract ( TF32 x )
 	{
 		return x - floorf ( x );

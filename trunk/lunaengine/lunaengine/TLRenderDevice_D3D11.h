@@ -13,21 +13,21 @@ namespace TLunaEngine
 		RenderDevice_D3D11();
 		virtual ~RenderDevice_D3D11();
 	public:
-		// ³õÊ¼»¯Éè±¸
+		// åˆå§‹åŒ–è®¾å¤‡
 		virtual bool InitDevice(HWND hWnd,TBOOL bWnd,TS32 width,TS32 height);
-		// Ïú»ÙÉè±¸
+		// é”€æ¯è®¾å¤‡
 		virtual void DestroyDevice();
-		// ¿ªÊ¼äÖÈ¾
+		// å¼€å§‹æ¸²æŸ“
 		virtual bool BeginRender();
-		// ½áÊøäÖÈ¾
+		// ç»“æŸæ¸²æŸ“
 		virtual void EndRender();
-		// Ê¹ÓÃÄ¬ÈÏµÄäÖÈ¾Ä¿±ê
+		// ä½¿ç”¨é»˜è®¤çš„æ¸²æŸ“ç›®æ ‡
 		virtual void UseDefaultRenderTarget();
-		// Ê¹ÓÃÄ¬ÈÏÊÓ¿Ú
+		// ä½¿ç”¨é»˜è®¤è§†å£
 		virtual void UseDefaultViewPort();
-		// µÃµ½ºó»º³å¸ß¶È
+		// å¾—åˆ°åç¼“å†²é«˜åº¦
 		virtual TU32 GetBufferHeight();
-		// µÃµ½ºó»º³å¿í¶È
+		// å¾—åˆ°åç¼“å†²å®½åº¦
 		virtual TU32 GetBufferWidth();
 		// resize buffer
 		// note: resize buffer will change to default rt and vp
@@ -45,7 +45,7 @@ namespace TLunaEngine
 		// get shader profile
 		virtual const char* getShaderProfileVersion();
 	public:
-		//---------------------- ¹¹ÔìÓ²¼ş×ÊÔ´ -------------------------------
+		//---------------------- æ„é€ ç¡¬ä»¶èµ„æº -------------------------------
 		// create buffer
 		virtual RenderDeviceUsedBuffer* createBuffer(const TLRenderDeviceBufferDesc* pDesc,
 			const TLRenderDeviceSubresourceData* pInitData);
@@ -99,7 +99,7 @@ namespace TLunaEngine
 		// create texture2d and texture2d srv from dds file
 		virtual bool createTex2DFromDDSFile(const char* file,RenderDeviceUsedTex2D** ppTex2D,RenderDeviceUsedSRV** ppSRV);
 	public:
-		//---------------------- Ê¹ÓÃÓ²¼ş×ÊÔ´ -------------------------------
+		//---------------------- ä½¿ç”¨ç¡¬ä»¶èµ„æº -------------------------------
 		// use viewport
 		virtual bool useViewport(const TLRenderDeviceViewport* aVp,TU32 numVp);
 		// set Primitive Topology
@@ -166,10 +166,10 @@ namespace TLunaEngine
 		ID3D11Device* m_pd3dDevice;
 		ID3D11DeviceContext* m_pImmediateContext;
 		IDXGISwapChain* m_pSwapChain;
-		ID3D11RenderTargetView* m_pRenderTargetView;		// äÖÈ¾ÊÓÍ¼
-		ID3D11Texture2D* m_pDepthStencil;			// Éî¶È»º³åÇø
-		ID3D11DepthStencilView* m_pDepthStencilView;		// Éî¶ÈÊÓÍ¼
-		D3D11_VIEWPORT m_ViewPort;					// ±£´æÊÓ¿Ú
+		ID3D11RenderTargetView* m_pRenderTargetView;		// æ¸²æŸ“è§†å›¾
+		ID3D11Texture2D* m_pDepthStencil;			// æ·±åº¦ç¼“å†²åŒº
+		ID3D11DepthStencilView* m_pDepthStencilView;		// æ·±åº¦è§†å›¾
+		D3D11_VIEWPORT m_ViewPort;					// ä¿å­˜è§†å£
 		TLRenderDeviceViewport mDefaultVp;
 		bool m_loaded;
 		D3D_DRIVER_TYPE m_DriverType;

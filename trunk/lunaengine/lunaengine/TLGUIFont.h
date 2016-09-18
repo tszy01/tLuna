@@ -8,7 +8,7 @@
 
 namespace TLunaEngine{
 	class RenderDeviceUsedSRV;
-	// ´¦ÀíÃ¿Ò»¸öÎÄ×Ö£¬Éú³ÉÎÆÀí
+	// å¤„ç†æ¯ä¸€ä¸ªæ–‡å­—ï¼Œç”Ÿæˆçº¹ç†
 	class FontGlyph
 	{
 	public:
@@ -34,7 +34,7 @@ namespace TLunaEngine{
 	};
 
 	/*
-	 *	×ÔÖÆ×ÖÌåÀà£¬Ê¹ÓÃFreeType¿â
+	 *	è‡ªåˆ¶å­—ä½“ç±»ï¼Œä½¿ç”¨FreeTypeåº“
 	 */
 	class GUIFont
 	{
@@ -75,7 +75,7 @@ namespace TLunaEngine{
 		FontGlyph* m_Glyphs;
 		FT_Library	library;
 		FT_Face		face;
-		int			m_Id;	// È«¾ÖÎ¨Ò»ID
+		int			m_Id;	// å…¨å±€å”¯ä¸€ID
 		//RenderDeviceUsedSRV* mSRV;
 		//TU32 mTotalWidth;
 		//TU32 mTotalHeight;

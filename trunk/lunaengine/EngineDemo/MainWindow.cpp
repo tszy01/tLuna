@@ -3,21 +3,21 @@
 
 MainWindow* TLunaEngine::Singleton<MainWindow>::m_Ptr = 0;
 
-// ÏûÏ¢´¦Àíº¯Êı
+// æ¶ˆæ¯å¤„ç†å‡½æ•°
 LRESULT FAR PASCAL WindowProc(HWND hWnd, UINT message,WPARAM wParam, LPARAM lParam)
 {
 	switch(message)
 	{
-	    case WM_DESTROY: // Ïú»Ù´°¿Ú
+	    case WM_DESTROY: // é”€æ¯çª—å£
 			PostQuitMessage(0);
-		case WM_SETCURSOR:	// Êó±êÎ»ÓÚ´°¿ÚÉÏ
+		case WM_SETCURSOR:	// é¼ æ ‡ä½äºçª—å£ä¸Š
 			{
 				SetCursor(NULL);
 			}
 			break;
-		case WM_NCMOUSEMOVE: // Êó±êÈôÊÇÔÚ·Ç¿Í»§ÇøÉÏ
+		case WM_NCMOUSEMOVE: // é¼ æ ‡è‹¥æ˜¯åœ¨éå®¢æˆ·åŒºä¸Š
 			{
-				SetCursor(LoadCursor(NULL, IDC_ARROW)); //ÒÀÈ»Ê¹ÓÃWinÄ¬ÈÏÊó±ê
+				SetCursor(LoadCursor(NULL, IDC_ARROW)); //ä¾ç„¶ä½¿ç”¨Winé»˜è®¤é¼ æ ‡
 			}
 			break;
 		case WM_SIZE:
@@ -46,58 +46,58 @@ HRESULT MainWindow::InitWindow(HINSTANCE hInst, int nCmdShow, const _MAINWNDCONF
 {
 	if(!config)
 		return E_FAIL;
-	WNDCLASS  wc;    //¶¨Òå´°¿ÚÀà
-	//´´½¨ºÍÉèÖÃ´°¿ÚÀà
-	wc.style         = CS_HREDRAW | CS_VREDRAW ; //Ö§³ÖË®Æ½ºÍ´¹Ö±ÖØ»æ
-    wc.lpfnWndProc   = WindowProc;               //ÏàÓ¦ĞÅÏ¢µÄ´¦Àíº¯Êı
-    wc.cbClsExtra    = 0;                        //¸½¼ÓÄÚ´æ¿Õ¼ä
-	wc.cbWndExtra    = 0;                        //¸½¼ÓÄÚ´æ¿Õ¼ä
-	wc.hInstance     = hInst;					//´°¿ÚµÄÊµÀı»¯¾ä±ú
-	wc.hIcon         = NULL;					//´°¿ÚµÄÍ¼±ê
-	wc.hCursor       = NULL;                    //ÉèÖÃ´°¿ÚÊó±êµÄĞÎ×´
-	wc.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);//±³¾°Ë¢
-	wc.lpszMenuName  = NULL;                     //´°¿Ú²Ëµ¥
-	wc.lpszClassName = L"TLUNAEngine";          //´°¿ÚµÄÃû³Æ
-	RegisterClass(&wc);    //×¢²á´°¿Ú¾ä±ú
+	WNDCLASS  wc;    //å®šä¹‰çª—å£ç±»
+	//åˆ›å»ºå’Œè®¾ç½®çª—å£ç±»
+	wc.style         = CS_HREDRAW | CS_VREDRAW ; //æ”¯æŒæ°´å¹³å’Œå‚ç›´é‡ç»˜
+    wc.lpfnWndProc   = WindowProc;               //ç›¸åº”ä¿¡æ¯çš„å¤„ç†å‡½æ•°
+    wc.cbClsExtra    = 0;                        //é™„åŠ å†…å­˜ç©ºé—´
+	wc.cbWndExtra    = 0;                        //é™„åŠ å†…å­˜ç©ºé—´
+	wc.hInstance     = hInst;					//çª—å£çš„å®ä¾‹åŒ–å¥æŸ„
+	wc.hIcon         = NULL;					//çª—å£çš„å›¾æ ‡
+	wc.hCursor       = NULL;                    //è®¾ç½®çª—å£é¼ æ ‡çš„å½¢çŠ¶
+	wc.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);//èƒŒæ™¯åˆ·
+	wc.lpszMenuName  = NULL;                     //çª—å£èœå•
+	wc.lpszClassName = L"TLUNAEngine";          //çª—å£çš„åç§°
+	RegisterClass(&wc);    //æ³¨å†Œçª—å£å¥æŸ„
 	HWND hWnd = 0;
 	if(config->bWnd)
 	{
-		hWnd  = CreateWindowExA( WS_EX_APPWINDOW, // ´°¿Ú×ÜÏÔÊ¾ÔÚ¶¥²¿
-		                    "TLUNAEngine",//´°¿ÚÀàÃû
-							config->szWindowText, //´°¿ÚµÄ±êÌâ
-							WS_OVERLAPPED|WS_CAPTION|WS_SYSMENU,   //´°¿ÚµÄ·ç¸ñ
-							0, //XÖáµÄ³õÊ¼Éè¶¨×ø±ê
-							0, //YÖáµÄ³õÊ¼»¯Éè¶¨×ø±ê
-							config->bufferWidth,//GetSystemMetrics(SM_CXSCREEN),//¿í¶È³õÊ¼»¯Éè¶¨GetSystemMetrics(SM_CXSCREEN)
-							config->bufferHeight,//GetSystemMetrics(SM_CYSCREEN),//¸ß¶È³õÊ¼»¯Éè¶¨GetSystemMetrics(SM_CYSCREEN)
-							NULL, //¸¸´°¿Ú¾ä±ú
-							NULL, //´°¿Ú²Ëµ¥¾ä±ú
-							hInst, //ÊµÀı¾ä±ú
-							NULL); //¸½¼ÓĞÅÏ¢
+		hWnd  = CreateWindowExA( WS_EX_APPWINDOW, // çª—å£æ€»æ˜¾ç¤ºåœ¨é¡¶éƒ¨
+		                    "TLUNAEngine",//çª—å£ç±»å
+							config->szWindowText, //çª—å£çš„æ ‡é¢˜
+							WS_OVERLAPPED|WS_CAPTION|WS_SYSMENU,   //çª—å£çš„é£æ ¼
+							0, //Xè½´çš„åˆå§‹è®¾å®šåæ ‡
+							0, //Yè½´çš„åˆå§‹åŒ–è®¾å®šåæ ‡
+							config->bufferWidth,//GetSystemMetrics(SM_CXSCREEN),//å®½åº¦åˆå§‹åŒ–è®¾å®šGetSystemMetrics(SM_CXSCREEN)
+							config->bufferHeight,//GetSystemMetrics(SM_CYSCREEN),//é«˜åº¦åˆå§‹åŒ–è®¾å®šGetSystemMetrics(SM_CYSCREEN)
+							NULL, //çˆ¶çª—å£å¥æŸ„
+							NULL, //çª—å£èœå•å¥æŸ„
+							hInst, //å®ä¾‹å¥æŸ„
+							NULL); //é™„åŠ ä¿¡æ¯
 	}
 	else
 	{
-		hWnd  = CreateWindowExA( WS_EX_APPWINDOW, // ´°¿Ú×ÜÏÔÊ¾ÔÚ¶¥²¿
-		                    "TLUNAEngine",//´°¿ÚÀàÃû
-							config->szWindowText, //´°¿ÚµÄ±êÌâ
-							WS_POPUP,   //´°¿ÚµÄ·ç¸ñ
-							0, //XÖáµÄ³õÊ¼Éè¶¨×ø±ê
-							0, //YÖáµÄ³õÊ¼»¯Éè¶¨×ø±ê
-							config->bufferWidth,//GetSystemMetrics(SM_CXSCREEN),//¿í¶È³õÊ¼»¯Éè¶¨GetSystemMetrics(SM_CXSCREEN)
-							config->bufferHeight,//GetSystemMetrics(SM_CYSCREEN),//¸ß¶È³õÊ¼»¯Éè¶¨GetSystemMetrics(SM_CYSCREEN)
-							NULL, //¸¸´°¿Ú¾ä±ú
-							NULL, //´°¿Ú²Ëµ¥¾ä±ú
-							hInst, //ÊµÀı¾ä±ú
-							NULL); //¸½¼ÓĞÅÏ¢
+		hWnd  = CreateWindowExA( WS_EX_APPWINDOW, // çª—å£æ€»æ˜¾ç¤ºåœ¨é¡¶éƒ¨
+		                    "TLUNAEngine",//çª—å£ç±»å
+							config->szWindowText, //çª—å£çš„æ ‡é¢˜
+							WS_POPUP,   //çª—å£çš„é£æ ¼
+							0, //Xè½´çš„åˆå§‹è®¾å®šåæ ‡
+							0, //Yè½´çš„åˆå§‹åŒ–è®¾å®šåæ ‡
+							config->bufferWidth,//GetSystemMetrics(SM_CXSCREEN),//å®½åº¦åˆå§‹åŒ–è®¾å®šGetSystemMetrics(SM_CXSCREEN)
+							config->bufferHeight,//GetSystemMetrics(SM_CYSCREEN),//é«˜åº¦åˆå§‹åŒ–è®¾å®šGetSystemMetrics(SM_CYSCREEN)
+							NULL, //çˆ¶çª—å£å¥æŸ„
+							NULL, //çª—å£èœå•å¥æŸ„
+							hInst, //å®ä¾‹å¥æŸ„
+							NULL); //é™„åŠ ä¿¡æ¯
 	}
-	if(! hWnd)  //ÅĞ¶Ï´°¿ÚÊÇ·ñ½¨Á¢³É¹¦
+	if(! hWnd)  //åˆ¤æ–­çª—å£æ˜¯å¦å»ºç«‹æˆåŠŸ
 	{
 		return E_FAIL;  
 	}
 
-	// ³õÊ¼»¯È«¾Ö¶ÔÏó
-	ShowWindow(hWnd, nCmdShow); //ÏÔÊ¾´°¿Ú
-	UpdateWindow(hWnd);         //¸üĞÂ´°¿Ú
+	// åˆå§‹åŒ–å…¨å±€å¯¹è±¡
+	ShowWindow(hWnd, nCmdShow); //æ˜¾ç¤ºçª—å£
+	UpdateWindow(hWnd);         //æ›´æ–°çª—å£
 
 	m_hInst = hInst;
 	m_hWnd = hWnd;
@@ -108,7 +108,7 @@ HRESULT MainWindow::InitWindow(HINSTANCE hInst, int nCmdShow, const _MAINWNDCONF
 
 void MainWindow::DestroyWindow()
 {
-	// ×¢Ïú´°¿Ú
+	// æ³¨é”€çª—å£
    UnregisterClass(L"TLUNAEngine",m_hInst); 
 }
 
@@ -142,10 +142,10 @@ void MainWindow::GetCursorPosInBuffer(float *x, float *y)
 	if(!x || !y)
 		return;
 	POINT pt;
-	// »ñµÃÊó±êÔÚ¿Í»§ÇøÎ»ÖÃ
+	// è·å¾—é¼ æ ‡åœ¨å®¢æˆ·åŒºä½ç½®
 	GetCursorPos(&pt);
 	ScreenToClient(m_hWnd,&pt);
-	// ¸ù¾İ±ÈÀı½áËã´¦Êó±êÔÚºó»º³åÇøµÄÎ»ÖÃ
+	// æ ¹æ®æ¯”ä¾‹ç»“ç®—å¤„é¼ æ ‡åœ¨åç¼“å†²åŒºçš„ä½ç½®
 	if(m_bWnd)
 	{
 		float x=(float)pt.x * m_widthPro;

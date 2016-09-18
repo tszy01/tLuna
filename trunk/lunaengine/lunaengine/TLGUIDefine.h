@@ -7,7 +7,7 @@
 
 namespace TLunaEngine{
 
-	// äÖÈ¾ÊäÈë½á¹¹Ìå
+	// æ¸²æŸ“è¾“å…¥ç»“æ„ä½“
 	struct GUI_VERTEX_DEF
 	{
 		TLunaEngine::Vector3<float> Pos;
@@ -15,15 +15,15 @@ namespace TLunaEngine{
 		TLunaEngine::Vector4<float> Color;
 	};
 
-	// CtrlÖÖÀà
+	// Ctrlç§ç±»
 	enum GUI_CTRL_TYPE
 	{
 		GUI_CTRL_NONE		= 0,
-		GUI_CTRL_PICTURE	= 1,	// Í¼Æ¬Àà
-		GUI_CTRL_TEXT		= 2,	// ÎÄ×ÖÀà
+		GUI_CTRL_PICTURE	= 1,	// å›¾ç‰‡ç±»
+		GUI_CTRL_TEXT		= 2,	// æ–‡å­—ç±»
 	};
 
-	// ÈİÆ÷¶¯»­¶¨ÒåÃ¶¾Ù
+	// å®¹å™¨åŠ¨ç”»å®šä¹‰æšä¸¾
 	enum CONTAINER_ANIME_TYPE_ENUM
 	{
 		CATE_NONE	= -1,
@@ -34,22 +34,22 @@ namespace TLunaEngine{
 		CATE_COUNT
 	};
 
-	// ÈİÆ÷¶¯»­ÀàĞÍ
+	// å®¹å™¨åŠ¨ç”»ç±»å‹
 	enum CONTAINER_ANIME_TYPE
 	{
 		CAT_NONE	= 0,
-		CAT_FADE	= 1 << CATE_FADE,	// µ­Èëµ­³öĞ§¹û
-		CAT_PIC_CHANGE	= 1 << CATE_PIC_CHANGE,	// Í¼Æ¬Ö¡¶¯»­
-		CAT_POS_CHANGE	= 1 << CATE_POS_CHANGE,	// Î»ÖÃÖ¡¶¯»­
+		CAT_FADE	= 1 << CATE_FADE,	// æ·¡å…¥æ·¡å‡ºæ•ˆæœ
+		CAT_PIC_CHANGE	= 1 << CATE_PIC_CHANGE,	// å›¾ç‰‡å¸§åŠ¨ç”»
+		CAT_POS_CHANGE	= 1 << CATE_POS_CHANGE,	// ä½ç½®å¸§åŠ¨ç”»
 	};
 
-	// µ­Èëµ­³öÀàĞÍ
+	// æ·¡å…¥æ·¡å‡ºç±»å‹
 	enum CONTAINER_FADE_TYPE
 	{
 		CFF_NONE	= -1,
-		CFF_FADE_IN	= 0,	// µ­Èë
-		CFF_FADE_OUT= 1,	// µ­³ö
-		CFF_FADE_IN_OUT	= 2,// µ­Èëµ­³ö
+		CFF_FADE_IN	= 0,	// æ·¡å…¥
+		CFF_FADE_OUT= 1,	// æ·¡å‡º
+		CFF_FADE_IN_OUT	= 2,// æ·¡å…¥æ·¡å‡º
 	};
 
 }

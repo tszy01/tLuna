@@ -14,7 +14,7 @@
 
 namespace TLunaEngine{
 
-	// Èı½ÇĞÎÓëAABBµÄ¹ØÏµ
+	// ä¸‰è§’å½¢ä¸AABBçš„å…³ç³»
 	//! Determines if the triangle is totally inside a bounding box.
 	/** \param box Box to check.
 	//\return True if triangle is within the box, otherwise false. */
@@ -26,7 +26,7 @@ namespace TLunaEngine{
 			(box.isPointInside(tri.pointC));
 	}
 
-	// Èı½ÇĞÎÓëÇò¼ì²â
+	// ä¸‰è§’å½¢ä¸çƒæ£€æµ‹
 	template<typename T>
 	bool TriIsTotalInsideSphere(const Triangle<T>& tri,const Sphere<T>& sphere)
 	{
@@ -35,7 +35,7 @@ namespace TLunaEngine{
 			(sphere.Contains(tri.pointC));
 	}
 
-	// Èı½ÇĞÎÓëÏß¶Î¼ì²â
+	// ä¸‰è§’å½¢ä¸çº¿æ®µæ£€æµ‹
 	//! Get an intersection with a 3d line.
 	/** \param line Line to intersect with.
 	\param outIntersection Place to store the intersection point, if there is one.
@@ -48,16 +48,16 @@ namespace TLunaEngine{
 			outIntersection.isBetweenPoints(line.start, line.end);
 	}
 
-	// Èı½ÇĞÎÓëÉäÏß¼ì²â
+	// ä¸‰è§’å½¢ä¸å°„çº¿æ£€æµ‹
 	template<typename T>
 	bool TriGetInterscetionWithRay(const Triangle<T>& tri,const Ray<T>& ray,Vector3<T>& outIntersection)
 	{
 		return tri.getIntersectionWithLine(ray.GetOrig(),ray.GetDir(),outIntersection);
 	}
 
-	// Æ½ÃæÓëÏß¶Î,ÉäÏß¼ì²â¿ÉÒÔÖ±½ÓÓÃPlane³ÉÔ±º¯Êı
+	// å¹³é¢ä¸çº¿æ®µ,å°„çº¿æ£€æµ‹å¯ä»¥ç›´æ¥ç”¨Planeæˆå‘˜å‡½æ•°
 
-	// AABBÓëÏß¶Î¼ì²â
+	// AABBä¸çº¿æ®µæ£€æµ‹
 	//! Tests if the box intersects with a line
 	/** \param line: Line to test intersection with.
 	\return True if there is an intersection , else false. */
@@ -68,25 +68,25 @@ namespace TLunaEngine{
 				(T)(line.getLength() * 0.5));
 	}
 
-	// ÇòÓëÏß¶Î¼ì²â¿ÉÒÔÊ¹ÓÃLineµÄ³ÉÔ±º¯Êı
+	// çƒä¸çº¿æ®µæ£€æµ‹å¯ä»¥ä½¿ç”¨Lineçš„æˆå‘˜å‡½æ•°
 
-	// ÇòÓëÉäÏßµÄ¼ì²â
+	// çƒä¸å°„çº¿çš„æ£€æµ‹
 	template<typename T>
 	bool IntersectBall(const Vector3<T> &orig, const Vector3<T> &dir, const Vector3<T> &center, 
 							  const T radius, Vector3<T> *pVRet, T *len,bool* pInside)
 	{
-		// ÇòĞÄ-ÆğÊ¼µã
+		// çƒå¿ƒ-èµ·å§‹ç‚¹
 		Vector3<T> distance = center - orig;
-		// ¾àÀë
+		// è·ç¦»
 		T dis = distance.getLength()
-		// ±ê×¼»¯·½Ïò
+		// æ ‡å‡†åŒ–æ–¹å‘
 		Vector3<T> direction;
 		direction = dir.normalize();
-		// ·½ÏòÉÏµÄ³¤¶È
+		// æ–¹å‘ä¸Šçš„é•¿åº¦
 		T dirLen = distance.dotProduct(direction);
-		// Èç¹û¾àÀëÊÇ0
-		// ÆğÊ¼µãÔÚÔ²ĞÄ
-		// Åö×²µãÎª´ÓÔ²ĞÄÏòÉäÏß×ß°ë¾¶³¤¶ÈµÄµã
+		// å¦‚æœè·ç¦»æ˜¯0
+		// èµ·å§‹ç‚¹åœ¨åœ†å¿ƒ
+		// ç¢°æ’ç‚¹ä¸ºä»åœ†å¿ƒå‘å°„çº¿èµ°åŠå¾„é•¿åº¦çš„ç‚¹
 		if(abs(dis)<=0.1f)
 		{
 			if(pVRet)
@@ -97,8 +97,8 @@ namespace TLunaEngine{
 				(*pInside)=true;
 			return true;
 		}
-		// Èç¹û¾àÀëºÍ°ë¾¶Ò»Ñù
-		// ÆğÊ¼µãÔÚÇòÉÏ
+		// å¦‚æœè·ç¦»å’ŒåŠå¾„ä¸€æ ·
+		// èµ·å§‹ç‚¹åœ¨çƒä¸Š
 		if(abs(dis-radius)<=0.1f)
 		{
 			if(pVRet)
@@ -109,18 +109,18 @@ namespace TLunaEngine{
 				(*pInside)=false;
 			return true;
 		}
-		// Èç¹û¾àÀë±È°ë¾¶Ğ¡
-		// ÆğÊ¼µãÔÚÇòÄÚ²¿
+		// å¦‚æœè·ç¦»æ¯”åŠå¾„å°
+		// èµ·å§‹ç‚¹åœ¨çƒå†…éƒ¨
 		if(dis<radius)
 		{
 			float flen = 0;
-			// Èç¹ûÍ¶Ó°ÊÇ0
-			// Åö×²µãÆ½·½=°ë¾¶Æ½·½-¾àÀëÆ½·½
+			// å¦‚æœæŠ•å½±æ˜¯0
+			// ç¢°æ’ç‚¹å¹³æ–¹=åŠå¾„å¹³æ–¹-è·ç¦»å¹³æ–¹
 			if(abs(dirLen)<=0.1f)
 			{
 				flen = sqrt(radius*radius - dis*dis);
 			}
-			// Èç¹ûÍ¶Ó°´óÓÚ»òÕßĞ¡ÓÚ0
+			// å¦‚æœæŠ•å½±å¤§äºæˆ–è€…å°äº0
 			else
 			{
 				flen = sqrt(radius*radius - dis*dis + dirLen*dirLen) + dirLen;
@@ -133,14 +133,14 @@ namespace TLunaEngine{
 				(*pInside)=true;
 			return true;
 		}
-		// Èç¹û¾àÀë±È°ë¾¶´ó
-		// ÆğÊ¼µãÔÚÇòÄÚ²¿
-		// Ö»ÓĞÍ¶Ó°>0Ê±²Å¿ÉÄÜÏà½»
+		// å¦‚æœè·ç¦»æ¯”åŠå¾„å¤§
+		// èµ·å§‹ç‚¹åœ¨çƒå†…éƒ¨
+		// åªæœ‰æŠ•å½±>0æ—¶æ‰å¯èƒ½ç›¸äº¤
 		if(dis>radius && dirLen>0.0f)
 		{
 			float af = dis*dis - dirLen*dirLen;
 			float a = sqrt(af);
-			// Õâ¸öÖµ±ØĞëĞ¡ÓÚµÈÓÚ°ë¾¶²ÅÏà½»
+			// è¿™ä¸ªå€¼å¿…é¡»å°äºç­‰äºåŠå¾„æ‰ç›¸äº¤
 			if(abs(a-radius)<=0.1f)
 			{
 				if(pVRet)
@@ -170,12 +170,12 @@ namespace TLunaEngine{
 	bool IntersectBallSimple(const Vector3<T>& orig,const Vector3<T>& dir,const Vector3<T>& center,
 			const T radius,Vector3<T>* pVRet,T* len,bool* pInside)
 	{
-		// ÇòĞÄ-ÆğÊ¼µã
+		// çƒå¿ƒ-èµ·å§‹ç‚¹
 		Vector3<T> distance = center - orig;
-		// ¾àÀë
+		// è·ç¦»
 		T dis = distance.getLength();
-		// Èç¹û¾àÀë±È°ë¾¶Ğ¡
-		// ÆğÊ¼µãÔÚÇòÄÚ²¿
+		// å¦‚æœè·ç¦»æ¯”åŠå¾„å°
+		// èµ·å§‹ç‚¹åœ¨çƒå†…éƒ¨
 		if(dis<=radius+0.1f)
 		{
 			if(pVRet)
@@ -186,19 +186,19 @@ namespace TLunaEngine{
 				(*pInside)=true;
 			return true;
 		}
-		// ±ê×¼»¯·½Ïò
+		// æ ‡å‡†åŒ–æ–¹å‘
 		D3DXVECTOR3 direction;
 		direction = dir.normalize();
-		// ·½ÏòÉÏµÄ³¤¶È
+		// æ–¹å‘ä¸Šçš„é•¿åº¦
 		T dirLen = distance.dotProduct(direction);
-		// Èç¹û¾àÀë±È°ë¾¶´ó
-		// ÆğÊ¼µãÔÚÇòÄÚ²¿
-		// Ö»ÓĞÍ¶Ó°>0Ê±²Å¿ÉÄÜÏà½»
+		// å¦‚æœè·ç¦»æ¯”åŠå¾„å¤§
+		// èµ·å§‹ç‚¹åœ¨çƒå†…éƒ¨
+		// åªæœ‰æŠ•å½±>0æ—¶æ‰å¯èƒ½ç›¸äº¤
 		if(dis>radius && dirLen>0.0f)
 		{
 			float af = dis*dis - dirLen*dirLen;
 			float a = sqrt(af);
-			// Õâ¸öÖµ±ØĞëĞ¡ÓÚµÈÓÚ°ë¾¶²ÅÏà½»
+			// è¿™ä¸ªå€¼å¿…é¡»å°äºç­‰äºåŠå¾„æ‰ç›¸äº¤
 			if(abs(a-radius)<=0.1f)
 			{
 				if(pVRet)
@@ -226,23 +226,23 @@ namespace TLunaEngine{
 
 
 
-	// AABBÓëÉäÏßµÄ¼ì²â
+	// AABBä¸å°„çº¿çš„æ£€æµ‹
 	template<typename T>
 	bool IntersectAABBSimple(const Vector3<T> &orig, const Vector3<T> &dir, const Vector3<T> &min, 
 									const Vector3<T> &max, Vector3<T> *pVRet, T *len, bool *pInside)
 	{
-		bool inside = true;	// ¼ÙÉèÔÚÄÚ²¿
-		float xt=-1,yt=-1,zt=-1;	// Èı¸ö×ø±êµÄ²î,³õÊ¼»¯Îª-1
-		// ±ê×¼»¯·½Ïò
+		bool inside = true;	// å‡è®¾åœ¨å†…éƒ¨
+		float xt=-1,yt=-1,zt=-1;	// ä¸‰ä¸ªåæ ‡çš„å·®,åˆå§‹åŒ–ä¸º-1
+		// æ ‡å‡†åŒ–æ–¹å‘
 		Vector3<T> direction;
 		direction = dir.normalize();
 
-		// ·Ö±ğ±È½ÏÈı¸ö×ø±êÖá,¼ÆËã³ö²åÖµ
+		// åˆ†åˆ«æ¯”è¾ƒä¸‰ä¸ªåæ ‡è½´,è®¡ç®—å‡ºæ’å€¼
 		if(orig.X < min.X)
 		{
-			xt = min.X - orig.X;	// ¼ÆËã²î
-			xt /= direction.X;			// ºÍ·½ÏòÎ»ÖÃµÄ±ÈÖµ(ÊÇ·½ÏòÎ»ÖÃµÄ±¶Êı)
-			inside = false;			// XÖá²»ÔÚÄÚ²¿
+			xt = min.X - orig.X;	// è®¡ç®—å·®
+			xt /= direction.X;			// å’Œæ–¹å‘ä½ç½®çš„æ¯”å€¼(æ˜¯æ–¹å‘ä½ç½®çš„å€æ•°)
+			inside = false;			// Xè½´ä¸åœ¨å†…éƒ¨
 		}
 		else if(orig.X > max.X)
 		{
@@ -252,9 +252,9 @@ namespace TLunaEngine{
 		}
 		if(orig.Y < min.Y)
 		{
-			yt = min.Y - orig.Y;	// ¼ÆËã²î
-			yt /= direction.Y;			// ºÍ·½ÏòÎ»ÖÃµÄ±ÈÖµ(ÊÇ·½ÏòÎ»ÖÃµÄ±¶Êı)
-			inside = false;			// XÖá²»ÔÚÄÚ²¿
+			yt = min.Y - orig.Y;	// è®¡ç®—å·®
+			yt /= direction.Y;			// å’Œæ–¹å‘ä½ç½®çš„æ¯”å€¼(æ˜¯æ–¹å‘ä½ç½®çš„å€æ•°)
+			inside = false;			// Xè½´ä¸åœ¨å†…éƒ¨
 		}
 		else if(orig.Y > max.Y)
 		{
@@ -264,9 +264,9 @@ namespace TLunaEngine{
 		}
 		if(orig.Z < min.Z)
 		{
-			zt = min.Z - orig.Z;	// ¼ÆËã²î
-			zt /= direction.Z;			// ºÍ·½ÏòÎ»ÖÃµÄ±ÈÖµ(ÊÇ·½ÏòÎ»ÖÃµÄ±¶Êı)
-			inside = false;			// XÖá²»ÔÚÄÚ²¿
+			zt = min.Z - orig.Z;	// è®¡ç®—å·®
+			zt /= direction.Z;			// å’Œæ–¹å‘ä½ç½®çš„æ¯”å€¼(æ˜¯æ–¹å‘ä½ç½®çš„å€æ•°)
+			inside = false;			// Xè½´ä¸åœ¨å†…éƒ¨
 		}
 		else if(orig.Z > max.Z)
 		{
@@ -274,7 +274,7 @@ namespace TLunaEngine{
 			zt /= direction.Z;
 			inside = false;
 		}
-		// Èç¹ûÔÚÄÚ²¿
+		// å¦‚æœåœ¨å†…éƒ¨
 		if(inside)
 		{
 			if(pVRet)
@@ -285,8 +285,8 @@ namespace TLunaEngine{
 				(*pInside)=true;
 			return true;
 		}
-		// Ñ¡ÔñÊÊµ±µÄÏà½»Æ½Ãæ
-		// ÄÇ¸öÖáÉÏµÄ²îµÄ±ÈÖµ×î´ó,ËµÃ÷ºÍÁíÍâÁ½¸öÖá×é³ÉµÄÆ½ÃæÏÈÏà½»
+		// é€‰æ‹©é€‚å½“çš„ç›¸äº¤å¹³é¢
+		// é‚£ä¸ªè½´ä¸Šçš„å·®çš„æ¯”å€¼æœ€å¤§,è¯´æ˜å’Œå¦å¤–ä¸¤ä¸ªè½´ç»„æˆçš„å¹³é¢å…ˆç›¸äº¤
 		int which = 0;
 		float t = xt;
 		if(yt>t)
@@ -299,12 +299,12 @@ namespace TLunaEngine{
 			which = 2;
 			t = zt;
 		}
-		// ¸ù¾İÏà½»Æ½Ãæ,ÅĞ¶ÏÊÇ·ñÔÚºĞÄÚ
-		bool result = true;	// ×îºó½á¹û
-		float x=0,y=0,z=0;	// Åö×²µã×ø±ê
+		// æ ¹æ®ç›¸äº¤å¹³é¢,åˆ¤æ–­æ˜¯å¦åœ¨ç›’å†…
+		bool result = true;	// æœ€åç»“æœ
+		float x=0,y=0,z=0;	// ç¢°æ’ç‚¹åæ ‡
 		switch(which)
 		{
-		case 0:	// YZÆ½Ãæ
+		case 0:	// YZå¹³é¢
 			{
 				y = orig.Y + direction.Y * t;
 				if(y<min.Y || y>max.Y)
@@ -321,7 +321,7 @@ namespace TLunaEngine{
 				x = orig.X + direction.X * t;
 			}
 			break;
-		case 1:	// XZÆ½Ãæ
+		case 1:	// XZå¹³é¢
 			{
 				x = orig.X + direction.X * t;
 				if(x<min.X || x>max.X)
@@ -338,7 +338,7 @@ namespace TLunaEngine{
 				y = orig.Y + direction.Y * t;
 			}
 			break;
-		case 2:	// XYÆ½Ãæ
+		case 2:	// XYå¹³é¢
 			{
 				x = orig.X + direction.X * t;
 				if(x<min.X || x>max.X)
@@ -368,7 +368,7 @@ namespace TLunaEngine{
 		return result;
 	}
 
-	// ¼ÆËãÇĞÏß·½Ïò£¬ÓÃÓÚ·¨ÏßÌùÍ¼
+	// è®¡ç®—åˆ‡çº¿æ–¹å‘ï¼Œç”¨äºæ³•çº¿è´´å›¾
 	template<typename T>
 	void CalculateTangentArray(long vertexCount, const Vector3<T> *vertex, const Vector3<T> *normal,
 		const Vector2<T> *texcoord, long triangleCount, const long* indexArray, Vector4<T> *tangent)

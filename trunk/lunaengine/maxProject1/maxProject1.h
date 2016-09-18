@@ -31,7 +31,7 @@ extern TCHAR *GetString(int id);
 
 extern HINSTANCE hInstance;
 
-// ÏòÁ¿
+// å‘é‡
 typedef struct _VECTOR3
 {
 	// X
@@ -129,16 +129,16 @@ typedef struct _VECTOR3
 	}
 }VECTOR3;
 
-// ÁÙÊ±¾ØÕóÀàĞÍ
+// ä¸´æ—¶çŸ©é˜µç±»å‹
 typedef struct _MATRIX
 {
-	// ÒÆ¶¯
+	// ç§»åŠ¨
 	VECTOR3 _Translation;
-	// Ğı×ª
+	// æ—‹è½¬
 	//VECTOR3 _RotationAxis;
 	//float _Angle;
 	Quat _Quaternion;
-	// Ëõ·Å
+	// ç¼©æ”¾
 	VECTOR3 _Scale;
 
 	_MATRIX()
@@ -170,7 +170,7 @@ typedef struct _MATRIX
 	}
 }MATRIX;
 
-// ¾ØÕó
+// çŸ©é˜µ
 typedef struct _MATRIX16
 {
 	// 4x4
@@ -275,14 +275,14 @@ typedef struct _MATRIX16
 	}
 }MATRIX16;
 
-// ÎÆÀí½á¹¹Ìå
+// çº¹ç†ç»“æ„ä½“
 typedef struct _TEXTURE
 {
-	// ÎÄ¼şÃû
+	// æ–‡ä»¶å
 	char _szFile[256];
-	// ÎÆÀí¶¯»­
+	// çº¹ç†åŠ¨ç”»
 	VECTOR3* _UVOff;
-	// ¶¯»­Ö¡ÊıÁ¿
+	// åŠ¨ç”»å¸§æ•°é‡
 	int _keyCount;
 
 	_TEXTURE()
@@ -303,12 +303,12 @@ typedef struct _TEXTURE
 	}
 }TEXTURE;
 
-// ÎÆÀíÓ³Éä½á¹¹Ìå
+// çº¹ç†æ˜ å°„ç»“æ„ä½“
 typedef struct _TEXTUREMAP
 {
-	// ÊıÁ¿
+	// æ•°é‡
 	int _Count;
-	// ÎÆÀíÊı×é
+	// çº¹ç†æ•°ç»„
 	TEXTURE* _pTexs;
 
 	_TEXTUREMAP()
@@ -327,10 +327,10 @@ typedef struct _TEXTUREMAP
 	}
 }TEXTUREMAP;
 
-// ²ÄÖÊµÄ½á¹¹Ìå
+// æè´¨çš„ç»“æ„ä½“
 typedef struct _MATERIAL
 {
-	// Ãû×Ö
+	// åå­—
 	char _szName[256];
 	// Diffuse
 	float _Diffuse[3];
@@ -360,7 +360,7 @@ typedef struct _MATERIAL
 
 typedef std::list<MATERIAL*> MatList;
 
-// ÃÉÆ¤µãĞÅÏ¢
+// è’™çš®ç‚¹ä¿¡æ¯
 typedef struct _SKINVERTEX
 {
 	// NumOfBones
@@ -401,7 +401,7 @@ typedef struct _SKINVERTEX
 	{
 		if(right._BoneCount > 0)
 		{
-			// ÏÈÉ¾³ıÔ­À´µÄ
+			// å…ˆåˆ é™¤åŸæ¥çš„
 			Clear();
 			_BoneCount = right._BoneCount;
 			_pBoneIDs = new int[_BoneCount];
@@ -412,19 +412,19 @@ typedef struct _SKINVERTEX
 	}
 }SKINVERTEX;
 
-// Ãæ
+// é¢
 typedef struct _FACE
 {
-	// ¶¥µãÎ»ÖÃË÷Òı
+	// é¡¶ç‚¹ä½ç½®ç´¢å¼•
 	int _PositionIndex[3];
-	// ·¨ÏßË÷Òı
+	// æ³•çº¿ç´¢å¼•
 	int _NormalIndex[3];
-	// ÎÆÀíÓ³ÉäµãË÷Òı
+	// çº¹ç†æ˜ å°„ç‚¹ç´¢å¼•
 	int _TexVertexIndex[3];
-	// ¶ÔÓ¦²ÄÖÊÃû³Æ
+	// å¯¹åº”æè´¨åç§°
 	char _szMatName[256];
-	// ×îÖÕµÄµãË÷Òı
-	// ÕâÒ»ÏîÔÚ¼ÓÔØÊ±²»ÓÃ
+	// æœ€ç»ˆçš„ç‚¹ç´¢å¼•
+	// è¿™ä¸€é¡¹åœ¨åŠ è½½æ—¶ä¸ç”¨
 	int _FinalIndex[3];
 
 	_FACE()
@@ -452,18 +452,18 @@ typedef struct _FACE
 	}
 }FACE;
 
-// ÁÙÊ±¶¥µã½á¹¹
+// ä¸´æ—¶é¡¶ç‚¹ç»“æ„
 typedef struct _VERTEXDESC
 {
-	// Î»ÖÃ
+	// ä½ç½®
 	VECTOR3 _Position;
-	// ·¨Ïß
+	// æ³•çº¿
 	VECTOR3 _Normal;
-	// ÎÆÀí
+	// çº¹ç†
 	VECTOR3 _Tex;
 	// Tangent
 	VECTOR3 _Tan;
-	// È¨ÖØ
+	// æƒé‡
 	SKINVERTEX _Skin;
 
 	_VERTEXDESC()
@@ -501,41 +501,41 @@ typedef struct _MESH
 {
 	// Matrix
 	MATRIX _Mat;
-	// ¶¥µãÎ»ÖÃÊıÁ¿
+	// é¡¶ç‚¹ä½ç½®æ•°é‡
 	int _PositionCount;
-	// ¶¥µã
+	// é¡¶ç‚¹
 	VECTOR3* _pPositions;
-	// ¶¥µã¶¯»­ÓÃÎ»ÖÃ
+	// é¡¶ç‚¹åŠ¨ç”»ç”¨ä½ç½®
 	VECTOR3** _pVAPositions;
-	// ¹Ø¼üÖ¡ÊıÁ¿
+	// å…³é”®å¸§æ•°é‡
 	int _KeyCount;
-	// È¨ÖØ
+	// æƒé‡
 	SKINVERTEX* _pSkinVertices;
-	// ·¨ÏßÊıÁ¿
+	// æ³•çº¿æ•°é‡
 	int _NormalCount;
-	// ·¨Ïß
+	// æ³•çº¿
 	VECTOR3* _pNormals;
-	// ¶¥µã¶¯»­ÓÃ·¨Ïß
+	// é¡¶ç‚¹åŠ¨ç”»ç”¨æ³•çº¿
 	VECTOR3** _pVANormals;
-	// Ó³ÉäµãÊıÁ¿
+	// æ˜ å°„ç‚¹æ•°é‡
 	int _TexVertexCount;
-	// Ó³Éäµã
+	// æ˜ å°„ç‚¹
 	VECTOR3* _pTexVertices;
-	// ¶¥µã¶¯»­ÓÃÎÆÀíÆ«ÒÆ
+	// é¡¶ç‚¹åŠ¨ç”»ç”¨çº¹ç†åç§»
 	VECTOR3** _pVATUVOff;
-	// ÃæÊıÁ¿
+	// é¢æ•°é‡
 	int _FaceCount;
-	// Ãæ
+	// é¢
 	FACE* _pFaces;
-	// ¹Ç÷ÀµÄÊıÁ¿
+	// éª¨éª¼çš„æ•°é‡
 	int _BoneCount;
-	// ¹Ç÷ÀµÄ³õÊ¼¾ØÕó
+	// éª¨éª¼çš„åˆå§‹çŸ©é˜µ
 	MATRIX* _pBoneMatrices;
-	// ¹Ç÷ÀµÄ³õÊ¼¾ØÕó¶ÔÓ¦µÄID
+	// éª¨éª¼çš„åˆå§‹çŸ©é˜µå¯¹åº”çš„ID
 	int* _pBoneIDs;
-	// ÃÉÆ¤µÄ³õÊ¼¾ØÕó
+	// è’™çš®çš„åˆå§‹çŸ©é˜µ
 	MATRIX _SkinMatrix;
-	// ÊÇ·ñÎª¹Ç÷À¶¯»­
+	// æ˜¯å¦ä¸ºéª¨éª¼åŠ¨ç”»
 	bool _bSkin;
 
 	_MESH()
@@ -645,7 +645,7 @@ typedef struct _MESH
 
 typedef std::list<MESH*> MeshList;
 
-// Ö¡ĞÅÏ¢
+// å¸§ä¿¡æ¯
 typedef struct _SAMPLEKEY
 {
 	// Time
@@ -666,10 +666,10 @@ typedef struct _SAMPLEKEY
 	}
 }SAMPLEKEY;
 
-// NodeĞÅÏ¢
+// Nodeä¿¡æ¯
 typedef struct _SKELETON
 {
-	// Ãû×Ö
+	// åå­—
 	char _szName[256];
 	// ID
 	int _ID;

@@ -5,52 +5,52 @@
 
 namespace TLunaEngine{
 
-	// ¶¨Òåº¯ÊıÖ¸Õë£¬ÉÏ²ãÓÎÏ·Ñ­»·Ê±µ÷ÓÃ
+	// å®šä¹‰å‡½æ•°æŒ‡é’ˆï¼Œä¸Šå±‚æ¸¸æˆå¾ªç¯æ—¶è°ƒç”¨
 	typedef void(*UserLoop)(float fTimeElapsed);
 
-	// -------------------------- ÒÔÏÂÎªµ¼³öÈ«¾Öº¯Êı£¬ÉÏ²ãµ÷ÓÃ ------------------------------
+	// -------------------------- ä»¥ä¸‹ä¸ºå¯¼å‡ºå…¨å±€å‡½æ•°ï¼Œä¸Šå±‚è°ƒç”¨ ------------------------------
 
-	// ÒıÇæ³õÊ¼»¯
-	// hWnd:´°¿Ú¾ä±ú
-	// hInst:Ó¦ÓÃ³ÌĞòÊµÀı¾ä±ú
-	// bWnd:ÊÇ·ñÎª´°¿Ú
-	// lWidth:ºó»º³åÇø¿í
-	// lHeight:ºó»º³åÇø¸ß
-	// fSecsPerFrame:Ö¡ËÙÂÊ¿ØÖÆ(Ã¿Ö¡Ê±¼ä)
-	// szResDir:×ÊÔ´¸ùÄ¿Â¼
-	// bShowDebugInfo:ÊÇ·ñÏÔÊ¾DebugĞÅÏ¢
+	// å¼•æ“åˆå§‹åŒ–
+	// hWnd:çª—å£å¥æŸ„
+	// hInst:åº”ç”¨ç¨‹åºå®ä¾‹å¥æŸ„
+	// bWnd:æ˜¯å¦ä¸ºçª—å£
+	// lWidth:åç¼“å†²åŒºå®½
+	// lHeight:åç¼“å†²åŒºé«˜
+	// fSecsPerFrame:å¸§é€Ÿç‡æ§åˆ¶(æ¯å¸§æ—¶é—´)
+	// szResDir:èµ„æºæ ¹ç›®å½•
+	// bShowDebugInfo:æ˜¯å¦æ˜¾ç¤ºDebugä¿¡æ¯
 	bool Init(HWND hWnd,HINSTANCE hInst,TBOOL bWnd,TS32 lWidth,TS32 lHeight,
 							 float fSecsPerFrame,const char* szResDir,bool bShowDebugInfo);
 
-	// ÒıÇæÑ­»·
+	// å¼•æ“å¾ªç¯
 	bool OnLoopCtrlUpdate(float* pTimeElapsed);
 	bool OnSceneUpdate(float fTimeElapsed);
 	bool OnSceneRender(float fTimeElapsed);
 
-	// ÓÎÏ·Ñ­»·
+	// æ¸¸æˆå¾ªç¯
 	bool OnGameLoop(UserLoop pLoop);
 
-	// ÒıÇæÍË³ö
+	// å¼•æ“é€€å‡º
 	bool Destroy();
 
 	// window size changed
 	bool onWindowSizeChanged(TU32 width,TU32 height);
 
-	// ------------- ÒÔÏÂÊÇ¸ø±à¼­Æ÷µ÷ÓÃµÄ·½·¨£¬ÓÎÏ·ÖĞ²»ÄÜÊ¹ÓÃ --------------------------------
+	// ------------- ä»¥ä¸‹æ˜¯ç»™ç¼–è¾‘å™¨è°ƒç”¨çš„æ–¹æ³•ï¼Œæ¸¸æˆä¸­ä¸èƒ½ä½¿ç”¨ --------------------------------
 
-	// ÒıÇæ³õÊ¼»¯
-	// hWnd:´°¿Ú¾ä±ú
-	// hInst:Ó¦ÓÃ³ÌĞò¾ä±ú
-	// lWidth:ºó»º³åÇø¿í
-	// lHeight:ºó»º³åÇø¸ß
-	// szResDir:×ÊÔ´¸ùÄ¿Â¼
+	// å¼•æ“åˆå§‹åŒ–
+	// hWnd:çª—å£å¥æŸ„
+	// hInst:åº”ç”¨ç¨‹åºå¥æŸ„
+	// lWidth:åç¼“å†²åŒºå®½
+	// lHeight:åç¼“å†²åŒºé«˜
+	// szResDir:èµ„æºæ ¹ç›®å½•
 	bool InitForEditor(HWND hWnd,HINSTANCE hInst,TS32 lWidth,TS32 lHeight,const char* szResDir);
 
-	// ÒıÇæÑ­»·
+	// å¼•æ“å¾ªç¯
 	bool OnSceneUpdateForEditor(float fTimeElapsed);
 	bool OnSceneRenderForEditor(float fTimeElapsed);
 
-	// ÒıÇæÍË³ö
+	// å¼•æ“é€€å‡º
 	bool DestroyForEditor();
 
 	// ---------------------------------------------------------------------------------------

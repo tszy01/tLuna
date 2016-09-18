@@ -11,7 +11,7 @@ namespace TLunaEngine{
 
 	ResMgr::~ResMgr(void)
 	{
-		// Õâ¸öÁ´±íµÄ×ÊÔ´ÒªÔÚÍâ²¿É¾³ı
+		// è¿™ä¸ªé“¾è¡¨çš„èµ„æºè¦åœ¨å¤–éƒ¨åˆ é™¤
 		std::list<ResObject*>::iterator itr = m_ResObjList.begin();
 		for(;itr!=m_ResObjList.end();itr++)
 		{
@@ -28,7 +28,7 @@ namespace TLunaEngine{
 		if(m_ResObjList.size()<=0)
 			return ;
 		m_eListState = RES_LIST_STATE_OPERATING;
-		// µü´ú²Ù×÷
+		// è¿­ä»£æ“ä½œ
 		std::list<ResObject*>::iterator itr = m_ResObjList.begin();
 		for(;itr!=m_ResObjList.end();itr++)
 		{
@@ -36,7 +36,7 @@ namespace TLunaEngine{
 			RES_OBJ_STATE eState = pObj->GetResState();
 			switch(eState)
 			{
-			case RES_OBJ_STATE_WAIT_LOAD:			// µÈ´ı¼ÓÔØ
+			case RES_OBJ_STATE_WAIT_LOAD:			// ç­‰å¾…åŠ è½½
 				{
 					if(!pObj->InitResObject())
 					{
@@ -45,7 +45,7 @@ namespace TLunaEngine{
 					}
 				}
 				break;
-			case RES_OBJ_STATE_WAIT_DESTROY:		// µÈ´ıÏú»Ù
+			case RES_OBJ_STATE_WAIT_DESTROY:		// ç­‰å¾…é”€æ¯
 				{
 					pObj->DestroyResObject();
 				}
@@ -56,7 +56,7 @@ namespace TLunaEngine{
 				break;
 			}
 		}
-		// Çå¿ÕÁ´±í
+		// æ¸…ç©ºé“¾è¡¨
 		m_ResObjList.clear();
 		m_eListState = RES_LIST_STATE_NONE;
 	}

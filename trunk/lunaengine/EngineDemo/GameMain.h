@@ -3,26 +3,26 @@
 #include <Windows.h>
 #include "TLGlobalFunc.h"
 
-// ¶¨Òå³õÊ¼»¯½á¹¹Ìå
+// å®šä¹‰åˆå§‹åŒ–ç»“æ„ä½“
 struct _INITPARAM
 {
-	HINSTANCE hInst;			// Èë¿ÚÓ¦ÓÃ³ÌĞòÊµÀı
-	int nCmdShow;				// Ö÷´°¿ÚµÄÏÔÊ¾
-	char szScriptFile[256];		// ³õÊ¼»¯½Å±¾ÎÄ¼şÃû
+	HINSTANCE hInst;			// å…¥å£åº”ç”¨ç¨‹åºå®ä¾‹
+	int nCmdShow;				// ä¸»çª—å£çš„æ˜¾ç¤º
+	char szScriptFile[256];		// åˆå§‹åŒ–è„šæœ¬æ–‡ä»¶å
 };
 
-// ÓÎÏ·Ñ­»·
+// æ¸¸æˆå¾ªç¯
 bool GameLoop(TLunaEngine::UserLoop pLoop);
 
-// ÓÎÏ·Æô¶¯Èë¿Ú
+// æ¸¸æˆå¯åŠ¨å…¥å£
 int MainExampleGame(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmLine, int nCmdShow);
 
-// Ö÷Ñ­»·»Øµ÷º¯Êı
+// ä¸»å¾ªç¯å›è°ƒå‡½æ•°
 void ExampleGameLoop(float fTimeElapsed);
-// ¼àÌıÏûÏ¢»Øµ÷º¯Êı
+// ç›‘å¬æ¶ˆæ¯å›è°ƒå‡½æ•°
 void OnCatchInputMsg(BYTE yType,void* param);
 
-// ¼ÓÔØºÍÏú»Ù
+// åŠ è½½å’Œé”€æ¯
 bool InitGame(const _INITPARAM* pInitParam);
 void DestroyGame();
 

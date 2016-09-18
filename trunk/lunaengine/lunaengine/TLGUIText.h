@@ -9,7 +9,7 @@ namespace TLunaEngine{
 	template class Vector4<float>;
 
 	/*
-	*	´¦ÀíÎÄ×ÖµÄ¿Ø¼ş
+	*	å¤„ç†æ–‡å­—çš„æ§ä»¶
 	*/
 	class GUIText : public GUICtrl
 	{
@@ -17,32 +17,32 @@ namespace TLunaEngine{
 		GUIText(void);
 		virtual ~GUIText(void);
 	protected:
-		int m_iFontID;	// Ê¹ÓÃµÄ×ÖÌåµÄID
-		Vector4<float> m_color;	// ÎÄ×ÖäÖÈ¾µÄÑÕÉ«
-		String m_strText;		// ÎÄ×ÖÄÚÈİ
+		int m_iFontID;	// ä½¿ç”¨çš„å­—ä½“çš„ID
+		Vector4<float> m_color;	// æ–‡å­—æ¸²æŸ“çš„é¢œè‰²
+		String m_strText;		// æ–‡å­—å†…å®¹
 	public:
-		// ------- ÒÔÏÂÊÇÖØĞ´¸¸Àà·½·¨ ------------
-		// Ïú»Ù
+		// ------- ä»¥ä¸‹æ˜¯é‡å†™çˆ¶ç±»æ–¹æ³• ------------
+		// é”€æ¯
 		virtual void DestroyCtrl();
-		// ¸üĞÂ
+		// æ›´æ–°
 		virtual bool Update(float fTimeElapsed);
-		// äÖÈ¾
+		// æ¸²æŸ“
 		virtual bool Render(float fTimeElapsed);
 	public:
-		// ------ ÒÔÏÂÊÇ±¾Àà·½·¨ ----------------
-		// ³õÊ¼»¯
+		// ------ ä»¥ä¸‹æ˜¯æœ¬ç±»æ–¹æ³• ----------------
+		// åˆå§‹åŒ–
 		bool InitGUIText(int iIndex,GUIContainer* pContainer,TS32 x,TS32 y,TS32 width,TS32 height,int iFontID,Vector4<float>& color);
-		// ÉèÖÃÎÄ×ÖÄÚÈİ
+		// è®¾ç½®æ–‡å­—å†…å®¹
 		inline void SetText(const char* pText)
 		{
 			m_strText = String(pText);
 		}
-		// ÉèÖÃÎÄ×ÖÑÕÉ«
+		// è®¾ç½®æ–‡å­—é¢œè‰²
 		inline void SetColor(Vector4<float>& color)
 		{
 			m_color = color;
 		}
-		// ÉèÖÃALPHA
+		// è®¾ç½®ALPHA
 		virtual void SetAlpha(float fAlpha)
 		{
 			GUICtrl::SetAlpha(fAlpha);

@@ -7,7 +7,7 @@ namespace TLunaEngine{
 
 	class Timer;
 	/*
-	*	äÖÈ¾Ñ­»·Ê±¼ä¿ØÖÆ£¬Ö¡ËÙÏÔÊ¾£¬µÈµÈ
+	*	æ¸²æŸ“å¾ªç¯æ—¶é—´æ§åˆ¶ï¼Œå¸§é€Ÿæ˜¾ç¤ºï¼Œç­‰ç­‰
 	*/
 	class LoopCtrl
 	{
@@ -15,35 +15,35 @@ namespace TLunaEngine{
 		LoopCtrl(void);
 		~LoopCtrl(void);
 	private:
-		//INT64       m_frequency;		// CPUÆµÂÊ
-		unsigned long       m_curTime;			// ¼ÇÂ¼µ±Ç°Ö¡Ê±¼äµã
-		unsigned long       m_lastTime;			// ¼ÇÂ¼ÉÏÒ»Ö¡µÄÊ±¼äµã,ÓÃÓÚUpdateÊ±¼ä¼ÆËã
-		unsigned long       m_lastUpdate;		// ¼ÇÂ¼ÉÏÒ»Ö¡µÄÊ±¼äµã,ÓÃÓÚFPS¼ÆËã
-		//INT64       m_FPSUpdateInterval;	// FPSÓÃµÄ
-		TU32        m_numFrames;		// ¼ÆËãFPSÊ±ÓÃµÄÕëÊı
-		unsigned long       m_runTime;		// ÒÑ¾­ÔËĞĞµÄÊ±¼ä
-		unsigned long       m_timeElapsed;	// äÖÈ¾Ê±µÄÁ½Ö¡Ö®¼äµÄ¼ä¸ôÊ±¼ä
-		float       m_fps;		// ¼ÆËã³öµÄFPS½á¹û
-		TBOOL        m_bStop;			// ÊÇ·ñÍ£Ö¹ÁË¼ÆÊ±
-		unsigned long		m_controlTime;	// ÓÃÓÚ¼ÆËãÊ±¼ä¿ØÖÆµÄÊ±¼ä²î
-		float	    m_fSecsPerFrame;	// Ã¿Ö¡µÄ¿ØÖÆÊ±¼ä
-		bool	    m_bRender;			// ÊÇ·ñ¿ÉÒÔäÖÈ¾ÁË
-		bool		m_bTimeControl;		// ÊÇ·ñ²ÉÓÃÊ±¼ä¿ØÖÆ
-		char		m_szFPS[16];		// ×ª³É×Ö·û´®µÄFPSÖµ
+		//INT64       m_frequency;		// CPUé¢‘ç‡
+		unsigned long       m_curTime;			// è®°å½•å½“å‰å¸§æ—¶é—´ç‚¹
+		unsigned long       m_lastTime;			// è®°å½•ä¸Šä¸€å¸§çš„æ—¶é—´ç‚¹,ç”¨äºUpdateæ—¶é—´è®¡ç®—
+		unsigned long       m_lastUpdate;		// è®°å½•ä¸Šä¸€å¸§çš„æ—¶é—´ç‚¹,ç”¨äºFPSè®¡ç®—
+		//INT64       m_FPSUpdateInterval;	// FPSç”¨çš„
+		TU32        m_numFrames;		// è®¡ç®—FPSæ—¶ç”¨çš„é’ˆæ•°
+		unsigned long       m_runTime;		// å·²ç»è¿è¡Œçš„æ—¶é—´
+		unsigned long       m_timeElapsed;	// æ¸²æŸ“æ—¶çš„ä¸¤å¸§ä¹‹é—´çš„é—´éš”æ—¶é—´
+		float       m_fps;		// è®¡ç®—å‡ºçš„FPSç»“æœ
+		TBOOL        m_bStop;			// æ˜¯å¦åœæ­¢äº†è®¡æ—¶
+		unsigned long		m_controlTime;	// ç”¨äºè®¡ç®—æ—¶é—´æ§åˆ¶çš„æ—¶é—´å·®
+		float	    m_fSecsPerFrame;	// æ¯å¸§çš„æ§åˆ¶æ—¶é—´
+		bool	    m_bRender;			// æ˜¯å¦å¯ä»¥æ¸²æŸ“äº†
+		bool		m_bTimeControl;		// æ˜¯å¦é‡‡ç”¨æ—¶é—´æ§åˆ¶
+		char		m_szFPS[16];		// è½¬æˆå­—ç¬¦ä¸²çš„FPSå€¼
 		Timer*		mTimer;
-		float		mCalcPeriod;		// ¼ÆËãÖÜÆÚ
+		float		mCalcPeriod;		// è®¡ç®—å‘¨æœŸ
 	public:
-		// ³õÊ¼»¯
+		// åˆå§‹åŒ–
 		bool Init();
-		// ¿ªÊ¼¼ÆÊ±
+		// å¼€å§‹è®¡æ—¶
 		void  StartTime();
-		// Í£Ö¹¼ÆÊ±
+		// åœæ­¢è®¡æ—¶
 		void  StopTime();
-		// Ö¡¸üĞÂ
+		// å¸§æ›´æ–°
 		void  UpdateTime();
-		// ¼ÆËãFPS
+		// è®¡ç®—FPS
 		void  CalFPS();
-		// Ö¡¸üĞÂÊ±¼ì²âÊ±¼ä¿ØÖÆ
+		// å¸§æ›´æ–°æ—¶æ£€æµ‹æ—¶é—´æ§åˆ¶
 		bool  TimeControl();
 
 		TBOOL  IsStopped()        {  return   m_bStop;    }

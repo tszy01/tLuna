@@ -4,8 +4,8 @@
 
 namespace TLunaEngine{
 	/*
-	 *	UI������Ϣ���ýӿڣ��̳�����Ҫ��д��Ϣ���������ɾ����Container����
-	 *	�����ֻ�нӿں������壬����ʵ���κδ��������������κγ�Ա�������Ǵ��ӿ�
+	 *	UI返回消息调用接口，继承者需要重写消息捕获函数，由具体的Container返回
+	 *	这个类只有接口函数定义，不能实现任何处理，不能添加任何成员变量，是纯接口
 	 */
 	class GUIListener
 	{
@@ -20,7 +20,7 @@ namespace TLunaEngine{
 		}
 
 	public:
-		// ����������Ϸ���
+		// 动画播放完毕发送
 		virtual void OnAnimePlayedOver(int iContainerID,TUByte yAnimeType) = 0;
 	};
 

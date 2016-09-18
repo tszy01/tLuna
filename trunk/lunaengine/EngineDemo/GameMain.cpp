@@ -9,22 +9,24 @@
 #include "TLGUIMgr.h"
 
 #include "TLString.h"
-#include "TLEditorFunc.h"
+
+//#include "EditorApp.h"
+#include "EditorMgr.h"
 
 int MainExampleGame(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmLine, int nCmdShow)
 {
-	// ¹¹ÔìÒ»¸ö³õÊ¼»¯½á¹¹Ìå
+	// æž„é€ ä¸€ä¸ªåˆå§‹åŒ–ç»“æž„ä½“
 	_INITPARAM init;
 	init.hInst = hInstance;
 	init.nCmdShow = nCmdShow;
-	// initapp.lua±ØÐëÓÐ£¬²¢ÇÒ·ÅÔÚexeÄ¿Â¼ÏÂÃæ
+	// initapp.luaå¿…é¡»æœ‰ï¼Œå¹¶ä¸”æ”¾åœ¨exeç›®å½•ä¸‹é¢
 	sprintf_s(init.szScriptFile,sizeof(char)*256,"initapp.lua");
-	// µ÷ÓÃ³õÊ¼»¯
+	// è°ƒç”¨åˆå§‹åŒ–
 	if(InitGame(&init))
 	{
-		// ÓÎÏ·Ñ­»·
+		// æ¸¸æˆå¾ªçŽ¯
 		GameLoop(&ExampleGameLoop);
-		// Ïú»Ù
+		// é”€æ¯
 		DestroyGame();
 	}
 	return 1;
@@ -34,37 +36,37 @@ bool InitGame(const _INITPARAM* pInitParam)
 {
 	if(!pInitParam)
 		return false;
-	// ¶ÁÈ¡³õÊ¼»¯ÅäÖÃ
+	// è¯»å–åˆå§‹åŒ–é…ç½®
 	if(!LuaInit::getSingletonPtr()->InitWindowScript(pInitParam->szScriptFile))
 		return false;
 	LuaInit::getSingletonPtr()->LoadParameters();
-	// ½¨Á¢Ö÷´°¿Ú
-	// ÅäÖÃ½á¹¹Ìå
+	// å»ºç«‹ä¸»çª—å£
+	// é…ç½®ç»“æž„ä½“
 	_MAINWNDCONFIG wndConfig;
 	wndConfig.bufferHeight = LuaInit::getSingletonPtr()->m_bufferHeight;
 	wndConfig.bufferWidth = LuaInit::getSingletonPtr()->m_bufferWidth;
 	wndConfig.bWnd = LuaInit::getSingletonPtr()->m_bWnd;
 	memcpy_s(wndConfig.szWindowText,sizeof(char)*256,LuaInit::getSingletonPtr()->m_szWindowText,sizeof(char)*256);
-	// µ¥Àý³õÊ¼»¯
+	// å•ä¾‹åˆå§‹åŒ–
 	MainWindow* mainWnd = MainWindow::getSingletonPtr();
 	if(mainWnd->InitWindow(pInitParam->hInst,pInitParam->nCmdShow,&wndConfig)!=S_OK)
 		return false;
 	mainWnd->CalcRectPro();
-	// ³õÊ¼»¯Engine
+	// åˆå§‹åŒ–Engine
 	if(!TLunaEngine::Init(mainWnd->GetHwnd(),pInitParam->hInst,LuaInit::getSingletonPtr()->m_bWnd,
 		LuaInit::getSingletonPtr()->m_bufferWidth,LuaInit::getSingletonPtr()->m_bufferHeight,1.0f/LuaInit::getSingletonPtr()->m_controlFps,
 		LuaInit::getSingletonPtr()->m_szResDir,LuaInit::getSingletonPtr()->m_bShowDebugInfo))
 		return false;
-	// GUI³¡¾°¹ÜÀí
+	// GUIåœºæ™¯ç®¡ç†
 	GUISceneMgr* pGUISceneMgr = GUISceneMgr::getSingletonPtr();
 	pGUISceneMgr->InitGUISceneMgr();
 	TLunaEngine::GUIMgr::getSingletonPtr()->SetSceneListener(pGUISceneMgr);
-	// ½¨Á¢InputÉè±¸
+	// å»ºç«‹Inputè®¾å¤‡
 	GameInput* pInput = GameInput::getSingletonPtr();
 	if(!pInput->InitInput(mainWnd->GetHwnd(),pInitParam->hInst,LuaInit::getSingletonPtr()->m_bUseJoystick))
 		return false;
 	InputMsgMgr::m_CalledFuncList.push_back(&OnCatchInputMsg);
-	// ½¨Á¢Èë¿ÚGUI
+	// å»ºç«‹å…¥å£GUI
 	TLunaEngine::String strFile = TLunaEngine::String(LuaInit::getSingletonPtr()->m_szResDir) + "gui\\startscene\\guifont.txt";
 	if (!pGUISceneMgr->AddFont(strFile.GetString()))
 	{
@@ -85,7 +87,7 @@ bool InitGame(const _INITPARAM* pInitParam)
 
 void DestroyGame()
 {
-	// ³·ÏúInput½ÓÊÕº¯Êý
+	// æ’¤é”€InputæŽ¥æ”¶å‡½æ•°
 	std::list<ProcessInput>::iterator itr = InputMsgMgr::m_CalledFuncList.begin();
 	for(;itr!=InputMsgMgr::m_CalledFuncList.end();++itr)
 	{
@@ -97,15 +99,15 @@ void DestroyGame()
 			break;
 		}
 	}
-	// Ïú»ÙInput
+	// é”€æ¯Input
 	GameInput::getSingletonPtr()->DestroyInput();
 	GameInput::delSingletonPtr();
-	// ³¡¾°¹ÜÀí
+	// åœºæ™¯ç®¡ç†
 	GUISceneMgr::getSingletonPtr()->DestroyGUISceneMgr();
 	GUISceneMgr::delSingletonPtr();
-	// EngineÏú»Ù
+	// Engineé”€æ¯
 	TLunaEngine::Destroy();
-	// Ïú»ÙÖ÷´°¿Ú
+	// é”€æ¯ä¸»çª—å£
 	MainWindow::getSingletonPtr()->DestroyWindow();
 	MainWindow::delSingletonPtr();
 }
@@ -114,18 +116,18 @@ bool GameLoop(TLunaEngine::UserLoop pLoop)
 {
 	MSG msg;
 	BOOL bDrawCursor = FALSE;
-	// Ñ­»·Ö÷´°¿ÚÏûÏ¢
+	// å¾ªçŽ¯ä¸»çª—å£æ¶ˆæ¯
 	while(true)
 	{
-		//Ò»°ãÀ´Ëµ£¬GetMessage±»Éè¼ÆÓÃÓÚ ¸ßÐ§µÄ´ÓÏûÏ¢
-		//¶ÓÁÐÖÐ»ñÈ¡ÏûÏ¢,Èç¹û¶ÓÁÐÖÐÃ»ÓÐÏûÏ¢£¬ÄÇÃ´µ¼ÖÂ
-		//Ïß³ÌË¯Ãß×´Ì¬,¶øPeekMessage²»»áµ¼ÖÂ£¬ËüÂíÉÏ
-		//·µ»Ø0£»
+		//ä¸€èˆ¬æ¥è¯´ï¼ŒGetMessageè¢«è®¾è®¡ç”¨äºŽ é«˜æ•ˆçš„ä»Žæ¶ˆæ¯
+		//é˜Ÿåˆ—ä¸­èŽ·å–æ¶ˆæ¯,å¦‚æžœé˜Ÿåˆ—ä¸­æ²¡æœ‰æ¶ˆæ¯ï¼Œé‚£ä¹ˆå¯¼è‡´
+		//çº¿ç¨‹ç¡çœ çŠ¶æ€,è€ŒPeekMessageä¸ä¼šå¯¼è‡´ï¼Œå®ƒé©¬ä¸Š
+		//è¿”å›ž0ï¼›
 		if(PeekMessage(&msg,NULL,0U,0U,PM_REMOVE))
-			// ½ÓÊÕÏµÍ³ÐÅÏ¢(&msgÎªMSGÀàÐÍµÄÐÅÏ¢½á¹¹Ìå£¬NULL
-			//ÊÇ´°¿Ú¾ä±ú£¬0£¬0ÊÇ±íÊ¾½ÓÊÜËùÓÐ´°¿ÚµÄÏûÏ¢)
+			// æŽ¥æ”¶ç³»ç»Ÿä¿¡æ¯(&msgä¸ºMSGç±»åž‹çš„ä¿¡æ¯ç»“æž„ä½“ï¼ŒNULL
+			//æ˜¯çª—å£å¥æŸ„ï¼Œ0ï¼Œ0æ˜¯è¡¨ç¤ºæŽ¥å—æ‰€æœ‰çª—å£çš„æ¶ˆæ¯)
 		{
-			// ²¶»ñÒ»Ð©ÏûÏ¢
+			// æ•èŽ·ä¸€äº›æ¶ˆæ¯
 			if(msg.message==WM_QUIT)
 				break;
 			switch(msg.message)
@@ -137,12 +139,12 @@ bool GameLoop(TLunaEngine::UserLoop pLoop)
 				bDrawCursor = FALSE;
 				break;
 			}
-			TranslateMessage(&msg); //×ª»»ÐÅÏ¢
+			TranslateMessage(&msg); //è½¬æ¢ä¿¡æ¯
 			DispatchMessage(&msg);  // 
 		}
 		else
 		{
-			// ÓÎÏ·Ñ­»·
+			// æ¸¸æˆå¾ªçŽ¯
 			if(!TLunaEngine::OnGameLoop(pLoop))
 				return false;
 		}
@@ -158,9 +160,9 @@ void ExampleGameLoop(float fTimeElapsed)
 
 void OnCatchInputMsg(BYTE yType,void* param)
 {
-	// GUI²¶»ñ
+	// GUIæ•èŽ·
 	GUISceneMgr::getSingletonPtr()->CatchInputMsg(yType,param);
-	// È«¾Ö²¶»ñ
+	// å…¨å±€æ•èŽ·
 	if(yType == (BYTE)MSG_TYPE_KEY)
 	{
 		_MSG_KEY_INFO* keyInfo = (_MSG_KEY_INFO*)param;
@@ -184,7 +186,11 @@ int PASCAL WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmLine,
 	{
 		if (cmds[0] == "editor")
 		{
-			int re = TLunaEngine::LaunchEditor(hInstance, 1280, 800, "../../demores/");
+			if (!EditorMgr::getSingletonPtr()->InitEditorMgr(hInstance, 1280, 800, "../../../demores/"))
+				return 1;
+			int re = EditorMgr::getSingletonPtr()->RunEditor();
+			EditorMgr::getSingletonPtr()->DestroyEditorMgr();
+			EditorMgr::delSingletonPtr();
 			return re;
 		}
 	}

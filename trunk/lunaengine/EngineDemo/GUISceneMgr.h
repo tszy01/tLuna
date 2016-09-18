@@ -4,7 +4,7 @@
 #include "TLGUIListener.h"
 
 /*
- *	ÓÎÏ·²¿·Ö£¬GUI³¡¾°¹ÜÀíÆ÷
+ *	æ¸¸æˆéƒ¨åˆ†ï¼ŒGUIåœºæ™¯ç®¡ç†å™¨
  */
 class GUISceneMgr : public TLunaEngine::Singleton<GUISceneMgr>, public TLunaEngine::GUIListener
 {
@@ -14,26 +14,26 @@ protected:
 	~GUISceneMgr(void);
 private:
 public:
-	// ---------- Íâ²¿µ÷ÓÃ·½·¨ -------------------
-	// ³õÊ¼»¯
+	// ---------- å¤–éƒ¨è°ƒç”¨æ–¹æ³• -------------------
+	// åˆå§‹åŒ–
 	bool InitGUISceneMgr();
-	// Ïú»Ù
+	// é”€æ¯
 	void DestroyGUISceneMgr();
-	// ½ÓÊÜÏûÏ¢
+	// æ¥å—æ¶ˆæ¯
 	void CatchInputMsg(unsigned char yType, void* param);
-	// ÉèÖÃÈİÆ÷¿É¼û
+	// è®¾ç½®å®¹å™¨å¯è§
 	void ShowContainer(int containerID,bool bShow = true);
-	// ÉèÖÃÊ¹ÓÃÄÄÖÖ×ÖÌå
+	// è®¾ç½®ä½¿ç”¨å“ªç§å­—ä½“
 	void UseFont(int iID);
-	// ¼ÓÔØ×ÖÌå
+	// åŠ è½½å­—ä½“
 	bool AddFont(const char* guiFontFile);
-	// ¼ÓÔØGUIäÖÈ¾
+	// åŠ è½½GUIæ¸²æŸ“
 	bool InitGUIRender(const char* guiRenderFile);
-	// ¼ÓÔØGUI¿Ø¼ş
+	// åŠ è½½GUIæ§ä»¶
 	bool InitGUI(const char* guiFile);
 public:
-	// --------- ÒÔÏÂÖØĞ´TLIGUIListener -------------------
-	// ¶¯»­²¥·ÅÍê±Ï·¢ËÍ
+	// --------- ä»¥ä¸‹é‡å†™TLIGUIListener -------------------
+	// åŠ¨ç”»æ’­æ”¾å®Œæ¯•å‘é€
 	virtual void OnAnimePlayedOver(int iContainerID, TLunaEngine::TUByte yAnimeType);
 };
 

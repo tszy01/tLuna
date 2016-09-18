@@ -10,14 +10,14 @@ protected:
 	LuaInit(void);
 	virtual ~LuaInit(void);
 public:
-	bool m_bWnd;			// ÊÇ·ñÊÇ´°¿Ú
-	unsigned int m_bufferHeight;	// ºó»º³å¸ß
-	unsigned int m_bufferWidth;		// ºó»º³å¿í
-	float m_controlFps;		// ¿ØÖÆÖ¡ËÙÂÊ
-	bool m_bShowDebugInfo;	// ÊÇ·ñÏÔÊ¾DebugĞÅÏ¢
-	bool m_bUseJoystick;	// ÊÇ·ñÊÊÓÃÊÖ±ú
-	char m_szWindowText[256];	// Ö÷´°¿ÚÃû³Æ
-	char m_szResDir[256];	// ×ÊÔ´¸ùÄ¿Â¼
+	bool m_bWnd;			// æ˜¯å¦æ˜¯çª—å£
+	unsigned int m_bufferHeight;	// åç¼“å†²é«˜
+	unsigned int m_bufferWidth;		// åç¼“å†²å®½
+	float m_controlFps;		// æ§åˆ¶å¸§é€Ÿç‡
+	bool m_bShowDebugInfo;	// æ˜¯å¦æ˜¾ç¤ºDebugä¿¡æ¯
+	bool m_bUseJoystick;	// æ˜¯å¦é€‚ç”¨æ‰‹æŸ„
+	char m_szWindowText[256];	// ä¸»çª—å£åç§°
+	char m_szResDir[256];	// èµ„æºæ ¹ç›®å½•
 public:
 	bool InitWindowScript(const char *scriptFile);
 	void LoadParameters();

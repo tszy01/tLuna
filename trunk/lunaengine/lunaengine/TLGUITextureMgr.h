@@ -17,7 +17,7 @@ namespace TLunaEngine{
 	class RenderDeviceUsedSamplerState;
 	class RenderDeviceUsedInputLayout;
 	/*
-	 *	¸ºÔğGUIµÄäÖÈ¾£¬Í³Ò»¼ÓÔØ×ÊÔ´
+	 *	è´Ÿè´£GUIçš„æ¸²æŸ“ï¼Œç»Ÿä¸€åŠ è½½èµ„æº
 	 */
 	class GUITextureMgr : public Singleton<GUITextureMgr>
 	{
@@ -26,8 +26,8 @@ namespace TLunaEngine{
 		GUITextureMgr(void);
 		~GUITextureMgr(void);
 	private:
-		TU32 m_bufferWidth;	// ºó»º³å¿í
-		TU32 m_bufferHeight;// ºó»º³å¸ß
+		TU32 m_bufferWidth;	// åç¼“å†²å®½
+		TU32 m_bufferHeight;// åç¼“å†²é«˜
 		RenderDeviceUsedBuffer* mVB;
 		RenderDeviceUsedBuffer* mVBSet;
 		RenderDeviceUsedVS* mVS;
@@ -38,19 +38,19 @@ namespace TLunaEngine{
 		RenderDeviceUsedInputLayout* mInputLayout;
 		std::map<int,RenderDeviceUsedSRV*> mSRVList;
 	public:
-		// ³õÊ¼»¯
+		// åˆå§‹åŒ–
 		TBOOL Init(TU32 bufferWidth,TU32 bufferHeight,const char* effectFile);
-		// ¼ÓÔØÎÆÀí
+		// åŠ è½½çº¹ç†
 		TBOOL LoadTexFromFile(const char* file);
-		// Ïú»Ù
+		// é”€æ¯
 		void DestroyAllTex();
-		// äÖÈ¾
-		// ÕâÀï»æ»­ÇøÓò´«Ïà¶ÔÓÚÆÁÄ»µÄ£¬ÎÆÀí×ø±ê´«ÕæÕıµÄÎÆÀíÓ³ÉäÖµ£¨0-1£©
+		// æ¸²æŸ“
+		// è¿™é‡Œç»˜ç”»åŒºåŸŸä¼ ç›¸å¯¹äºå±å¹•çš„ï¼Œçº¹ç†åæ ‡ä¼ çœŸæ­£çš„çº¹ç†æ˜ å°„å€¼ï¼ˆ0-1ï¼‰
 		bool DrawGUICtrl(TS32 x,TS32 y,TS32 width,TS32 height,float texX,float texY,float texR,float texB,int texId,float alpha);
 	private:
-		// ÆäËüD3D×ÊÔ´
+		// å…¶å®ƒD3Dèµ„æº
 		TBOOL InitD3DObj(const char* effectFile);
-		// ¶ÁÈ¡ÎÆÀíID£¬ÎÄ¼şÃû
+		// è¯»å–çº¹ç†IDï¼Œæ–‡ä»¶å
 		TBOOL LoadTexArray(FILE* stream);
 	};
 

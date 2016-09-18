@@ -29,7 +29,7 @@ namespace TLunaEngine{
 	class RenderDeviceUsedInputLayout;
 	class RenderDeviceCompiledShader;
 
-	// Éè±¸½Ó¿Ú
+	// è®¾å¤‡æ¥å£
 	class RenderDevice
 	{
 	public:
@@ -41,21 +41,21 @@ namespace TLunaEngine{
 		};
 	protected:
 	public:
-		// ³õÊ¼»¯Éè±¸
+		// åˆå§‹åŒ–è®¾å¤‡
 		virtual bool InitDevice(HWND hWnd,TBOOL bWnd,TS32 width,TS32 height) = 0;
-		// Ïú»ÙÉè±¸
+		// é”€æ¯è®¾å¤‡
 		virtual void DestroyDevice() = 0;
-		// ¿ªÊ¼äÖÈ¾
+		// å¼€å§‹æ¸²æŸ“
 		virtual bool BeginRender() = 0;
-		// ½áÊøäÖÈ¾
+		// ç»“æŸæ¸²æŸ“
 		virtual void EndRender() = 0;
-		// Ê¹ÓÃÄ¬ÈÏµÄäÖÈ¾Ä¿±ê
+		// ä½¿ç”¨é»˜è®¤çš„æ¸²æŸ“ç›®æ ‡
 		virtual void UseDefaultRenderTarget() = 0;
-		// Ê¹ÓÃÄ¬ÈÏÊÓ¿Ú
+		// ä½¿ç”¨é»˜è®¤è§†å£
 		virtual void UseDefaultViewPort() = 0;
-		// µÃµ½ºó»º³å¸ß¶È
+		// å¾—åˆ°åç¼“å†²é«˜åº¦
 		virtual TU32 GetBufferHeight()=0;
-		// µÃµ½ºó»º³å¿í¶È
+		// å¾—åˆ°åç¼“å†²å®½åº¦
 		virtual TU32 GetBufferWidth()=0;
 		// resize buffer
 		// note: resize buffer will change to default rt and vp
@@ -73,7 +73,7 @@ namespace TLunaEngine{
 		// get shader profile
 		virtual const char* getShaderProfileVersion() = 0;
 	public:
-		//---------------------- ¹¹ÔìÓ²¼ş×ÊÔ´ -------------------------------
+		//---------------------- æ„é€ ç¡¬ä»¶èµ„æº -------------------------------
 		// create buffer
 		virtual RenderDeviceUsedBuffer* createBuffer(const TLRenderDeviceBufferDesc* pDesc,
 			const TLRenderDeviceSubresourceData* pInitData) = 0;
@@ -127,7 +127,7 @@ namespace TLunaEngine{
 		// create texture2d and texture2d srv from dds file
 		virtual bool createTex2DFromDDSFile(const char* file,RenderDeviceUsedTex2D** ppTex2D,RenderDeviceUsedSRV** ppSRV) = 0;
 	public:
-		//---------------------- Ê¹ÓÃÓ²¼ş×ÊÔ´ -------------------------------
+		//---------------------- ä½¿ç”¨ç¡¬ä»¶èµ„æº -------------------------------
 		// use viewport
 		virtual bool useViewport(const TLRenderDeviceViewport* aVp,TU32 numVp) = 0;
 		// set Primitive Topology

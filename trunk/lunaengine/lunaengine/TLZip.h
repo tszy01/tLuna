@@ -11,31 +11,31 @@ namespace TLunaEngine{
 		Zip(void);
 		~Zip(void);
 	public:
-		// --------- ÒÔÏÂÎª¾²Ì¬·½·¨ --------------
+		// --------- ä»¥ä¸‹ä¸ºé™æ€æ–¹æ³• --------------
 
-		// Ñ¹Ëõ
+		// å‹ç¼©
 		static int def(unsigned char* src,int srcSize,unsigned char* dest,int* destSize,int level);
-		// ½âÑ¹Ëõ
+		// è§£å‹ç¼©
 		static int inf(unsigned char* src,int srcSize,unsigned char* dest,int origSize);
-		// Ìí¼Ó´ıÑ¹ËõÎÄ¼şµ½ÄÚ´æ
+		// æ·»åŠ å¾…å‹ç¼©æ–‡ä»¶åˆ°å†…å­˜
 		static int AddCompressFile(char* filename);
-		// Éú³ÉÑ¹ËõÎÄ¼ş
+		// ç”Ÿæˆå‹ç¼©æ–‡ä»¶
 		static int CompressToFile(char* zipname);
-		// ½âÑ¹ËõÎÄ¼şµ½ÄÚ´æ
+		// è§£å‹ç¼©æ–‡ä»¶åˆ°å†…å­˜
 		static int DecompressToMem(char* zipname,unsigned char** buf);
-		// ·Ö¸î½âÑ¹ËõµÃÎÄ¼ş
+		// åˆ†å‰²è§£å‹ç¼©å¾—æ–‡ä»¶
 		static int CopyMemToFile(char* dirname,bool bBuildFile,MemFile** ppMemFile);
-		// Çå³ıÊı¾İ
+		// æ¸…é™¤æ•°æ®
 		static void ClearBuffer();
 
 		// ---------------------------------------
 	protected:
-		// -------- ÒÔÏÂÎª¾²Ì¬³ÉÔ± ---------------
-		// »º³åÇø
+		// -------- ä»¥ä¸‹ä¸ºé™æ€æˆå‘˜ ---------------
+		// ç¼“å†²åŒº
 		static unsigned char* m_TempBuf;
-		// »º³åÇø´óĞ¡
+		// ç¼“å†²åŒºå¤§å°
 		static int m_TempSize;
-		// ÎÄ¼şÊıÁ¿
+		// æ–‡ä»¶æ•°é‡
 		static int m_FileNum;
 		// ---------------------------------------
 

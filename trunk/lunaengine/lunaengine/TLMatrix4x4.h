@@ -41,7 +41,7 @@ namespace TLunaEngine{
 	protected:
 		T M[4][4];
 	public:
-		// ÖÃ0
+		// ç½®0
 		inline void SetZero()
 		{
 			for(int i=0;i<4;i++)
@@ -78,14 +78,14 @@ namespace TLunaEngine{
 			if(IR(M[3][3])!=IEEE_1_0)	return false;
 			return true;
 		}
-		// ÖØÔØ=
+		// é‡è½½=
 		inline void operator=(const Matrix4x4<T>& mat)
 		{
 			for(int i=0;i<4;i++)
 				for(int j=0;j<4;j++)
 					M[i][j] = mat.M[i][j];
 		}
-		// Ö±½Ó¸³Öµ
+		// ç›´æ¥èµ‹å€¼
 		inline Matrix4x4<T>& Set(	T m00, T m01, T m02, T m03,
 											T m10, T m11, T m12, T m13,
 											T m20, T m21, T m22, T m23,
@@ -97,12 +97,12 @@ namespace TLunaEngine{
 			M[3][0] = m30;	M[3][1] = m31;	M[3][2] = m32;	M[3][3] = m33;
 			return *this;
 		}
-		// ÖØÔØ[]
+		// é‡è½½[]
 		inline T* operator[](int iRow)
 		{
 			return M[iRow];
 		}
-		// µÃµ½T[16]
+		// å¾—åˆ°T[16]
 		inline void ToTArray(T* value)
 		{
 			//T* temp = value;
@@ -115,7 +115,7 @@ namespace TLunaEngine{
 			memcpy(&value[12],M[3],sizeof(T)*4);
 			//temp += sizeof(T)*4;
 		}
-		// µÃµ½Ò»ĞĞ
+		// å¾—åˆ°ä¸€è¡Œ
 		inline void GetRow(int iRow,T* value)
 		{
 			if(!value)
@@ -123,7 +123,7 @@ namespace TLunaEngine{
 			for(int i=0;i<4;i++)
 				value[i] = M[iRow][i];
 		}
-		// ¸³ÖµÒ»ĞĞ
+		// èµ‹å€¼ä¸€è¡Œ
 		inline void SetRow(int iRow,T* value)
 		{
 			if(!value)
@@ -131,7 +131,7 @@ namespace TLunaEngine{
 			for(int i=0;i<4;i++)
 				M[iRow][i] = value[i];
 		}
-		// µÃµ½Ò»ÁĞ
+		// å¾—åˆ°ä¸€åˆ—
 		inline void GetCol(int iCol,T* value)
 		{
 			if(!value)
@@ -139,7 +139,7 @@ namespace TLunaEngine{
 			for(int i=0;i<4;i++)
 				value[i] = M[i][iCol];
 		}
-		// ¸³ÖµÒ»ÁĞ
+		// èµ‹å€¼ä¸€åˆ—
 		inline void SetCol(int iCol,T* value)
 		{
 			if(!value)
@@ -147,13 +147,13 @@ namespace TLunaEngine{
 			for(int i=0;i<4;i++)
 				M[i][iCol] = value[i];
 		}
-		// µÃµ½Æ«ÒÆ·ÖÁ¿
+		// å¾—åˆ°åç§»åˆ†é‡
 		inline Vector3<T> GetTrans()
 		{
 			Vector3<T> trans(M[3][0],M[3][1],M[3][2]);
 			return trans;
 		}
-		// ÉèÖÃÆ«ÒÆ·ÖÁ¿
+		// è®¾ç½®åç§»åˆ†é‡
 		inline void SetTrans(const Vector3<T>& value)
 		{
 			Identity();
@@ -161,20 +161,20 @@ namespace TLunaEngine{
 			M[3][1] = value.Y;
 			M[3][2] = value.Z;
 		}
-		// È¥µôÆ«ÒÆ·ÖÁ¿
+		// å»æ‰åç§»åˆ†é‡
 		inline Matrix4x4<T>& NoTrans()
 		{
 			M[3][0] = M[3][1] = M[3][2] = (T)0;
 			return *this;
 		}
-		// µÃµ½È¥µôÆ«ÒÆ·ÖÁ¿µÄ¾ØÕó
+		// å¾—åˆ°å»æ‰åç§»åˆ†é‡çš„çŸ©é˜µ
 		inline Matrix4x4<T> GetNoTrans()
 		{
 			Matrix4x4<T> m(*this);
 			m[3][0] = m[3][1] = m[3][2] = (T)0;
 			return m;
 		}
-		// µÃµ½Ëõ·Å·ÖÁ¿
+		// å¾—åˆ°ç¼©æ”¾åˆ†é‡
 		inline Vector3<T> GetScale()
 		{
 			// See http://www.robertblum.com/articles/2005/02/14/decomposing-matrices
@@ -252,7 +252,7 @@ namespace TLunaEngine{
 			rot.normalize();
 			return rot;
 		}
-		// ÉèÖÃËõ·Å·ÖÁ¿
+		// è®¾ç½®ç¼©æ”¾åˆ†é‡
 		inline void SetScale(const Vector3<T>& value)
 		{
 			Identity();
@@ -260,7 +260,7 @@ namespace TLunaEngine{
 			M[1][1] = value.Y;
 			M[2][2] = value.Z;
 		}
-		// ÉèÖÃÈÆXÖáĞı×ª
+		// è®¾ç½®ç»•Xè½´æ—‹è½¬
 		inline void SetRotX(TF32 degrees)
 		{
 			degrees *= DEGTORAD;
@@ -270,7 +270,7 @@ namespace TLunaEngine{
 			M[2][1] = (T)(-Sin);	
 			M[1][2] = (T)Sin;	
 		}
-		// ÉèÖÃÈÆYÖáĞı×ª
+		// è®¾ç½®ç»•Yè½´æ—‹è½¬
 		inline void SetRotY(TF32 degrees)	
 		{ 
 			degrees *= DEGTORAD;
@@ -280,7 +280,7 @@ namespace TLunaEngine{
 			M[2][0] = (T)Sin;	
 			M[0][2] = (T)(-Sin);	
 		}
-		// ÉèÖÃÈÆZÖáĞı×ª
+		// è®¾ç½®ç»•Zè½´æ—‹è½¬
 		inline void SetRotZ(TF32 degrees)	
 		{ 
 			degrees *= DEGTORAD;
@@ -290,7 +290,7 @@ namespace TLunaEngine{
 			M[1][0] = (T)(-Sin);	
 			M[0][1] = (T)Sin;	
 		}
-		// ÉèÖÃĞı×ªÊ¹ÓÃÅ·À­½Ç
+		// è®¾ç½®æ—‹è½¬ä½¿ç”¨æ¬§æ‹‰è§’
 		inline void SetRotEuler(const Vector3<T>& rotation)
 		{
 			Identity(); 
@@ -341,7 +341,7 @@ namespace TLunaEngine{
 
 			return *this;
 		}
-		// µÃµ½µ±Ç°¾ØÕóµÄ×ªÖÃ¾ØÕó
+		// å¾—åˆ°å½“å‰çŸ©é˜µçš„è½¬ç½®çŸ©é˜µ
 		inline Matrix4x4<T> GetTranspose()
 		{
 			Matrix4x4<T> out;
@@ -350,13 +350,13 @@ namespace TLunaEngine{
 					out[i][j] = M[j][i];
 			return out;
 		}
-		// Ê¹×Ô¼º×ªÖÃ
+		// ä½¿è‡ªå·±è½¬ç½®
 		inline Matrix4x4<T>& Transpose()
 		{
 			(*this) = GetTranspose();
 			return *this;
 		}
-		// µÃµ½µ±Ç°¾ØÕóµÄÄæ¾ØÕó
+		// å¾—åˆ°å½“å‰çŸ©é˜µçš„é€†çŸ©é˜µ
 		inline Matrix4x4<T> GetInverse()
 		{
 			/// Calculates the inverse of this Matrix
@@ -431,7 +431,7 @@ namespace TLunaEngine{
 					M[0][2] * (M[1][0] * M[2][1] - M[1][1] * M[2][0])));
 			return out;
 		}
-		// ½«×Ô¼ºÄæ¾ØÕó
+		// å°†è‡ªå·±é€†çŸ©é˜µ
 		inline Matrix4x4<T>& Inverse()
 		{
 			if(IsIdentity())
@@ -551,14 +551,14 @@ namespace TLunaEngine{
 			M[3][0]*=s;	M[3][1]*=s;	M[3][2]*=s;	M[3][3]*=s;
 			return	*this;
 		}
-		// ±ä»»µã
+		// å˜æ¢ç‚¹
 		inline void TransformPoint(const Vector3<T>& in,Vector3<T>& out)
 		{
 			out.X = in.X*M[0][0] + in.Y*M[1][0] + in.Z*M[2][0] + /*(T)1 **/ M[3][0];
 			out.Y = in.X*M[0][1] + in.Y*M[1][1] + in.Z*M[2][1] + /*(T)1 **/ M[3][1];
 			out.Z = in.X*M[0][2] + in.Y*M[1][2] + in.Z*M[2][2] + /*(T)1 **/ M[3][2];
 		}
-		// ±ä»»µã
+		// å˜æ¢ç‚¹
 		inline Vector3<T> TransformPoint(const Vector3<T>& in)
 		{
 			Vector3<T> out;
@@ -567,14 +567,14 @@ namespace TLunaEngine{
 			out.Z = in.X*M[0][2] + in.Y*M[1][2] + in.Z*M[2][2] + /*(T)1 **/ M[3][2];
 			return out;
 		}
-		// ±ä»»·½Ïò
+		// å˜æ¢æ–¹å‘
 		inline void TransformDir(const Vector3<T>& in,Vector3<T>& out)
 		{
 			out.X = in.X*M[0][0] + in.Y*M[1][0] + in.Z*M[2][0] + /*(T)0 * M[3][0]*/0;
 			out.Y = in.X*M[0][1] + in.Y*M[1][1] + in.Z*M[2][1] + /*(T)0 * M[3][1]*/0;
 			out.Z = in.X*M[0][2] + in.Y*M[1][2] + in.Z*M[2][2] + /*(T)0 * M[3][2]*/0;
 		}
-		// ±ä»»·½Ïò
+		// å˜æ¢æ–¹å‘
 		inline Vector3<T> TransformDir(const Vector3<T>& in)
 		{
 			Vector3<T> out;
@@ -732,7 +732,7 @@ namespace TLunaEngine{
 			return (iszero(dp));
 		}
 
-		// --------------------------------------- ÒÔÏÂÎªÉú³ÉÌØÊâ¾ØÕó ------------------------------------
+		// --------------------------------------- ä»¥ä¸‹ä¸ºç”Ÿæˆç‰¹æ®ŠçŸ©é˜µ ------------------------------------
 
 		//! Builds a left-handed perspective projection matrix based on a field of view
 		inline Matrix4x4<T>& BuildProjectionMatrixPerspectiveFovLH(TF32 fieldOfViewRadians, TF32 aspectRatio, TF32 zNear, TF32 zFar)
@@ -1122,7 +1122,7 @@ namespace TLunaEngine{
 
 		// -----------------------------------------------------------------------------------------------
 
-		// ------------------------------ ºÍÎÆÀíÏà¹ØµÄ3X3¾ØÕó --------------------------------------------
+		// ------------------------------ å’Œçº¹ç†ç›¸å…³çš„3X3çŸ©é˜µ --------------------------------------------
 
 		/*
 			construct 2D Texture transformations

@@ -9,49 +9,49 @@ class GameInput : public TLunaEngine::Singleton<GameInput>
 {
 	friend class TLunaEngine::Singleton<GameInput>;
 private:
-	//INPUTÉè±¸Ö¸Õë
+	//INPUTè®¾å¤‡æŒ‡é’ˆ
 	LPDIRECTINPUT8			m_pDInput;
-	//¼üÅÌµÄÉè±¸Ö¸Õë
+	//é”®ç›˜çš„è®¾å¤‡æŒ‡é’ˆ
 	LPDIRECTINPUTDEVICE8	m_pDInputKB;
-	//Êó±êÖ¸Õë
+	//é¼ æ ‡æŒ‡é’ˆ
 	LPDIRECTINPUTDEVICE8	m_pDInputMouse;
-	//ÊÖ±úÉè±¸
+	//æ‰‹æŸ„è®¾å¤‡
 	LPDIRECTINPUTDEVICE8	m_pDInputJoystick;
-	//Êó±êÀÏµÄÊı¾İ
+	//é¼ æ ‡è€çš„æ•°æ®
 	DIMOUSESTATE			m_MouseStateOld;
-	//Êó±êµ±Ê±µÄÊı¾İ
+	//é¼ æ ‡å½“æ—¶çš„æ•°æ®
 	DIMOUSESTATE			m_MouseState;
-	//ÊÖ±úÀÏÊó¾İ
+	//æ‰‹æŸ„è€é¼ æ®
 	DIJOYSTATE2				m_JoyStateOld;
-	//ÊÖ±úµ±Ê±Êı¾İ
+	//æ‰‹æŸ„å½“æ—¶æ•°æ®
 	DIJOYSTATE2				m_JoyState;
-	//¼üÅÌµ±Ê±Êı¾İ
+	//é”®ç›˜å½“æ—¶æ•°æ®
 	char	m_strKeyState[256];
-	//¼üÅÌÀÏÊı¾İ
+	//é”®ç›˜è€æ•°æ®
 	char	m_strKeyStateOld[256]; 
 
-	bool m_bUseJoystick;	// ÊÇ·ñÊÊÓÃÊÖ±ú
+	bool m_bUseJoystick;	// æ˜¯å¦é€‚ç”¨æ‰‹æŸ„
 public:
 	void DestroyInput();
-	//»ñµÃÊó±êµÄX£¬Y,Z
+	//è·å¾—é¼ æ ‡çš„Xï¼ŒY,Z
 	inline LONG GetMouseX() {return m_MouseState.lX;};
 	inline LONG GetMouseY() {return m_MouseState.lY;};
 	inline LONG GetMouseZ() {return m_MouseState.lZ;};
-	//»ñµÃ¾ÉµÄÊó±êĞÅÏ¢
+	//è·å¾—æ—§çš„é¼ æ ‡ä¿¡æ¯
 	inline LONG GetOldMouseX() {return m_MouseStateOld.lX;};
 	inline LONG GetOldMouseY() {return m_MouseStateOld.lY;};
 	inline LONG GetOldMouseZ() {return m_MouseStateOld.lZ;};
-	//³õÊ¼»¯Éè±¸,´°¿Ú¾ä±ş£¬ºÍÊµÀı¾ä±ş
+	//åˆå§‹åŒ–è®¾å¤‡,çª—å£å¥ç‚³ï¼Œå’Œå®ä¾‹å¥ç‚³
 	bool InitInput(HWND hWnd,HINSTANCE hInst,bool bUseJoystick);
-	//»ñµÃ¼üÅÌ°´ÏÂµÄĞÅÏ¢
+	//è·å¾—é”®ç›˜æŒ‰ä¸‹çš„ä¿¡æ¯
 	int IsKeyDown(BYTE keycode);
-	// »ñµÃÊó±ê°´ÏÂµÄÏûÏ¢
+	// è·å¾—é¼ æ ‡æŒ‰ä¸‹çš„æ¶ˆæ¯
 	int IsMouseDown(BYTE i);
-	// ÊÖ±ú¼ü°´ÏÂ
+	// æ‰‹æŸ„é”®æŒ‰ä¸‹
 	int IsJoystickDown(BYTE i);
 	inline LONG GetJoystickX(){return m_bUseJoystick ? m_JoyState.lX : 0;}
 	inline LONG GetJoystickY(){return m_bUseJoystick ? m_JoyState.lY : 0;}
-	//¸üĞÂINPUT
+	//æ›´æ–°INPUT
 	LRESULT UpdateInput(ProcessInput pFunc);
 	LRESULT UpdateKeyboard(ProcessInput pFunc);
 	LRESULT UpdateMouse(ProcessInput pFunc);

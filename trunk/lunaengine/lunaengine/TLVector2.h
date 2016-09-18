@@ -4,7 +4,7 @@
 #include "TLFPU.h"
 
 /**
-*	Ê¹ÓÃirrlichtµÄvector2d·½·¨
+*	ä½¿ç”¨irrlichtçš„vector2dæ–¹æ³•
 */
 
 namespace TLunaEngine{
@@ -20,55 +20,55 @@ namespace TLunaEngine{
 		{
 		}
 
-		// ----------------- ÔËËã·ûÖØÔØ ----------------------------------------------------------
+		// ----------------- è¿ç®—ç¬¦é‡è½½ ----------------------------------------------------------
 
-		// °Ñ·ûºÅ¸Ä±ä
+		// æŠŠç¬¦å·æ”¹å˜
 		inline Vector2<T> operator-() const { return Vector2<T>(-X, -Y); }
 
-		// ¸³Öµ
+		// èµ‹å€¼
 		inline Vector2<T>& operator=(const Vector2<T>& other) { X = other.X; Y = other.Y; return *this; }
 
-		// ¼ÓÉÏÁíÍâÒ»¸öÏòÁ¿
+		// åŠ ä¸Šå¦å¤–ä¸€ä¸ªå‘é‡
 		inline Vector2<T> operator+(const Vector2<T>& other) const { return Vector2<T>(X + other.X, Y + other.Y); }
 		inline Vector2<T>& operator+=(const Vector2<T>& other) { X+=other.X; Y+=other.Y; return *this; }
-		// ¼ÓÉÏÁíÍâÒ»¸ö±êÁ¿
+		// åŠ ä¸Šå¦å¤–ä¸€ä¸ªæ ‡é‡
 		inline Vector2<T> operator+(const T v) const { return Vector2<T>(X + v, Y + v); }
 		inline Vector2<T>& operator+=(const T v) { X+=v; Y+=v; return *this; }
 
-		// ¼õÈ¥ÁíÍâÒ»¸öÏòÁ¿
+		// å‡å»å¦å¤–ä¸€ä¸ªå‘é‡
 		inline Vector2<T> operator-(const Vector2<T>& other) const { return Vector2<T>(X - other.X, Y - other.Y); }
 		inline Vector2<T>& operator-=(const Vector2<T>& other) { X-=other.X; Y-=other.Y; return *this; }
-		// ¼õÈ¥ÁíÍâÒ»¸ö±êÁ¿
+		// å‡å»å¦å¤–ä¸€ä¸ªæ ‡é‡
 		inline Vector2<T> operator-(const T v) const { return Vector2<T>(X - v, Y - v); }
 		inline Vector2<T>& operator-=(const T v) { X-=v; Y-=v; return *this; }
 
-		// ³ËÒÔÁíÍâÒ»¸öÏòÁ¿
+		// ä¹˜ä»¥å¦å¤–ä¸€ä¸ªå‘é‡
 		inline Vector2<T> operator*(const Vector2<T>& other) const { return Vector2<T>(X * other.X, Y * other.Y); }
 		inline Vector2<T>& operator*=(const Vector2<T>& other) { X*=other.X; Y*=other.Y; return *this; }
-		// ³ËÒÔÁíÍâÒ»¸ö±êÁ¿
+		// ä¹˜ä»¥å¦å¤–ä¸€ä¸ªæ ‡é‡
 		inline Vector2<T> operator*(const T v) const { return Vector2<T>(X * v, Y * v); }
 		inline Vector2<T>& operator*=(const T v) { X*=v; Y*=v; return *this; }
 
-		// ³ıÒÔÁíÍâÒ»¸öÏòÁ¿
+		// é™¤ä»¥å¦å¤–ä¸€ä¸ªå‘é‡
 		inline Vector2<T> operator/(const Vector2<T>& other) const { return Vector2<T>(X / other.X, Y / other.Y); }
 		inline Vector2<T>& operator/=(const Vector2<T>& other) { X/=other.X; Y/=other.Y; return *this; }
-		// ³ıÒÔÁíÍâÒ»¸ö±êÁ¿
+		// é™¤ä»¥å¦å¤–ä¸€ä¸ªæ ‡é‡
 		inline Vector2<T> operator/(const T v) const { return Vector2<T>(X / v, Y / v); }
 		inline Vector2<T>& operator/=(const T v) { X/=v; Y/=v; return *this; }
 
-		// ±È½Ï´óĞ¡
-		// ±ØĞëX£¬YÍ¬Ê±Âú×ãÌõ¼ş
+		// æ¯”è¾ƒå¤§å°
+		// å¿…é¡»Xï¼ŒYåŒæ—¶æ»¡è¶³æ¡ä»¶
 		inline bool operator<=(const Vector2<T>&other) const { return X<=other.X && Y<=other.Y; }
 		inline bool operator>=(const Vector2<T>&other) const { return X>=other.X && Y>=other.Y; }
 		inline bool operator<(const Vector2<T>&other) const { return X<other.X && Y<other.Y; }
 		inline bool operator>(const Vector2<T>&other) const { return X>other.X && Y>other.Y; }
 		inline bool operator==(const Vector2<T>& other) const { return other.X==X && other.Y==Y; }
-		// ²»µÈÓÚ£¬ÓĞÒ»¸ö²»µÈ¾Í·µ»ØÕæ
+		// ä¸ç­‰äºï¼Œæœ‰ä¸€ä¸ªä¸ç­‰å°±è¿”å›çœŸ
 		inline bool operator!=(const Vector2<T>& other) const { return other.X!=X || other.Y!=Y; }
 
 		// ---------------------------------------------------------------------------------------
 
-		// ·½·¨
+		// æ–¹æ³•
 
 		//! Checks if this vector equals the other one.
 		/** Takes floating point rounding errors into account.
@@ -91,7 +91,7 @@ namespace TLunaEngine{
 		\return The squared length of the vector. */
 		inline T getLengthSQ() const { return X*X + Y*Y; }
 
-		// µã³Ë¿ÉÒÔÇóÍ¶Ó°
+		// ç‚¹ä¹˜å¯ä»¥æ±‚æŠ•å½±
 		//! Get the dot product of this vector with another.
 		/** \param other Other vector to take dot product with.
 		\return The dot product of the two vectors. */
@@ -258,7 +258,7 @@ namespace TLunaEngine{
 						Y * mul0 + v2.Y * mul1 + v3.Y * mul2);
 		}
 
-		// ´Ób³ö·¢Ïòa×ßt²½
+		// ä»bå‡ºå‘å‘aèµ°tæ­¥
 		//! Sets this vector to the linearly interpolated vector between a and b.
 		/** \param a first vector to interpolate with
 		\param b second vector to interpolate with
@@ -269,7 +269,7 @@ namespace TLunaEngine{
 			Y = b.Y + ( ( a.Y - b.Y ) * t );
 		}
 
-		// µÃµ½Êı×é
+		// å¾—åˆ°æ•°ç»„
 		inline void GetArray(T* value)
 		{
 			if (!value)

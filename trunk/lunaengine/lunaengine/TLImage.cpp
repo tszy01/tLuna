@@ -399,7 +399,7 @@ namespace TLunaEngine
 			getRGBA(i,&temp[FI_RGBA_RED],&temp[FI_RGBA_GREEN],&temp[FI_RGBA_BLUE],&temp[FI_RGBA_ALPHA]);
 			temp += pixelSize;
 		}
-		// ·­×ª
+		// ç¿»è½¬
 		if(FreeImage_FlipVertical(dib)==TFALSE)
 		{
 			FreeImage_Unload(dib);
@@ -438,17 +438,17 @@ namespace TLunaEngine
 		//if the image failed to load, return failure
 		if(!dib)
 			return TNULL;
-		// ·­×ª
+		// ç¿»è½¬
 		if(FreeImage_FlipVertical(dib)==TFALSE)
 		{
 			FreeImage_Unload(dib);
 			return TNULL;
 		}
-		// µÃµ½Ò»¸öÏñËØµÄ´óĞ¡£¬µ¥Î»ÊÇÎ»
+		// å¾—åˆ°ä¸€ä¸ªåƒç´ çš„å¤§å°ï¼Œå•ä½æ˜¯ä½
 		unsigned int pixelBits = FreeImage_GetBPP(dib);
-		// µÃµ½Ò»ĞĞµÄ´óĞ¡£¬µ¥Î»ÊÇ×Ö½Ú
+		// å¾—åˆ°ä¸€è¡Œçš„å¤§å°ï¼Œå•ä½æ˜¯å­—èŠ‚
 		unsigned int rawSize = FreeImage_GetLine(dib);
-		// µÃµ½ImageÀàĞÍ
+		// å¾—åˆ°Imageç±»å‹
 		FREE_IMAGE_TYPE fit = FreeImage_GetImageType(dib);
 		//retrieve the image data
 		bits = FreeImage_GetBits(dib);
@@ -498,7 +498,7 @@ namespace TLunaEngine
 			}
 			break;
 		}
-		// ÖØĞÂ¿½±´
+		// é‡æ–°æ‹·è´
 		TUByte* newBuff = new TUByte[rawSize*height];
 		if(pixelBits==32)
 		{

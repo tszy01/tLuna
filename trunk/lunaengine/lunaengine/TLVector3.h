@@ -4,7 +4,7 @@
 #include "TLFPU.h"
 
 /**
-*	Ê¹ÓÃirrlichtµÄvector3d·½·¨
+*	ä½¿ç”¨irrlichtçš„vector3dæ–¹æ³•
 */
 
 namespace TLunaEngine{
@@ -13,7 +13,7 @@ namespace TLunaEngine{
 	class Vector3
 	{
 	public:
-		// ¹¹Ôìº¯Êı
+		// æ„é€ å‡½æ•°
 		Vector3() : X(0), Y(0), Z(0) {}
 		Vector3(T nx, T ny, T nz) : X(nx), Y(ny), Z(nz) {}
 		Vector3(const Vector3<T>& other) : X(other.X), Y(other.Y), Z(other.Z) {}
@@ -21,9 +21,9 @@ namespace TLunaEngine{
 		{
 		}
 
-		// ------------------------ ÖØÔØÔËËã·¨ ----------------------------------
+		// ------------------------ é‡è½½è¿ç®—æ³• ----------------------------------
 
-		// ×¢Òâ:Ô¤Ëã·û³ËÒÔ,³ıÒÔÁíÍâÒ»¸öÏòÁ¿¼È²»ÊÇµã³Ë,Ò²²»ÊÇ²æ³Ë,Ê¹ÓÃÊ±Òª×¢Òâ
+		// æ³¨æ„:é¢„ç®—ç¬¦ä¹˜ä»¥,é™¤ä»¥å¦å¤–ä¸€ä¸ªå‘é‡æ—¢ä¸æ˜¯ç‚¹ä¹˜,ä¹Ÿä¸æ˜¯å‰ä¹˜,ä½¿ç”¨æ—¶è¦æ³¨æ„
 		inline Vector3<T> operator-() const { return Vector3<T>(-X, -Y, -Z); }
 		inline Vector3<T>& operator=(const Vector3<T>& other) { X = other.X; Y = other.Y; Z = other.Z; return *this; }
 		inline Vector3<T> operator+(const Vector3<T>& other) const { return Vector3<T>(X + other.X, Y + other.Y, Z + other.Z); }
@@ -38,25 +38,25 @@ namespace TLunaEngine{
 		inline Vector3<T>& operator/=(const Vector3<T>& other) { X/=other.X; Y/=other.Y; Z/=other.Z; return *this; }
 		inline Vector3<T> operator/(const T v) const { T i=(T)1.0/v; return Vector3<T>(X * i, Y * i, Z * i); }
 		inline Vector3<T>& operator/=(const T v) { T i=(T)1.0/v; X*=i; Y*=i; Z*=i; return *this; }
-		// ´óĞ¡±È½Ï,±ØĞëÈı¸öÍ¬Ê±Âú×ã
+		// å¤§å°æ¯”è¾ƒ,å¿…é¡»ä¸‰ä¸ªåŒæ—¶æ»¡è¶³
 		inline bool operator<=(const Vector3<T>&other) const { return X<=other.X && Y<=other.Y && Z<=other.Z;}
 		inline bool operator>=(const Vector3<T>&other) const { return X>=other.X && Y>=other.Y && Z>=other.Z;}
 		inline bool operator<(const Vector3<T>&other) const { return X<other.X && Y<other.Y && Z<other.Z;}
 		inline bool operator>(const Vector3<T>&other) const { return X>other.X && Y>other.Y && Z>other.Z;}
-		// ±È½ÏÏàµÈ
+		// æ¯”è¾ƒç›¸ç­‰
 		inline bool operator==(const Vector3<T>& other) const
 		{
 			return this->equals(other);
 		}
-		// ±È½Ï²»µÈ
+		// æ¯”è¾ƒä¸ç­‰
 		inline bool operator!=(const Vector3<T>& other) const
 		{
 			return !this->equals(other);
 		}
 		// ----------------------------------------------------------------------
-		// ------------------------ ³ÉÔ±º¯Êı ------------------------------------
+		// ------------------------ æˆå‘˜å‡½æ•° ------------------------------------
 
-		// µ÷ÓÃFPUµÄ±È½Ïº¯Êı
+		// è°ƒç”¨FPUçš„æ¯”è¾ƒå‡½æ•°
 		inline bool equals(const Vector3<T>& other, const T tolerance = (T)ROUNDING_ERROR_32 ) const
 		{
 			return TLunaEngin::equals(X, other.X, tolerance) &&
@@ -80,20 +80,20 @@ namespace TLunaEngine{
 			return abs_(angle) <= tolerance;
 
 		}
-		// ¸³Öµº¯Êı
+		// èµ‹å€¼å‡½æ•°
 		inline void set(const T nx, const T ny, const T nz) {X=nx; Y=ny; Z=nz; }
 		inline void set(const Vector3<T>& p) { X=p.X; Y=p.Y; Z=p.Z;}
 
-		// ³¤¶È
+		// é•¿åº¦
 		inline T getLength() const { return (T) sqrt((TF64)(X*X + Y*Y + Z*Z)); }
 
-		// ³¤¶ÈµÄÆ½·½
+		// é•¿åº¦çš„å¹³æ–¹
 		inline T getLengthSQ() const { return X*X + Y*Y + Z*Z; }
 
-		// X,ZÆ½ÃæµÄ³¤¶È
+		// X,Zå¹³é¢çš„é•¿åº¦
 		inline T getLength2D() const { return (T) sqrt((TF64)(X*X + Z*Z)); }
 
-		// µã³Ë½á¹û
+		// ç‚¹ä¹˜ç»“æœ
 		inline T dotProduct(const Vector3<T>& other) const
 		{
 			return X*other.X + Y*other.Y + Z*other.Z;
@@ -104,25 +104,25 @@ namespace TLunaEngine{
             return TLunaEngine::abs_(X * vec.X) + TLunaEngine::abs_(Y * vec.Y) + TLunaEngine::abs_(Z * vec.Z);
         }
 
-		// this-otherµÄ³¤¶È
+		// this-otherçš„é•¿åº¦
 		inline T getDistanceFrom(const Vector3<T>& other) const
 		{
 			return Vector3<T>(X - other.X, Y - other.Y, Z - other.Z).getLength();
 		}
 
-		// this-other³¤¶ÈÆ½·½
+		// this-otheré•¿åº¦å¹³æ–¹
 		inline T getDistanceFromSQ(const Vector3<T>& other) const
 		{
 			return Vector3<T>(X - other.X, Y - other.Y, Z - other.Z).getLengthSQ();
 		}
 
-		// ²æ³Ë½á¹û
+		// å‰ä¹˜ç»“æœ
 		inline Vector3<T> crossProduct(const Vector3<T>& p) const
 		{
 			return Vector3<T>(Y * p.Z - Z * p.Y, Z * p.X - X * p.Z, X * p.Y - Y * p.X);
 		}
 
-		// thisÊÇ·ñÔÚÍ¨¹ıbeginºÍendµÄÖĞ¼äµÄÏßÉÏ
+		// thisæ˜¯å¦åœ¨é€šè¿‡beginå’Œendçš„ä¸­é—´çš„çº¿ä¸Š
 		inline bool isBetweenPoints(const Vector3<T>& begin, const Vector3<T>& end) const
 		{
 			T f = (end - begin).getLengthSQ();
@@ -149,7 +149,7 @@ namespace TLunaEngine{
 
 		}
 
-		// µ¥Î»»¯this
+		// å•ä½åŒ–this
 		inline Vector3<T>& normalize()
 		{
 			T l = X*X + Y*Y + Z*Z;
@@ -162,15 +162,15 @@ namespace TLunaEngine{
 			return *this;
 		}
 
-		// this³ËÒÔÒ»¸ö³¤¶È
-		// Õâ¸öº¯Êı»áÏÈ½«thisµ¥Î»»¯
+		// thisä¹˜ä»¥ä¸€ä¸ªé•¿åº¦
+		// è¿™ä¸ªå‡½æ•°ä¼šå…ˆå°†thiså•ä½åŒ–
 		inline void setLength(T newlength)
 		{
 			normalize();
 			*this *= newlength;
 		}
 
-		// thisµÄÃ¿¸ö·ÖÁ¿³ËÒÔ-1
+		// thisçš„æ¯ä¸ªåˆ†é‡ä¹˜ä»¥-1
 		inline void invert()
 		{
 			X *= -1.0f;
@@ -178,8 +178,8 @@ namespace TLunaEngine{
 			Z *= -1.0f;
 		}
 
-		// thisÔÚcenterµÄ×ø±êÏµÈÆYÖáĞı×ªdegree½Ç¶È
-		// Èç¹ûcenterµÄX,Z¶¼ÊÇ0,ÄÇ¾ÍÊÇthisÈÆ±¾×ø±êÏµYĞı×ª
+		// thisåœ¨centerçš„åæ ‡ç³»ç»•Yè½´æ—‹è½¬degreeè§’åº¦
+		// å¦‚æœcenterçš„X,Zéƒ½æ˜¯0,é‚£å°±æ˜¯thisç»•æœ¬åæ ‡ç³»Yæ—‹è½¬
 		inline void rotateXZBy(TF32 degrees, const Vector3<T>& center)
 		{
 			degrees *= DEGTORAD;
@@ -192,8 +192,8 @@ namespace TLunaEngine{
 			Z += center.Z;
 		}
 
-		// thisÔÚcenterµÄ×ø±êÏµÈÆZÖáĞı×ªdegree½Ç¶È
-		// Èç¹ûcenterµÄX,Y¶¼ÊÇ0,ÄÇ¾ÍÊÇthisÈÆ±¾×ø±êÏµZĞı×ª
+		// thisåœ¨centerçš„åæ ‡ç³»ç»•Zè½´æ—‹è½¬degreeè§’åº¦
+		// å¦‚æœcenterçš„X,Yéƒ½æ˜¯0,é‚£å°±æ˜¯thisç»•æœ¬åæ ‡ç³»Zæ—‹è½¬
 		inline void rotateXYBy(TF32 degrees, const Vector3<T>& center)
 		{
 			degrees *= DEGTORAD;
@@ -206,8 +206,8 @@ namespace TLunaEngine{
 			Y += center.Y;
 		}
 
-		// thisÔÚcenterµÄ×ø±êÏµÈÆXÖáĞı×ªdegree½Ç¶È
-		// Èç¹ûcenterµÄZ,Y¶¼ÊÇ0,ÄÇ¾ÍÊÇthisÈÆ±¾×ø±êÏµXĞı×ª
+		// thisåœ¨centerçš„åæ ‡ç³»ç»•Xè½´æ—‹è½¬degreeè§’åº¦
+		// å¦‚æœcenterçš„Z,Yéƒ½æ˜¯0,é‚£å°±æ˜¯thisç»•æœ¬åæ ‡ç³»Xæ—‹è½¬
 		inline void rotateYZBy(TF32 degrees, const Vector3<T>& center)
 		{
 			degrees *= DEGTORAD;
@@ -221,8 +221,8 @@ namespace TLunaEngine{
 		}
 
 		// this->X * d + other.X * (1-d)
-		// Y,ZÀàËÆXµÄËã·¨
-		// È¨ÖØ¼ÓºÍ
+		// Y,Zç±»ä¼¼Xçš„ç®—æ³•
+		// æƒé‡åŠ å’Œ
 		// 0 < d < 1
 		inline Vector3<T> getInterpolated(const Vector3<T>& other, const TF32 d) const
 		{
@@ -230,7 +230,7 @@ namespace TLunaEngine{
 			return Vector3<T>(other.X*inv + X*d, other.Y*inv + Y*d, other.Z*inv + Z*d);
 		}
 
-		// ¶ş´ÎµÄÈ¨ÖØ¼ÓºÍ
+		// äºŒæ¬¡çš„æƒé‡åŠ å’Œ
 		// this*(1-d)*(1-d) + 2 * v2 * (1-d) + v3 * d * d;
 		// 0 < d < 1
 		inline Vector3<T> getInterpolated_quadratic(const Vector3<T>& v2, const Vector3<T>& v3, const TF32 d) const
@@ -245,8 +245,8 @@ namespace TLunaEngine{
 					Z * mul0 + v2.Z * mul1 + v3.Z * mul2);
 		}
 
-		// µÃµ½X,ZÆ½ÃæµÄ½Ç¶È
-		// ·¶Î§0-360
+		// å¾—åˆ°X,Zå¹³é¢çš„è§’åº¦
+		// èŒƒå›´0-360
 		inline TF32 getHorizonAngle()
 		{
 			TF32 angle = (TF32)atan2(Z,X);
@@ -256,7 +256,7 @@ namespace TLunaEngine{
 			return angle;
 		}
 
-		// µÃµ½Ë®Æ½½Ç¶ÈÁíÒ»ÖÖËã·¨£¬·µ»Ø»¡¶È
+		// å¾—åˆ°æ°´å¹³è§’åº¦å¦ä¸€ç§ç®—æ³•ï¼Œè¿”å›å¼§åº¦
 		inline T getYaw()
 		{
 			if ((TF32)Z>-0.001f && (TF32)Z<0.001f)
@@ -284,7 +284,7 @@ namespace TLunaEngine{
 			return (T)0;
 		}
 
-		// È«²¿ÖÃ0
+		// å…¨éƒ¨ç½®0
 		inline Vector3<T>& SetZero()
 		{
 			X = (T)0;
@@ -308,7 +308,7 @@ namespace TLunaEngine{
 
 		}
 
-		// ÏßĞÔ²åÖµ
+		// çº¿æ€§æ’å€¼
 		// this = a + t * (b - a)
 		inline Vector3<T>& Lerp(const Vector3<T>& a, const Vector3<T>& b, T t)
 		{
@@ -318,7 +318,7 @@ namespace TLunaEngine{
 			return *this;
 		}
 
-		// µÃµ½Êı×éw=1
+		// å¾—åˆ°æ•°ç»„w=1
 		inline void AsPoint(T* value)
 		{
 			if(!value)
@@ -329,7 +329,7 @@ namespace TLunaEngine{
 			value[3] = 1;
 		}
 
-		// µÃµ½Êı×éw=0
+		// å¾—åˆ°æ•°ç»„w=0
 		inline void AsDirection(T* value)
 		{
 			if(!value)

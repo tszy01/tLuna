@@ -27,7 +27,7 @@ bool LuaInit::InitWindowScript(const char *scriptFile)
 
 void LuaInit::LoadParameters()
 {
-	// 得到结果
+	// 寰楀埌缁撴灉
 	GetVariable("bUseJoystick");
 	GetVariable("controlFps");
 	GetVariable("bShowDebugInfo");

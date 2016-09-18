@@ -5,8 +5,8 @@
 
 namespace TLunaEngine{
 
-	// ---------- ÈÕÆÚÊ±¼äÀà -----------------
-	// ×ÛºÏ´¦ÀíÈÕÆÚºÍÊ±¼ä
+	// ---------- æ—¥æœŸæ—¶é—´ç±» -----------------
+	// ç»¼åˆå¤„ç†æ—¥æœŸå’Œæ—¶é—´
 	class DateTime
 	{
 	public:
@@ -31,11 +31,11 @@ namespace TLunaEngine{
 		int m_Month;
 		int m_Day;
 	public:
-		// µÃµ½×Ö·û´®
+		// å¾—åˆ°å­—ç¬¦ä¸²
 		DAY_OF_WEEK GetDayOfWeek();
 		String GetDayOfWeekString();
 		String GetDateString();
-		// µÃµ½ÊıÖµ
+		// å¾—åˆ°æ•°å€¼
 		inline int GetYear()
 		{
 			return m_Year;
@@ -48,16 +48,16 @@ namespace TLunaEngine{
 		{
 			return m_Day;
 		}
-		// ÉèÖÃÖµ
+		// è®¾ç½®å€¼
 		inline void SetDateTime(int year,int month,int day)
 		{
 			m_Year = year;
 			m_Month = month;
 			m_Day = day;
 		}
-		// Õâ¸önDays¿ÉÒÔÊÇ¸ºÊı£¬ÄÇ¾ÍÊÇ¼õ
+		// è¿™ä¸ªnDayså¯ä»¥æ˜¯è´Ÿæ•°ï¼Œé‚£å°±æ˜¯å‡
 		void AddDays(int nDays);
-		// ÊÇ·ñºÍÁíÒ»¸öÏàµÈ
+		// æ˜¯å¦å’Œå¦ä¸€ä¸ªç›¸ç­‰
 		bool IsEqual(const DateTime& dateTime);
 	private:
 		void AddOneDay();

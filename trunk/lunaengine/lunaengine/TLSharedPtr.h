@@ -64,7 +64,7 @@ namespace TLunaEngine {
 			mMutex.SetNull();
 			//OGRE_NEW_AUTO_SHARED_MUTEX
 			// change ogre 1.7
-			// ÕâÀï¸Ä³ÉÈç¹ûÓĞÖ¸Õë£¬Ò²¾ÍÊÇÈç¹ûÓĞusecount£¬²Å¹¹Ôì£¬·ñÔò¹¹Ôì³öÀ´µÄmutex¾Í²»»á±»ÊÍ·ÅÁË
+			// è¿™é‡Œæ”¹æˆå¦‚æœæœ‰æŒ‡é’ˆï¼Œä¹Ÿå°±æ˜¯å¦‚æœæœ‰usecountï¼Œæ‰æ„é€ ï¼Œå¦åˆ™æ„é€ å‡ºæ¥çš„mutexå°±ä¸ä¼šè¢«é‡Šæ”¾äº†
 			if(rep)
 			{
 				(*pUseCount) = 1;

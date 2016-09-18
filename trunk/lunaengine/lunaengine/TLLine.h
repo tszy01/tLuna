@@ -15,30 +15,30 @@ namespace TLunaEngine{
 		Line(T xa, T ya, T za, T xb, T yb, T zb) : start(xa, ya, za), end(xb, yb, zb), dir(end-start) { dir.normalize(); }
 		//! Constructor with two points as vectors
 		Line(const Vector3<T>& start, const Vector3<T>& end) : start(start), end(end), dir(end-start) { dir.normalize(); }
-		// ¿½±´¹¹Ôì
+		// æ‹·è´æ„é€ 
 		Line(const Line<T>& other) 
 		{
 			start = other.start;
 			end = other.end;
 			dir = other.dir;
 		}
-		// Îö¹¹
+		// ææ„
 		~Line()
 		{
 		}
 
 		// operators
-		// °ÑÁ½¸öÏòÁ¿¶¼¼ÓÉÏ»òÕß¼õÈ¥²ÎÊı
+		// æŠŠä¸¤ä¸ªå‘é‡éƒ½åŠ ä¸Šæˆ–è€…å‡å»å‚æ•°
 		inline Line<T> operator+(const Vector3<T>& point) const { return Line<T>(start + point, end + point); }
 		inline Line<T>& operator+=(const Vector3<T>& point) { start += point; end += point; return *this; }
 		inline Line<T> operator-(const Vector3<T>& point) const { return Line<T>(start - point, end - point); }
 		inline Line<T>& operator-=(const Vector3<T>& point) { start -= point; end -= point; return *this; }
-		// ¿ªÊ¼ºÍ½áÎ²±ØĞë¶¼·ûºÏ
+		// å¼€å§‹å’Œç»“å°¾å¿…é¡»éƒ½ç¬¦åˆ
 		inline bool operator==(const Line<T>& other) const
 		{ return start==other.start && end==other.end;}
 		inline bool operator!=(const Line<T>& other) const
 		{ return start!=other.start || end!=other.end;}
-		// ¸³Öµ
+		// èµ‹å€¼
 		inline Line<T>& operator=(const Line<T>& other)
 		{
 			start = other.start;
@@ -58,14 +58,14 @@ namespace TLunaEngine{
 		inline void setLine(const Line<T>& line)
 		{start.set(line.start); end.set(line.end); updateDir();}
 
-		// ¼ÆËã·½Ïò
+		// è®¡ç®—æ–¹å‘
 		inline Vector3<T>& updateDir()
 		{
 			Vector3<T> vec = end - start;
 			dir = vec.normalize();
 			return dir;
 		}
-		// µÃµ½·½Ïò
+		// å¾—åˆ°æ–¹å‘
 		inline Vector3<T>& getDir()
 		{
 			return dir;
@@ -149,8 +149,8 @@ namespace TLunaEngine{
 		Vector3<T> start;
 		//! End point of line
 		Vector3<T> end;
-		// ·½Ïò
-		// ·½ÏòÊÇÉèÖÃÊ±×Ô¶¯Ëã³öµÄ
+		// æ–¹å‘
+		// æ–¹å‘æ˜¯è®¾ç½®æ—¶è‡ªåŠ¨ç®—å‡ºçš„
 		Vector3<T> dir;
 	};
 

@@ -2,7 +2,7 @@
 #define _KEYCODEDEF_H_
 
 
-// ¼üÅÌĞéÄâÂë
+// é”®ç›˜è™šæ‹Ÿç 
 const unsigned char KEY_ESCAPE		   = 0x01;
 const unsigned char KEY_1			   = 0x02;
 const unsigned char KEY_2               = 0x03;
@@ -148,7 +148,7 @@ const unsigned char KEY_MYCOMPUTER      = 0xEB;    /* My Computer */
 const unsigned char KEY_MAIL            = 0xEC;    /* Mail */
 const unsigned char KEY_MEDIASELECT     = 0xED;    /* Media Select */
 
-// ÊÖ±úĞéÄâÂë
+// æ‰‹æŸ„è™šæ‹Ÿç 
 const unsigned char JOYS_BUTTON0		= 0x00;
 const unsigned char JOYS_BUTTON1     = 0x01;
 const unsigned char JOYS_BUTTON2     = 0x02;
@@ -182,66 +182,66 @@ const unsigned char JOYS_BUTTON29    = 0x1D;
 const unsigned char JOYS_BUTTON30    = 0x1E;
 const unsigned char JOYS_BUTTON31    = 0x1F;
 
-// Êó±êĞéÄâÂë
+// é¼ æ ‡è™šæ‹Ÿç 
 const unsigned char MOUSE_BUTTON0 = 0x00;
 const unsigned char MOUSE_BUTTON1 = 0x01;
 const unsigned char MOUSE_BUTTON2 = 0x02;
 const unsigned char MOUSE_BUTTON3 = 0x03;
 
-// °´¼ü×´Ì¬Ã¶¾Ù
+// æŒ‰é”®çŠ¶æ€æšä¸¾
 enum BUTTON_TYPE
 {
-	BUTTON_TYPE_NONE	= 0,	// Ã»ÓĞ¸Ä±ä
-	BUTTON_TYPE_DOWN	= 1,	// °´ÏÂ
-	BUTTON_TYPE_UP		= 2,	// °´ÏÂºóÌ§Æğ
+	BUTTON_TYPE_NONE	= 0,	// æ²¡æœ‰æ”¹å˜
+	BUTTON_TYPE_DOWN	= 1,	// æŒ‰ä¸‹
+	BUTTON_TYPE_UP		= 2,	// æŒ‰ä¸‹åæŠ¬èµ·
 };
 
-// °´¼üÓë×´Ì¬µÄ×éºÏ
+// æŒ‰é”®ä¸çŠ¶æ€çš„ç»„åˆ
 struct _BUTTON_INFO
 {
 	unsigned char btnCode;
 	BUTTON_TYPE btnType;
 };
 
-// Êó±êÏûÏ¢½á¹¹Ìå
+// é¼ æ ‡æ¶ˆæ¯ç»“æ„ä½“
 struct _MSG_MOUSE_INFO
 {
-	long lX;	// XÒÆ¶¯
-	long lY;	// YÒÆ¶¯
-	long lZ;	// ¹öÂÖ×ª¶¯
-	_BUTTON_INFO btnInfo[4];	// ×î¶à4¸ö¼ü
+	long lX;	// Xç§»åŠ¨
+	long lY;	// Yç§»åŠ¨
+	long lZ;	// æ»šè½®è½¬åŠ¨
+	_BUTTON_INFO btnInfo[4];	// æœ€å¤š4ä¸ªé”®
 };
 
-// °´¼üÏûÏ¢½á¹¹Ìå
+// æŒ‰é”®æ¶ˆæ¯ç»“æ„ä½“
 struct _MSG_KEY_INFO
 {
-	_BUTTON_INFO btnInfo[256];	// ¼üÅÌÓĞ256¸ö¼ü
+	_BUTTON_INFO btnInfo[256];	// é”®ç›˜æœ‰256ä¸ªé”®
 };
 
-// ÊÖ±úÏûÏ¢½á¹¹Ìå
+// æ‰‹æŸ„æ¶ˆæ¯ç»“æ„ä½“
 struct _MSG_JOYS_INFO
 {
-	long lX;	// ×óÒ¡¸Ë×óÓÒ
-	long lY;	// ×óÒ¡¸ËÇ°ºó
-	long lZ;	// ÓÒÒ¡¸ËÇ°ºó
-	//long lRX;	// ÎŞ×÷ÓÃ
-	//long lRY;	// ÎŞ×÷ÓÃ
-	long lRZ;	// ÓÒÒ¡¸Ë×óÓÒ
-	unsigned long rgdwPOV;	// ÔÚ¿ªÆô×óÒ¡¸ËµÄÇé¿öÏÂ£¬ËÄ¸ö·½Ïò¼ü£¬0£¬45£¬90£¬135£¬180£¬225£¬270£¬315
-	//long rglSlider[2];	// ÎŞ×÷ÓÃ
-	_BUTTON_INFO btnInfo[32];	// ×î¶à32¸ö°´¼ü
+	long lX;	// å·¦æ‘‡æ†å·¦å³
+	long lY;	// å·¦æ‘‡æ†å‰å
+	long lZ;	// å³æ‘‡æ†å‰å
+	//long lRX;	// æ— ä½œç”¨
+	//long lRY;	// æ— ä½œç”¨
+	long lRZ;	// å³æ‘‡æ†å·¦å³
+	unsigned long rgdwPOV;	// åœ¨å¼€å¯å·¦æ‘‡æ†çš„æƒ…å†µä¸‹ï¼Œå››ä¸ªæ–¹å‘é”®ï¼Œ0ï¼Œ45ï¼Œ90ï¼Œ135ï¼Œ180ï¼Œ225ï¼Œ270ï¼Œ315
+	//long rglSlider[2];	// æ— ä½œç”¨
+	_BUTTON_INFO btnInfo[32];	// æœ€å¤š32ä¸ªæŒ‰é”®
 };
 
-// ÏûÏ¢ÀàĞÍ
+// æ¶ˆæ¯ç±»å‹
 enum MSG_TYPE
 {
 	MSG_TYPE_NONE	= 0,
-	MSG_TYPE_KEY	= 1,	// ¼üÅÌÏûÏ¢
-	MSG_TYPE_MOUSE	= 2,	// Êó±êÏûÏ¢
-	MSG_TYPE_JOYS	= 3,	// ÊÖ±úÏûÏ¢
+	MSG_TYPE_KEY	= 1,	// é”®ç›˜æ¶ˆæ¯
+	MSG_TYPE_MOUSE	= 2,	// é¼ æ ‡æ¶ˆæ¯
+	MSG_TYPE_JOYS	= 3,	// æ‰‹æŸ„æ¶ˆæ¯
 };
 
-// ¶¨Òåº¯ÊıÖ¸Õë
+// å®šä¹‰å‡½æ•°æŒ‡é’ˆ
 typedef void(*ProcessInput)(unsigned char,void*);
 
 

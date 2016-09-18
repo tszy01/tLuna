@@ -3,7 +3,7 @@
 
 namespace TLunaEngine
 {
-	// 设备使用
+	// 璁惧浣跨敤
 	class RenderDeviceUsed
 	{
 	public:

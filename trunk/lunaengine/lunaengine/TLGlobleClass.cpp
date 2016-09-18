@@ -21,7 +21,7 @@ namespace TLunaEngine{
 		m_pTri = new TestTriangle();
 		if(!m_pTri->InitTriangle())
 			return false;
-		// Debug信息
+		// Debug淇℃伅
 		String strAll = m_strResDir + "gui\\font\\simkai.ttf";
 		if(!GUIFontManager::getSingletonPtr()->initDebugFont(strAll.GetString(),24,256))
 		{
@@ -44,7 +44,7 @@ namespace TLunaEngine{
 			delete mLoopCtrl;
 			mLoopCtrl = 0;
 		}
-		// Debug信息
+		// Debug淇℃伅
 		GUIFontManager::getSingletonPtr()->deleteDebugFont();
 		// Triangle
 		if (m_pTri)
@@ -95,7 +95,7 @@ namespace TLunaEngine{
 
 	bool GlobleClass::OnRender(float fTimeElapsed)
 	{
-		// Debug信息
+		// Debug淇℃伅
 		if (m_bShowDebugInfo && mLoopCtrl)
 		{
 			//m_pDebugFont->FontPrint(LoopCtrl::getSingletonPtr()->GetFPSString(),0,0,D3DXCOLOR(0.0f,1.0f,0.0f,1.0f),100,32,TLunaEngine::FA_LEFT);

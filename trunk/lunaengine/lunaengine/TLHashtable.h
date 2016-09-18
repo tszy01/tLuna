@@ -7,7 +7,7 @@ namespace TLunaEngine{
 	class Hashtable
 	{
 	public:
-		// ----------------- ½Úµã -----------------------
+		// ----------------- èŠ‚ç‚¹ -----------------------
 		struct HASHTABLE_NODE
 		{
 			TK Key;
@@ -17,7 +17,7 @@ namespace TLunaEngine{
 			HASHTABLE_NODE() : Next(0),Prev(0){}
 		};
 		// ----------------------------------------------
-		// ---------------- µü´úÆ÷ ----------------------
+		// ---------------- è¿­ä»£å™¨ ----------------------
 		class Iterator
 		{
 		public:
@@ -48,21 +48,21 @@ namespace TLunaEngine{
 			clear();
 		};
 	protected:
-		// ÆğÊ¼Ö¸Õë
+		// èµ·å§‹æŒ‡é’ˆ
 		HASHTABLE_NODE* m_First;
-		// Ä©Î²Ö¸Õë
+		// æœ«å°¾æŒ‡é’ˆ
 		HASHTABLE_NODE* m_Last;
-		// ´óĞ¡
+		// å¤§å°
 		int m_Size;
 	public:
-		// ¿½±´¹¹Ôì
+		// æ‹·è´æ„é€ 
 		Hashtable(const Hashtable<TK,TV>& other) : m_First(0), m_Last(0), m_Size(0)
 		{
 			Clone(other);
 		}
 
-		// ----------- ³ÉÔ± --------------------------
-		// ¿ËÂ¡
+		// ----------- æˆå‘˜ --------------------------
+		// å…‹éš†
 		inline void Clone(const Hashtable<TK,TV>& other)
 		{
 			if(&other == this)
@@ -78,33 +78,33 @@ namespace TLunaEngine{
 			}
 		}
 
-		// ÖØÔØ=
+		// é‡è½½=
 		inline Hashtable<TK,TV>& operator=(const Hashtable<TK,TV>& other)
 		{
 			Clone(other);
 			return *this;
 		}
-		// ·µ»Øm_FirstÖ¸Õë
+		// è¿”å›m_FirstæŒ‡é’ˆ
 		inline Iterator begin()
 		{
 			return Iterator(m_First);
 		}
-		// ·µ»Ø0Ö¸Õë
+		// è¿”å›0æŒ‡é’ˆ
 		inline Iterator end()
 		{
 			return Iterator(0);
 		}
-		// ·µ»ØlastÖ¸Õë
+		// è¿”å›lastæŒ‡é’ˆ
 		inline Iterator last()
 		{
 			return Iterator(m_Last);
 		}
-		// ·µ»Ø´óĞ¡
+		// è¿”å›å¤§å°
 		inline int size()
 		{
 			return m_Size;
 		}
-		// Çå¿ÕËùÓĞ
+		// æ¸…ç©ºæ‰€æœ‰
 		inline void clear()
 		{
 			while(m_First)
@@ -116,12 +116,12 @@ namespace TLunaEngine{
 			m_Last = 0;
 			m_Size = 0;
 		}
-		// ÏÖÔÚÊÇ·ñ¿Õ
+		// ç°åœ¨æ˜¯å¦ç©º
 		inline bool empty()
 		{
 			return (m_First == 0);
 		}
-		// ¸ù¾İµü´úÆ÷É¾³ı
+		// æ ¹æ®è¿­ä»£å™¨åˆ é™¤
 		inline Iterator erase(Iterator& itr)
 		{
 			Iterator returnIterator(itr);
@@ -147,7 +147,7 @@ namespace TLunaEngine{
 			--m_Size;
 			return returnIterator;
 		}
-		// ´ÓºóÃæ²åÈëÒ»¸ö
+		// ä»åé¢æ’å…¥ä¸€ä¸ª
 		inline void push_back(TK key,TV& value)
 		{
 			HASHTABLE_NODE* node = new HASHTABLE_NODE;
@@ -161,7 +161,7 @@ namespace TLunaEngine{
 				m_Last->Next = node;
 			m_Last = node;
 		}
-		// ÊÇ·ñÓĞ¸Ãkey
+		// æ˜¯å¦æœ‰è¯¥key
 		inline bool find(TK key)
 		{
 			Iterator itr = begin();
@@ -174,7 +174,7 @@ namespace TLunaEngine{
 			}
 			return false;
 		}
-		// É¾³ıÖ¸¶¨key
+		// åˆ é™¤æŒ‡å®škey
 		inline void remove(TK key)
 		{
 			Iterator itr = begin();
@@ -187,7 +187,7 @@ namespace TLunaEngine{
 				}
 			}
 		}
-		// µÃµ½Öµ
+		// å¾—åˆ°å€¼
 		inline bool GetValue(TK key,TV& value)
 		{
 			Iterator itr = begin();
@@ -201,7 +201,7 @@ namespace TLunaEngine{
 			}
 			return false;
 		}
-		// ÉèÖÃÖµ
+		// è®¾ç½®å€¼
 		inline void SetValue(TK key,TV& value)
 		{
 			Iterator itr = begin();
@@ -215,7 +215,7 @@ namespace TLunaEngine{
 			}
 			push_back(key,value);
 		}
-		// ÖØÔØ[]
+		// é‡è½½[]
 		inline TV& operator[](TK key)
 		{
 			Iterator itr = begin();

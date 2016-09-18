@@ -44,7 +44,7 @@ namespace TLunaEngine
 			m[2][2] = m22;
 		}
 
-		// ÷ÿ‘ÿ[]
+		// –∂–∏–¥–∏[]
 		inline T* operator[](int iRow)
 		{
 			return m[iRow];
@@ -188,7 +188,7 @@ namespace TLunaEngine
 			return *this;
 		}
 
-		// ÷√0
+		// –∂–£0
 		inline void setZero()
 		{
 			for(int i=0;i<3;i++)

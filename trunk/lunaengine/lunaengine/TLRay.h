@@ -2,7 +2,7 @@
 #define _TLRAY_H_
 #include "TLVector3.h"
 
-// ×¢Òâ:ÕâÀïµÄRayÖ»ÊµÏÖ3D¸¡µãµÄÔËËã,±ãÓÚ3D¼ÆËãÊ¹ÓÃ
+// æ³¨æ„:è¿™é‡Œçš„Rayåªå®ç°3Dæµ®ç‚¹çš„è¿ç®—,ä¾¿äº3Dè®¡ç®—ä½¿ç”¨
 
 namespace TLunaEngine{
 
@@ -27,24 +27,24 @@ namespace TLunaEngine{
 			m_Dir.normalize();
 		}
 	public:
-		// ----------- ³ÉÔ± --------------------
+		// ----------- æˆå‘˜ --------------------
 
-		// ÆğÊ¼µã
+		// èµ·å§‹ç‚¹
 		Vector3<T> m_Orig;
-		// ·½Ïò
+		// æ–¹å‘
 		Vector3<T> m_Dir;
 
 		// -------------------------------------
 	public:
-		// --------- ·½·¨ ----------------------
+		// --------- æ–¹æ³• ----------------------
 
-		// ÖØÔØ=
+		// é‡è½½=
 		inline void operator=(const Ray<T>& other)
 		{
 			m_Orig = other.m_Orig;
 			m_Dir = other.m_Dir;
 		}
-		// ÆğÊ¼µã
+		// èµ·å§‹ç‚¹
 		inline Vector3<T>& GetOrig()
 		{
 			return m_Orig;
@@ -53,7 +53,7 @@ namespace TLunaEngine{
 		{
 			m_Orig = orig;
 		}
-		// ·½Ïò
+		// æ–¹å‘
 		inline Vector3<T>& GetDir()
 		{
 			return m_Dir;
@@ -63,13 +63,13 @@ namespace TLunaEngine{
 			m_Dir = dir;
 			m_Dir.normalize();
 		}
-		// µÃµ½t²½Ö®ºóµÄµã
+		// å¾—åˆ°tæ­¥ä¹‹åçš„ç‚¹
 		inline Vector3<T> GetDest(T t)
 		{
 			Vector3<T> pos = m_Orig + m_Dir * t;
 			return pos;
 		}
-		// ÍùÏà·´·½Ïò×ßt²½Ö®ºóµÄµã
+		// å¾€ç›¸åæ–¹å‘èµ°tæ­¥ä¹‹åçš„ç‚¹
 		inline Vector3<T> GetNegDest(T t)
 		{
 			Vector3<T> pos = m_Orig - m_Dir * t;

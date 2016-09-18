@@ -21,7 +21,7 @@ namespace TLunaEngine{
 			assert(false);
 			return false;
 		}
-		// ´ò¿ªÎÄ¼ş
+		// æ‰“å¼€æ–‡ä»¶
 		int re = fopen_s(ppStream,filename,"r+");
 		if(*ppStream==0 || re!=0)
 		{
@@ -45,7 +45,7 @@ namespace TLunaEngine{
 		}
 		memset(strResult,0,nCount);
 
-		// ¶ÁÈ¡Ò»ĞĞ
+		// è¯»å–ä¸€è¡Œ
 		int count = 0;
 		char c;
 		while(count<nCount)
@@ -69,7 +69,7 @@ namespace TLunaEngine{
 		if(pReadCount)
 			*pReadCount = count;
 
-		// ±È½Ï
+		// æ¯”è¾ƒ
 		if(count>0 && strCmp && bEqual)
 		{
 			if(strcmp(strResult,strCmp)==0)
@@ -97,7 +97,7 @@ namespace TLunaEngine{
 		char szTmp[32] = {0};
 		char c;
 
-		// Ñ­»·¶ÁÈ¡Ò»ĞĞµÄËùÓĞÕûÊıÊı¾İ
+		// å¾ªç¯è¯»å–ä¸€è¡Œçš„æ‰€æœ‰æ•´æ•°æ•°æ®
 		while(aCount<nCount && cCount<32)
 		{
 			int numRead = fread(&c,sizeof(char),1,pStream);
@@ -141,7 +141,7 @@ namespace TLunaEngine{
 		char szTmp[32] = {0};
 		char c;
 
-		// Ñ­»·¶ÁÈ¡Ò»ĞĞµÄËùÓĞÕûÊıÊı¾İ
+		// å¾ªç¯è¯»å–ä¸€è¡Œçš„æ‰€æœ‰æ•´æ•°æ•°æ®
 		while(aCount<nCount && cCount<32)
 		{
 			int numRead = fread(&c,sizeof(char),1,pStream);
@@ -185,7 +185,7 @@ namespace TLunaEngine{
 		char szTmp[32] = {0};
 		char c;
 
-		// Ñ­»·¶ÁÈ¡Ò»ĞĞµÄËùÓĞÕûÊıÊı¾İ
+		// å¾ªç¯è¯»å–ä¸€è¡Œçš„æ‰€æœ‰æ•´æ•°æ•°æ®
 		while(aCount<nCount && cCount<32)
 		{
 			int numRead = fread(&c,sizeof(char),1,pStream);
@@ -229,7 +229,7 @@ namespace TLunaEngine{
 		char szTmp[32] = {0};
 		char c;
 
-		// Ñ­»·¶ÁÈ¡Ò»ĞĞµÄËùÓĞÕûÊıÊı¾İ
+		// å¾ªç¯è¯»å–ä¸€è¡Œçš„æ‰€æœ‰æ•´æ•°æ•°æ®
 		while(aCount<nCount && cCount<32)
 		{
 			int numRead = fread(&c,sizeof(char),1,pStream);
@@ -273,7 +273,7 @@ namespace TLunaEngine{
 		char szTmp[32] = {0};
 		char c;
 
-		// Ñ­»·¶ÁÈ¡Ò»ĞĞµÄËùÓĞÕûÊıÊı¾İ
+		// å¾ªç¯è¯»å–ä¸€è¡Œçš„æ‰€æœ‰æ•´æ•°æ•°æ®
 		while(aCount<nCount && cCount<32)
 		{
 			int numRead = fread(&c,sizeof(char),1,pStream);
@@ -317,7 +317,7 @@ namespace TLunaEngine{
 		char szTmp[32] = {0};
 		char c;
 
-		// Ñ­»·¶ÁÈ¡Ò»ĞĞµÄËùÓĞÕûÊıÊı¾İ
+		// å¾ªç¯è¯»å–ä¸€è¡Œçš„æ‰€æœ‰æ•´æ•°æ•°æ®
 		while(aCount<nCount && cCount<32)
 		{
 			int numRead = fread(&c,sizeof(char),1,pStream);
@@ -364,7 +364,7 @@ namespace TLunaEngine{
 		bool hasDot = false;
 		int dotPos = -1;
 
-		// Ñ­»·¶ÁÈ¡Ò»ĞĞµÄËùÓĞ¸¡µãÊıÊı¾İ
+		// å¾ªç¯è¯»å–ä¸€è¡Œçš„æ‰€æœ‰æµ®ç‚¹æ•°æ•°æ®
 		while(aCount<nCount && cCount<32)
 		{
 			int numRead = fread(&c,sizeof(char),1,pStream);
@@ -437,7 +437,7 @@ namespace TLunaEngine{
 		bool hasDot = false;
 		int dotPos = -1;
 
-		// Ñ­»·¶ÁÈ¡Ò»ĞĞµÄËùÓĞ¸¡µãÊıÊı¾İ
+		// å¾ªç¯è¯»å–ä¸€è¡Œçš„æ‰€æœ‰æµ®ç‚¹æ•°æ•°æ®
 		while(aCount<nCount && cCount<32)
 		{
 			int numRead = fread(&c,sizeof(char),1,pStream);

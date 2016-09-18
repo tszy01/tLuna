@@ -5,7 +5,7 @@
 #include <list>
 
 /*
-*	ÏûÏ¢½ÓÊÕ´¦ÀíÀà£¬¸ÃÀà¸ºÔğ½ÓÊÕGameInput´«µİ¹ıÀ´µÄ¸÷ÖÖÏûÏ¢
+*	æ¶ˆæ¯æ¥æ”¶å¤„ç†ç±»ï¼Œè¯¥ç±»è´Ÿè´£æ¥æ”¶GameInputä¼ é€’è¿‡æ¥çš„å„ç§æ¶ˆæ¯
 */
 class InputMsgMgr
 {
@@ -13,9 +13,9 @@ public:
 	InputMsgMgr(void);
 	~InputMsgMgr(void);
 public:
-	// »Øµ÷º¯Êı½ÓÊÜÏûÏ¢
+	// å›è°ƒå‡½æ•°æ¥å—æ¶ˆæ¯
 	static void CatchInputMsg(unsigned char yType, void* param);
-	// ½ÓÊÕÏûÏ¢µÄº¯ÊıÖ¸Õë
+	// æ¥æ”¶æ¶ˆæ¯çš„å‡½æ•°æŒ‡é’ˆ
 	static std::list<ProcessInput> m_CalledFuncList;
 };
 
