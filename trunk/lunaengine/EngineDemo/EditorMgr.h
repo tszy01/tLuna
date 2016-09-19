@@ -1,6 +1,9 @@
 #ifndef _EDITORMGR_H_
 #define _EDITORMGR_H_
 
+#include "ConfigDef.h"
+
+#ifdef BUILD_EDITOR
 #include "TLSingleton.h"
 #include "TLString.h"
 #include <Windows.h>
@@ -44,4 +47,6 @@ public:
 		return mResDir;
 	}
 };
+
+#endif // BUILD_EDITOR
 #endif

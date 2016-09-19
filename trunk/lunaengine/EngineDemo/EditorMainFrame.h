@@ -1,6 +1,9 @@
 #ifndef _EDITORMAINFRAME_H_
 #define _EDITORMAINFRAME_H_
 
+#include "ConfigDef.h"
+
+#ifdef BUILD_EDITOR
 #include "wx/wxprec.h"
 #ifndef WX_PRECOMP
 #include "wx/wx.h"
@@ -143,5 +146,7 @@ public:
 private:
 	DECLARE_EVENT_TABLE()
 };
+
+#endif // BUILD_EDITOR
 
 #endif

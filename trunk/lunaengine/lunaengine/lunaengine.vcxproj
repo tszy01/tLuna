@@ -226,6 +226,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TLColorValue.h" />
+    <ClInclude Include="TLConfigDef.h" />
     <ClInclude Include="TLConvexBody.h" />
     <ClInclude Include="TLDegree.h" />
     <ClInclude Include="TLDualQuaternion.h" />

@@ -208,6 +208,7 @@
     <ClCompile Include="MainWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ConfigDef.h" />
     <ClInclude Include="EditorApp.h" />
     <ClInclude Include="EditorMainFrame.h" />
     <ClInclude Include="EditorMgr.h" />

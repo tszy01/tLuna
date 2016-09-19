@@ -1,6 +1,8 @@
 #include "EditorMgr.h"
-#include "TLGlobalFunc.h"
 
+#ifdef BUILD_EDITOR
+
+#include "TLGlobalFunc.h"
 #include "EditorApp.h"
 
 EditorMgr* TLunaEngine::Singleton<EditorMgr>::m_Ptr = 0;
@@ -66,3 +68,5 @@ void EditorMgr::DestroyEngine()
 {
 	TLunaEngine::DestroyForEditor();
 }
+
+#endif // BUILD_EDITOR

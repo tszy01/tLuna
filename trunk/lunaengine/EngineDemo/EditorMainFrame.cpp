@@ -1,4 +1,6 @@
 #include "EditorMainFrame.h"
+
+#ifdef BUILD_EDITOR
 #include "EditorApp.h"
 //#include "gb_seappmgr.h"
 
@@ -439,3 +441,5 @@ void EditorMainFrame::onReloadNpcTemplate(wxCommandEvent& event)
 		return ;
 	ptr->reloadNpcTemplate();*/
 }
+
+#endif // BUILD_EDITOR

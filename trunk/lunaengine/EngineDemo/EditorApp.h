@@ -1,6 +1,10 @@
 #ifndef _EDITORAPP_H_
 #define _EDITORAPP_H_
 
+#include "ConfigDef.h"
+
+#ifdef BUILD_EDITOR
+
 #include "wx/wxprec.h"
 #ifndef WX_PRECOMP
 #include "wx/app.h"
@@ -146,5 +150,7 @@ public:
 	//! show main frame shortcut menu
 	void showMainFrameShortcutMenu();
 };
+
+#endif // BUILD_EDITOR
 
 #endif

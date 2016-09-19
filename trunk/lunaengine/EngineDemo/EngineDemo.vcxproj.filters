@@ -77,5 +77,8 @@
     <ClInclude Include="EditorMgr.h">
       <Filter>Editor</Filter>
     </ClInclude>
+    <ClInclude Include="ConfigDef.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

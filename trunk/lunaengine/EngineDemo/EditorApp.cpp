@@ -1,4 +1,6 @@
 #include "EditorApp.h"
+
+#ifdef BUILD_EDITOR
 #include "EditorMainFrame.h"
 #include "EditorMgr.h"
 //#include "gb_wxcmdwnd.h"
@@ -338,3 +340,5 @@ bool EditorApp::ProcessGameLoop()
 		return false;
 	return true;
 }
+
+#endif // BUILD_EDITOR

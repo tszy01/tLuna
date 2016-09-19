@@ -10,8 +10,11 @@
 
 #include "TLString.h"
 
-//#include "EditorApp.h"
+#include "ConfigDef.h"
+
+#ifdef BUILD_EDITOR
 #include "EditorMgr.h"
+#endif // BUILD_EDITOR
 
 int MainExampleGame(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmLine, int nCmdShow)
 {
@@ -204,6 +207,7 @@ int PASCAL WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmLine,
 
 	// run
 	int re = 0;
+#ifdef BUILD_EDITOR
 	if (bEditor)
 	{
 		if (!EditorMgr::getSingletonPtr()->InitEditorMgr(hInstance, LuaInit::getSingletonPtr()->m_bufferWidth, 
@@ -214,6 +218,7 @@ int PASCAL WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmLine,
 		EditorMgr::delSingletonPtr();
 	}
 	else
+#endif // BUILD_EDITOR
 	{
 		re = MainExampleGame(hInstance, hPrevInstance, lpCmLine, nCmdShow);
 	}

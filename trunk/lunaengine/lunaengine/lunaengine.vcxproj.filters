@@ -521,6 +521,9 @@
     <ClInclude Include="TLRenderDeviceUsedView_D3D11.h">
       <Filter>Render\Render_D3D11</Filter>
     </ClInclude>
+    <ClInclude Include="TLConfigDef.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
