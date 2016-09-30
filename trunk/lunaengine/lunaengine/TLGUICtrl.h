@@ -11,13 +11,13 @@ namespace TLunaEngine{
 	class GUICtrl
 	{
 	public:
-		GUICtrl(void);
-		virtual ~GUICtrl(void);
+		GUICtrl(TVOID);
+		virtual ~GUICtrl(TVOID);
 	protected:
 		GUI_CTRL_TYPE m_eCtrlType;	// 控件类型
 		int m_iIndex;				// 控件在容器中索引
 		GUIContainer* m_pContainer;	// 指向容器
-		bool m_bShow;				// 是否显示
+		TBOOL m_bShow;				// 是否显示
 		float m_fAlpha;				// ALPHA值
 
 		// ------ 以下是相对于容器的位置和大小 --------
@@ -31,13 +31,13 @@ namespace TLunaEngine{
 	public:
 		// ------ 以下是需要子类重写方法 --------------
 		// 销毁
-		virtual void DestroyCtrl();
+		virtual TVOID DestroyCtrl();
 		// 更新
-		virtual bool Update(float fTimeElapsed);
+		virtual TBOOL Update(float fTimeElapsed);
 		// 渲染
-		virtual bool Render(float fTimeElapsed);
+		virtual TBOOL Render(float fTimeElapsed);
 		// 设置ALPHA
-		virtual void SetAlpha(float fAlpha)
+		virtual TVOID SetAlpha(float fAlpha)
 		{
 			m_fAlpha = fAlpha;
 		}
@@ -45,7 +45,7 @@ namespace TLunaEngine{
 		// ------ 以下为子类调用 ----------------------
 		// 初始化
 		// 子类在初始化中必须调用此函数
-		bool InitCtrlBase(int iIndex,GUIContainer* pContainer,TS32 x,TS32 y,TS32 width,TS32 height);
+		TBOOL InitCtrlBase(int iIndex,GUIContainer* pContainer,TS32 x,TS32 y,TS32 width,TS32 height);
 	public:
 		// 得到索引
 		inline int GetIndex()
@@ -58,14 +58,14 @@ namespace TLunaEngine{
 			return m_eCtrlType;
 		}
 		// 重新计算子控件绝对位置
-		void ReCalSubRect(TS32 containerFinalX,TS32 containerFinalY);
+		TVOID ReCalSubRect(TS32 containerFinalX,TS32 containerFinalY);
 		// 设置是否显示
-		inline void ShowCtrl(bool bShow = true)
+		inline TVOID ShowCtrl(TBOOL bShow = TTRUE)
 		{
 			m_bShow = bShow;
 		}
 		// 是否显示
-		inline bool IsShow()
+		inline TBOOL IsShow()
 		{
 			return m_bShow;
 		}

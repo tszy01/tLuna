@@ -83,18 +83,18 @@ namespace TLunaEngine{
 		//}
 
 		//! Equalilty operator
-		inline bool operator==(const Quaternion<T>& other) const
+		inline TBOOL operator==(const Quaternion<T>& other) const
 		{
 			if(X != other.X)
-				return false;
+				return TFALSE;
 			if(Y != other.Y)
-				return false;
+				return TFALSE;
 			if(Z != other.Z)
-				return false;
+				return TFALSE;
 			if(W != other.W)
-				return false;
+				return TFALSE;
 
-			return true;
+			return TTRUE;
 		}
 
 		//! Assignment operator
@@ -226,7 +226,7 @@ namespace TLunaEngine{
 		}
 
 		//! Sets new Quaternion
-		inline void set(T x, T y, T z, T w)
+		inline TVOID set(T x, T y, T z, T w)
 		{
 			X = x;
 			Y = y;
@@ -235,7 +235,7 @@ namespace TLunaEngine{
 		}
 
 		//! Sets new Quaternion based on euler angles (radians)
-		inline void set(T x, T y, T z)
+		inline TVOID set(T x, T y, T z)
 		{
 			TF64 angle;
 			angle = (TF64)x * 0.5;
@@ -264,7 +264,7 @@ namespace TLunaEngine{
 		}
 
 		//! Sets new Quaternion based on euler angles (radians)
-		inline void set(const Vector3<T>& vec)
+		inline TVOID set(const Vector3<T>& vec)
 		{
 			set(vec.X, vec.Y, vec.Z);
 		}
@@ -315,7 +315,7 @@ namespace TLunaEngine{
 		//}
 
 		////! Creates a matrix from this Quaternion
-		//inline void getMatrix( Matrix4x4<T> &dest ) const
+		//inline TVOID getMatrix( Matrix4x4<T> &dest ) const
 		//{
 		//	dest[0][0] = (T)(1.0f - 2.0f*Y*Y - 2.0f*Z*Z);
 		//	dest[0][1] = (T)(2.0f*X*Y + 2.0f*Z*W);
@@ -339,7 +339,7 @@ namespace TLunaEngine{
 		//}
 
 		////! Creates a matrix from this Quaternion
-		//inline void getMatrix_transposed( Matrix4x4<T> &dest ) const
+		//inline TVOID getMatrix_transposed( Matrix4x4<T> &dest ) const
 		//{
 		//	dest[0][0] = 1.0f - 2.0f*Y*Y - 2.0f*Z*Z;
 		//	dest[1][0] = 2.0f*X*Y + 2.0f*Z*W;
@@ -370,7 +370,7 @@ namespace TLunaEngine{
 		}
 
 		//! Set this Quaternion to the result of the interpolation between two quaternions
-		inline void slerp(const Quaternion<T>& q1,const Quaternion<T>& q2, TF32 interpolate )
+		inline TVOID slerp(const Quaternion<T>& q1,const Quaternion<T>& q2, TF32 interpolate )
 		{
 			T angle = q1.getDotProduct(q2);
 
@@ -409,9 +409,9 @@ namespace TLunaEngine{
 		}
 
 		/// Spherical quadratic interpolation
-        inline void squad (TF32 fT, const Quaternion<T>& rkP,
+        inline TVOID squad (TF32 fT, const Quaternion<T>& rkP,
             const Quaternion<T>& rkA, const Quaternion<T>& rkB,
-            const Quaternion<T>& rkQ/*, bool shortestPath = false*/)
+            const Quaternion<T>& rkQ/*, TBOOL shortestPath = TFALSE*/)
 		{
 			TF32 fSlerpT = 2.0f*fT*(1.0f-fT);
 			Quaternion<T> kSlerpP;
@@ -427,7 +427,7 @@ namespace TLunaEngine{
 		q = cos(A/2)+sin(A/2)*(x*i+y*j+z*k).
 		\param angle Rotation Angle in radians.
 		\param axis Rotation axis. */
-		inline void fromAngleAxis (T angle, const Vector3<T>& axis)
+		inline TVOID fromAngleAxis (T angle, const Vector3<T>& axis)
 		{
 			TF32 fHalfAngle = 0.5f*(TF32)angle;
 			TF32 fSin = sinf(fHalfAngle);
@@ -438,7 +438,7 @@ namespace TLunaEngine{
 		}
 
 		//! Fills an angle (radians) around an axis (unit vector)
-		inline void toAngleAxis (T &angle, Vector3<T>& axis) const
+		inline TVOID toAngleAxis (T &angle, Vector3<T>& axis) const
 		{
 			TF32 scale = sqrtf(X*X + Y*Y + Z*Z);
 			if (TLunaEngine::iszero(scale) || W > (T)1.0f || W < (T)-1.0f)
@@ -458,7 +458,7 @@ namespace TLunaEngine{
 		}
 
 		//! Output this Quaternion to an euler angle (radians)
-		inline void toEuler(Vector3<T>& euler) const
+		inline TVOID toEuler(Vector3<T>& euler) const
 		{
 			T sqw = W*W;
 			T sqx = X*X;
@@ -476,7 +476,7 @@ namespace TLunaEngine{
 		}
 
 		//! Set Quaternion to identity
-		inline void makeIdentity()
+		inline TVOID makeIdentity()
 		{
 			W = (T)1.f;
 			X = (T)0.f;
@@ -485,7 +485,7 @@ namespace TLunaEngine{
 		}
 
 		//! Set Quaternion to represent a rotation from one vector to another.
-		inline void rotationFromTo(const Vector3<T>& from, const Vector3<T>& to)
+		inline TVOID rotationFromTo(const Vector3<T>& from, const Vector3<T>& to)
 		{
 			// Based on Stan Melax's article in Game Programming Gems
 			// Copy, since cannot modify local

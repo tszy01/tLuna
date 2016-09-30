@@ -34,13 +34,13 @@ namespace TLunaEngine
 			mCoeffs[3][2] = 0;
 			mCoeffs[3][3] = 0;
 
-			mAutoCalc = true;
+			mAutoCalc = TTRUE;
 		}
 
 		~SimpleSpline(){};
 
         /** Adds a control point to the end of the spline. */
-        inline void addPoint(const Vector3<T>& p)
+        inline TVOID addPoint(const Vector3<T>& p)
 		{
 			mPoints.push_back(p);
 			if (mAutoCalc)
@@ -58,13 +58,13 @@ namespace TLunaEngine
 		}
 
         /** Gets the number of control points in the spline. */
-        inline TU16 getNumPoints(void) const
+        inline TU16 getNumPoints(TVOID) const
 		{
 			return (TU16)mPoints.size();
 		}
 
         /** Clears all the points in the spline. */
-        inline void clear(void)
+        inline TVOID clear(TVOID)
 		{
 			mPoints.clear();
 			mTangents.clear();
@@ -74,7 +74,7 @@ namespace TLunaEngine
         @remarks
             This point must already exist in the spline.
         */
-        inline void updatePoint(TU16 index, const Vector3<T>& value)
+        inline TVOID updatePoint(TU16 index, const Vector3<T>& value)
 		{
 			assert (index < mPoints.size() && "Point index is out of bounds!!");
 
@@ -181,22 +181,22 @@ namespace TLunaEngine
             Normally it does this every time a point changes. However, if you have a lot of points
             to add in one go, you probably don't want to incur this overhead and would prefer to 
             defer the calculation until you are finished setting all the points. You can do this
-            by calling this method with a parameter of 'false'. Just remember to manually call 
+            by calling this method with a parameter of 'TFALSE'. Just remember to manually call 
             the recalcTangents method when you are done.
-        @param autoCalc If true, tangents are calculated for you whenever a point changes. If false, 
+        @param autoCalc If TTRUE, tangents are calculated for you whenever a point changes. If TFALSE, 
             you must call reclacTangents to recalculate them when it best suits.
         */
-        inline void setAutoCalculate(bool autoCalc)
+        inline TVOID setAutoCalculate(TBOOL autoCalc)
 		{
 			mAutoCalc = autoCalc;
 		}
 
         /** Recalculates the tangents associated with this spline. 
         @remarks
-            If you tell the spline not to update on demand by calling setAutoCalculate(false)
+            If you tell the spline not to update on demand by calling setAutoCalculate(TFALSE)
             then you must call this after completing your updates to the spline points.
         */
-        inline void recalcTangents(void)
+        inline TVOID recalcTangents(TVOID)
 		{
 			// Catmull-Rom approach
 			// 
@@ -205,7 +205,7 @@ namespace TLunaEngine
 			// Assume endpoint tangents are parallel with line with neighbour
 
 			size_t i, numPoints;
-			bool isClosed;
+			TBOOL isClosed;
 
 			numPoints = mPoints.size();
 			if (numPoints < 2)
@@ -217,11 +217,11 @@ namespace TLunaEngine
 			// Closed or open?
 			if (mPoints[0] == mPoints[numPoints-1])
 			{
-				isClosed = true;
+				isClosed = TTRUE;
 			}
 			else
 			{
-				isClosed = false;
+				isClosed = TFALSE;
 			}
 
 			mTangents.resize(numPoints);
@@ -265,7 +265,7 @@ namespace TLunaEngine
 		}
 
     protected:
-        bool mAutoCalc;
+        TBOOL mAutoCalc;
 		std::vector<Vector3<T>> mPoints;
         std::vector<Vector3<T>> mTangents;
         /// Matrix of coefficients 

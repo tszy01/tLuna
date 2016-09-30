@@ -9,8 +9,8 @@ namespace TLunaEngine{
 	class GUIPicture : public GUICtrl
 	{
 	public:
-		GUIPicture(void);
-		virtual ~GUIPicture(void);
+		GUIPicture(TVOID);
+		virtual ~GUIPicture(TVOID);
 	protected:
 		int m_iTexID;	// 使用的纹理的ID
 		// ------------ 以下是纹理映射部分 -------
@@ -21,15 +21,15 @@ namespace TLunaEngine{
 	public:
 		// ------- 以下是重写父类方法 ------------
 		// 销毁
-		virtual void DestroyCtrl();
+		virtual TVOID DestroyCtrl();
 		// 更新
-		virtual bool Update(float fTimeElapsed);
+		virtual TBOOL Update(float fTimeElapsed);
 		// 渲染
-		virtual bool Render(float fTimeElapsed);
+		virtual TBOOL Render(float fTimeElapsed);
 	public:
 		// ------ 以下是本类方法 ----------------
 		// 初始化
-		bool InitGUIPicture(int iIndex,GUIContainer* pContainer,TS32 x,TS32 y,TS32 width,TS32 height,int iTexID,float texX,float texY,float texR,float texB);
+		TBOOL InitGUIPicture(int iIndex,GUIContainer* pContainer,TS32 x,TS32 y,TS32 width,TS32 height,int iTexID,float texX,float texY,float texR,float texB);
 	};
 
 }

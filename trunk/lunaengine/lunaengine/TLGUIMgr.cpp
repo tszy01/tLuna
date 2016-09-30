@@ -6,11 +6,11 @@
 namespace TLunaEngine{
 	GUIMgr* Singleton<GUIMgr>::m_Ptr = 0;
 
-	GUIMgr::GUIMgr(void) : m_pRootContainer(TNULL),m_pSceneListener(TNULL)
+	GUIMgr::GUIMgr(TVOID) : m_pRootContainer(TNULL),m_pSceneListener(TNULL)
 	{
 	}
 
-	GUIMgr::~GUIMgr(void)
+	GUIMgr::~GUIMgr(TVOID)
 	{
 		if (m_pRootContainer)
 		{
@@ -19,7 +19,7 @@ namespace TLunaEngine{
 		}
 	}
 
-	bool GUIMgr::LoadFromFile(const char *file)
+	TBOOL GUIMgr::LoadFromFile(const TCHAR* file)
 	{
 		FILE* stream = TNULL;
 		String strFile(file);
@@ -28,42 +28,42 @@ namespace TLunaEngine{
 			return TFALSE;
 		}
 		// 匹配第一行字符
-		bool bEqual = false;
-		char strCmp[16] = {0};
+		TBOOL bEqual = TFALSE;
+		TCHAR strCmp[16] = {0};
 		sprintf_s(strCmp,16,"TUI_CTRL_100");
-		char strResult[1024] = {0};
+		TCHAR strResult[1024] = {0};
 		int nCount = 1024;
 		if(!TxtFileReader::ReadLineString(strResult,stream,strCmp,&bEqual,nCount,TNULL))
 		{
 			TxtFileReader::CloseTxtFile(stream);
-			return false;
+			return TFALSE;
 		}
 		if(!bEqual)
 		{
 			TxtFileReader::CloseTxtFile(stream);
-			return false;
+			return TFALSE;
 		}
 		// 开始加载容器
 		if (m_pRootContainer)
 		{
-			Log::WriteLine(Log::LOG_LEVEL_ERROR,true,__FILE__,__LINE__,"Root Container is not null");
-			return false;
+			Log::WriteLine(Log::LOG_LEVEL_ERROR,TTRUE,__FILE__,__LINE__,"Root Container is not null");
+			return TFALSE;
 		}
 		if (!LoadContainer(stream,TNULL,&m_pRootContainer))
 		{
-			Log::WriteLine(Log::LOG_LEVEL_ERROR,true,__FILE__,__LINE__,"Load failed");
+			Log::WriteLine(Log::LOG_LEVEL_ERROR,TTRUE,__FILE__,__LINE__,"Load failed");
 			TxtFileReader::CloseTxtFile(stream);
-			return false;
+			return TFALSE;
 		}
 		TxtFileReader::CloseTxtFile(stream);
-		return true;
+		return TTRUE;
 	}
 
-	bool GUIMgr::LoadContainer(FILE* stream,GUIContainer* pParentContainer,GUIContainer** ppContainer)
+	TBOOL GUIMgr::LoadContainer(FILE* stream,GUIContainer* pParentContainer,GUIContainer** ppContainer)
 	{
 		if (!stream || !ppContainer)
 		{
-			return false;
+			return TFALSE;
 		}
 		// 准备变量
 		int containerID = -1;
@@ -72,20 +72,20 @@ namespace TLunaEngine{
 		int subContainerNum = 0;
 		int iAnimeType = 0;
 		// 临时变量
-		char strResult[1024] = {0};
+		TCHAR strResult[1024] = {0};
 		int nCount = 1024;
-		bool bEqual = false;
+		TBOOL bEqual = TFALSE;
 		// Container_Begin
 		TxtFileReader::ReadLineString(strResult,stream,"Container_Begin",&bEqual,1024,TNULL);
 		if (!bEqual)
 		{
-			return false;
+			return TFALSE;
 		}
 		// Id
 		TxtFileReader::ReadLineInteger(&containerID,stream,1,' ');
 		if (containerID < 0)
 		{
-			return false;
+			return TFALSE;
 		}
 		// Rect
 		TxtFileReader::ReadLineInteger(rc,stream,4,',');
@@ -102,7 +102,7 @@ namespace TLunaEngine{
 		}
 		if (!pNewContainer->InitContainer(containerID,pParentContainer,(TS32)rc[0],(TS32)rc[1],(TS32)rc[2],(TS32)rc[3],(TUByte)iAnimeType,this))
 		{
-			return false;
+			return TFALSE;
 		}
 		// SubCtrl
 		TxtFileReader::ReadLineInteger(&ctrlNum,stream,1,' ');
@@ -111,7 +111,7 @@ namespace TLunaEngine{
 			GUICtrl* pSubCtrl = TNULL;
 			if (!LoadCtrl(stream,pNewContainer,&pSubCtrl))
 			{
-				return false;
+				return TFALSE;
 			}
 		}
 		// SubContainer
@@ -121,24 +121,24 @@ namespace TLunaEngine{
 			GUIContainer* pSubContainer = TNULL;
 			if (!LoadContainer(stream,pNewContainer,&pSubContainer))
 			{
-				return false;
+				return TFALSE;
 			}
 		}
 		// 根据动画类型加载动画
 		if (!LoadAnime(stream,pNewContainer,(TUByte)iAnimeType))
 		{
-			return false;
+			return TFALSE;
 		}
 		// Container_End
 		TxtFileReader::ReadLineString(strResult,stream,"Container_End",&bEqual,1024,TNULL);
-		return true;
+		return TTRUE;
 	}
 
-	bool GUIMgr::LoadAnime(FILE* stream,GUIContainer* pNewContainer,TUByte yAnimeType)
+	TBOOL GUIMgr::LoadAnime(FILE* stream,GUIContainer* pNewContainer,TUByte yAnimeType)
 	{
 		if (!pNewContainer || !stream)
 		{
-			return false;
+			return TFALSE;
 		}
 		if (yAnimeType != 0)
 		{
@@ -153,7 +153,7 @@ namespace TLunaEngine{
 				TxtFileReader::ReadLineInteger(&nAnimeTimes,stream,1,' ');
 				if (!pNewContainer->InitFadeAnime((CONTAINER_FADE_TYPE)iFadeType,fChangedPerSec,nAnimeTimes))
 				{
-					return false;
+					return TFALSE;
 				}
 			}
 			if (yAnimeType & CAT_PIC_CHANGE)
@@ -167,7 +167,7 @@ namespace TLunaEngine{
 				TxtFileReader::ReadLineInteger(&nAnimeTimes,stream,1,' ');
 				if (!pNewContainer->InitPicChangeAnime(iStartIndex,iEndIndex,fChangedPerSec,nAnimeTimes))
 				{
-					return false;
+					return TFALSE;
 				}
 			}
 			if (yAnimeType & CAT_POS_CHANGE)
@@ -181,38 +181,38 @@ namespace TLunaEngine{
 				TxtFileReader::ReadLineInteger(&nAnimeTimes,stream,1,' ');
 				if (!pNewContainer->InitPosChangeAnime(iStartPos[0],iStartPos[1],iEndPos[0],iEndPos[1],fChangedPerSec,nAnimeTimes))
 				{
-					return false;
+					return TFALSE;
 				}
 			}
 		}
-		return true;
+		return TTRUE;
 	}
 
-	bool GUIMgr::LoadCtrl(FILE *stream, TLunaEngine::GUIContainer *pParentContainer, TLunaEngine::GUICtrl **ppCtrl)
+	TBOOL GUIMgr::LoadCtrl(FILE *stream, TLunaEngine::GUIContainer *pParentContainer, TLunaEngine::GUICtrl **ppCtrl)
 	{
 		if (!stream || !ppCtrl || !pParentContainer)
 		{
-			return false;
+			return TFALSE;
 		}
 		// 准备变量
 		int index = -1;
 		int rc[4] = {0};
 		int type = 0;
 		// 临时变量
-		char strResult[1024] = {0};
+		TCHAR strResult[1024] = {0};
 		int nCount = 1024;
-		bool bEqual = false;
+		TBOOL bEqual = TFALSE;
 		// Container_Begin
 		TxtFileReader::ReadLineString(strResult,stream,"Ctrl_Begin",&bEqual,1024,TNULL);
 		if (!bEqual)
 		{
-			return false;
+			return TFALSE;
 		}
 		// Id
 		TxtFileReader::ReadLineInteger(&index,stream,1,' ');
 		if (index < 0)
 		{
-			return false;
+			return TFALSE;
 		}
 		// Rect
 		TxtFileReader::ReadLineInteger(rc,stream,4,',');
@@ -233,7 +233,7 @@ namespace TLunaEngine{
 			if (!pPicture->InitGUIPicture(index,pParentContainer,(TS32)rc[0],
 				(TS32)rc[1],(TS32)rc[2],(TS32)rc[3],texID,texRC[0],texRC[1],texRC[2],texRC[3]))
 			{
-				return false;
+				return TFALSE;
 			}
 		}
 		else if(type == GUI_CTRL_TEXT)
@@ -250,16 +250,16 @@ namespace TLunaEngine{
 			if (!pText->InitGUIText(index,pParentContainer,(TS32)rc[0],(TS32)rc[1],(TS32)rc[2],
 				(TS32)rc[3],fontID,TLunaEngine::Vector4<float>(fontColor[0],fontColor[1],fontColor[2],fontColor[3])))
 			{
-				return false;
+				return TFALSE;
 			}
 		}
 		else
 		{
-			return false;
+			return TFALSE;
 		}
 		// Ctrl_End
 		TxtFileReader::ReadLineString(strResult,stream,"Ctrl_End",&bEqual,1024,TNULL);
-		return true;
+		return TTRUE;
 	}
 
 }

@@ -37,12 +37,12 @@ namespace TLunaEngine
 		Degree operator / ( TF32 f ) const { return Degree ( mDeg / f ); }
 		Degree& operator /= ( TF32 f ) { mDeg /= f; return *this; }
 
-		bool operator <  ( const Degree& d ) const { return mDeg <  d.mDeg; }
-		bool operator <= ( const Degree& d ) const { return mDeg <= d.mDeg; }
-		bool operator == ( const Degree& d ) const { return mDeg == d.mDeg; }
-		bool operator != ( const Degree& d ) const { return mDeg != d.mDeg; }
-		bool operator >= ( const Degree& d ) const { return mDeg >= d.mDeg; }
-		bool operator >  ( const Degree& d ) const { return mDeg >  d.mDeg; }
+		TBOOL operator <  ( const Degree& d ) const { return mDeg <  d.mDeg; }
+		TBOOL operator <= ( const Degree& d ) const { return mDeg <= d.mDeg; }
+		TBOOL operator == ( const Degree& d ) const { return mDeg == d.mDeg; }
+		TBOOL operator != ( const Degree& d ) const { return mDeg != d.mDeg; }
+		TBOOL operator >= ( const Degree& d ) const { return mDeg >= d.mDeg; }
+		TBOOL operator >  ( const Degree& d ) const { return mDeg >  d.mDeg; }
 	};
 }
 

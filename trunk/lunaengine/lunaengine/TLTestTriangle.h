@@ -42,8 +42,8 @@ namespace TLunaEngine{
 	class TestTriangle
 	{
 	public:
-		TestTriangle(void);
-		~TestTriangle(void);
+		TestTriangle(TVOID);
+		~TestTriangle(TVOID);
 	private:
 		RenderDeviceUsedBuffer* mVB;
 		RenderDeviceUsedBuffer* mRB;
@@ -63,7 +63,7 @@ namespace TLunaEngine{
 		// 初始化
 		TBOOL InitTriangle();
 		// 绘画
-		void OnRender();
+		TVOID OnRender();
 	public:
 		float ta;
 	};

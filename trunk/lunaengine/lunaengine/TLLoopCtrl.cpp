@@ -2,7 +2,7 @@
 #include "TLTimer.h"
 
 namespace TLunaEngine{
-	LoopCtrl::LoopCtrl(void) : 
+	LoopCtrl::LoopCtrl(TVOID) : 
 	m_curTime(0),
 	m_lastTime(0),
 	m_lastUpdate(0),
@@ -13,8 +13,8 @@ namespace TLunaEngine{
 	m_bStop(TTRUE),
 	m_fSecsPerFrame(0.01f),
 	m_controlTime(0),
-	m_bRender(true),
-	m_bTimeControl(false),
+	m_bRender(TTRUE),
+	m_bTimeControl(TFALSE),
 	mTimer(0),
 	mCalcPeriod(1000)
 	{
@@ -22,7 +22,7 @@ namespace TLunaEngine{
 		sprintf(m_szFPS,"fps:0123456789\0");
 	}
 
-	LoopCtrl::~LoopCtrl(void)
+	LoopCtrl::~LoopCtrl(TVOID)
 	{
 		if(mTimer)
 		{
@@ -31,13 +31,13 @@ namespace TLunaEngine{
 		}
 	}
 
-	bool LoopCtrl::Init()
+	TBOOL LoopCtrl::Init()
 	{
 		mTimer = new Timer();
-		return true;
+		return TTRUE;
 	}
 
-	void LoopCtrl::StartTime()
+	TVOID LoopCtrl::StartTime()
 	{
 		if ( !m_bStop )
 		{
@@ -46,7 +46,7 @@ namespace TLunaEngine{
 		m_lastTime = mTimer->getMilliseconds();
 		m_bStop = TFALSE;
 	}
-	void LoopCtrl::StopTime()
+	TVOID LoopCtrl::StopTime()
 	{
 		if ( m_bStop )
 		{
@@ -57,7 +57,7 @@ namespace TLunaEngine{
 		m_bStop = TTRUE;
 
 	}
-	void LoopCtrl::UpdateTime()
+	TVOID LoopCtrl::UpdateTime()
 	{
 		if ( m_bStop )
 		{
@@ -76,36 +76,36 @@ namespace TLunaEngine{
 			{
 				m_timeElapsed = m_controlTime;
 				m_controlTime=0;
-				m_bRender=true;
+				m_bRender=TTRUE;
 			}
 			else
 			{
-				m_bRender=false;
+				m_bRender=TFALSE;
 			}
 		}
 		else
 		{
 			m_timeElapsed = m_curTime - m_lastTime;
 			m_runTime += m_timeElapsed;
-			m_bRender=true;
+			m_bRender=TTRUE;
 		}
 
 		m_lastTime = m_curTime;
 	}
 
-	bool LoopCtrl::TimeControl()
+	TBOOL LoopCtrl::TimeControl()
 	{
 		if((float)m_controlTime<m_fSecsPerFrame*1000.0f)
 		{
-			return true;
+			return TTRUE;
 		}
 		else
 		{
-			return false;
+			return TFALSE;
 		}
 	}
 
-	void LoopCtrl::CalFPS()
+	TVOID LoopCtrl::CalFPS()
 	{
 		// Update FPS
 		m_numFrames++;

@@ -1,6 +1,7 @@
 #ifndef _TLRENDERDEVICECOMPILEDSHADER_H_
 #define _TLRENDERDEVICECOMPILEDSHADER_H_
 
+#include "TLCommonTypeDef.h"
 namespace TLunaEngine
 {
 	// Shader
@@ -11,15 +12,15 @@ namespace TLunaEngine
 		virtual ~RenderDeviceCompiledShader(){};
 	public:
 		// get buffer pointer
-		virtual void* getBufferPointer() = 0; 
+		virtual TVOID* getBufferPointer() = 0; 
 		// get buffer size
 		virtual size_t getBufferSize() = 0;
 		// read from file
-		virtual bool readFromFile(const char* file) = 0;
+		virtual TBOOL readFromFile(const TCHAR* file) = 0;
 		// write to file
-		virtual bool writeToFile(const char* file) = 0;
+		virtual TBOOL writeToFile(const TCHAR* file) = 0;
 		// compile shader
-		virtual bool compileShader(const char* szFile, const char* szEntry, const char* szShaderType) = 0;
+		virtual TBOOL compileShader(const TCHAR* szFile, const TCHAR* szEntry, const TCHAR* szShaderType) = 0;
 	};
 }
 

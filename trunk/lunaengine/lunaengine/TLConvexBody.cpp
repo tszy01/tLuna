@@ -4,7 +4,7 @@
 namespace TLunaEngine
 {
 	template<typename T>
-	AABBox<T> ConvexBody<T>::getAABB( void ) const
+	AABBox<T> ConvexBody<T>::getAABB( TVOID ) const
 	{
 		AABBox<T> aab;
 

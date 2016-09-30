@@ -2,19 +2,19 @@
 
 namespace TLunaEngine{
 
-	LuaBase::LuaBase(void) : m_state(0)
+	LuaBase::LuaBase(TVOID) : m_state(0)
 	{
 	}
 
-	LuaBase::~LuaBase(void)
+	LuaBase::~LuaBase(TVOID)
 	{
 		CloseLuaBase();
 	}
 
-	bool LuaBase::InitLuaBase(const char *luaFile)
+	TBOOL LuaBase::InitLuaBase(const TCHAR* luaFile)
 	{
 		if(m_state)
-			return false;
+			return TFALSE;
 
 		m_state = lua_open();
 		lua_gc(m_state, LUA_GCSTOP, 0);  /* stop collector during initialization */
@@ -26,7 +26,7 @@ namespace TLunaEngine{
 		if (temp_int)
 		{
 			CloseLuaBase();
-			return false;
+			return TFALSE;
 		}
 		temp_int = lua_pcall(m_state,0,0,0);
 		
@@ -34,39 +34,39 @@ namespace TLunaEngine{
 		{
 			lua_gc(m_state, LUA_GCCOLLECT, 0);
 			CloseLuaBase();
-			return false;
+			return TFALSE;
 		}
 
-		return true;
+		return TTRUE;
 	}
 
-	void LuaBase::SetVariable(char *varName)
+	TVOID LuaBase::SetVariable(TCHAR* varName)
 	{
 		if(!m_state)
 			return ;
 		lua_setglobal(m_state,varName);
 	}
 
-	void LuaBase::GetVariable(char *varName)
+	TVOID LuaBase::GetVariable(TCHAR* varName)
 	{
 		if(!m_state)
 			return ;
 		lua_getglobal(m_state,varName);
 	}
 
-	bool LuaBase::CallFunction(int nargs, int nresults)
+	TBOOL LuaBase::CallFunction(int nargs, int nresults)
 	{
 		if(!m_state)
-			return false;
+			return TFALSE;
 		if (lua_pcall(m_state, nargs, nresults, 0) != 0)
 		{
 			lua_gc(m_state, LUA_GCCOLLECT, 0);
-			return false;
+			return TFALSE;
 		}
-		return true;
+		return TTRUE;
 	}
 
-	void LuaBase::CloseLuaBase()
+	TVOID LuaBase::CloseLuaBase()
 	{
 		if(m_state)
 		{
@@ -75,7 +75,7 @@ namespace TLunaEngine{
 		}
 	}
 
-	void LuaBase::Pop(int n)
+	TVOID LuaBase::Pop(int n)
 	{
 		if(!m_state)
 			return;

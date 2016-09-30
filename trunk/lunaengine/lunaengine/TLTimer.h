@@ -40,14 +40,14 @@ namespace TLunaEngine{
 				pValue A pointer to the value - the size should be calculated by the timer
 				based on the key
 			@return
-				On success, true is returned.
+				On success, TTRUE is returned.
 			@par
-				On failure, false is returned.
+				On failure, TFALSE is returned.
 		*/
-		bool setOption( const std::string& strKey, const void* pValue );
+		TBOOL setOption( const std::string& strKey, const TVOID* pValue );
 
 		/** Resets timer */
-		void reset();
+		TVOID reset();
 
 		/** Returns milliseconds since initialisation or last reset */
 		unsigned long getMilliseconds();

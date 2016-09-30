@@ -16,13 +16,13 @@ namespace TLunaEngine
 		}
 	}
 
-	bool RenderDeviceUsedDepthStencilState_D3D11::initWithD3DDepthStencilState(ID3D11DepthStencilState* d3dState)
+	TBOOL RenderDeviceUsedDepthStencilState_D3D11::initWithD3DDepthStencilState(ID3D11DepthStencilState* d3dState)
 	{
 		if(mD3DDepthStencilState)
-			return false;
+			return TFALSE;
 		if(!d3dState)
-			return false;
+			return TFALSE;
 		mD3DDepthStencilState = d3dState;
-		return true;
+		return TTRUE;
 	}
 }

@@ -7,11 +7,11 @@ namespace TLunaEngine{
 	{
 	public:
 
-		Lock(void)
+		Lock(TVOID)
 		{
 		}
 
-		~Lock(void)
+		~Lock(TVOID)
 		{
 			UnlockMutex();
 		}
@@ -19,10 +19,10 @@ namespace TLunaEngine{
 	private:
 		Mutex mMutex;
 	public:
-		bool LockMutex(const Mutex& mutex)
+		TBOOL LockMutex(const Mutex& mutex)
 		{
-			if(mMutex.IsNull()==false)
-				return false;
+			if(mMutex.IsNull()==TFALSE)
+				return TFALSE;
 			DWORD dwWaitResult = ::WaitForSingleObject( 
 				mutex.GetMutexHandle(),    // handle to mutex
 				INFINITE);  // no time-out interval
@@ -36,14 +36,14 @@ namespace TLunaEngine{
 					}
 					break;
 				default:
-					return false;
+					return TFALSE;
 			}
-			return true;
+			return TTRUE;
 		}
 
-		void UnlockMutex()
+		TVOID UnlockMutex()
 		{
-			if(mMutex.IsNull()==false)
+			if(mMutex.IsNull()==TFALSE)
 			{
 				::ReleaseMutex(mMutex.GetMutexHandle());
 				mMutex.SetNull();

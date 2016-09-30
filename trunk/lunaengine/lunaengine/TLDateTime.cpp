@@ -2,11 +2,11 @@
 
 namespace TLunaEngine{
 
-	DateTime::DateTime(void) : m_Year(0),m_Month(1),m_Day(1)
+	DateTime::DateTime(TVOID) : m_Year(0),m_Month(1),m_Day(1)
 	{
 	}
 
-	DateTime::~DateTime(void)
+	DateTime::~DateTime(TVOID)
 	{
 	}
 
@@ -18,7 +18,7 @@ namespace TLunaEngine{
 	{
 	}
 
-	void DateTime::AddDays(int nDays)
+	TVOID DateTime::AddDays(int nDays)
 	{
 		if(nDays==0)
 			return;
@@ -42,33 +42,33 @@ namespace TLunaEngine{
 		}
 	}
 
-	void DateTime::AddOneDay()
+	TVOID DateTime::AddOneDay()
 	{
 		int newDay = m_Day + 1;
-		bool bRun = m_Year % 4 == 0 && m_Year % 100 !=0 || m_Year % 400 ==0; //闰年可以被4或者400整除 但是不能被100整除
-		bool bAddMonth = false;
+		TBOOL bRun = m_Year % 4 == 0 && m_Year % 100 !=0 || m_Year % 400 ==0; //闰年可以被4或者400整除 但是不能被100整除
+		TBOOL bAddMonth = TFALSE;
 		if(m_Month==2)
 		{
 			if(bRun)
 			{
 				if(newDay>=30)
-					bAddMonth = true;
+					bAddMonth = TTRUE;
 			}
 			else
 			{
 				if(newDay>=29)
-					bAddMonth = true;
+					bAddMonth = TTRUE;
 			}
 		}
 		else if(m_Month==1 || m_Month==3 || m_Month==5 || m_Month==7 || m_Month==8 || m_Month==10 || m_Month==12)
 		{
 			if(newDay>=32)
-				bAddMonth = true;
+				bAddMonth = TTRUE;
 		}
 		else
 		{
 			if(newDay>=31)
-				bAddMonth = true;
+				bAddMonth = TTRUE;
 		}
 		if(bAddMonth)
 		{
@@ -89,13 +89,13 @@ namespace TLunaEngine{
 		}
 	}
 
-	void DateTime::SubOneDay()
+	TVOID DateTime::SubOneDay()
 	{
 		int newDay = m_Day - 1;
-		bool bRun = m_Year % 4 == 0 && m_Year % 100 !=0 || m_Year % 400 ==0; //闰年可以被4或者400整除 但是不能被100整除
-		bool bSubMonth = false;
+		TBOOL bRun = m_Year % 4 == 0 && m_Year % 100 !=0 || m_Year % 400 ==0; //闰年可以被4或者400整除 但是不能被100整除
+		TBOOL bSubMonth = TFALSE;
 		if(newDay<=0)
-			bSubMonth = true;
+			bSubMonth = TTRUE;
 		int newMonth = m_Month;
 		int newYear = m_Year;
 		if(bSubMonth)
@@ -178,15 +178,15 @@ namespace TLunaEngine{
 		return strRe;
 	}
 
-	bool DateTime::IsEqual(const DateTime& dateTime)
+	TBOOL DateTime::IsEqual(const DateTime& dateTime)
 	{
 		if(m_Year != dateTime.m_Year)
-			return false;
+			return TFALSE;
 		if(m_Month != dateTime.m_Month)
-			return false;
+			return TFALSE;
 		if(m_Day != dateTime.m_Day)
-			return false;
-		return true;
+			return TFALSE;
+		return TTRUE;
 	}
 
 }

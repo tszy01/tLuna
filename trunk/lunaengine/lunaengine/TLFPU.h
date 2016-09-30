@@ -161,7 +161,7 @@ namespace TLunaEngine{
 
 	// is nan
 	template <class T>
-	inline bool isNaN(const T& f)
+	inline TBOOL isNaN(const T& f)
 	{
 		// std::isnan() is C99, not supported by all compilers
 		// However NaN always fails this next test, no other number does.
@@ -169,49 +169,49 @@ namespace TLunaEngine{
 	}
 
 	//! returns if a equals b, taking possible rounding errors into account
-	inline bool equals( TF32 a,  TF32 b,  TF32 tolerance = ROUNDING_ERROR_32)
+	inline TBOOL equals( TF32 a,  TF32 b,  TF32 tolerance = ROUNDING_ERROR_32)
 	{
 		return (a + tolerance >= b) && (a - tolerance <= b);
 	}
 
 	//! returns if a equals b, taking possible rounding errors into account
-	inline bool equals( TF64 a,  TF64 b,  TF64 tolerance = ROUNDING_ERROR_64)
+	inline TBOOL equals( TF64 a,  TF64 b,  TF64 tolerance = ROUNDING_ERROR_64)
 	{
 		return (a + tolerance >= b) && (a - tolerance <= b);
 	}
 
 	//! returns if a equals b, taking possible rounding errors into account
-	inline bool equals( TS32 a,  TS32 b,  TS32 tolerance = 0)
+	inline TBOOL equals( TS32 a,  TS32 b,  TS32 tolerance = 0)
 	{
 		return (a + tolerance >= b) && (a - tolerance <= b);
 	}
 
 	//! returns if a equals b, taking possible rounding errors into account
-	inline bool equals( TU32 a,  TU32 b,  TU32 tolerance = 0)
+	inline TBOOL equals( TU32 a,  TU32 b,  TU32 tolerance = 0)
 	{
 		return (a + tolerance >= b) && (a - tolerance <= b);
 	}
 
 	//! returns if a equals zero, taking rounding errors into account
-	inline bool iszero( TF32 a,  TF32 tolerance = ROUNDING_ERROR_32)
+	inline TBOOL iszero( TF32 a,  TF32 tolerance = ROUNDING_ERROR_32)
 	{
 		return fabsf ( a ) <= tolerance;
 	}
 
 	//! returns if a equals zero, taking rounding errors into account
-	inline bool iszero( TF64 a,  TF64 tolerance = ROUNDING_ERROR_64)
+	inline TBOOL iszero( TF64 a,  TF64 tolerance = ROUNDING_ERROR_64)
 	{
 		return fabs ( a ) <= tolerance;
 	}
 
 	//! returns if a equals zero, taking rounding errors into account
-	inline bool iszero( TS32 a,  TS32 tolerance = 0)
+	inline TBOOL iszero( TS32 a,  TS32 tolerance = 0)
 	{
 		return ( a & 0x7ffffff ) <= tolerance;
 	}
 
 	//! returns if a equals zero, taking rounding errors into account
-	inline bool iszero( TU32 a,  TU32 tolerance = 0)
+	inline TBOOL iszero( TU32 a,  TU32 tolerance = 0)
 	{
 		return a <= tolerance;
 	}
@@ -302,44 +302,44 @@ namespace TLunaEngine{
 	}
 
 	template<typename T>
-	bool F32_LOWER_0(T f)
+	TBOOL F32_LOWER_0(T f)
 	{
 		return (F32_2_UINT32(f) >  F32_SIGN_BIT);
 	}
 
 	template<typename T>
-	bool F32_LOWER_EQUAL_0(T f)
+	TBOOL F32_LOWER_EQUAL_0(T f)
 	{
 		return (F32_2_INT32(f) <= F32_VALUE_0);
 	}
 
 	template<typename T>
-	bool F32_GREATER_0(T f)
+	TBOOL F32_GREATER_0(T f)
 	{
 		return (F32_2_INT32(f) >  F32_VALUE_0);
 	}
 
 	template<typename T>
-	bool F32_GREATER_EQUAL_0(T f)
+	TBOOL F32_GREATER_EQUAL_0(T f)
 	{
 		return (F32_2_UINT32(f) <= F32_SIGN_BIT);
 	}
 
 	template<typename T>
-	bool F32_EQUAL_1(T f)
+	TBOOL F32_EQUAL_1(T f)
 	{
 		return (F32_2_UINT32(f) == F32_VALUE_1);
 	}
 
 	template<typename T>
-	bool F32_EQUAL_0(T f)
+	TBOOL F32_EQUAL_0(T f)
 	{
 		return ( (F32_2_UINT32(f) & F32_EXPON_MANTISSA ) == F32_VALUE_0);
 	}
 
 	// only same sign
 	template<typename T>
-	bool F32_A_GREATER_B(T a,T b)
+	TBOOL F32_A_GREATER_B(T a,T b)
 	{
 		return (F32_2_INT32((a)) > F32_2_INT32((b)));
 	}
@@ -347,7 +347,7 @@ namespace TLunaEngine{
 	//! Integer-based comparison of a floating point value.
 	//! Don't use it blindly, it can be faster or slower than the FPU comparison, depends on the context.
 	template<typename T>
-	bool IS_NEGATIVE_FLOAT(T x)
+	TBOOL IS_NEGATIVE_FLOAT(T x)
 	{
 		return (IR(x)&0x80000000);
 	}
@@ -370,7 +370,7 @@ namespace TLunaEngine{
 	/*
 		if (condition) state |= m; else state &= ~m;
 	*/
-	inline  void setbit_cond ( TU32 &state, TS32 condition, TU32 mask )
+	inline  TVOID setbit_cond ( TU32 &state, TS32 condition, TU32 mask )
 	{
 		// 0, or any postive to mask
 		//TS32 conmask = -condition >> 31;
@@ -383,7 +383,7 @@ namespace TLunaEngine{
 		return floorf( x + 0.5f );
 	}
 
-	inline  void clearFPUException ()
+	inline  TVOID clearFPUException ()
 	{
 	#if defined(_MSC_VER) && !defined(_WIN64)
 		__asm fnclex;
@@ -601,7 +601,7 @@ namespace TLunaEngine{
         @note 0 and 1 are tread as power of two.
     */
     template<typename T>
-    inline bool isPO2(T n)
+    inline TBOOL isPO2(T n)
     {
         return (n & (n-1)) == 0;
     }
@@ -695,7 +695,7 @@ namespace TLunaEngine{
     /**
         * Write a n*8 bits integer value to memory in native endian.
         */
-    inline void intWrite(void *dest, const TS32 n, const TU32 value)
+    inline TVOID intWrite(TVOID *dest, const TS32 n, const TU32 value)
     {
         switch(n) {
             case 1:
@@ -723,7 +723,7 @@ namespace TLunaEngine{
     /**
         * Read a n*8 bits integer value to memory in native endian.
         */
-    inline TU32 intRead(const void *src, TS32 n) {
+    inline TU32 intRead(const TVOID *src, TS32 n) {
         switch(n) {
             case 1:
                 return ((const TUByte*)src)[0];

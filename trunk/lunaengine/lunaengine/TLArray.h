@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <malloc.h>
 #include <memory.h>
+#include "TLCommonTypeDef.h"
 
 namespace TLunaEngine{
 
@@ -11,8 +12,8 @@ namespace TLunaEngine{
 	class Array
 	{
 	public:
-		Array(void);
-		~Array(void);
+		Array(TVOID);
+		~Array(TVOID);
 	protected:
 		// ------------------- 成员 -------------------------
 
@@ -68,7 +69,7 @@ namespace TLunaEngine{
 		}
 
 		// 克隆
-		inline void Clone(Array<T>& other)
+		inline TVOID Clone(Array<T>& other)
 		{
 			if(m_pFront)
 			{
@@ -109,10 +110,10 @@ namespace TLunaEngine{
 		// 如果比原来多，复制所有内容
 		// nAlloc:新的空间有几个元素
 		// eleInit:初始化的值
-		inline bool ReAlloc(int nAlloc,T& eleInit)
+		inline TBOOL ReAlloc(int nAlloc,T& eleInit)
 		{
 			if(m_eleSize==0 || nAlloc<=0)
-				return false;
+				return TFALSE;
 			// 先分配
 			size_t destSize = m_eleSize*nAlloc;
 			T* pNewMem = (T*)malloc(destSize);
@@ -150,7 +151,7 @@ namespace TLunaEngine{
 			m_pFront = pNewMem;
 			m_nowSize = destSize;
 			m_nAlloc = nAlloc;
-			return true;
+			return TTRUE;
 		};
 
 		// 得到元素的方法
@@ -161,7 +162,7 @@ namespace TLunaEngine{
 		}
 
 		// 设置元素的方法
-		inline void SetElement(int iPos,T& ele)
+		inline TVOID SetElement(int iPos,T& ele)
 		{
 			if(iPos<0)
 				return;
@@ -233,7 +234,7 @@ namespace TLunaEngine{
 		}
 
 		// 清空数组
-		inline void Clear()
+		inline TVOID Clear()
 		{
 			if(m_pFront)
 			{
@@ -246,13 +247,13 @@ namespace TLunaEngine{
 		};
 
 		// 空间是否已经满
-		inline bool IsFull()
+		inline TBOOL IsFull()
 		{
 			return m_nUsed == m_nAlloc;
 		}
 
 		// 从末尾添加一个元素
-		inline void Push_Back(T& ele)
+		inline TVOID Push_Back(T& ele)
 		{
 			// 如果空间不够先开辟空间
 			if(IsFull())
@@ -267,7 +268,7 @@ namespace TLunaEngine{
 	};
 
 	template<typename T>
-	Array<T>::Array(void)
+	Array<T>::Array(TVOID)
 	{
 		m_eleSize = 0;
 		m_nowSize = 0;
@@ -277,7 +278,7 @@ namespace TLunaEngine{
 	}
 
 	template<typename T>
-	Array<T>::~Array(void)
+	Array<T>::~Array(TVOID)
 	{
 		if(m_pFront)
 		{

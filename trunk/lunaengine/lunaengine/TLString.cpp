@@ -20,32 +20,32 @@
 
 namespace TLunaEngine{
 
-	String::String(void) : m_nLength(0)
+	String::String(TVOID) : m_nLength(0)
 	{
 	}
 
-	String::~String(void)
+	String::~String(TVOID)
 	{
 		m_szPtr.setNull();
 		m_nLength=0;
 	}
 
-	String::String(const char *szContent)
+	String::String(const TCHAR* szContent)
 	{
 		m_szPtr.setNull();
 		m_nLength = 0;
 		if(szContent!=0)
 		{
 			int n=0;
-			const char *szTmp = szContent;
+			const TCHAR* szTmp = szContent;
 			while(*szTmp!='\0')
 			{
 				n++;
 				szTmp++;
 			}
 			szTmp=0;
-			m_szPtr = SharedPtr<char>(new char[n+1],TLunaEngine::SPFM_DELETE_T);
-			char* szMyContent = m_szPtr.getPointer();
+			m_szPtr = SharedPtr<TCHAR>(new TCHAR[n+1],TLunaEngine::SPFM_DELETE_T);
+			TCHAR* szMyContent = m_szPtr.getPointer();
 			memcpy(szMyContent,szContent,n);
 			szMyContent[n]='\0';
 			m_nLength = n;
@@ -53,22 +53,22 @@ namespace TLunaEngine{
 		}
 	}
 
-	String::String(const wchar_t *szContent)
+	String::String(const TWCHAR *szContent)
 	{
 		m_szPtr.setNull();
 		m_nLength = 0;
 		if(szContent!=0)
 		{
 			int n=0;
-			const wchar_t *szTmp = szContent;
+			const TWCHAR *szTmp = szContent;
 			while(*szTmp!=L'\0')
 			{
 				n++;
 				szTmp++;
 			}
 			szTmp=0;
-			m_szPtr = SharedPtr<char>(new char[n+1],TLunaEngine::SPFM_DELETE_T);
-			char* szMyContent = m_szPtr.getPointer();
+			m_szPtr = SharedPtr<TCHAR>(new TCHAR[n+1],TLunaEngine::SPFM_DELETE_T);
+			TCHAR* szMyContent = m_szPtr.getPointer();
 			wcstombs(szMyContent,szContent,n);
 			szMyContent[n]='\0';
 			m_nLength = n;
@@ -76,28 +76,28 @@ namespace TLunaEngine{
 		}
 	}
 
-	String::String(const char cContent)
+	String::String(const TCHAR cContent)
 	{
 		m_szPtr.setNull();
 		m_nLength = 0;
 		int n = 1;
-		m_szPtr = SharedPtr<char>(new char[n+1],TLunaEngine::SPFM_DELETE_T);
-		char* szMyContent = m_szPtr.getPointer();
-		char szTmp[2] = {0};
+		m_szPtr = SharedPtr<TCHAR>(new TCHAR[n+1],TLunaEngine::SPFM_DELETE_T);
+		TCHAR* szMyContent = m_szPtr.getPointer();
+		TCHAR szTmp[2] = {0};
 		szTmp[0] = cContent;
 		memcpy(szMyContent,szTmp,n);
 		szMyContent[n]='\0';
 		m_nLength = n;
 	}
 
-	String::String(const wchar_t cContent)
+	String::String(const TWCHAR cContent)
 	{
 		m_szPtr.setNull();
 		m_nLength = 0;
 		int n = 1;
-		m_szPtr = SharedPtr<char>(new char[n+1],TLunaEngine::SPFM_DELETE_T);
-		char* szMyContent = m_szPtr.getPointer();
-		wchar_t szTmp[2] = {0};
+		m_szPtr = SharedPtr<TCHAR>(new TCHAR[n+1],TLunaEngine::SPFM_DELETE_T);
+		TCHAR* szMyContent = m_szPtr.getPointer();
+		TWCHAR szTmp[2] = {0};
 		szTmp[0] = cContent;
 		wcstombs(szMyContent,szTmp,n);
 		szMyContent[n]='\0';
@@ -119,11 +119,11 @@ namespace TLunaEngine{
 	{
 		m_szPtr.setNull();
 		m_nLength = 0;
-		char szTmp[64] = {0};
+		TCHAR szTmp[64] = {0};
 		sprintf_s(szTmp,64,"%d",iRight);
 		int n = strlen(szTmp);
-		m_szPtr = SharedPtr<char>(new char[n+1],TLunaEngine::SPFM_DELETE_T);
-		char* szMyContent = m_szPtr.getPointer();
+		m_szPtr = SharedPtr<TCHAR>(new TCHAR[n+1],TLunaEngine::SPFM_DELETE_T);
+		TCHAR* szMyContent = m_szPtr.getPointer();
 		memcpy(szMyContent,szTmp,n);
 		szMyContent[n] = '\0';
 		m_nLength = n;
@@ -132,11 +132,11 @@ namespace TLunaEngine{
 	{
 		m_szPtr.setNull();
 		m_nLength = 0;
-		char szTmp[64] = {0};
+		TCHAR szTmp[64] = {0};
 		sprintf_s(szTmp,64,"%u",uiRight);
 		int n = strlen(szTmp);
-		m_szPtr = SharedPtr<char>(new char[n+1],TLunaEngine::SPFM_DELETE_T);
-		char* szMyContent = m_szPtr.getPointer();
+		m_szPtr = SharedPtr<TCHAR>(new TCHAR[n+1],TLunaEngine::SPFM_DELETE_T);
+		TCHAR* szMyContent = m_szPtr.getPointer();
 		memcpy(szMyContent,szTmp,n);
 		szMyContent[n] = '\0';
 		m_nLength = n;
@@ -145,11 +145,11 @@ namespace TLunaEngine{
 	{
 		m_szPtr.setNull();
 		m_nLength = 0;
-		char szTmp[64] = {0};
+		TCHAR szTmp[64] = {0};
 		sprintf_s(szTmp,64,"%f",fRight);
 		int n = strlen(szTmp);
-		m_szPtr = SharedPtr<char>(new char[n+1],TLunaEngine::SPFM_DELETE_T);
-		char* szMyContent = m_szPtr.getPointer();
+		m_szPtr = SharedPtr<TCHAR>(new TCHAR[n+1],TLunaEngine::SPFM_DELETE_T);
+		TCHAR* szMyContent = m_szPtr.getPointer();
 		memcpy(szMyContent,szTmp,n);
 		szMyContent[n] = '\0';
 		m_nLength = n;
@@ -158,27 +158,27 @@ namespace TLunaEngine{
 	{
 		m_szPtr.setNull();
 		m_nLength = 0;
-		char szTmp[64] = {0};
+		TCHAR szTmp[64] = {0};
 		sprintf_s(szTmp,64,"%f",dRight);
 		int n = strlen(szTmp);
-		m_szPtr = SharedPtr<char>(new char[n+1],TLunaEngine::SPFM_DELETE_T);
-		char* szMyContent = m_szPtr.getPointer();
+		m_szPtr = SharedPtr<TCHAR>(new TCHAR[n+1],TLunaEngine::SPFM_DELETE_T);
+		TCHAR* szMyContent = m_szPtr.getPointer();
 		memcpy(szMyContent,szTmp,n);
 		szMyContent[n] = '\0';
 		m_nLength = n;
 	}
-	String::String(const bool bRight)
+	String::String(const TBOOL bRight)
 	{
 		m_szPtr.setNull();
 		m_nLength = 0;
-		char szTmp[1] = {0};
+		TCHAR szTmp[1] = {0};
 		if(bRight)
 			szTmp[0] = '1';
 		else
 			szTmp[0] = '0';
 		int n = 1;
-		m_szPtr = SharedPtr<char>(new char[n+1],TLunaEngine::SPFM_DELETE_T);
-		char* szMyContent = m_szPtr.getPointer();
+		m_szPtr = SharedPtr<TCHAR>(new TCHAR[n+1],TLunaEngine::SPFM_DELETE_T);
+		TCHAR* szMyContent = m_szPtr.getPointer();
 		memcpy(szMyContent,szTmp,n);
 		szMyContent[n] = '\0';
 		m_nLength = n;
@@ -188,11 +188,11 @@ namespace TLunaEngine{
 	{
 		m_szPtr.setNull();
 		m_nLength = 0;
-		char szTmp[64] = {0};
+		TCHAR szTmp[64] = {0};
 		sprintf_s(szTmp,64,"%d",sRight);
 		int n = strlen(szTmp);
-		m_szPtr = SharedPtr<char>(new char[n+1],TLunaEngine::SPFM_DELETE_T);
-		char* szMyContent = m_szPtr.getPointer();
+		m_szPtr = SharedPtr<TCHAR>(new TCHAR[n+1],TLunaEngine::SPFM_DELETE_T);
+		TCHAR* szMyContent = m_szPtr.getPointer();
 		memcpy(szMyContent,szTmp,n);
 		szMyContent[n] = '\0';
 		m_nLength = n;
@@ -202,11 +202,11 @@ namespace TLunaEngine{
 	{
 		m_szPtr.setNull();
 		m_nLength = 0;
-		char szTmp[64] = {0};
+		TCHAR szTmp[64] = {0};
 		sprintf_s(szTmp,64,"%u",usRight);
 		int n = strlen(szTmp);
-		m_szPtr = SharedPtr<char>(new char[n+1],TLunaEngine::SPFM_DELETE_T);
-		char* szMyContent = m_szPtr.getPointer();
+		m_szPtr = SharedPtr<TCHAR>(new TCHAR[n+1],TLunaEngine::SPFM_DELETE_T);
+		TCHAR* szMyContent = m_szPtr.getPointer();
 		memcpy(szMyContent,szTmp,n);
 		szMyContent[n] = '\0';
 		m_nLength = n;
@@ -216,11 +216,11 @@ namespace TLunaEngine{
 	{
 		m_szPtr.setNull();
 		m_nLength = 0;
-		char szTmp[64] = {0};
+		TCHAR szTmp[64] = {0};
 		sprintf_s(szTmp,64,"%d",lRight);
 		int n = strlen(szTmp);
-		m_szPtr = SharedPtr<char>(new char[n+1],TLunaEngine::SPFM_DELETE_T);
-		char* szMyContent = m_szPtr.getPointer();
+		m_szPtr = SharedPtr<TCHAR>(new TCHAR[n+1],TLunaEngine::SPFM_DELETE_T);
+		TCHAR* szMyContent = m_szPtr.getPointer();
 		memcpy(szMyContent,szTmp,n);
 		szMyContent[n] = '\0';
 		m_nLength = n;
@@ -230,11 +230,11 @@ namespace TLunaEngine{
 	{
 		m_szPtr.setNull();
 		m_nLength = 0;
-		char szTmp[64] = {0};
+		TCHAR szTmp[64] = {0};
 		sprintf_s(szTmp,64,"%u",ulRight);
 		int n = strlen(szTmp);
-		m_szPtr = SharedPtr<char>(new char[n+1],TLunaEngine::SPFM_DELETE_T);
-		char* szMyContent = m_szPtr.getPointer();
+		m_szPtr = SharedPtr<TCHAR>(new TCHAR[n+1],TLunaEngine::SPFM_DELETE_T);
+		TCHAR* szMyContent = m_szPtr.getPointer();
 		memcpy(szMyContent,szTmp,n);
 		szMyContent[n] = '\0';
 		m_nLength = n;
@@ -254,7 +254,7 @@ namespace TLunaEngine{
 		return *this;
 	}
 
-	String& String::operator =(const char *szRight)
+	String& String::operator =(const TCHAR* szRight)
 	{
 		m_szPtr.setNull();
 		m_nLength = 0;
@@ -262,15 +262,15 @@ namespace TLunaEngine{
 		if(szRight!=0)
 		{
 			int n=0;
-			const char *szTmp = szRight;
+			const TCHAR* szTmp = szRight;
 			while(*szTmp!='\0')
 			{
 				n++;
 				szTmp++;
 			}
 			szTmp=0;
-			m_szPtr = SharedPtr<char>(new char[n+1],TLunaEngine::SPFM_DELETE_T);
-			char* szMyContent = m_szPtr.getPointer();
+			m_szPtr = SharedPtr<TCHAR>(new TCHAR[n+1],TLunaEngine::SPFM_DELETE_T);
+			TCHAR* szMyContent = m_szPtr.getPointer();
 			memcpy(szMyContent,szRight,n);
 			szMyContent[n]='\0';
 			m_nLength = n;
@@ -280,7 +280,7 @@ namespace TLunaEngine{
 		return *this;
 	}
 
-	String& String::operator =(const wchar_t *szRight)
+	String& String::operator =(const TWCHAR *szRight)
 	{
 		m_szPtr.setNull();
 		m_nLength = 0;
@@ -288,15 +288,15 @@ namespace TLunaEngine{
 		if(szRight!=0)
 		{
 			int n=0;
-			const wchar_t *szTmp = szRight;
+			const TWCHAR *szTmp = szRight;
 			while(*szTmp!=L'\0')
 			{
 				n++;
 				szTmp++;
 			}
 			szTmp=0;
-			m_szPtr = SharedPtr<char>(new char[n+1],TLunaEngine::SPFM_DELETE_T);
-			char* szMyContent = m_szPtr.getPointer();
+			m_szPtr = SharedPtr<TCHAR>(new TCHAR[n+1],TLunaEngine::SPFM_DELETE_T);
+			TCHAR* szMyContent = m_szPtr.getPointer();
 			wcstombs(szMyContent,szRight,n);
 			szMyContent[n]='\0';
 			m_nLength = n;
@@ -306,15 +306,15 @@ namespace TLunaEngine{
 		return *this;
 	}
 
-	String& String::operator =(const char cRight)
+	String& String::operator =(const TCHAR cRight)
 	{
 		m_szPtr.setNull();
 		m_nLength = 0;
 
 		int n = 1;
-		m_szPtr = SharedPtr<char>(new char[n+1],TLunaEngine::SPFM_DELETE_T);
-		char* szMyContent = m_szPtr.getPointer();
-		char szTmp[2] = {0};
+		m_szPtr = SharedPtr<TCHAR>(new TCHAR[n+1],TLunaEngine::SPFM_DELETE_T);
+		TCHAR* szMyContent = m_szPtr.getPointer();
+		TCHAR szTmp[2] = {0};
 		szTmp[0] = cRight;
 		memcpy(szMyContent,szTmp,n);
 		szMyContent[n]='\0';
@@ -327,11 +327,11 @@ namespace TLunaEngine{
 	{
 		m_szPtr.setNull();
 		m_nLength = 0;
-		char szTmp[64] = {0};
+		TCHAR szTmp[64] = {0};
 		sprintf_s(szTmp,64,"%d",iRight);
 		int n = strlen(szTmp);
-		m_szPtr = SharedPtr<char>(new char[n+1],TLunaEngine::SPFM_DELETE_T);
-		char* szMyContent = m_szPtr.getPointer();
+		m_szPtr = SharedPtr<TCHAR>(new TCHAR[n+1],TLunaEngine::SPFM_DELETE_T);
+		TCHAR* szMyContent = m_szPtr.getPointer();
 		memcpy(szMyContent,szTmp,n);
 		szMyContent[n] = '\0';
 		m_nLength = n;
@@ -341,11 +341,11 @@ namespace TLunaEngine{
 	{
 		m_szPtr.setNull();
 		m_nLength = 0;
-		char szTmp[64] = {0};
+		TCHAR szTmp[64] = {0};
 		sprintf_s(szTmp,64,"%u",uiRight);
 		int n = strlen(szTmp);
-		m_szPtr = SharedPtr<char>(new char[n+1],TLunaEngine::SPFM_DELETE_T);
-		char* szMyContent = m_szPtr.getPointer();
+		m_szPtr = SharedPtr<TCHAR>(new TCHAR[n+1],TLunaEngine::SPFM_DELETE_T);
+		TCHAR* szMyContent = m_szPtr.getPointer();
 		memcpy(szMyContent,szTmp,n);
 		szMyContent[n] = '\0';
 		m_nLength = n;
@@ -355,11 +355,11 @@ namespace TLunaEngine{
 	{
 		m_szPtr.setNull();
 		m_nLength = 0;
-		char szTmp[64] = {0};
+		TCHAR szTmp[64] = {0};
 		sprintf_s(szTmp,64,"%f",fRight);
 		int n = strlen(szTmp);
-		m_szPtr = SharedPtr<char>(new char[n+1],TLunaEngine::SPFM_DELETE_T);
-		char* szMyContent = m_szPtr.getPointer();
+		m_szPtr = SharedPtr<TCHAR>(new TCHAR[n+1],TLunaEngine::SPFM_DELETE_T);
+		TCHAR* szMyContent = m_szPtr.getPointer();
 		memcpy(szMyContent,szTmp,n);
 		szMyContent[n] = '\0';
 		m_nLength = n;
@@ -369,28 +369,28 @@ namespace TLunaEngine{
 	{
 		m_szPtr.setNull();
 		m_nLength = 0;
-		char szTmp[64] = {0};
+		TCHAR szTmp[64] = {0};
 		sprintf_s(szTmp,64,"%f",dRight);
 		int n = strlen(szTmp);
-		m_szPtr = SharedPtr<char>(new char[n+1],TLunaEngine::SPFM_DELETE_T);
-		char* szMyContent = m_szPtr.getPointer();
+		m_szPtr = SharedPtr<TCHAR>(new TCHAR[n+1],TLunaEngine::SPFM_DELETE_T);
+		TCHAR* szMyContent = m_szPtr.getPointer();
 		memcpy(szMyContent,szTmp,n);
 		szMyContent[n] = '\0';
 		m_nLength = n;
 		return *this;
 	}
-	String& String::operator =(const bool bRight)
+	String& String::operator =(const TBOOL bRight)
 	{
 		m_szPtr.setNull();
 		m_nLength = 0;
-		char szTmp[1] = {0};
+		TCHAR szTmp[1] = {0};
 		if(bRight)
 			szTmp[0] = '1';
 		else
 			szTmp[0] = '0';
 		int n = 1;
-		m_szPtr = SharedPtr<char>(new char[n+1],TLunaEngine::SPFM_DELETE_T);
-		char* szMyContent = m_szPtr.getPointer();
+		m_szPtr = SharedPtr<TCHAR>(new TCHAR[n+1],TLunaEngine::SPFM_DELETE_T);
+		TCHAR* szMyContent = m_szPtr.getPointer();
 		memcpy(szMyContent,szTmp,n);
 		szMyContent[n] = '\0';
 		m_nLength = n;
@@ -401,11 +401,11 @@ namespace TLunaEngine{
 	{
 		m_szPtr.setNull();
 		m_nLength = 0;
-		char szTmp[64] = {0};
+		TCHAR szTmp[64] = {0};
 		sprintf_s(szTmp,64,"%d",sRight);
 		int n = strlen(szTmp);
-		m_szPtr = SharedPtr<char>(new char[n+1],TLunaEngine::SPFM_DELETE_T);
-		char* szMyContent = m_szPtr.getPointer();
+		m_szPtr = SharedPtr<TCHAR>(new TCHAR[n+1],TLunaEngine::SPFM_DELETE_T);
+		TCHAR* szMyContent = m_szPtr.getPointer();
 		memcpy(szMyContent,szTmp,n);
 		szMyContent[n] = '\0';
 		m_nLength = n;
@@ -415,11 +415,11 @@ namespace TLunaEngine{
 	{
 		m_szPtr.setNull();
 		m_nLength = 0;
-		char szTmp[64] = {0};
+		TCHAR szTmp[64] = {0};
 		sprintf_s(szTmp,64,"%u",usRight);
 		int n = strlen(szTmp);
-		m_szPtr = SharedPtr<char>(new char[n+1],TLunaEngine::SPFM_DELETE_T);
-		char* szMyContent = m_szPtr.getPointer();
+		m_szPtr = SharedPtr<TCHAR>(new TCHAR[n+1],TLunaEngine::SPFM_DELETE_T);
+		TCHAR* szMyContent = m_szPtr.getPointer();
 		memcpy(szMyContent,szTmp,n);
 		szMyContent[n] = '\0';
 		m_nLength = n;
@@ -430,11 +430,11 @@ namespace TLunaEngine{
 	{
 		m_szPtr.setNull();
 		m_nLength = 0;
-		char szTmp[64] = {0};
+		TCHAR szTmp[64] = {0};
 		sprintf_s(szTmp,64,"%d",lRight);
 		int n = strlen(szTmp);
-		m_szPtr = SharedPtr<char>(new char[n+1],TLunaEngine::SPFM_DELETE_T);
-		char* szMyContent = m_szPtr.getPointer();
+		m_szPtr = SharedPtr<TCHAR>(new TCHAR[n+1],TLunaEngine::SPFM_DELETE_T);
+		TCHAR* szMyContent = m_szPtr.getPointer();
 		memcpy(szMyContent,szTmp,n);
 		szMyContent[n] = '\0';
 		m_nLength = n;
@@ -444,32 +444,32 @@ namespace TLunaEngine{
 	{
 		m_szPtr.setNull();
 		m_nLength = 0;
-		char szTmp[64] = {0};
+		TCHAR szTmp[64] = {0};
 		sprintf_s(szTmp,64,"%u",ulRight);
 		int n = strlen(szTmp);
-		m_szPtr = SharedPtr<char>(new char[n+1],TLunaEngine::SPFM_DELETE_T);
-		char* szMyContent = m_szPtr.getPointer();
+		m_szPtr = SharedPtr<TCHAR>(new TCHAR[n+1],TLunaEngine::SPFM_DELETE_T);
+		TCHAR* szMyContent = m_szPtr.getPointer();
 		memcpy(szMyContent,szTmp,n);
 		szMyContent[n] = '\0';
 		m_nLength = n;
 		return *this;
 	}
 
-	String String::operator +(const char *szRight)
+	String String::operator +(const TCHAR* szRight)
 	{
 		String result("");
 
-		if(szRight!=0 && m_szPtr.isNull()==false)
+		if(szRight!=0 && m_szPtr.isNull()==TFALSE)
 		{
 			int n=0;
-			const char *szTmp = szRight;
+			const TCHAR* szTmp = szRight;
 			while(*szTmp!='\0')
 			{
 				n++;
 				szTmp++;
 			}
 
-			char *sz = new char[n+m_nLength+1];
+			TCHAR* sz = new TCHAR[n+m_nLength+1];
 			szTmp=m_szPtr.getPointer();
 			for(int i=0;i<m_nLength;i++)
 			{
@@ -492,22 +492,22 @@ namespace TLunaEngine{
 		return result;
 	}
 
-	String String::operator +(const wchar_t *szRight)
+	String String::operator +(const TWCHAR *szRight)
 	{
 		String result("");
 
-		if(szRight!=0 && m_szPtr.isNull()==false)
+		if(szRight!=0 && m_szPtr.isNull()==TFALSE)
 		{
 			int n=0;
-			const wchar_t *szTmp = szRight;
+			const TWCHAR *szTmp = szRight;
 			while(*szTmp!=L'\0')
 			{
 				n++;
 				szTmp++;
 			}
 
-			wchar_t *sz = new wchar_t[n+m_nLength+1];
-			SharedPtr<wchar_t> pThis=GetWString();
+			TWCHAR *sz = new TWCHAR[n+m_nLength+1];
+			SharedPtr<TWCHAR> pThis=GetWString();
 			szTmp = pThis.getPointer();
 			for(int i=0;i<m_nLength;i++)
 			{
@@ -530,18 +530,18 @@ namespace TLunaEngine{
 		return result;
 	}
 
-	String String::operator +(const char cRight)
+	String String::operator +(const TCHAR cRight)
 	{
 		String result("");
 
-		if(m_szPtr.isNull()==false)
+		if(m_szPtr.isNull()==TFALSE)
 		{
 			int n=1;
-			char szTmp2[2] = {0};
+			TCHAR szTmp2[2] = {0};
 			szTmp2[0] = cRight;
 
-			char *sz = new char[n+m_nLength+1];
-			char *szTmp=m_szPtr.getPointer();
+			TCHAR* sz = new TCHAR[n+m_nLength+1];
+			TCHAR* szTmp=m_szPtr.getPointer();
 			for(int i=0;i<m_nLength;i++)
 			{
 				sz[i]=*szTmp;
@@ -563,19 +563,19 @@ namespace TLunaEngine{
 		return result;
 	}
 
-	String String::operator +(const wchar_t cRight)
+	String String::operator +(const TWCHAR cRight)
 	{
 		String result("");
 
-		if(m_szPtr.isNull()==false)
+		if(m_szPtr.isNull()==TFALSE)
 		{
 			int n=1;
-			wchar_t szTmp2[2] = {0};
+			TWCHAR szTmp2[2] = {0};
 			szTmp2[0] = cRight;
 
-			wchar_t *sz = new wchar_t[n+m_nLength+1];
-			SharedPtr<wchar_t> pThis=GetWString();
-			const wchar_t *szTmp = pThis.getPointer();
+			TWCHAR *sz = new TWCHAR[n+m_nLength+1];
+			SharedPtr<TWCHAR> pThis=GetWString();
+			const TWCHAR *szTmp = pThis.getPointer();
 			for(int i=0;i<m_nLength;i++)
 			{
 				sz[i]=*szTmp;
@@ -601,12 +601,12 @@ namespace TLunaEngine{
 	{
 		String result("");
 
-		if(m_szPtr.isNull()==false && strRight.m_szPtr.isNull()==false)
+		if(m_szPtr.isNull()==TFALSE && strRight.m_szPtr.isNull()==TFALSE)
 		{
 			int n = strRight.m_nLength;
 
-			char *sz = new char[n+m_nLength+1];
-			const char *szTmp=m_szPtr.getPointer();
+			TCHAR* sz = new TCHAR[n+m_nLength+1];
+			const TCHAR* szTmp=m_szPtr.getPointer();
 			for(int i=0;i<m_nLength;i++)
 			{
 				sz[i]=*szTmp;
@@ -632,15 +632,15 @@ namespace TLunaEngine{
 	{
 		String result("");
 
-		if(m_szPtr.isNull()==false)
+		if(m_szPtr.isNull()==TFALSE)
 		{
 			//int n = strRight.m_nLength;
-			char szTmp2[64] = {0};
+			TCHAR szTmp2[64] = {0};
 			sprintf_s(szTmp2,64,"%d",iRight);
 			int n = strlen(szTmp2);
 
-			char *sz = new char[n+m_nLength+1];
-			const char *szTmp=m_szPtr.getPointer();
+			TCHAR* sz = new TCHAR[n+m_nLength+1];
+			const TCHAR* szTmp=m_szPtr.getPointer();
 			for(int i=0;i<m_nLength;i++)
 			{
 				sz[i]=*szTmp;
@@ -665,15 +665,15 @@ namespace TLunaEngine{
 	{
 		String result("");
 
-		if(m_szPtr.isNull()==false)
+		if(m_szPtr.isNull()==TFALSE)
 		{
 			//int n = strRight.m_nLength;
-			char szTmp2[64] = {0};
+			TCHAR szTmp2[64] = {0};
 			sprintf_s(szTmp2,64,"%u",uiRight);
 			int n = strlen(szTmp2);
 
-			char *sz = new char[n+m_nLength+1];
-			const char *szTmp=m_szPtr.getPointer();
+			TCHAR* sz = new TCHAR[n+m_nLength+1];
+			const TCHAR* szTmp=m_szPtr.getPointer();
 			for(int i=0;i<m_nLength;i++)
 			{
 				sz[i]=*szTmp;
@@ -698,15 +698,15 @@ namespace TLunaEngine{
 	{
 		String result("");
 
-		if(m_szPtr.isNull()==false)
+		if(m_szPtr.isNull()==TFALSE)
 		{
 			//int n = strRight.m_nLength;
-			char szTmp2[64] = {0};
+			TCHAR szTmp2[64] = {0};
 			sprintf_s(szTmp2,64,"%f",fRight);
 			int n = strlen(szTmp2);
 
-			char *sz = new char[n+m_nLength+1];
-			const char *szTmp=m_szPtr.getPointer();
+			TCHAR* sz = new TCHAR[n+m_nLength+1];
+			const TCHAR* szTmp=m_szPtr.getPointer();
 			for(int i=0;i<m_nLength;i++)
 			{
 				sz[i]=*szTmp;
@@ -731,15 +731,15 @@ namespace TLunaEngine{
 	{
 		String result("");
 
-		if(m_szPtr.isNull()==false)
+		if(m_szPtr.isNull()==TFALSE)
 		{
 			//int n = strRight.m_nLength;
-			char szTmp2[64] = {0};
+			TCHAR szTmp2[64] = {0};
 			sprintf_s(szTmp2,64,"%f",dRight);
 			int n = strlen(szTmp2);
 
-			char *sz = new char[n+m_nLength+1];
-			const char *szTmp=m_szPtr.getPointer();
+			TCHAR* sz = new TCHAR[n+m_nLength+1];
+			const TCHAR* szTmp=m_szPtr.getPointer();
 			for(int i=0;i<m_nLength;i++)
 			{
 				sz[i]=*szTmp;
@@ -760,22 +760,22 @@ namespace TLunaEngine{
 
 		return result;
 	}
-	String String::operator +(const bool bRight)
+	String String::operator +(const TBOOL bRight)
 	{
 		String result("");
 
-		if(m_szPtr.isNull()==false)
+		if(m_szPtr.isNull()==TFALSE)
 		{
 			//int n = strRight.m_nLength;
-			char szTmp2[1] = {0};
+			TCHAR szTmp2[1] = {0};
 			if(bRight)
 				szTmp2[0] = '1';
 			else
 				szTmp2[0] = '0';
 			int n = 1;
 
-			char *sz = new char[n+m_nLength+1];
-			const char *szTmp=m_szPtr.getPointer();
+			TCHAR* sz = new TCHAR[n+m_nLength+1];
+			const TCHAR* szTmp=m_szPtr.getPointer();
 			for(int i=0;i<m_nLength;i++)
 			{
 				sz[i]=*szTmp;
@@ -801,15 +801,15 @@ namespace TLunaEngine{
 	{
 		String result("");
 
-		if(m_szPtr.isNull()==false)
+		if(m_szPtr.isNull()==TFALSE)
 		{
 			//int n = strRight.m_nLength;
-			char szTmp2[64] = {0};
+			TCHAR szTmp2[64] = {0};
 			sprintf_s(szTmp2,64,"%d",sRight);
 			int n = strlen(szTmp2);
 
-			char *sz = new char[n+m_nLength+1];
-			const char *szTmp=m_szPtr.getPointer();
+			TCHAR* sz = new TCHAR[n+m_nLength+1];
+			const TCHAR* szTmp=m_szPtr.getPointer();
 			for(int i=0;i<m_nLength;i++)
 			{
 				sz[i]=*szTmp;
@@ -834,15 +834,15 @@ namespace TLunaEngine{
 	{
 		String result("");
 
-		if(m_szPtr.isNull()==false)
+		if(m_szPtr.isNull()==TFALSE)
 		{
 			//int n = strRight.m_nLength;
-			char szTmp2[64] = {0};
+			TCHAR szTmp2[64] = {0};
 			sprintf_s(szTmp2,64,"%u",usRight);
 			int n = strlen(szTmp2);
 
-			char *sz = new char[n+m_nLength+1];
-			const char *szTmp=m_szPtr.getPointer();
+			TCHAR* sz = new TCHAR[n+m_nLength+1];
+			const TCHAR* szTmp=m_szPtr.getPointer();
 			for(int i=0;i<m_nLength;i++)
 			{
 				sz[i]=*szTmp;
@@ -868,15 +868,15 @@ namespace TLunaEngine{
 	{
 		String result("");
 
-		if(m_szPtr.isNull()==false)
+		if(m_szPtr.isNull()==TFALSE)
 		{
 			//int n = strRight.m_nLength;
-			char szTmp2[64] = {0};
+			TCHAR szTmp2[64] = {0};
 			sprintf_s(szTmp2,64,"%d",lRight);
 			int n = strlen(szTmp2);
 
-			char *sz = new char[n+m_nLength+1];
-			const char *szTmp=m_szPtr.getPointer();
+			TCHAR* sz = new TCHAR[n+m_nLength+1];
+			const TCHAR* szTmp=m_szPtr.getPointer();
 			for(int i=0;i<m_nLength;i++)
 			{
 				sz[i]=*szTmp;
@@ -901,15 +901,15 @@ namespace TLunaEngine{
 	{
 		String result("");
 
-		if(m_szPtr.isNull()==false)
+		if(m_szPtr.isNull()==TFALSE)
 		{
 			//int n = strRight.m_nLength;
-			char szTmp2[64] = {0};
+			TCHAR szTmp2[64] = {0};
 			sprintf_s(szTmp2,64,"%u",ulRight);
 			int n = strlen(szTmp2);
 
-			char *sz = new char[n+m_nLength+1];
-			const char *szTmp=m_szPtr.getPointer();
+			TCHAR* sz = new TCHAR[n+m_nLength+1];
+			const TCHAR* szTmp=m_szPtr.getPointer();
 			for(int i=0;i<m_nLength;i++)
 			{
 				sz[i]=*szTmp;
@@ -931,7 +931,7 @@ namespace TLunaEngine{
 		return result;
 	}
 
-	String& String::operator +=(const char *szRight)
+	String& String::operator +=(const TCHAR* szRight)
 	{
 		if(m_szPtr.isNull() || !szRight) 
 			return *this;
@@ -940,7 +940,7 @@ namespace TLunaEngine{
 		return *this;
 	}
 
-	String& String::operator +=(const wchar_t *szRight)
+	String& String::operator +=(const TWCHAR *szRight)
 	{
 		if(m_szPtr.isNull() || !szRight) 
 			return *this;
@@ -949,7 +949,7 @@ namespace TLunaEngine{
 		return *this;
 	}
 
-	String& String::operator +=(const char cRight)
+	String& String::operator +=(const TCHAR cRight)
 	{
 		if(m_szPtr.isNull()) 
 			return *this;
@@ -958,7 +958,7 @@ namespace TLunaEngine{
 		return *this;
 	}
 
-	String& String::operator +=(const wchar_t cRight)
+	String& String::operator +=(const TWCHAR cRight)
 	{
 		if(m_szPtr.isNull()) 
 			return *this;
@@ -1008,7 +1008,7 @@ namespace TLunaEngine{
 		*this = *this + dRight;
 		return *this;
 	}
-	String& String::operator +=(const bool bRight)
+	String& String::operator +=(const TBOOL bRight)
 	{
 		if(m_szPtr.isNull()) 
 			return *this;
@@ -1051,98 +1051,98 @@ namespace TLunaEngine{
 		return *this;
 	}
 
-	bool String::operator ==(const String &strRight) const
+	TBOOL String::operator ==(const String &strRight) const
 	{
-		if(m_szPtr.isNull() || strRight.m_szPtr.isNull()) return false;
-		if(m_nLength != strRight.m_nLength) return false;
+		if(m_szPtr.isNull() || strRight.m_szPtr.isNull()) return TFALSE;
+		if(m_nLength != strRight.m_nLength) return TFALSE;
 
-		const char *szTmp = strRight.m_szPtr.getPointer();
-		const char *szThis = m_szPtr.getPointer();
+		const TCHAR* szTmp = strRight.m_szPtr.getPointer();
+		const TCHAR* szThis = m_szPtr.getPointer();
 		for(int i=0;i<m_nLength;i++)
 		{
 			if(*szTmp!=szThis[i])
-				return false;
+				return TFALSE;
 			szTmp++;
 		}
 
-		return true;
+		return TTRUE;
 	}
 
-	bool String::operator ==(const char *szRight) const
+	TBOOL String::operator ==(const TCHAR* szRight) const
 	{
-		if(m_szPtr.isNull() || !szRight) return false;
+		if(m_szPtr.isNull() || !szRight) return TFALSE;
 
-		const char *szTmp = szRight;
-		const char *szThis = m_szPtr.getPointer();
+		const TCHAR* szTmp = szRight;
+		const TCHAR* szThis = m_szPtr.getPointer();
 		int n = 0;
 		while(*szTmp!='\0')
 		{
 			n++;
 			szTmp++;
 		}
-		if(m_nLength != n) return false;
+		if(m_nLength != n) return TFALSE;
 
 		szTmp = szRight;
 		for(int i=0;i<m_nLength;i++)
 		{
 			if(*szTmp!=szThis[i])
-				return false;
+				return TFALSE;
 			szTmp++;
 		}
 
-		return true;
+		return TTRUE;
 	}
 
-	bool String::operator ==(const wchar_t *szRight) const
+	TBOOL String::operator ==(const TWCHAR *szRight) const
 	{
-		if(m_szPtr.isNull() || !szRight) return false;
+		if(m_szPtr.isNull() || !szRight) return TFALSE;
 
-		const wchar_t *szTmp = szRight;
-		SharedPtr<wchar_t> pThis=GetWString();
-		const wchar_t *szThis = pThis.getPointer();
+		const TWCHAR *szTmp = szRight;
+		SharedPtr<TWCHAR> pThis=GetWString();
+		const TWCHAR *szThis = pThis.getPointer();
 		int n = 0;
 		while(*szTmp!=L'\0')
 		{
 			n++;
 			szTmp++;
 		}
-		if(m_nLength != n) return false;
+		if(m_nLength != n) return TFALSE;
 
 		szTmp = szRight;
 		for(int i=0;i<m_nLength;i++)
 		{
 			if(*szTmp!=szThis[i])
-				return false;
+				return TFALSE;
 			szTmp++;
 		}
 
-		return true;
+		return TTRUE;
 	}
 
-	bool String::operator !=(const char *szRight) const
+	TBOOL String::operator !=(const TCHAR* szRight) const
 	{
-		if(m_szPtr.isNull() || !szRight) return false;
+		if(m_szPtr.isNull() || !szRight) return TFALSE;
 		return !(*this==szRight);
 	}
 
-	bool String::operator !=(const wchar_t *szRight) const
+	TBOOL String::operator !=(const TWCHAR *szRight) const
 	{
-		if(m_szPtr.isNull() || !szRight) return false;
+		if(m_szPtr.isNull() || !szRight) return TFALSE;
 		return !(*this==szRight);
 	}
 
-	bool String::operator !=(const String &strRight) const
+	TBOOL String::operator !=(const String &strRight) const
 	{
-		if(m_szPtr.isNull() || strRight.m_szPtr.isNull()) return false;
+		if(m_szPtr.isNull() || strRight.m_szPtr.isNull()) return TFALSE;
 		return !(*this==strRight);
 	}
 
-	bool String::operator >=(const char *szRight) const 
+	TBOOL String::operator >=(const TCHAR* szRight) const 
 	{
-		if(m_szPtr.isNull() || !szRight) return false;
+		if(m_szPtr.isNull() || !szRight) return TFALSE;
 
-		const char *szTmp = szRight;
-		const char *szThis = m_szPtr.getPointer();
+		const TCHAR* szTmp = szRight;
+		const TCHAR* szThis = m_szPtr.getPointer();
 		int n = 0;
 		while(*szTmp!='\0')
 		{
@@ -1156,10 +1156,10 @@ namespace TLunaEngine{
 			for(int i=0;i<m_nLength;i++)
 			{
 				if(szThis[i]>=*szTmp)
-					return true;
+					return TTRUE;
 				szTmp++;
 			}
-			return false;
+			return TFALSE;
 		}
 		else
 		{
@@ -1167,20 +1167,20 @@ namespace TLunaEngine{
 			for(int i=0;i<n;i++)
 			{
 				if(szThis[i]<*szTmp)
-					return false;
+					return TFALSE;
 				szTmp++;
 			}
-			return true;
+			return TTRUE;
 		}
 	}
 
-	bool String::operator >=(const wchar_t *szRight) const 
+	TBOOL String::operator >=(const TWCHAR *szRight) const 
 	{
-		if(m_szPtr.isNull() || !szRight) return false;
+		if(m_szPtr.isNull() || !szRight) return TFALSE;
 
-		const wchar_t *szTmp = szRight;
-		SharedPtr<wchar_t> pThis=GetWString();
-		const wchar_t *szThis = pThis.getPointer();
+		const TWCHAR *szTmp = szRight;
+		SharedPtr<TWCHAR> pThis=GetWString();
+		const TWCHAR *szThis = pThis.getPointer();
 		int n = 0;
 		while(*szTmp!=L'\0')
 		{
@@ -1194,10 +1194,10 @@ namespace TLunaEngine{
 			for(int i=0;i<m_nLength;i++)
 			{
 				if(szThis[i]>=*szTmp)
-					return true;
+					return TTRUE;
 				szTmp++;
 			}
-			return false;
+			return TFALSE;
 		}
 		else
 		{
@@ -1205,19 +1205,19 @@ namespace TLunaEngine{
 			for(int i=0;i<n;i++)
 			{
 				if(szThis[i]<*szTmp)
-					return false;
+					return TFALSE;
 				szTmp++;
 			}
-			return true;
+			return TTRUE;
 		}
 	}
 
-	bool String::operator >(const char *szRight) const
+	TBOOL String::operator >(const TCHAR* szRight) const
 	{
-		if(m_szPtr.isNull() || !szRight) return false;
+		if(m_szPtr.isNull() || !szRight) return TFALSE;
 
-		const char *szTmp = szRight;
-		const char *szThis = m_szPtr.getPointer();
+		const TCHAR* szTmp = szRight;
+		const TCHAR* szThis = m_szPtr.getPointer();
 		int n = 0;
 		while(*szTmp!='\0')
 		{
@@ -1231,10 +1231,10 @@ namespace TLunaEngine{
 			for(int i=0;i<m_nLength;i++)
 			{
 				if(szThis[i]>*szTmp)
-					return true;
+					return TTRUE;
 				szTmp++;
 			}
-			return false;
+			return TFALSE;
 		}
 		else
 		{
@@ -1242,20 +1242,20 @@ namespace TLunaEngine{
 			for(int i=0;i<n;i++)
 			{
 				if(szThis[i]<=*szTmp)
-					return false;
+					return TFALSE;
 				szTmp++;
 			}
-			return true;
+			return TTRUE;
 		}
 	}
 
-	bool String::operator >(const wchar_t *szRight) const
+	TBOOL String::operator >(const TWCHAR *szRight) const
 	{
-		if(m_szPtr.isNull() || !szRight) return false;
+		if(m_szPtr.isNull() || !szRight) return TFALSE;
 
-		const wchar_t *szTmp = szRight;
-		SharedPtr<wchar_t> pThis=GetWString();
-		const wchar_t *szThis = pThis.getPointer();
+		const TWCHAR *szTmp = szRight;
+		SharedPtr<TWCHAR> pThis=GetWString();
+		const TWCHAR *szThis = pThis.getPointer();
 		int n = 0;
 		while(*szTmp!=L'\0')
 		{
@@ -1269,10 +1269,10 @@ namespace TLunaEngine{
 			for(int i=0;i<m_nLength;i++)
 			{
 				if(szThis[i]>*szTmp)
-					return true;
+					return TTRUE;
 				szTmp++;
 			}
-			return false;
+			return TFALSE;
 		}
 		else
 		{
@@ -1280,19 +1280,19 @@ namespace TLunaEngine{
 			for(int i=0;i<n;i++)
 			{
 				if(szThis[i]<=*szTmp)
-					return false;
+					return TFALSE;
 				szTmp++;
 			}
-			return true;
+			return TTRUE;
 		}
 	}
 
-	bool String::operator <=(const char *szRight) const
+	TBOOL String::operator <=(const TCHAR* szRight) const
 	{
-		if(m_szPtr.isNull() || !szRight) return false;
+		if(m_szPtr.isNull() || !szRight) return TFALSE;
 
-		const char *szTmp = szRight;
-		const char *szThis = m_szPtr.getPointer();
+		const TCHAR* szTmp = szRight;
+		const TCHAR* szThis = m_szPtr.getPointer();
 		int n = 0;
 		while(*szTmp!='\0')
 		{
@@ -1306,10 +1306,10 @@ namespace TLunaEngine{
 			for(int i=0;i<m_nLength;i++)
 			{
 				if(szThis[i]<=*szTmp)
-					return true;
+					return TTRUE;
 				szTmp++;
 			}
-			return false;
+			return TFALSE;
 		}
 		else
 		{
@@ -1317,20 +1317,20 @@ namespace TLunaEngine{
 			for(int i=0;i<n;i++)
 			{
 				if(szThis[i]>*szTmp)
-					return false;
+					return TFALSE;
 				szTmp++;
 			}
-			return true;
+			return TTRUE;
 		}
 	}
 
-	bool String::operator <=(const wchar_t *szRight) const
+	TBOOL String::operator <=(const TWCHAR *szRight) const
 	{
-		if(m_szPtr.isNull() || !szRight) return false;
+		if(m_szPtr.isNull() || !szRight) return TFALSE;
 
-		const wchar_t *szTmp = szRight;
-		SharedPtr<wchar_t> pThis=GetWString();
-		const wchar_t *szThis = pThis.getPointer();
+		const TWCHAR *szTmp = szRight;
+		SharedPtr<TWCHAR> pThis=GetWString();
+		const TWCHAR *szThis = pThis.getPointer();
 		int n = 0;
 		while(*szTmp!=L'\0')
 		{
@@ -1344,10 +1344,10 @@ namespace TLunaEngine{
 			for(int i=0;i<m_nLength;i++)
 			{
 				if(szThis[i]<=*szTmp)
-					return true;
+					return TTRUE;
 				szTmp++;
 			}
-			return false;
+			return TFALSE;
 		}
 		else
 		{
@@ -1355,19 +1355,19 @@ namespace TLunaEngine{
 			for(int i=0;i<n;i++)
 			{
 				if(szThis[i]>*szTmp)
-					return false;
+					return TFALSE;
 				szTmp++;
 			}
-			return true;
+			return TTRUE;
 		}
 	}
 
-	bool String::operator <(const char *szRight) const
+	TBOOL String::operator <(const TCHAR* szRight) const
 	{
-		if(m_szPtr.isNull() || !szRight) return false;
+		if(m_szPtr.isNull() || !szRight) return TFALSE;
 
-		const char *szTmp = szRight;
-		const char *szThis = m_szPtr.getPointer();
+		const TCHAR* szTmp = szRight;
+		const TCHAR* szThis = m_szPtr.getPointer();
 		int n = 0;
 		while(*szTmp!='\0')
 		{
@@ -1381,10 +1381,10 @@ namespace TLunaEngine{
 			for(int i=0;i<m_nLength;i++)
 			{
 				if(szThis[i]<*szTmp)
-					return true;
+					return TTRUE;
 				szTmp++;
 			}
-			return false;
+			return TFALSE;
 		}
 		else
 		{
@@ -1392,20 +1392,20 @@ namespace TLunaEngine{
 			for(int i=0;i<n;i++)
 			{
 				if(szThis[i]>=*szTmp)
-					return false;
+					return TFALSE;
 				szTmp++;
 			}
-			return true;
+			return TTRUE;
 		}
 	}
 
-	bool String::operator <(const wchar_t *szRight) const
+	TBOOL String::operator <(const TWCHAR *szRight) const
 	{
-		if(m_szPtr.isNull() || !szRight) return false;
+		if(m_szPtr.isNull() || !szRight) return TFALSE;
 
-		const wchar_t *szTmp = szRight;
-		SharedPtr<wchar_t> pThis=GetWString();
-		const wchar_t *szThis = pThis.getPointer();
+		const TWCHAR *szTmp = szRight;
+		SharedPtr<TWCHAR> pThis=GetWString();
+		const TWCHAR *szThis = pThis.getPointer();
 		int n = 0;
 		while(*szTmp!=L'\0')
 		{
@@ -1419,10 +1419,10 @@ namespace TLunaEngine{
 			for(int i=0;i<m_nLength;i++)
 			{
 				if(szThis[i]<*szTmp)
-					return true;
+					return TTRUE;
 				szTmp++;
 			}
-			return false;
+			return TFALSE;
 		}
 		else
 		{
@@ -1430,19 +1430,19 @@ namespace TLunaEngine{
 			for(int i=0;i<n;i++)
 			{
 				if(szThis[i]>=*szTmp)
-					return false;
+					return TFALSE;
 				szTmp++;
 			}
-			return true;
+			return TTRUE;
 		}
 	}
 
-	bool String::operator >=(const String &strRight) const
+	TBOOL String::operator >=(const String &strRight) const
 	{
-		if(m_szPtr.isNull() || strRight.m_szPtr.isNull()) return false;
+		if(m_szPtr.isNull() || strRight.m_szPtr.isNull()) return TFALSE;
 
-		const char *szTmp = strRight.m_szPtr.getPointer();
-		const char *szThis = m_szPtr.getPointer();
+		const TCHAR* szTmp = strRight.m_szPtr.getPointer();
+		const TCHAR* szThis = m_szPtr.getPointer();
 		int n = strRight.m_nLength;
 
 		if(m_nLength < n)
@@ -1450,29 +1450,29 @@ namespace TLunaEngine{
 			for(int i=0;i<m_nLength;i++)
 			{
 				if(szThis[i]>=*szTmp)
-					return true;
+					return TTRUE;
 				szTmp++;
 			}
-			return false;
+			return TFALSE;
 		}
 		else
 		{
 			for(int i=0;i<n;i++)
 			{
 				if(szThis[i]<*szTmp)
-					return false;
+					return TFALSE;
 				szTmp++;
 			}
-			return true;
+			return TTRUE;
 		}
 	}
 
-	bool String::operator >(const String &strRight) const
+	TBOOL String::operator >(const String &strRight) const
 	{
-		if(m_szPtr.isNull() || strRight.m_szPtr.isNull()) return false;
+		if(m_szPtr.isNull() || strRight.m_szPtr.isNull()) return TFALSE;
 
-		const char *szTmp = strRight.m_szPtr.getPointer();
-		const char *szThis = m_szPtr.getPointer();
+		const TCHAR* szTmp = strRight.m_szPtr.getPointer();
+		const TCHAR* szThis = m_szPtr.getPointer();
 		int n = strRight.m_nLength;
 
 		if(m_nLength <= n)
@@ -1480,29 +1480,29 @@ namespace TLunaEngine{
 			for(int i=0;i<m_nLength;i++)
 			{
 				if(szThis[i]>*szTmp)
-					return true;
+					return TTRUE;
 				szTmp++;
 			}
-			return false;
+			return TFALSE;
 		}
 		else
 		{
 			for(int i=0;i<n;i++)
 			{
 				if(szThis[i]<=*szTmp)
-					return false;
+					return TFALSE;
 				szTmp++;
 			}
-			return true;
+			return TTRUE;
 		}
 	}
 
-	bool String::operator <=(const String &strRight) const
+	TBOOL String::operator <=(const String &strRight) const
 	{
-		if(m_szPtr.isNull() || strRight.m_szPtr.isNull()) return false;
+		if(m_szPtr.isNull() || strRight.m_szPtr.isNull()) return TFALSE;
 
-		const char *szTmp = strRight.m_szPtr.getPointer();
-		const char *szThis = m_szPtr.getPointer();
+		const TCHAR* szTmp = strRight.m_szPtr.getPointer();
+		const TCHAR* szThis = m_szPtr.getPointer();
 		int n = strRight.m_nLength;
 
 		if(m_nLength > n)
@@ -1510,29 +1510,29 @@ namespace TLunaEngine{
 			for(int i=0;i<m_nLength;i++)
 			{
 				if(szThis[i]<=*szTmp)
-					return true;
+					return TTRUE;
 				szTmp++;
 			}
-			return false;
+			return TFALSE;
 		}
 		else
 		{
 			for(int i=0;i<n;i++)
 			{
 				if(szThis[i]>*szTmp)
-					return false;
+					return TFALSE;
 				szTmp++;
 			}
-			return true;
+			return TTRUE;
 		}
 	}
 
-	bool String::operator <(const String &strRight) const
+	TBOOL String::operator <(const String &strRight) const
 	{
-		if(m_szPtr.isNull() || strRight.m_szPtr.isNull()) return false;
+		if(m_szPtr.isNull() || strRight.m_szPtr.isNull()) return TFALSE;
 
-		const char *szTmp = strRight.m_szPtr.getPointer();
-		const char *szThis = m_szPtr.getPointer();
+		const TCHAR* szTmp = strRight.m_szPtr.getPointer();
+		const TCHAR* szThis = m_szPtr.getPointer();
 		int n = strRight.m_nLength;
 
 		if(m_nLength >= n)
@@ -1540,28 +1540,28 @@ namespace TLunaEngine{
 			for(int i=0;i<m_nLength;i++)
 			{
 				if(szThis[i]<*szTmp)
-					return true;
+					return TTRUE;
 				szTmp++;
 			}
-			return false;
+			return TFALSE;
 		}
 		else
 		{
 			for(int i=0;i<n;i++)
 			{
 				if(szThis[i]>=*szTmp)
-					return false;
+					return TFALSE;
 				szTmp++;
 			}
-			return true;
+			return TTRUE;
 		}
 	}
 
-	char String::operator [](int pos) const
+	TCHAR String::operator [](int pos) const
 	{
-		if(pos<m_nLength && m_szPtr.isNull()==false && pos>=0)
+		if(pos<m_nLength && m_szPtr.isNull()==TFALSE && pos>=0)
 		{
-			const char *szThis = m_szPtr.getPointer();
+			const TCHAR* szThis = m_szPtr.getPointer();
 			return szThis[pos];
 		}
 
@@ -1572,10 +1572,10 @@ namespace TLunaEngine{
 	{
 		String result("");
 
-		if(startPos<m_nLength && m_szPtr.isNull()==false && count>0 && startPos>=0)
+		if(startPos<m_nLength && m_szPtr.isNull()==TFALSE && count>0 && startPos>=0)
 		{
-			const char *szThis = m_szPtr.getPointer();
-			char *szTmp = new char[count+1];
+			const TCHAR* szThis = m_szPtr.getPointer();
+			TCHAR* szTmp = new TCHAR[count+1];
 			int i = 0;
 			for(;i<count;i++)
 			{
@@ -1594,11 +1594,11 @@ namespace TLunaEngine{
 	{
 		String result("");
 
-		if(startPos<m_nLength && m_szPtr.isNull()==false && startPos>=0)
+		if(startPos<m_nLength && m_szPtr.isNull()==TFALSE && startPos>=0)
 		{
-			const char *szThis = m_szPtr.getPointer();
+			const TCHAR* szThis = m_szPtr.getPointer();
 			int count = m_nLength - startPos;
-			char *szTmp = new char[count+1];
+			TCHAR* szTmp = new TCHAR[count+1];
 			int i = 0;
 			for(;i<count;i++)
 			{
@@ -1613,7 +1613,7 @@ namespace TLunaEngine{
 		return result;
 	}
 
-	void String::Format(const char *format, ...)
+	TVOID String::Format(const TCHAR* format, ...)
 	{
 		if(!format) return;
 
@@ -1625,8 +1625,8 @@ namespace TLunaEngine{
 
 		va_start( args, format );
 		len = _vscprintf( format, args ); 
-		m_szPtr = SharedPtr<char>(new char[len+1],TLunaEngine::SPFM_DELETE_T);
-		char* szMyContent = m_szPtr.getPointer();
+		m_szPtr = SharedPtr<TCHAR>(new TCHAR[len+1],TLunaEngine::SPFM_DELETE_T);
+		TCHAR* szMyContent = m_szPtr.getPointer();
 		memset(szMyContent,0,len+1);
 		vsprintf( szMyContent, format, args );
 		szMyContent[len] = '\0';
@@ -1634,7 +1634,7 @@ namespace TLunaEngine{
 		m_nLength=len;
 	}
 
-	int String::Find(const char *szFind,int startPos,bool bRight) const
+	int String::Find(const TCHAR* szFind,int startPos,TBOOL bRight) const
 	{
 		if(m_szPtr.isNull() || startPos<0 || startPos>=m_nLength || !szFind) return -1;
 
@@ -1673,7 +1673,7 @@ namespace TLunaEngine{
 		return -1;
 	}
 
-	int String::Find(const wchar_t *szFind,int startPos,bool bRight) const
+	int String::Find(const TWCHAR *szFind,int startPos,TBOOL bRight) const
 	{
 		if(m_szPtr.isNull() || startPos<0 || startPos>=m_nLength || !szFind) return -1;
 
@@ -1712,7 +1712,7 @@ namespace TLunaEngine{
 		return -1;
 	}
 
-	int String::Find(const String& strFind,int startPos,bool bRight) const
+	int String::Find(const String& strFind,int startPos,TBOOL bRight) const
 	{
 		if(m_szPtr.isNull() || startPos<0 || startPos>=m_nLength || strFind.m_szPtr.isNull()) return -1;
 
@@ -1751,7 +1751,7 @@ namespace TLunaEngine{
 		return -1;
 	}
 
-	std::vector<String> String::Split(char sz, int* pCount) const
+	std::vector<String> String::Split(TCHAR sz, int* pCount) const
 	{
 		std::vector<String> aResult;
 		if(m_szPtr.isNull() || !pCount) 
@@ -1769,7 +1769,7 @@ namespace TLunaEngine{
 		int index = 0;
 
 		do{
-			int pos = strOrig.Find(&sz,0,false);
+			int pos = strOrig.Find(&sz,0,TFALSE);
 			if(pos==-1)
 			{
 				aResult.push_back(strOrig);
@@ -1786,7 +1786,7 @@ namespace TLunaEngine{
 		return aResult;
 	}
 
-	std::vector<String> String::Split(wchar_t sz, int* pCount) const
+	std::vector<String> String::Split(TWCHAR sz, int* pCount) const
 	{
 		std::vector<String> aResult;
 		if(m_szPtr.isNull() || !pCount) 
@@ -1805,7 +1805,7 @@ namespace TLunaEngine{
 		int index = 0;
 
 		do{
-			int pos = strOrig.Find(strFind,0,false);
+			int pos = strOrig.Find(strFind,0,TFALSE);
 			if(pos==-1)
 			{
 				aResult.push_back(strOrig);
@@ -1822,12 +1822,12 @@ namespace TLunaEngine{
 		return aResult;
 	}
 
-	void String::CutFilePath(char *fullname, char *filename, char *pathname)
+	TVOID String::CutFilePath(TCHAR* fullname, TCHAR* filename, TCHAR* pathname)
 	{
 		if(!fullname)
 			return;
 		// 去除前面的路经
-		char *pch = strrchr( fullname, '\\');
+		TCHAR* pch = strrchr( fullname, '\\');
 		// 如果需要保存名字就保存
 		if(filename!=0)
 		{
@@ -1847,7 +1847,7 @@ namespace TLunaEngine{
 			if(pch)
 			{
 				String strTmp(fullname);
-				int pos = strTmp.Find(pch,0,true);
+				int pos = strTmp.Find(pch,0,TTRUE);
 				String path = strTmp.Mid(0,pos+1);
 				strcpy(pathname,path.GetString());
 			}
@@ -1862,7 +1862,7 @@ namespace TLunaEngine{
 	{
 		if(m_szPtr.isNull())
 			return 0;
-		const char *szThis = m_szPtr.getPointer();
+		const TCHAR* szThis = m_szPtr.getPointer();
 		return atoi(szThis);
 	}
 
@@ -1870,7 +1870,7 @@ namespace TLunaEngine{
 	{
 		if(m_szPtr.isNull())
 			return 0.0f;
-		const char *szThis = m_szPtr.getPointer();
+		const TCHAR* szThis = m_szPtr.getPointer();
 		return (float)atof(szThis);
 	}
 
@@ -1878,7 +1878,7 @@ namespace TLunaEngine{
 	{
 		if(m_szPtr.isNull())
 			return 0;
-		const char *szThis = m_szPtr.getPointer();
+		const TCHAR* szThis = m_szPtr.getPointer();
 		return (unsigned int)atoi(szThis);
 	}
 
@@ -1886,7 +1886,7 @@ namespace TLunaEngine{
 	{
 		if(m_szPtr.isNull())
 			return 0;
-		const char *szThis = m_szPtr.getPointer();
+		const TCHAR* szThis = m_szPtr.getPointer();
 		return atol(szThis);
 	}
 
@@ -1894,7 +1894,7 @@ namespace TLunaEngine{
 	{
 		if(m_szPtr.isNull())
 			return 0;
-		const char *szThis = m_szPtr.getPointer();
+		const TCHAR* szThis = m_szPtr.getPointer();
 		return (unsigned long)atol(szThis);
 	}
 
@@ -1902,41 +1902,41 @@ namespace TLunaEngine{
 	{
 		if(m_szPtr.isNull())
 			return 0.0f;
-		const char *szThis = m_szPtr.getPointer();
+		const TCHAR* szThis = m_szPtr.getPointer();
 		return atof(szThis);
 	}
 
-	bool String::GetStringAsBool() const
+	TBOOL String::GetStringAsBool() const
 	{
 		if(m_szPtr.isNull())
-			return false;
+			return TFALSE;
 		int n = GetStringAsInt();
 		if(n==0)
-			return false;
+			return TFALSE;
 		else
-			return true;
+			return TTRUE;
 	}
 
-	const char* String::GetString() const
+	const TCHAR* String::GetString() const
 	{
 		return m_szPtr.getPointer();
 	}
 
-	SharedPtr<wchar_t> String::GetWString() const
+	SharedPtr<TWCHAR> String::GetWString() const
 	{
 		if(m_szPtr.isNull() || m_nLength<=0)
-			return SharedPtr<wchar_t>();
-		wchar_t* newBuff = new wchar_t[m_nLength+1];
+			return SharedPtr<TWCHAR>();
+		TWCHAR* newBuff = new TWCHAR[m_nLength+1];
 		mbstowcs(newBuff,m_szPtr.getPointer(),m_nLength);
 		newBuff[m_nLength] = L'\0';
-		return SharedPtr<wchar_t>(newBuff,TLunaEngine::SPFM_DELETE_T);
+		return SharedPtr<TWCHAR>(newBuff,TLunaEngine::SPFM_DELETE_T);
 	}
 
 	String& String::MakeLower()
 	{
 		if(m_szPtr.isNull() || m_nLength<=0)
 			return *this;
-		char* szThis = m_szPtr.getPointer();
+		TCHAR* szThis = m_szPtr.getPointer();
 		for(int i=0;i<m_nLength;i++)
 		{
 			szThis[i] = tolower(szThis[i]);
@@ -1948,7 +1948,7 @@ namespace TLunaEngine{
 	{
 		if(m_szPtr.isNull() || m_nLength==0)
 			return *this;
-		char* szThis = m_szPtr.getPointer();
+		TCHAR* szThis = m_szPtr.getPointer();
 		for(int i=0;i<m_nLength;i++)
 		{
 			szThis[i] = toupper(szThis[i]);
@@ -1956,13 +1956,13 @@ namespace TLunaEngine{
 		return *this;
 	}
 
-	String& String::SetCharAt(int pos,char value)
+	String& String::SetCharAt(int pos,TCHAR value)
 	{
 		if(m_szPtr.isNull() || m_nLength==0)
 			return *this;
 		if(pos<0 || pos>=m_nLength)
 			return *this;
-		char* szNew = new char[m_nLength+1];
+		TCHAR* szNew = new TCHAR[m_nLength+1];
 		memcpy(szNew,m_szPtr.getPointer(),m_nLength);
 		szNew[pos]=value;
 		szNew[m_nLength]='\0';
@@ -1971,13 +1971,13 @@ namespace TLunaEngine{
 		return *this;
 	}
 
-	String& String::SetCharAt(int pos,wchar_t value)
+	String& String::SetCharAt(int pos,TWCHAR value)
 	{
 		if(m_szPtr.isNull() || m_nLength==0)
 			return *this;
 		if(pos<0 || pos>=m_nLength)
 			return *this;
-		char* szNew = new char[m_nLength+1];
+		TCHAR* szNew = new TCHAR[m_nLength+1];
 		memcpy(szNew,m_szPtr.getPointer(),m_nLength);
 		wcstombs(&szNew[pos],&value,1);
 		szNew[m_nLength]='\0';

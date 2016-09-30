@@ -19,14 +19,14 @@
 
 namespace TLunaEngine{
 
-	TestTriangle::TestTriangle(void) : ta(1000.0f),mVB(TNULL),mIB(TNULL),mRB(TNULL),mSRV(TNULL),
+	TestTriangle::TestTriangle(TVOID) : ta(1000.0f),mVB(TNULL),mIB(TNULL),mRB(TNULL),mSRV(TNULL),
 		mVSAdd(TNULL),mGS(TNULL),mVS(TNULL),mPS(TNULL),mInputLayout(TNULL),mSamplerState(TNULL),
 		mInputLayout2(TNULL),mDepthStencilState(TNULL),mBlendState(TNULL)
 	{
 		mCB[0] = mCB[1] = mCB[2] = TNULL;
 	}
 
-	TestTriangle::~TestTriangle(void)
+	TestTriangle::~TestTriangle(TVOID)
 	{
 		if (mVB)
 		{
@@ -371,7 +371,7 @@ namespace TLunaEngine{
 		mBlendState = pDevice->createBlendState(&blendDesc);
 		if(!mBlendState)
 		{
-			return false;
+			return TFALSE;
 		}
 		// depth stencil state
 		TLRenderDeviceDepthStencilDesc depthDesc;
@@ -381,12 +381,12 @@ namespace TLunaEngine{
 		mDepthStencilState = pDevice->createDepthStencilState(&depthDesc);
 		if(!mDepthStencilState)
 		{
-			return false;
+			return TFALSE;
 		}
 		return TTRUE;
 	}
 
-	void TestTriangle::OnRender()
+	TVOID TestTriangle::OnRender()
 	{
 		RenderDevice* pDevice = RenderMgr::getSingletonPtr()->getDevice();
 		// Update our time

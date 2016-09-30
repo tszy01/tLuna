@@ -6,7 +6,7 @@
 namespace TLunaEngine{
 
 	// 定义函数指针，上层游戏循环时调用
-	typedef void(*UserLoop)(float fTimeElapsed);
+	typedef TVOID(*UserLoop)(float fTimeElapsed);
 
 	// -------------------------- 以下为导出全局函数，上层调用 ------------------------------
 
@@ -19,22 +19,22 @@ namespace TLunaEngine{
 	// fSecsPerFrame:帧速率控制(每帧时间)
 	// szResDir:资源根目录
 	// bShowDebugInfo:是否显示Debug信息
-	bool Init(HWND hWnd,HINSTANCE hInst,TBOOL bWnd,TS32 lWidth,TS32 lHeight,
-							 float fSecsPerFrame,const char* szResDir,bool bShowDebugInfo);
+	TBOOL Init(HWND hWnd,HINSTANCE hInst,TBOOL bWnd,TS32 lWidth,TS32 lHeight,
+							 float fSecsPerFrame,const TCHAR* szResDir,TBOOL bShowDebugInfo);
 
 	// 引擎循环
-	bool OnLoopCtrlUpdate(float* pTimeElapsed);
-	bool OnSceneUpdate(float fTimeElapsed);
-	bool OnSceneRender(float fTimeElapsed);
+	TBOOL OnLoopCtrlUpdate(float* pTimeElapsed);
+	TBOOL OnSceneUpdate(float fTimeElapsed);
+	TBOOL OnSceneRender(float fTimeElapsed);
 
 	// 游戏循环
-	bool OnGameLoop(UserLoop pLoop);
+	TBOOL OnGameLoop(UserLoop pLoop);
 
 	// 引擎退出
-	bool Destroy();
+	TBOOL Destroy();
 
 	// window size changed
-	bool onWindowSizeChanged(TU32 width,TU32 height);
+	TBOOL onWindowSizeChanged(TU32 width,TU32 height);
 
 	// ------------- 以下是给编辑器调用的方法，游戏中不能使用 --------------------------------
 
@@ -44,14 +44,14 @@ namespace TLunaEngine{
 	// lWidth:后缓冲区宽
 	// lHeight:后缓冲区高
 	// szResDir:资源根目录
-	bool InitForEditor(HWND hWnd,HINSTANCE hInst,TS32 lWidth,TS32 lHeight,const char* szResDir);
+	TBOOL InitForEditor(HWND hWnd,HINSTANCE hInst,TS32 lWidth,TS32 lHeight,const TCHAR* szResDir);
 
 	// 引擎循环
-	bool OnSceneUpdateForEditor(float fTimeElapsed);
-	bool OnSceneRenderForEditor(float fTimeElapsed);
+	TBOOL OnSceneUpdateForEditor(float fTimeElapsed);
+	TBOOL OnSceneRenderForEditor(float fTimeElapsed);
 
 	// 引擎退出
-	bool DestroyForEditor();
+	TBOOL DestroyForEditor();
 
 	// ---------------------------------------------------------------------------------------
 

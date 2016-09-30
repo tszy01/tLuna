@@ -17,10 +17,10 @@ namespace TLunaEngine
 	protected:
 		std::vector<Vector3<T>> mVertexList;
 		mutable Vector3<T>	mNormal;
-		mutable bool	mIsNormalSet;
+		mutable TBOOL	mIsNormalSet;
 		/** Updates the normal.
 		*/
-		void updateNormal(void) const
+		TVOID updateNormal(TVOID) const
 		{
 			assert( getVertexCount() >= 3);
 
@@ -47,13 +47,13 @@ namespace TLunaEngine
 
 			mNormal.normalise();
 
-			mIsNormalSet = true;
+			mIsNormalSet = TTRUE;
 		}
 	public:
 		Polygon()
 		{
 			mNormal = Vector3<T>(0,0,0);
-			mIsNormalSet = false;
+			mIsNormalSet = TFALSE;
 			mVertexList.reserve(6);
 		}
 		~Polygon()
@@ -69,7 +69,7 @@ namespace TLunaEngine
 		/** Inserts a vertex at a specific position.
 		@note Vertices must be coplanar.
 		*/
-		void insertVertex(const Vector3<T>& vdata, size_t vertexIndex)
+		TVOID insertVertex(const Vector3<T>& vdata, size_t vertexIndex)
 		{
 			// TODO: optional: check planarity
 			assert(vertexIndex <= getVertexCount());
@@ -82,13 +82,13 @@ namespace TLunaEngine
 		/** Inserts a vertex at the end of the polygon.
 		@note Vertices must be coplanar.
 		*/
-		void insertVertex(const Vector3<T>& vdata)
+		TVOID insertVertex(const Vector3<T>& vdata)
 		{
 			mVertexList.push_back(vdata);
 		}
 
 		// merge vertices from another one
-		void mergeVertices(const Polygon<T>& rhs)
+		TVOID mergeVertices(const Polygon<T>& rhs)
 		{
 			std::vector<Vector3<T>>::const_iterator it = rhs.mVertexList.begin();
 			for (; it != rhs.mVertexList.end(); ++it)
@@ -109,7 +109,7 @@ namespace TLunaEngine
 		/** Sets a specific vertex of a polygon.
 		@note Vertices must be coplanar.
 		*/
-		void setVertex(const Vector3<T>& vdata, size_t vertexIndex)
+		TVOID setVertex(const Vector3<T>& vdata, size_t vertexIndex)
 		{
 			// TODO: optional: check planarity
 			assert(vertexIndex < getVertexCount());
@@ -120,7 +120,7 @@ namespace TLunaEngine
 
 		/** Removes duplicate vertices from a polygon.
 		*/
-		void removeDuplicates(void)
+		TVOID removeDuplicates(TVOID)
 		{
 			for ( size_t i = 0; i < getVertexCount(); ++i )
 			{
@@ -137,14 +137,14 @@ namespace TLunaEngine
 
 		/** Vertex count.
 		*/
-		size_t getVertexCount(void) const
+		size_t getVertexCount(TVOID) const
 		{
 			return mVertexList.size();
 		}
 
 		/** Returns the polygon normal.
 		*/
-		const Vector3<T>& getNormal(void) const
+		const Vector3<T>& getNormal(TVOID) const
 		{
 			assert( getVertexCount() >= 3 );
 			updateNormal();
@@ -153,7 +153,7 @@ namespace TLunaEngine
 
 		/** Deletes a specific vertex.
 		*/
-		void deleteVertex(size_t vertex)
+		TVOID deleteVertex(size_t vertex)
 		{
 			assert( vertex < getVertexCount() );
 
@@ -169,7 +169,7 @@ namespace TLunaEngine
 			and within the polygon's bounds. Polygons are assumed to be convex
 			and planar.
 		*/
-		bool isPointInside(const Vector3<T>& point) const
+		TBOOL isPointInside(const Vector3<T>& point) const
 		{
 			// sum the angles 
 			TF32 anglesum = 0;
@@ -188,7 +188,7 @@ namespace TLunaEngine
 				if (TLunaEngine::equals(len1 * len2, 0.0f, 1e-4f))
 				{
 					// We are on a vertex so consider this inside
-					return true; 
+					return TTRUE; 
 				}
 				else
 				{
@@ -205,7 +205,7 @@ namespace TLunaEngine
 			The vertices are copied so the user has to take the 
 			deletion into account.
 		*/
-		void storeEdges(std::map<Vector3<T>, Vector3<T>> *edgeMap) const
+		TVOID storeEdges(std::map<Vector3<T>, Vector3<T>> *edgeMap) const
 		{
 			assert( edgeMap != TNULL );
 
@@ -219,36 +219,36 @@ namespace TLunaEngine
 
 		/** Resets the object.
 		*/
-		void reset(void)
+		TVOID reset(TVOID)
 		{
 			// could use swap() to free memory here, but assume most may be reused so avoid realloc
 			mVertexList.clear();
-			mIsNormalSet = false;
+			mIsNormalSet = TFALSE;
 		}
 
 		/** Determines if the current object is equal to the compared one.
 		*/
-		bool operator == (const Polygon<T>& rhs) const
+		TBOOL operator == (const Polygon<T>& rhs) const
 		{
 			if ( getVertexCount() != rhs.getVertexCount() )
-				return false;
+				return TFALSE;
 
 			// Compare vertices. They may differ in its starting position.
 			// find start
 			size_t start = 0;
-			bool foundStart = false;
+			TBOOL foundStart = TFALSE;
 			for (size_t i = 0; i < getVertexCount(); ++i )
 			{	
 				if (getVertex(0).equals(rhs.getVertex(i)))
 				{
 					start = i;
-					foundStart = true;
+					foundStart = TTRUE;
 					break;
 				}
 			}
 
 			if (!foundStart)
-				return false;
+				return TFALSE;
 
 			for (size_t i = 0; i < getVertexCount(); ++i )
 			{
@@ -256,15 +256,15 @@ namespace TLunaEngine
 				const Vector3<T>& vB = rhs.getVertex( ( i + start) % getVertexCount() );
 
 				if (!vA.equals(vB))
-					return false;
+					return TFALSE;
 			}
 
-			return true;
+			return TTRUE;
 		}
 
 		/** Determines if the current object is not equal to the compared one.
 		*/
-		bool operator != (const Polygon<T>& rhs) const
+		TBOOL operator != (const Polygon<T>& rhs) const
 		{ return !( *this == rhs ); }
 	};
 }

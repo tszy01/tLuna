@@ -25,7 +25,7 @@
 
 namespace TLunaEngine {
 	RenderDevice_D3D11::RenderDevice_D3D11() : RenderDevice(), m_pd3dDevice(TNULL),m_pImmediateContext(TNULL),
-		m_pSwapChain(TNULL),m_pRenderTargetView(TNULL),m_pDepthStencil(TNULL),m_pDepthStencilView(TNULL),m_loaded(false)
+		m_pSwapChain(TNULL),m_pRenderTargetView(TNULL),m_pDepthStencil(TNULL),m_pDepthStencilView(TNULL),m_loaded(TFALSE)
 	{
 	}
 
@@ -33,10 +33,10 @@ namespace TLunaEngine {
 	{
 	}
 
-	bool RenderDevice_D3D11::InitDevice(HWND hWnd,TBOOL bWnd,TS32 width,TS32 height)
+	TBOOL RenderDevice_D3D11::InitDevice(HWND hWnd,TBOOL bWnd,TS32 width,TS32 height)
 	{
 		if(m_loaded)
-			return false;
+			return TFALSE;
 		HRESULT hr = S_OK;
 		TU32 createDeviceFlags = 0;
 #ifdef _DEBUG
@@ -89,18 +89,18 @@ namespace TLunaEngine {
 				break;
 		}
 		if( FAILED( hr ) )
-			return false;
+			return TFALSE;
 
 		// Create a render target view
 		ID3D11Texture2D* pBackBuffer = TNULL;
 		hr = m_pSwapChain->GetBuffer( 0, __uuidof( ID3D11Texture2D ), ( LPVOID* )&pBackBuffer );
 		if( FAILED( hr ) )
-			return false;
+			return TFALSE;
 
 		hr = m_pd3dDevice->CreateRenderTargetView( pBackBuffer, TNULL, &m_pRenderTargetView );
 		pBackBuffer->Release();
 		if( FAILED( hr ) )
-			return false;
+			return TFALSE;
 
 		// Create depth stencil texture
 		D3D11_TEXTURE2D_DESC descDepth;
@@ -118,7 +118,7 @@ namespace TLunaEngine {
 		descDepth.MiscFlags = 0;
 		hr = m_pd3dDevice->CreateTexture2D( &descDepth, TNULL, &m_pDepthStencil );
 		if( FAILED( hr ) )
-			return false;
+			return TFALSE;
 
 		// Create the depth stencil view
 		D3D11_DEPTH_STENCIL_VIEW_DESC descDSV;
@@ -128,7 +128,7 @@ namespace TLunaEngine {
 		descDSV.Texture2D.MipSlice = 0;
 		hr = m_pd3dDevice->CreateDepthStencilView( m_pDepthStencil, &descDSV, &m_pDepthStencilView );
 		if( FAILED( hr ) )
-			return false;
+			return TFALSE;
 
 		m_pImmediateContext->OMSetRenderTargets( 1, &m_pRenderTargetView, m_pDepthStencilView );
 
@@ -147,15 +147,15 @@ namespace TLunaEngine {
 		mDefaultVp._TopLeftX = vp.TopLeftX;
 		mDefaultVp._TopLeftY = vp.TopLeftY;
 		mDefaultVp._Width = vp.Width;
-		m_loaded = true;
-		return true;
+		m_loaded = TTRUE;
+		return TTRUE;
 	}
 
-	void RenderDevice_D3D11::DestroyDevice()
+	TVOID RenderDevice_D3D11::DestroyDevice()
 	{
 		if(!m_loaded)
 			return;
-		m_loaded = false;
+		m_loaded = TFALSE;
 		if(m_pDepthStencil)
 		{
 			m_pDepthStencil->Release();
@@ -188,7 +188,7 @@ namespace TLunaEngine {
 		}
 	}
 
-	bool RenderDevice_D3D11::BeginRender()
+	TBOOL RenderDevice_D3D11::BeginRender()
 	{
 		if(m_pImmediateContext && m_pRenderTargetView && m_pDepthStencilView && m_loaded)
 		{
@@ -203,10 +203,10 @@ namespace TLunaEngine {
 			//
 			m_pImmediateContext->ClearDepthStencilView( m_pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0 );
 		}
-		return true;
+		return TTRUE;
 	}
 
-	void RenderDevice_D3D11::EndRender()
+	TVOID RenderDevice_D3D11::EndRender()
 	{
 		if(m_pSwapChain && m_loaded)
 		{
@@ -214,7 +214,7 @@ namespace TLunaEngine {
 		}
 	}
 
-	void RenderDevice_D3D11::UseDefaultRenderTarget()
+	TVOID RenderDevice_D3D11::UseDefaultRenderTarget()
 	{
 		if(m_pImmediateContext && m_pRenderTargetView && m_pDepthStencilView && m_loaded)
 		{
@@ -222,7 +222,7 @@ namespace TLunaEngine {
 		}
 	}
 
-	void RenderDevice_D3D11::UseDefaultViewPort()
+	TVOID RenderDevice_D3D11::UseDefaultViewPort()
 	{
 		if(m_pImmediateContext && m_loaded)
 		{
@@ -252,7 +252,7 @@ namespace TLunaEngine {
 		return 0;
 	}
 
-	bool RenderDevice_D3D11::resizeBuffer(TU32 width,TU32 height)
+	TBOOL RenderDevice_D3D11::resizeBuffer(TU32 width,TU32 height)
 	{
 		if(m_loaded && m_pd3dDevice && m_pImmediateContext && m_pSwapChain)
 		{
@@ -265,7 +265,7 @@ namespace TLunaEngine {
 
 			// Get buffer and create a render-target-view.
 			ID3D11Texture2D* pBuffer;
-			HRESULT hr = m_pSwapChain->GetBuffer(0, __uuidof( ID3D11Texture2D),(void**) &pBuffer );
+			HRESULT hr = m_pSwapChain->GetBuffer(0, __uuidof( ID3D11Texture2D),(TVOID**) &pBuffer );
 			// Perform error handling here!
 			hr = m_pd3dDevice->CreateRenderTargetView(pBuffer, TNULL, &m_pRenderTargetView);
 			// Perform error handling here!
@@ -287,7 +287,7 @@ namespace TLunaEngine {
 			descDepth.MiscFlags = 0;
 			hr = m_pd3dDevice->CreateTexture2D( &descDepth, TNULL, &m_pDepthStencil );
 			if( FAILED( hr ) )
-				return false;
+				return TFALSE;
 			// Create the depth stencil view
 			D3D11_DEPTH_STENCIL_VIEW_DESC descDSV;
 			ZeroMemory( &descDSV, sizeof(descDSV) );
@@ -296,7 +296,7 @@ namespace TLunaEngine {
 			descDSV.Texture2D.MipSlice = 0;
 			hr = m_pd3dDevice->CreateDepthStencilView( m_pDepthStencil, &descDSV, &m_pDepthStencilView );
 			if( FAILED( hr ) )
-				return false;
+				return TFALSE;
 
 			m_pImmediateContext->OMSetRenderTargets( 1, &m_pRenderTargetView, m_pDepthStencilView );
 
@@ -315,13 +315,13 @@ namespace TLunaEngine {
 			//cbChangesOnResize.mProjection = XMMatrixTranspose( g_Projection );
 			//g_pImmediateContext->UpdateSubresource( g_pCBChangeOnResize, 0, TNULL, &cbChangesOnResize, 0, 0 );
 		}
-		return true;
+		return TTRUE;
 	}
 
-	bool RenderDevice_D3D11::useViewport(const TLRenderDeviceViewport* aVp,TU32 numVp)
+	TBOOL RenderDevice_D3D11::useViewport(const TLRenderDeviceViewport* aVp,TU32 numVp)
 	{
 		if(!aVp || numVp<1 || !m_loaded || !m_pImmediateContext)
-			return false;
+			return TFALSE;
 		if(numVp==1)
 		{
 			D3D11_VIEWPORT theVp;
@@ -349,10 +349,10 @@ namespace TLunaEngine {
 			delete [] theVp;
 			theVp = TNULL;
 		}
-		return true;
+		return TTRUE;
 	}
 
-	void RenderDevice_D3D11::setPrimitiveTopology(RENDER_DEVICE_PRIMITIVE_TOPOLOGY pt)
+	TVOID RenderDevice_D3D11::setPrimitiveTopology(RENDER_DEVICE_PRIMITIVE_TOPOLOGY pt)
 	{
 		if(m_loaded && m_pImmediateContext)
 		{
@@ -360,7 +360,7 @@ namespace TLunaEngine {
 		}
 	}
 
-	void RenderDevice_D3D11::setInputLayout(RenderDeviceUsedInputLayout* pInputLayout)
+	TVOID RenderDevice_D3D11::setInputLayout(RenderDeviceUsedInputLayout* pInputLayout)
 	{
 		if(m_loaded && m_pImmediateContext)
 		{
@@ -376,7 +376,7 @@ namespace TLunaEngine {
 		}
 	}
 
-	void RenderDevice_D3D11::getD3DDriverType(RENDER_DEVICE_D3D_DRIVER_TYPE* pDriverType)
+	TVOID RenderDevice_D3D11::getD3DDriverType(RENDER_DEVICE_D3D_DRIVER_TYPE* pDriverType)
 	{
 		if(pDriverType)
 		{
@@ -384,7 +384,7 @@ namespace TLunaEngine {
 		}
 	}
 
-	void RenderDevice_D3D11::getD3DFeatureLevel(RENDER_DEVICE_D3D_FEATURE_LEVEL* pFeatureLevel)
+	TVOID RenderDevice_D3D11::getD3DFeatureLevel(RENDER_DEVICE_D3D_FEATURE_LEVEL* pFeatureLevel)
 	{
 		if(pFeatureLevel)
 		{
@@ -392,7 +392,7 @@ namespace TLunaEngine {
 		}
 	}
 
-	const char* RenderDevice_D3D11::getShaderProfileVersion()
+	const TCHAR* RenderDevice_D3D11::getShaderProfileVersion()
 	{
 		switch(m_FeatureLevel)
 		{
@@ -421,7 +421,7 @@ namespace TLunaEngine {
 		return "";
 	}
 
-	void RenderDevice_D3D11::draw(TU32 vertexCount,TU32 startVertexLocation)
+	TVOID RenderDevice_D3D11::draw(TU32 vertexCount,TU32 startVertexLocation)
 	{
 		if(m_loaded && m_pImmediateContext)
 		{
@@ -429,7 +429,7 @@ namespace TLunaEngine {
 		}
 	}
 
-	void RenderDevice_D3D11::drawIndexed(TU32 indexCount,TU32 startIndexLocation,TU32 baseVertexLocation)
+	TVOID RenderDevice_D3D11::drawIndexed(TU32 indexCount,TU32 startIndexLocation,TU32 baseVertexLocation)
 	{
 		if(m_loaded && m_pImmediateContext)
 		{
@@ -442,7 +442,7 @@ namespace TLunaEngine {
 		return D3D11CalcSubresource(mipSlice,arraySlice,mipLevels);
 	}
 
-	void RenderDevice_D3D11::generateMips(RenderDeviceUsedSRV* pSRV)
+	TVOID RenderDevice_D3D11::generateMips(RenderDeviceUsedSRV* pSRV)
 	{
 		if(m_loaded && m_pImmediateContext && pSRV)
 		{
@@ -451,7 +451,7 @@ namespace TLunaEngine {
 		}
 	}
 
-	bool RenderDevice_D3D11::mapResource(RenderDeviceUsedResource* pResource,TU32 subResource,
+	TBOOL RenderDevice_D3D11::mapResource(RenderDeviceUsedResource* pResource,TU32 subResource,
 			RENDER_DEVICE_MAP mapType,TLRenderDeviceMappedSubresource* mappedSubresource)
 	{
 		if(m_loaded && m_pImmediateContext && pResource && mappedSubresource)
@@ -459,16 +459,16 @@ namespace TLunaEngine {
 			RenderDeviceUsedResource_D3D11* pD3DResource = dynamic_cast<RenderDeviceUsedResource_D3D11*>(pResource);
 			D3D11_MAPPED_SUBRESOURCE mapped;
 			if(FAILED(m_pImmediateContext->Map(pD3DResource->getD3DResource(),subResource,(D3D11_MAP)mapType,0,&mapped)))
-				return false;
+				return TFALSE;
 			mappedSubresource->DepthPitch = mapped.DepthPitch;
 			mappedSubresource->pData = mapped.pData;
 			mappedSubresource->RowPitch = mapped.RowPitch;
-			return true;
+			return TTRUE;
 		}
-		return false;
+		return TFALSE;
 	}
 
-	void RenderDevice_D3D11::unmapResource(RenderDeviceUsedResource* pResource,TU32 subResource)
+	TVOID RenderDevice_D3D11::unmapResource(RenderDeviceUsedResource* pResource,TU32 subResource)
 	{
 		if(m_loaded && m_pImmediateContext && pResource)
 		{
@@ -477,7 +477,7 @@ namespace TLunaEngine {
 		}
 	}
 
-	void RenderDevice_D3D11::copySubresourceRegion(RenderDeviceUsedResource* pDstResource,TU32 dstSubresource,
+	TVOID RenderDevice_D3D11::copySubresourceRegion(RenderDeviceUsedResource* pDstResource,TU32 dstSubresource,
 			TU32 dstX,TU32 dstY,TU32 dstZ,RenderDeviceUsedResource* pSrcResource,TU32 srcSubresource,
 			const TLRenderDeviceBox* pSrcBox)
 	{
@@ -505,7 +505,7 @@ namespace TLunaEngine {
 		}
 	}
 
-	void RenderDevice_D3D11::copyResource(RenderDeviceUsedResource* pDstResource,RenderDeviceUsedResource* pSrcResource)
+	TVOID RenderDevice_D3D11::copyResource(RenderDeviceUsedResource* pDstResource,RenderDeviceUsedResource* pSrcResource)
 	{
 		if(m_loaded && m_pImmediateContext && pDstResource && pSrcResource)
 		{
@@ -515,8 +515,8 @@ namespace TLunaEngine {
 		}
 	}
 
-	void RenderDevice_D3D11::updateSubresource(RenderDeviceUsedResource* pDstResource,TU32 dstSubresource,
-			const TLRenderDeviceBox* pDstBox,const void* pSrcData,TU32 srcRowPitch,TU32 srcDepthPitch)
+	TVOID RenderDevice_D3D11::updateSubresource(RenderDeviceUsedResource* pDstResource,TU32 dstSubresource,
+			const TLRenderDeviceBox* pDstBox,const TVOID* pSrcData,TU32 srcRowPitch,TU32 srcDepthPitch)
 	{
 		if(m_loaded && m_pImmediateContext && pDstResource && pSrcData)
 		{
@@ -539,7 +539,7 @@ namespace TLunaEngine {
 		}
 	}
 
-	void RenderDevice_D3D11::setVertexBuffer(TU32 startSlot,RenderDeviceUsedBuffer* pBuffer, const TU32* pStride,const TU32* pOffset)
+	TVOID RenderDevice_D3D11::setVertexBuffer(TU32 startSlot,RenderDeviceUsedBuffer* pBuffer, const TU32* pStride,const TU32* pOffset)
 	{
 		if(m_loaded && m_pImmediateContext)
 		{
@@ -555,7 +555,7 @@ namespace TLunaEngine {
 		}
 	}
 
-	void RenderDevice_D3D11::setIndexBuffer(RenderDeviceUsedBuffer* pBuffer,RENDER_DEVICE_FORMAT format,TU32 offset)
+	TVOID RenderDevice_D3D11::setIndexBuffer(RenderDeviceUsedBuffer* pBuffer,RENDER_DEVICE_FORMAT format,TU32 offset)
 	{
 		if(m_loaded && m_pImmediateContext)
 		{
@@ -571,7 +571,7 @@ namespace TLunaEngine {
 		}
 	}
 
-	void RenderDevice_D3D11::setSOTarget(RenderDeviceUsedBuffer* pBuffer,const TU32* pOffset)
+	TVOID RenderDevice_D3D11::setSOTarget(RenderDeviceUsedBuffer* pBuffer,const TU32* pOffset)
 	{
 		if(m_loaded && m_pImmediateContext)
 		{
@@ -587,7 +587,7 @@ namespace TLunaEngine {
 		}
 	}
 
-	void RenderDevice_D3D11::clearRenderTargetView(RenderDeviceUsedRTV* pRenderTargetView, const TF32 colorRGBA[4])
+	TVOID RenderDevice_D3D11::clearRenderTargetView(RenderDeviceUsedRTV* pRenderTargetView, const TF32 colorRGBA[4])
 	{
 		if(m_loaded && m_pImmediateContext)
 		{
@@ -599,7 +599,7 @@ namespace TLunaEngine {
 		}
 	}
 
-	void RenderDevice_D3D11::clearDepthStencilView(RenderDeviceUsedDSV* pDepthStencilView, TF32 depth)
+	TVOID RenderDevice_D3D11::clearDepthStencilView(RenderDeviceUsedDSV* pDepthStencilView, TF32 depth)
 	{
 		if(m_loaded && m_pImmediateContext)
 		{
@@ -611,7 +611,7 @@ namespace TLunaEngine {
 		}
 	}
 
-	void RenderDevice_D3D11::setRenderTarget(RenderDeviceUsedRTV* pRTV, RenderDeviceUsedDSV* pDSV)
+	TVOID RenderDevice_D3D11::setRenderTarget(RenderDeviceUsedRTV* pRTV, RenderDeviceUsedDSV* pDSV)
 	{
 		if(m_loaded && m_pImmediateContext)
 		{
@@ -638,7 +638,7 @@ namespace TLunaEngine {
 		}
 	}
 
-	void RenderDevice_D3D11::setRasterizerState(RenderDeviceUsedRasterizerState* pRasterizerState)
+	TVOID RenderDevice_D3D11::setRasterizerState(RenderDeviceUsedRasterizerState* pRasterizerState)
 	{
 		if(m_loaded && m_pImmediateContext)
 		{
@@ -654,7 +654,7 @@ namespace TLunaEngine {
 		}
 	}
 
-	void RenderDevice_D3D11::setDepthStencilState(RenderDeviceUsedDepthStencilState* pDepthStencilState)
+	TVOID RenderDevice_D3D11::setDepthStencilState(RenderDeviceUsedDepthStencilState* pDepthStencilState)
 	{
 		if(m_loaded && m_pImmediateContext)
 		{
@@ -670,7 +670,7 @@ namespace TLunaEngine {
 		}
 	}
 
-	void RenderDevice_D3D11::setBlendState(RenderDeviceUsedBlendState* pBlendState,const TF32 blendFactor[4],TU32 sampleMask)
+	TVOID RenderDevice_D3D11::setBlendState(RenderDeviceUsedBlendState* pBlendState,const TF32 blendFactor[4],TU32 sampleMask)
 	{
 		if(m_loaded && m_pImmediateContext)
 		{
@@ -686,7 +686,7 @@ namespace TLunaEngine {
 		}
 	}
 
-	void RenderDevice_D3D11::setConstantBuffer(RENDER_DEVICE_SHADER_USE_TYPE shaderType, TU32 startSlot, RenderDeviceUsedBuffer* pBuffer)
+	TVOID RenderDevice_D3D11::setConstantBuffer(RENDER_DEVICE_SHADER_USE_TYPE shaderType, TU32 startSlot, RenderDeviceUsedBuffer* pBuffer)
 	{
 		if(m_loaded && m_pImmediateContext)
 		{
@@ -777,7 +777,7 @@ namespace TLunaEngine {
 		}
 	}
 
-	void RenderDevice_D3D11::setSamplerState(RENDER_DEVICE_SHADER_USE_TYPE shaderType, TU32 startSlot, RenderDeviceUsedSamplerState* pSampler)
+	TVOID RenderDevice_D3D11::setSamplerState(RENDER_DEVICE_SHADER_USE_TYPE shaderType, TU32 startSlot, RenderDeviceUsedSamplerState* pSampler)
 	{
 		if(m_loaded && m_pImmediateContext)
 		{
@@ -868,7 +868,7 @@ namespace TLunaEngine {
 		}
 	}
 
-	void RenderDevice_D3D11::setShaderResourceView(RENDER_DEVICE_SHADER_USE_TYPE shaderType, TU32 startSlot, RenderDeviceUsedSRV* pSRV)
+	TVOID RenderDevice_D3D11::setShaderResourceView(RENDER_DEVICE_SHADER_USE_TYPE shaderType, TU32 startSlot, RenderDeviceUsedSRV* pSRV)
 	{
 		if(m_loaded && m_pImmediateContext)
 		{
@@ -959,7 +959,7 @@ namespace TLunaEngine {
 		}
 	}
 
-	void RenderDevice_D3D11::setVertexShader(RenderDeviceUsedVS* pVertexShader)
+	TVOID RenderDevice_D3D11::setVertexShader(RenderDeviceUsedVS* pVertexShader)
 	{
 		if(m_loaded && m_pImmediateContext)
 		{
@@ -975,7 +975,7 @@ namespace TLunaEngine {
 		}
 	}
 
-	void RenderDevice_D3D11::setHullShader(RenderDeviceUsedHS* pHullShader)
+	TVOID RenderDevice_D3D11::setHullShader(RenderDeviceUsedHS* pHullShader)
 	{
 		if(m_loaded && m_pImmediateContext)
 		{
@@ -991,7 +991,7 @@ namespace TLunaEngine {
 		}
 	}
 
-	void RenderDevice_D3D11::setDomainShader(RenderDeviceUsedDS* pDomainShader)
+	TVOID RenderDevice_D3D11::setDomainShader(RenderDeviceUsedDS* pDomainShader)
 	{
 		if(m_loaded && m_pImmediateContext)
 		{
@@ -1007,7 +1007,7 @@ namespace TLunaEngine {
 		}
 	}
 
-	void RenderDevice_D3D11::setGeometryShader(RenderDeviceUsedGS* pGeometryShader)
+	TVOID RenderDevice_D3D11::setGeometryShader(RenderDeviceUsedGS* pGeometryShader)
 	{
 		if(m_loaded && m_pImmediateContext)
 		{
@@ -1023,7 +1023,7 @@ namespace TLunaEngine {
 		}
 	}
 
-	void RenderDevice_D3D11::setPixelShader(RenderDeviceUsedPS* pPixelShader)
+	TVOID RenderDevice_D3D11::setPixelShader(RenderDeviceUsedPS* pPixelShader)
 	{
 		if(m_loaded && m_pImmediateContext)
 		{
@@ -1039,7 +1039,7 @@ namespace TLunaEngine {
 		}
 	}
 
-	void RenderDevice_D3D11::setComputeShader(RenderDeviceUsedCS* pComputeShader)
+	TVOID RenderDevice_D3D11::setComputeShader(RenderDeviceUsedCS* pComputeShader)
 	{
 		if(m_loaded && m_pImmediateContext)
 		{
@@ -1904,7 +1904,7 @@ namespace TLunaEngine {
 		return TNULL;
 	}
 
-	bool RenderDevice_D3D11::createTex2DFromDDSFile(const char* file,RenderDeviceUsedTex2D** ppTex2D,RenderDeviceUsedSRV** ppSRV)
+	TBOOL RenderDevice_D3D11::createTex2DFromDDSFile(const TCHAR* file,RenderDeviceUsedTex2D** ppTex2D,RenderDeviceUsedSRV** ppSRV)
 	{
 		if(m_pd3dDevice && m_loaded)
 		{
@@ -1913,7 +1913,7 @@ namespace TLunaEngine {
 			ID3D11ShaderResourceView* d3dSRV = TNULL;
 			HRESULT hr = CreateDDSTextureFromFile( m_pd3dDevice, strFile.GetWString().get(), (ID3D11Resource**)&d3dTex, &d3dSRV );
 			if( FAILED( hr ) )
-				return false;
+				return TFALSE;
 			if(ppTex2D)
 			{
 				*ppTex2D = new RenderDeviceUsedTex2D_D3D11();
@@ -1932,8 +1932,8 @@ namespace TLunaEngine {
 			{
 				d3dSRV->Release();
 			}
-			return true;
+			return TTRUE;
 		}
-		return false;
+		return TFALSE;
 	}
 }

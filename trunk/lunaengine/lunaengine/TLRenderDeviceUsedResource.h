@@ -14,7 +14,7 @@ namespace TLunaEngine
 		virtual ~RenderDeviceUsedResource(){};
 	public:
 		// get resource type
-		virtual void getResourceType(RENDER_DEVICE_RESOURCE_DIMENSION* pType) = 0;
+		virtual TVOID getResourceType(RENDER_DEVICE_RESOURCE_DIMENSION* pType) = 0;
 	};
 }
 

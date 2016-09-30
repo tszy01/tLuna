@@ -12,10 +12,10 @@ namespace TLunaEngine{
 	class FontGlyph
 	{
 	public:
-		bool cached;
+		TBOOL cached;
 		FontGlyph();
 		~FontGlyph();
-		void cache(TU32 idx,TU32 size);
+		TVOID cache(TU32 idx,TU32 size);
 		FT_Face *face;
 		//TU32 size;
 		TU32 top;
@@ -47,23 +47,23 @@ namespace TLunaEngine{
 		~GUIFont();
 
 		//! loads a truetype font file
-		bool InitFont(const char* filename,TU32 size,TU32 texPageSize,int id,FT_Library lib);
+		TBOOL InitFont(const TCHAR* filename,TU32 size,TU32 texPageSize,int id,FT_Library lib);
 
 		//! draws an text and clips it to the specified rectangle if wanted
-		void PreDraw(int n,TS32* imgw,TS32* imgh,TS32* texw,TS32* texh,TS32* offx,TS32* offy,
+		TVOID PreDraw(int n,TS32* imgw,TS32* imgh,TS32* texw,TS32* texh,TS32* offx,TS32* offy,
 			TF32* texStartU,TF32* texEndU,TF32* texStartV,TF32* texEndV,TU32* pageIndex);
 
 		//! returns the dimension of a text
-		void GetDimension(const wchar_t* text, TU32& left, TU32& right, TU32& top, TU32& bottom);
+		TVOID GetDimension(const TWCHAR* text, TU32& left, TU32& right, TU32& top, TU32& bottom);
 
 		//! Calculates the index of the character in the text which is on a specific position.
-		TS32 GetCharacterFromPos(const wchar_t* text, TS32 pixel_x);
+		TS32 GetCharacterFromPos(const TWCHAR* text, TS32 pixel_x);
 
-		TS32 GetWidthFromCharacter(wchar_t c);
-		TU32 GetGlyphByChar(wchar_t c,bool& newFontCached);
+		TS32 GetWidthFromCharacter(TWCHAR c);
+		TU32 GetGlyphByChar(TWCHAR c,TBOOL& newFontCached);
 
 		// catch all font to one dsv
-		bool catchAllFont();
+		TBOOL catchAllFont();
 
 		inline int GetId()
 		{

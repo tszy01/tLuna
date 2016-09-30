@@ -16,13 +16,13 @@ namespace TLunaEngine
 		}
 	}
 
-	bool RenderDeviceUsedInputLayout_D3D11::initWithD3DInputLayout(ID3D11InputLayout* d3dInputLayout)
+	TBOOL RenderDeviceUsedInputLayout_D3D11::initWithD3DInputLayout(ID3D11InputLayout* d3dInputLayout)
 	{
 		if(mD3DInputLayout)
-			return true;
+			return TTRUE;
 		if(!d3dInputLayout)
-			return false;
+			return TFALSE;
 		mD3DInputLayout = d3dInputLayout;
-		return true;
+		return TTRUE;
 	}
 }

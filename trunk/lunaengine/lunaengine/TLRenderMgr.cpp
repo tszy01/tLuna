@@ -32,7 +32,7 @@ namespace TLunaEngine
 		return TNULL;
 	}
 
-	void RenderMgr::destroyRenderDevice()
+	TVOID RenderMgr::destroyRenderDevice()
 	{
 		if(mDevice)
 		{
@@ -41,13 +41,13 @@ namespace TLunaEngine
 		}
 	}
 
-	bool RenderMgr::resizeDeviceBuffer(TU32 width,TU32 height)
+	TBOOL RenderMgr::resizeDeviceBuffer(TU32 width,TU32 height)
 	{
 		if(mDevice)
 		{
 			if(!mDevice->resizeBuffer(width,height))
-				return false;
+				return TFALSE;
 		}
-		return true;
+		return TTRUE;
 	}
 }

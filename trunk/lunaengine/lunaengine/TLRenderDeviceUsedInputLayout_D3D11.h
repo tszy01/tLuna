@@ -1,6 +1,7 @@
 #ifndef _TLRENDERDEVICEUSEDINPUTLAYOUT_D3D11_H_
 #define _TLRENDERDEVICEUSEDINPUTLAYOUT_D3D11_H_
 
+#include "TLCommonTypeDef.h"
 #include "TLRenderDeviceUsedInputLayout.h"
 #include <d3d11.h>
 namespace TLunaEngine
@@ -19,7 +20,7 @@ namespace TLunaEngine
 			return mD3DInputLayout;
 		}
 		// init with d3d input layout
-		bool initWithD3DInputLayout(ID3D11InputLayout* d3dInputLayout);
+		TBOOL initWithD3DInputLayout(ID3D11InputLayout* d3dInputLayout);
 	};
 }
 

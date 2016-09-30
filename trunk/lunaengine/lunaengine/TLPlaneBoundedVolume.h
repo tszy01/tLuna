@@ -20,9 +20,9 @@ namespace TLunaEngine
             : outside(theOutside) {}
 
         /** Intersection test with AABB
-        @remarks May return false positives but will never miss an intersection.
+        @remarks May return TFALSE positives but will never miss an intersection.
         */
-        inline bool intersects(const Vector3<T>& center, const Vector3<T>& halfSize) const
+        inline TBOOL intersects(const Vector3<T>& center, const Vector3<T>& halfSize) const
         {
 			std::vector<Plane<T>>::iterator itr = planes.begin();
 			for (;itr != planes.end(); ++itr)
@@ -33,18 +33,18 @@ namespace TLunaEngine
                 if (side == outside)
                 {
                     // Found a splitting plane therefore return not intersecting
-                    return false;
+                    return TFALSE;
                 }
             }
 
             // couldn't find a splitting plane, assume intersecting
-            return true;
+            return TTRUE;
 
         }
         /** Intersection test with Sphere
-        @remarks May return false positives but will never miss an intersection.
+        @remarks May return TFALSE positives but will never miss an intersection.
         */
-        inline bool intersects(const Vector3<T>& center, T radius) const
+        inline TBOOL intersects(const Vector3<T>& center, T radius) const
         {
             std::vector<Plane<T>>::iterator itr = planes.begin();
 			for (;itr != planes.end(); ++itr)
@@ -57,27 +57,27 @@ namespace TLunaEngine
                 if (outside == ISREL3D_BACK) d = -d;
 
                 if ( (d - radius) > 0)
-                    return false;
+                    return TFALSE;
             }
 
-            return true;
+            return TTRUE;
 
         }
 
         /** Intersection test with a Ray
-        @return std::pair of hit (bool) and distance
-        @remarks May return false positives but will never miss an intersection.
+        @return std::pair of hit (TBOOL) and distance
+        @remarks May return TFALSE positives but will never miss an intersection.
         */
-        inline std::pair<bool, TF32> intersects(const Vector3<T>& point, const Vector3<T>& dir)
+        inline std::pair<TBOOL, TF32> intersects(const Vector3<T>& point, const Vector3<T>& dir)
         {
             //list<Plane>::type::const_iterator planeit, planeitend;
 			//planeitend = planes.end();
-			bool allInside = true;
-			std::pair<bool, TF32> ret;
-			std::pair<bool, TF32> end;
-			ret.first = false;
+			TBOOL allInside = TTRUE;
+			std::pair<TBOOL, TF32> ret;
+			std::pair<TBOOL, TF32> end;
+			ret.first = TFALSE;
 			ret.second = 0.0f;
-			end.first = false;
+			end.first = TFALSE;
 			end.second = 0;
 
 
@@ -93,20 +93,20 @@ namespace TLunaEngine
 				// is origin outside?
 				if (plane.classifyPointRelation(point) == outside)
 				{
-					allInside = false;
+					allInside = TFALSE;
 					// Test single plane
 					Vector3<T> intersection;
-					bool bInter = plane.getIntersectionWithLine(point,dir,intersection);
+					TBOOL bInter = plane.getIntersectionWithLine(point,dir,intersection);
 					if (bInter)
 					{
 						// Ok, we intersected
-						ret.first = true;
+						ret.first = TTRUE;
 						// Use the most distant result since convex volume
 						ret.second = std::max(ret.second, intersection);
 					}
 					else
 					{
-						ret.first =false;
+						ret.first =TFALSE;
 						ret.second=0.0f;
 						return ret;
 					}
@@ -114,12 +114,12 @@ namespace TLunaEngine
 				else
 				{
 					Vector3<T> intersection;
-					bool bInter = plane.getIntersectionWithLine(point,dir,intersection);
+					TBOOL bInter = plane.getIntersectionWithLine(point,dir,intersection);
 					if (bInter)
 					{
 						if( !end.first )
 						{
-							end.first = true;
+							end.first = TTRUE;
 							end.second = intersection;
 						}
 						else
@@ -135,7 +135,7 @@ namespace TLunaEngine
 			if (allInside)
 			{
 				// Intersecting at 0 distance since inside the volume!
-				ret.first = true;
+				ret.first = TTRUE;
 				ret.second = 0.0f;
 				return ret;
 			}
@@ -144,7 +144,7 @@ namespace TLunaEngine
 			{
 				if( end.second < ret.second )
 				{
-					ret.first = false;
+					ret.first = TFALSE;
 					return ret;
 				}
 			}

@@ -1,6 +1,7 @@
 #ifndef _TLRENDERDEVICEUSEDUAV_D3D11_H_
 #define _TLRENDERDEVICEUSEDUAV_D3D11_H_
 
+#include "TLCommonTypeDef.h"
 #include "TLRenderDeviceUsedUAV.h"
 #include "TLRenderDeviceUsedView_D3D11.h"
 #include <d3d11.h>
@@ -27,7 +28,7 @@ namespace TLunaEngine
 			return mD3DUAV;
 		}
 		// init with d3d uav
-		bool initWithD3DUAV(ID3D11UnorderedAccessView* d3dView);
+		TBOOL initWithD3DUAV(ID3D11UnorderedAccessView* d3dView);
 	};
 }
 

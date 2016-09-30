@@ -24,13 +24,13 @@ namespace TLunaEngine{
 		}
 
 		//! Equality operator
-		inline bool operator==(const Triangle<T>& other) const
+		inline TBOOL operator==(const Triangle<T>& other) const
 		{
 			return other.pointA==pointA && other.pointB==pointB && other.pointC==pointC;
 		}
 
 		//! Inequality operator
-		inline bool operator!=(const Triangle<T>& other) const
+		inline TBOOL operator!=(const Triangle<T>& other) const
 		{
 			return !(*this==other);
 		}
@@ -66,8 +66,8 @@ namespace TLunaEngine{
 		//! Check if a point is inside the triangle
 		/** \param p Point to test. Assumes that this point is already
 		on the plane of the triangle.
-		\return True if the point is inside the triangle, otherwise false. */
-		inline bool isPointInside(const Vector3<T>& p) const
+		\return True if the point is inside the triangle, otherwise TFALSE. */
+		inline TBOOL isPointInside(const Vector3<T>& p) const
 		{
 			return (isOnSameSide(p, pointA, pointB, pointC) &&
 				isOnSameSide(p, pointB, pointA, pointC) &&
@@ -80,8 +80,8 @@ namespace TLunaEngine{
 		Mr-Gamemaker.
 		\param p Point to test. Assumes that this point is already
 		on the plane of the triangle.
-		\return True if point is inside the triangle, otherwise false. */
-		inline bool isPointInsideFast(const Vector3<T>& p) const
+		\return True if point is inside the triangle, otherwise TFALSE. */
+		inline TBOOL isPointInsideFast(const Vector3<T>& p) const
 		{
 			const Vector3<T> f = pointB - pointA;
 			const Vector3<T> g = pointC - pointA;
@@ -111,14 +111,14 @@ namespace TLunaEngine{
 		\param linePoint Point of the line to intersect with.
 		\param lineVect Vector of the line to intersect with.
 		\param outIntersection Place to store the intersection point, if there is one.
-		\return True if there was an intersection, false if there was not. */
-		inline bool getIntersectionWithLine(const Vector3<T>& linePoint,
+		\return True if there was an intersection, TFALSE if there was not. */
+		inline TBOOL getIntersectionWithLine(const Vector3<T>& linePoint,
 			const Vector3<T>& lineVect, Vector3<T>& outIntersection) const
 		{
 			if (getIntersectionOfPlaneWithLine(linePoint, lineVect, outIntersection))
 				return isPointInside(outIntersection);
 
-			return false;
+			return TFALSE;
 		}
 
 
@@ -126,20 +126,20 @@ namespace TLunaEngine{
 		/** \param lineVect Vector of the line to intersect with.
 		\param linePoint Point of the line to intersect with.
 		\param outIntersection Place to store the intersection point, if there is one.
-		\return True if there was an intersection, else false. */
-		inline bool getIntersectionOfPlaneWithLine(const Vector3<T>& linePoint,
+		\return True if there was an intersection, else TFALSE. */
+		inline TBOOL getIntersectionOfPlaneWithLine(const Vector3<T>& linePoint,
 			const Vector3<T>& lineVect, Vector3<T>& outIntersection) const
 		{
 			const Vector3<T> normal = getNormal().normalize();
 			T t2;
 
 			if ( iszero ( t2 = normal.dotProduct(lineVect) ) )
-				return false;
+				return TFALSE;
 
 			T d = pointA.dotProduct(normal);
 			T t = -(normal.dotProduct(linePoint) - d) / t2;
 			outIntersection = linePoint + (lineVect * t);
-			return true;
+			return TTRUE;
 		}
 
 
@@ -155,8 +155,8 @@ namespace TLunaEngine{
 		triangle is definitely visible when looking at the given direction.
 		Do not use this method with points as it will give wrong results!
 		\param lookDirection Look direction.
-		\return True if the plane is front facing and false if it is backfacing. */
-		inline bool isFrontFacing(const Vector3<T>& lookDirection) const
+		\return True if the plane is front facing and TFALSE if it is backfacing. */
+		inline TBOOL isFrontFacing(const Vector3<T>& lookDirection) const
 		{
 			const Vector3<T> n = getNormal().normalize();
 			const T d = n.dotProduct(lookDirection);
@@ -177,7 +177,7 @@ namespace TLunaEngine{
 		}
 
 		//! sets the triangle's points
-		inline void set(const Vector3<T>& a, const Vector3<T>& b, const Vector3<T>& c)
+		inline TVOID set(const Vector3<T>& a, const Vector3<T>& b, const Vector3<T>& c)
 		{
 			pointA = a;
 			pointB = b;
@@ -190,7 +190,7 @@ namespace TLunaEngine{
 		Vector3<T> pointC;
 
 		// p1是否在p2,a,b的内部
-		inline bool isOnSameSide(const Vector3<T>& p1, const Vector3<T>& p2,
+		inline TBOOL isOnSameSide(const Vector3<T>& p1, const Vector3<T>& p2,
 			const Vector3<T>& a, const Vector3<T>& b) const
 		{
 			Vector3<T> bminusa = b - a;

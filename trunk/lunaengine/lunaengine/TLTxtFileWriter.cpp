@@ -6,215 +6,215 @@
 #include <tchar.h>
 namespace TLunaEngine{
 
-	TxtFileWriter::TxtFileWriter(void)
+	TxtFileWriter::TxtFileWriter(TVOID)
 	{
 	}
 
-	TxtFileWriter::~TxtFileWriter(void)
+	TxtFileWriter::~TxtFileWriter(TVOID)
 	{
 	}
 
-	bool TxtFileWriter::OpenTxtFile(const char *filename, FILE **ppStream)
+	TBOOL TxtFileWriter::OpenTxtFile(const TCHAR* filename, FILE **ppStream)
 	{
 		if(!filename || !ppStream)
 		{
-			assert(false);
-			return false;
+			assert(TFALSE);
+			return TFALSE;
 		}
 		// 打开文件
 		int re = fopen_s(ppStream,filename,"wt");
 		if(*ppStream==0 || re!=0)
 		{
-			assert(false);
-			return false;
+			assert(TFALSE);
+			return TFALSE;
 		}
-		return true;
+		return TTRUE;
 	}
 
-	void TxtFileWriter::CloseTxtFile(FILE *pStream)
+	TVOID TxtFileWriter::CloseTxtFile(FILE *pStream)
 	{
 		fclose(pStream);
 	}
 
-	bool TxtFileWriter::WriteLineString(const char* strWrite,FILE* pStream,int count)
+	TBOOL TxtFileWriter::WriteLineString(const TCHAR* strWrite,FILE* pStream,int count)
 	{
 		if(!strWrite || !pStream)
-			return false;
-		if((int)fwrite(strWrite,sizeof(char),count,pStream) < count)
-			return false;
-		const char* szTmp = "\n";
-		fwrite(szTmp,sizeof(char),1,pStream);
-		return true;
+			return TFALSE;
+		if((int)fwrite(strWrite,sizeof(TCHAR),count,pStream) < count)
+			return TFALSE;
+		const TCHAR* szTmp = "\n";
+		fwrite(szTmp,sizeof(TCHAR),1,pStream);
+		return TTRUE;
 	}
 
-	bool TxtFileWriter::WriteLineInteger(const int* aiWrite,FILE* pStream,int nCount,char splice)
+	TBOOL TxtFileWriter::WriteLineInteger(const int* aiWrite,FILE* pStream,int nCount,TCHAR splice)
 	{
 		if(!aiWrite || !pStream || nCount<=0)
-			return false;
+			return TFALSE;
 		for(int i=0;i<nCount;i++)
 		{
-			char szTmp[64] = {0};
+			TCHAR szTmp[64] = {0};
 			sprintf(szTmp,"%d",aiWrite[i]);
-			fwrite(szTmp,sizeof(char),strlen(szTmp),pStream);
+			fwrite(szTmp,sizeof(TCHAR),strlen(szTmp),pStream);
 			if(i<nCount-1)
 			{
 				sprintf(szTmp,"%c",splice);
-				fwrite(szTmp,sizeof(char),1,pStream);
+				fwrite(szTmp,sizeof(TCHAR),1,pStream);
 			}
 		}
-		fwrite("\n",sizeof(char),1,pStream);
-		return true;
+		fwrite("\n",sizeof(TCHAR),1,pStream);
+		return TTRUE;
 	}
 
-	bool TxtFileWriter::WriteLineLong(const long* alWrite,FILE* pStream,int nCount,char splice)
+	TBOOL TxtFileWriter::WriteLineLong(const long* alWrite,FILE* pStream,int nCount,TCHAR splice)
 	{
 		if(!alWrite || !pStream || nCount<=0)
-			return false;
+			return TFALSE;
 		for(int i=0;i<nCount;i++)
 		{
-			char szTmp[64] = {0};
+			TCHAR szTmp[64] = {0};
 			sprintf(szTmp,"%ld",alWrite[i]);
-			fwrite(szTmp,sizeof(char),strlen(szTmp),pStream);
+			fwrite(szTmp,sizeof(TCHAR),strlen(szTmp),pStream);
 			if(i<nCount-1)
 			{
 				sprintf(szTmp,"%c",splice);
-				fwrite(szTmp,sizeof(char),1,pStream);
+				fwrite(szTmp,sizeof(TCHAR),1,pStream);
 			}
 		}
-		fwrite("\n",sizeof(char),1,pStream);
-		return true;
+		fwrite("\n",sizeof(TCHAR),1,pStream);
+		return TTRUE;
 	}
 
-	bool TxtFileWriter::WriteLineShort(const short* asWrite,FILE* pStream,int nCount,char splice)
+	TBOOL TxtFileWriter::WriteLineShort(const short* asWrite,FILE* pStream,int nCount,TCHAR splice)
 	{
 		if(!asWrite || !pStream || nCount<=0)
-			return false;
+			return TFALSE;
 		for(int i=0;i<nCount;i++)
 		{
-			char szTmp[64] = {0};
+			TCHAR szTmp[64] = {0};
 			sprintf(szTmp,"%d",asWrite[i]);
-			fwrite(szTmp,sizeof(char),strlen(szTmp),pStream);
+			fwrite(szTmp,sizeof(TCHAR),strlen(szTmp),pStream);
 			if(i<nCount-1)
 			{
 				sprintf(szTmp,"%c",splice);
-				fwrite(szTmp,sizeof(char),1,pStream);
+				fwrite(szTmp,sizeof(TCHAR),1,pStream);
 			}
 		}
-		fwrite("\n",sizeof(char),1,pStream);
-		return true;
+		fwrite("\n",sizeof(TCHAR),1,pStream);
+		return TTRUE;
 	}
 
-	bool TxtFileWriter::WriteLineUInteger(const unsigned int* auWrite,FILE* pStream,int nCount,char splice)
+	TBOOL TxtFileWriter::WriteLineUInteger(const unsigned int* auWrite,FILE* pStream,int nCount,TCHAR splice)
 	{
 		if(!auWrite || !pStream || nCount<=0)
-			return false;
+			return TFALSE;
 		for(int i=0;i<nCount;i++)
 		{
-			char szTmp[64] = {0};
+			TCHAR szTmp[64] = {0};
 			sprintf(szTmp,"%u",auWrite[i]);
-			fwrite(szTmp,sizeof(char),strlen(szTmp),pStream);
+			fwrite(szTmp,sizeof(TCHAR),strlen(szTmp),pStream);
 			if(i<nCount-1)
 			{
 				sprintf(szTmp,"%c",splice);
-				fwrite(szTmp,sizeof(char),1,pStream);
+				fwrite(szTmp,sizeof(TCHAR),1,pStream);
 			}
 		}
-		fwrite("\n",sizeof(char),1,pStream);
-		return true;
+		fwrite("\n",sizeof(TCHAR),1,pStream);
+		return TTRUE;
 	}
 
-	bool TxtFileWriter::WriteLineULong(const unsigned long* aulWrite,FILE* pStream,int nCount,char splice)
+	TBOOL TxtFileWriter::WriteLineULong(const unsigned long* aulWrite,FILE* pStream,int nCount,TCHAR splice)
 	{
 		if(!aulWrite || !pStream || nCount<=0)
-			return false;
+			return TFALSE;
 		for(int i=0;i<nCount;i++)
 		{
-			char szTmp[64] = {0};
+			TCHAR szTmp[64] = {0};
 			sprintf(szTmp,"%lu",aulWrite[i]);
-			fwrite(szTmp,sizeof(char),strlen(szTmp),pStream);
+			fwrite(szTmp,sizeof(TCHAR),strlen(szTmp),pStream);
 			if(i<nCount-1)
 			{
 				sprintf(szTmp,"%c",splice);
-				fwrite(szTmp,sizeof(char),1,pStream);
+				fwrite(szTmp,sizeof(TCHAR),1,pStream);
 			}
 		}
-		fwrite("\n",sizeof(char),1,pStream);
-		return true;
+		fwrite("\n",sizeof(TCHAR),1,pStream);
+		return TTRUE;
 	}
 
-	bool TxtFileWriter::WriteLineUShort(const unsigned short* ausWrite,FILE* pStream,int nCount,char splice)
+	TBOOL TxtFileWriter::WriteLineUShort(const unsigned short* ausWrite,FILE* pStream,int nCount,TCHAR splice)
 	{
 		if(!ausWrite || !pStream || nCount<=0)
-			return false;
+			return TFALSE;
 		for(int i=0;i<nCount;i++)
 		{
-			char szTmp[64] = {0};
+			TCHAR szTmp[64] = {0};
 			sprintf(szTmp,"%u",ausWrite[i]);
-			fwrite(szTmp,sizeof(char),strlen(szTmp),pStream);
+			fwrite(szTmp,sizeof(TCHAR),strlen(szTmp),pStream);
 			if(i<nCount-1)
 			{
 				sprintf(szTmp,"%c",splice);
-				fwrite(szTmp,sizeof(char),1,pStream);
+				fwrite(szTmp,sizeof(TCHAR),1,pStream);
 			}
 		}
-		fwrite("\n",sizeof(char),1,pStream);
-		return true;
+		fwrite("\n",sizeof(TCHAR),1,pStream);
+		return TTRUE;
 	}
 
-	bool TxtFileWriter::WriteLineFloat(const float* afWrite,FILE* pStream,int nCount,char splice)
+	TBOOL TxtFileWriter::WriteLineFloat(const float* afWrite,FILE* pStream,int nCount,TCHAR splice)
 	{
 		if(!afWrite || !pStream || nCount<=0)
-			return false;
+			return TFALSE;
 		for(int i=0;i<nCount;i++)
 		{
-			char szTmp[64] = {0};
+			TCHAR szTmp[64] = {0};
 			sprintf(szTmp,"%.3f",afWrite[i]);
-			fwrite(szTmp,sizeof(char),strlen(szTmp),pStream);
+			fwrite(szTmp,sizeof(TCHAR),strlen(szTmp),pStream);
 			if(i<nCount-1)
 			{
 				sprintf(szTmp,"%c",splice);
-				fwrite(szTmp,sizeof(char),1,pStream);
+				fwrite(szTmp,sizeof(TCHAR),1,pStream);
 			}
 		}
-		fwrite("\n",sizeof(char),1,pStream);
-		return true;
+		fwrite("\n",sizeof(TCHAR),1,pStream);
+		return TTRUE;
 	}
 
-	bool TxtFileWriter::WriteLineDouble(const double* adWrite,FILE* pStream,int nCount,char splice)
+	TBOOL TxtFileWriter::WriteLineDouble(const double* adWrite,FILE* pStream,int nCount,TCHAR splice)
 	{
 		if(!adWrite || !pStream || nCount<=0)
-			return false;
+			return TFALSE;
 		for(int i=0;i<nCount;i++)
 		{
-			char szTmp[64] = {0};
+			TCHAR szTmp[64] = {0};
 			sprintf(szTmp,"%.6lf",adWrite[i]);
-			fwrite(szTmp,sizeof(char),strlen(szTmp),pStream);
+			fwrite(szTmp,sizeof(TCHAR),strlen(szTmp),pStream);
 			if(i<nCount-1)
 			{
 				sprintf(szTmp,"%c",splice);
-				fwrite(szTmp,sizeof(char),1,pStream);
+				fwrite(szTmp,sizeof(TCHAR),1,pStream);
 			}
 		}
-		fwrite("\n",sizeof(char),1,pStream);
-		return true;
+		fwrite("\n",sizeof(TCHAR),1,pStream);
+		return TTRUE;
 	}
 
-	bool TxtFileWriter::WriteAllFile(const char* szFile,const char* mode,const void* buffer,size_t writeByte)
+	TBOOL TxtFileWriter::WriteAllFile(const TCHAR* szFile,const TCHAR* mode,const TVOID* buffer,size_t writeByte)
 	{
 		if(!szFile || !mode || !buffer || writeByte<=0)
-			return false;
+			return TFALSE;
 		FILE* file = 0;
 		int re = fopen_s(&file,szFile,mode);
 		if(re!=0)
 		{
-			return false;
+			return TFALSE;
 		}
 		if(fwrite(buffer,1,writeByte,file)!=writeByte)
 		{
 			fclose(file);
-			return false;
+			return TFALSE;
 		}
 		fclose(file);
-		return true;
+		return TTRUE;
 	}
 }

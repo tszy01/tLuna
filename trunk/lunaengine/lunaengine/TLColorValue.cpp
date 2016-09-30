@@ -12,9 +12,9 @@ namespace TLunaEngine
 
 	//---------------------------------------------------------------------
 //#if OGRE_ENDIAN == OGRE_ENDIAN_BIG
-//	ABGR ColorValue::getAsABGR(void) const
+//	ABGR ColorValue::getAsABGR(TVOID) const
 //#else
-	RGBA ColorValue::getAsRGBA(void) const
+	RGBA ColorValue::getAsRGBA(TVOID) const
 //#endif
 	{
 		TUByte val8;
@@ -43,9 +43,9 @@ namespace TLunaEngine
 	}
 	//---------------------------------------------------------------------
 //#if OGRE_ENDIAN == OGRE_ENDIAN_BIG
-//	BGRA ColorValue::getAsBGRA(void) const
+//	BGRA ColorValue::getAsBGRA(TVOID) const
 //#else
-	ARGB ColorValue::getAsARGB(void) const
+	ARGB ColorValue::getAsARGB(TVOID) const
 //#endif
 	{
 		TUByte val8;
@@ -75,9 +75,9 @@ namespace TLunaEngine
 	}
 	//---------------------------------------------------------------------
 //#if OGRE_ENDIAN == OGRE_ENDIAN_BIG
-//	ARGB ColorValue::getAsARGB(void) const
+//	ARGB ColorValue::getAsARGB(TVOID) const
 //#else
-	BGRA ColorValue::getAsBGRA(void) const
+	BGRA ColorValue::getAsBGRA(TVOID) const
 //#endif
 	{
 		TUByte val8;
@@ -107,9 +107,9 @@ namespace TLunaEngine
 	}
 	//---------------------------------------------------------------------
 //#if OGRE_ENDIAN == OGRE_ENDIAN_BIG
-//	RGBA ColorValue::getAsRGBA(void) const
+//	RGBA ColorValue::getAsRGBA(TVOID) const
 //#else
-	ABGR ColorValue::getAsABGR(void) const
+	ABGR ColorValue::getAsABGR(TVOID) const
 //#endif
 	{
 		TUByte val8;
@@ -139,9 +139,9 @@ namespace TLunaEngine
 	}
 	//---------------------------------------------------------------------
 //#if OGRE_ENDIAN == OGRE_ENDIAN_BIG
-//	void ColorValue::setAsABGR(const ABGR val)
+//	TVOID ColorValue::setAsABGR(const ABGR val)
 //#else
-	void ColorValue::setAsRGBA(const RGBA val)
+	TVOID ColorValue::setAsRGBA(const RGBA val)
 //#endif
 	{
 		TU32 val32 = val;
@@ -163,9 +163,9 @@ namespace TLunaEngine
 	}
 	//---------------------------------------------------------------------
 //#if OGRE_ENDIAN == OGRE_ENDIAN_BIG
-//	void ColorValue::setAsBGRA(const BGRA val)
+//	TVOID ColorValue::setAsBGRA(const BGRA val)
 //#else
-	void ColorValue::setAsARGB(const ARGB val)
+	TVOID ColorValue::setAsARGB(const ARGB val)
 //#endif
 	{
 		TU32 val32 = val;
@@ -187,9 +187,9 @@ namespace TLunaEngine
 	}
 	//---------------------------------------------------------------------
 //#if OGRE_ENDIAN == OGRE_ENDIAN_BIG
-//	void ColorValue::setAsARGB(const ARGB val)
+//	TVOID ColorValue::setAsARGB(const ARGB val)
 //#else
-	void ColorValue::setAsBGRA(const BGRA val)
+	TVOID ColorValue::setAsBGRA(const BGRA val)
 //#endif
 	{
 		TU32 val32 = val;
@@ -211,9 +211,9 @@ namespace TLunaEngine
 	}
 	//---------------------------------------------------------------------
 //#if OGRE_ENDIAN == OGRE_ENDIAN_BIG
-//	void ColorValue::setAsRGBA(const RGBA val)
+//	TVOID ColorValue::setAsRGBA(const RGBA val)
 //#else
-	void ColorValue::setAsABGR(const ABGR val)
+	TVOID ColorValue::setAsABGR(const ABGR val)
 //#endif
 	{
 		TU32 val32 = val;
@@ -234,7 +234,7 @@ namespace TLunaEngine
 		r = (val32 & 0xFF) / 255.0f;
 	}
 	//---------------------------------------------------------------------
-	bool ColorValue::operator==(const ColorValue& rhs) const
+	TBOOL ColorValue::operator==(const ColorValue& rhs) const
 	{
 		return (r == rhs.r &&
 			g == rhs.g &&
@@ -242,12 +242,12 @@ namespace TLunaEngine
 			a == rhs.a);
 	}
 	//---------------------------------------------------------------------
-	bool ColorValue::operator!=(const ColorValue& rhs) const
+	TBOOL ColorValue::operator!=(const ColorValue& rhs) const
 	{
 		return !(*this == rhs);
 	}
 	//---------------------------------------------------------------------
-	void ColorValue::setHSB(TF32 hue, TF32 saturation, TF32 brightness)
+	TVOID ColorValue::setHSB(TF32 hue, TF32 saturation, TF32 brightness)
 	{
 		// wrap hue
 		if (hue > 1.0f)
@@ -334,7 +334,7 @@ namespace TLunaEngine
 
 	}
 	//---------------------------------------------------------------------
-	void ColorValue::getHSB(TF32* hue, TF32* saturation, TF32* brightness) const
+	TVOID ColorValue::getHSB(TF32* hue, TF32* saturation, TF32* brightness) const
 	{
 
 		TF32 vMin = TLunaEngine::min_<TF32>(r, TLunaEngine::min_<TF32>(g, b));

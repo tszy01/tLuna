@@ -24,12 +24,12 @@ namespace TLunaEngine
 		}
 	}
 
-	bool Image::createBuffer(TU32 width, TU32 height, PIXEL_FORMAT format)
+	TBOOL Image::createBuffer(TU32 width, TU32 height, PIXEL_FORMAT format)
 	{
 		if(mPixelBuffer)
-			return false;
+			return TFALSE;
 		if(width==0 || height==0)
-			return false;
+			return TFALSE;
 		switch(format)
 		{
 		case PIXEL_FORMAT_R8:
@@ -52,20 +52,20 @@ namespace TLunaEngine
 			break;
 		default:
 			{
-				return false;
+				return TFALSE;
 			}
 			break;
 		}
 		mPixelFormat = format;
 		mWidth = width;
 		mHeight = height;
-		return true;
+		return TTRUE;
 	}
 
-	bool Image::copyFromBuffer(const TUByte* pBuffer)
+	TBOOL Image::copyFromBuffer(const TUByte* pBuffer)
 	{
 		if(!pBuffer || !mPixelBuffer)
-			return false;
+			return TFALSE;
 		switch(mPixelFormat)
 		{
 		case PIXEL_FORMAT_R8:
@@ -85,11 +85,11 @@ namespace TLunaEngine
 			break;
 		default:
 			{
-				return false;
+				return TFALSE;
 			}
 			break;
 		}
-		return true;
+		return TTRUE;
 	}
 
 	Image* Image::createFromMemory(const TUByte* pBuffer, TU32 width, TU32 height, Image::PIXEL_FORMAT format)
@@ -110,14 +110,14 @@ namespace TLunaEngine
 		return pRet;
 	}
 
-	bool Image::copyToMemory(TUByte** ppBuffer)
+	TBOOL Image::copyToMemory(TUByte** ppBuffer)
 	{
 		if(!mPixelBuffer)
-			return false;
+			return TFALSE;
 		if(mWidth<=0 || mHeight<=0)
-			return false;
+			return TFALSE;
 		if(!ppBuffer)
-			return false;
+			return TFALSE;
 		switch(mPixelFormat)
 		{
 		case PIXEL_FORMAT_R8:
@@ -140,11 +140,11 @@ namespace TLunaEngine
 			break;
 		default:
 			{
-				return false;
+				return TFALSE;
 			}
 			break;
 		}
-		return true;
+		return TTRUE;
 	}
 
 	Image* Image::clone()
@@ -274,15 +274,15 @@ namespace TLunaEngine
 		return TNULL;
 	}
 
-	bool Image::setRGBA(TU32 pixelIndex, TUByte r, TUByte g, TUByte b, TUByte a)
+	TBOOL Image::setRGBA(TU32 pixelIndex, TUByte r, TUByte g, TUByte b, TUByte a)
 	{
 		if(!mPixelBuffer)
-			return false;
+			return TFALSE;
 		if(mWidth==0 || mHeight==0)
-			return false;
+			return TFALSE;
 		TUByte* pBuffer = getBufferPointer(pixelIndex);
 		if(!pBuffer)
-			return false;
+			return TFALSE;
 		switch(mPixelFormat)
 		{
 		case PIXEL_FORMAT_R8:
@@ -312,22 +312,22 @@ namespace TLunaEngine
 			break;
 		default:
 			{
-				return false;
+				return TFALSE;
 			}
 			break;
 		}
-		return true;
+		return TTRUE;
 	}
 
-	bool Image::getRGBA(TU32 pixelIndex, TUByte* pR, TUByte* pG, TUByte* pB, TUByte* pA)
+	TBOOL Image::getRGBA(TU32 pixelIndex, TUByte* pR, TUByte* pG, TUByte* pB, TUByte* pA)
 	{
 		if(!mPixelBuffer)
-			return false;
+			return TFALSE;
 		if(mWidth==0 || mHeight==0)
-			return false;
+			return TFALSE;
 		TUByte* pBuffer = getBufferPointer(pixelIndex);
 		if(!pBuffer)
-			return false;
+			return TFALSE;
 		switch(mPixelFormat)
 		{
 		case PIXEL_FORMAT_R8:
@@ -366,32 +366,32 @@ namespace TLunaEngine
 			break;
 		default:
 			{
-				return false;
+				return TFALSE;
 			}
 			break;
 		}
-		return true;
+		return TTRUE;
 	}
 
-	bool Image::writeToFile(const char* file)
+	TBOOL Image::writeToFile(const TCHAR* file)
 	{
 		if(!mPixelBuffer)
-			return false;
+			return TFALSE;
 		if(mWidth==0 || mHeight==0)
-			return false;
+			return TFALSE;
 		TU32 pixelSize = getPixelSize();
 		if(pixelSize==0)
-			return false;
+			return TFALSE;
 		// call free image
 		FREE_IMAGE_FORMAT fif = FIF_TARGA;
 		FIBITMAP* dib = FreeImage_Allocate(mWidth,mHeight,pixelSize*8);
 		if(!dib)
-			return false;
+			return TFALSE;
 		TUByte* bits = FreeImage_GetBits(dib);
 		if(!bits)
 		{
 			FreeImage_Unload(dib);
-			return false;
+			return TFALSE;
 		}
 		TUByte* temp = bits;
 		for(TU32 i=0;i<mWidth*mHeight;++i)
@@ -403,18 +403,18 @@ namespace TLunaEngine
 		if(FreeImage_FlipVertical(dib)==TFALSE)
 		{
 			FreeImage_Unload(dib);
-			return false;
+			return TFALSE;
 		}
 		if(!FreeImage_Save(fif,dib,file))
 		{
 			FreeImage_Unload(dib);
-			return false;
+			return TFALSE;
 		}
 		FreeImage_Unload(dib);
-		return true;
+		return TTRUE;
 	}
 
-	Image* Image::createFromFile(const char* file)
+	Image* Image::createFromFile(const TCHAR* file)
 	{
 		//image format
 		FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;

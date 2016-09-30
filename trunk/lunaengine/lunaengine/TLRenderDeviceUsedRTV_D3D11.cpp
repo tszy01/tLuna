@@ -16,13 +16,13 @@ namespace TLunaEngine
 		}
 	}
 
-	bool RenderDeviceUsedRTV_D3D11::initWithD3DRTV(ID3D11RenderTargetView* d3dView)
+	TBOOL RenderDeviceUsedRTV_D3D11::initWithD3DRTV(ID3D11RenderTargetView* d3dView)
 	{
 		if(mD3DRTV)
-			return false;
+			return TFALSE;
 		if(!d3dView)
-			return false;
+			return TFALSE;
 		mD3DRTV = d3dView;
-		return true;
+		return TTRUE;
 	}
 }

@@ -24,15 +24,15 @@ namespace TLunaEngine
 		~Image();
 	public:
 		// create from file
-		static Image* createFromFile(const char* file);
+		static Image* createFromFile(const TCHAR* file);
 		// write to file
-		bool writeToFile(const char* file);
+		TBOOL writeToFile(const TCHAR* file);
 		// get rgba
 		// different formats using different parameters
-		bool getRGBA(TU32 pixelIndex, TUByte* pR, TUByte* pG, TUByte* pB, TUByte* pA);
+		TBOOL getRGBA(TU32 pixelIndex, TUByte* pR, TUByte* pG, TUByte* pB, TUByte* pA);
 		// set rgba
 		// different formats using different parameters
-		bool setRGBA(TU32 pixelIndex, TUByte r, TUByte g, TUByte b, TUByte a);
+		TBOOL setRGBA(TU32 pixelIndex, TUByte r, TUByte g, TUByte b, TUByte a);
 		// get pixel format
 		PIXEL_FORMAT getPixelFormat();
 		// get image size
@@ -43,7 +43,7 @@ namespace TLunaEngine
 		// this will alloc memory
 		Image* clone();
 		// copy to memory
-		bool copyToMemory(TUByte** ppBuffer);
+		TBOOL copyToMemory(TUByte** ppBuffer);
 		// create from memory
 		static Image* createFromMemory(const TUByte* pBuffer, TU32 width, TU32 height, PIXEL_FORMAT format); 
 		// get buffer
@@ -53,9 +53,9 @@ namespace TLunaEngine
 		}
 	private:
 		// create buffer
-		bool createBuffer(TU32 width, TU32 height, PIXEL_FORMAT format);
+		TBOOL createBuffer(TU32 width, TU32 height, PIXEL_FORMAT format);
 		// copy from buffer
-		bool copyFromBuffer(const TUByte* pBuffer);
+		TBOOL copyFromBuffer(const TUByte* pBuffer);
 		// get buffer pointer
 		TUByte* getBufferPointer(TU32 pixelIndex);
 	private:

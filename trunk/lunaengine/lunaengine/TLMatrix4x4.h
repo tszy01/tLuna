@@ -11,10 +11,10 @@ namespace TLunaEngine{
 	class Matrix4x4
 	{
 	public:
-		Matrix4x4(void)
+		Matrix4x4(TVOID)
 		{
 		}
-		~Matrix4x4(void)
+		~Matrix4x4(TVOID)
 		{
 		}
 		Matrix4x4(	T m00, T m01, T m02, T m03,
@@ -42,44 +42,44 @@ namespace TLunaEngine{
 		T M[4][4];
 	public:
 		// 置0
-		inline void SetZero()
+		inline TVOID SetZero()
 		{
 			for(int i=0;i<4;i++)
 				for(int j=0;j<4;j++)
 					M[i][j] = (T)0;
 		}
 		//! Sets the identity matrix.
-		inline void Identity()
+		inline TVOID Identity()
 		{ 
 			SetZero(); 
 			M[0][0] = M[1][1] = M[2][2] = M[3][3] = 1.0f;	
 		}
 		//! Checks for identity
-		inline bool IsIdentity()
+		inline TBOOL IsIdentity()
 		{
-			if(IR(M[0][0])!=IEEE_1_0)	return false;
-			if(IR(M[0][1])!=0)			return false;
-			if(IR(M[0][2])!=0)			return false;
-			if(IR(M[0][3])!=0)			return false;
+			if(IR(M[0][0])!=IEEE_1_0)	return TFALSE;
+			if(IR(M[0][1])!=0)			return TFALSE;
+			if(IR(M[0][2])!=0)			return TFALSE;
+			if(IR(M[0][3])!=0)			return TFALSE;
 
-			if(IR(M[1][0])!=0)			return false;
-			if(IR(M[1][1])!=IEEE_1_0)	return false;
-			if(IR(M[1][2])!=0)			return false;
-			if(IR(M[1][3])!=0)			return false;
+			if(IR(M[1][0])!=0)			return TFALSE;
+			if(IR(M[1][1])!=IEEE_1_0)	return TFALSE;
+			if(IR(M[1][2])!=0)			return TFALSE;
+			if(IR(M[1][3])!=0)			return TFALSE;
 
-			if(IR(M[2][0])!=0)			return false;
-			if(IR(M[2][1])!=0)			return false;
-			if(IR(M[2][2])!=IEEE_1_0)	return false;
-			if(IR(M[2][3])!=0)			return false;
+			if(IR(M[2][0])!=0)			return TFALSE;
+			if(IR(M[2][1])!=0)			return TFALSE;
+			if(IR(M[2][2])!=IEEE_1_0)	return TFALSE;
+			if(IR(M[2][3])!=0)			return TFALSE;
 
-			if(IR(M[3][0])!=0)			return false;
-			if(IR(M[3][1])!=0)			return false;
-			if(IR(M[3][2])!=0)			return false;
-			if(IR(M[3][3])!=IEEE_1_0)	return false;
-			return true;
+			if(IR(M[3][0])!=0)			return TFALSE;
+			if(IR(M[3][1])!=0)			return TFALSE;
+			if(IR(M[3][2])!=0)			return TFALSE;
+			if(IR(M[3][3])!=IEEE_1_0)	return TFALSE;
+			return TTRUE;
 		}
 		// 重载=
-		inline void operator=(const Matrix4x4<T>& mat)
+		inline TVOID operator=(const Matrix4x4<T>& mat)
 		{
 			for(int i=0;i<4;i++)
 				for(int j=0;j<4;j++)
@@ -103,7 +103,7 @@ namespace TLunaEngine{
 			return M[iRow];
 		}
 		// 得到T[16]
-		inline void ToTArray(T* value)
+		inline TVOID ToTArray(T* value)
 		{
 			//T* temp = value;
 			memcpy(&value[0],M[0],sizeof(T)*4);
@@ -116,7 +116,7 @@ namespace TLunaEngine{
 			//temp += sizeof(T)*4;
 		}
 		// 得到一行
-		inline void GetRow(int iRow,T* value)
+		inline TVOID GetRow(int iRow,T* value)
 		{
 			if(!value)
 				return;
@@ -124,7 +124,7 @@ namespace TLunaEngine{
 				value[i] = M[iRow][i];
 		}
 		// 赋值一行
-		inline void SetRow(int iRow,T* value)
+		inline TVOID SetRow(int iRow,T* value)
 		{
 			if(!value)
 				return;
@@ -132,7 +132,7 @@ namespace TLunaEngine{
 				M[iRow][i] = value[i];
 		}
 		// 得到一列
-		inline void GetCol(int iCol,T* value)
+		inline TVOID GetCol(int iCol,T* value)
 		{
 			if(!value)
 				return;
@@ -140,7 +140,7 @@ namespace TLunaEngine{
 				value[i] = M[i][iCol];
 		}
 		// 赋值一列
-		inline void SetCol(int iCol,T* value)
+		inline TVOID SetCol(int iCol,T* value)
 		{
 			if(!value)
 				return;
@@ -154,7 +154,7 @@ namespace TLunaEngine{
 			return trans;
 		}
 		// 设置偏移分量
-		inline void SetTrans(const Vector3<T>& value)
+		inline TVOID SetTrans(const Vector3<T>& value)
 		{
 			Identity();
 			M[3][0] = value.X;
@@ -253,7 +253,7 @@ namespace TLunaEngine{
 			return rot;
 		}
 		// 设置缩放分量
-		inline void SetScale(const Vector3<T>& value)
+		inline TVOID SetScale(const Vector3<T>& value)
 		{
 			Identity();
 			M[0][0] = value.X;
@@ -261,7 +261,7 @@ namespace TLunaEngine{
 			M[2][2] = value.Z;
 		}
 		// 设置绕X轴旋转
-		inline void SetRotX(TF32 degrees)
+		inline TVOID SetRotX(TF32 degrees)
 		{
 			degrees *= DEGTORAD;
 			float Cos = cosf(degrees), Sin = sinf(degrees); 
@@ -271,7 +271,7 @@ namespace TLunaEngine{
 			M[1][2] = (T)Sin;	
 		}
 		// 设置绕Y轴旋转
-		inline void SetRotY(TF32 degrees)	
+		inline TVOID SetRotY(TF32 degrees)	
 		{ 
 			degrees *= DEGTORAD;
 			float Cos = cosf(degrees), Sin = sinf(degrees); 
@@ -281,7 +281,7 @@ namespace TLunaEngine{
 			M[0][2] = (T)(-Sin);	
 		}
 		// 设置绕Z轴旋转
-		inline void SetRotZ(TF32 degrees)	
+		inline TVOID SetRotZ(TF32 degrees)	
 		{ 
 			degrees *= DEGTORAD;
 			float Cos = cosf(degrees), Sin = sinf(degrees); 
@@ -291,7 +291,7 @@ namespace TLunaEngine{
 			M[0][1] = (T)Sin;	
 		}
 		// 设置旋转使用欧拉角
-		inline void SetRotEuler(const Vector3<T>& rotation)
+		inline TVOID SetRotEuler(const Vector3<T>& rotation)
 		{
 			Identity(); 
 			const TF32 cr = cosf( (TF32)rotation.X );
@@ -361,7 +361,7 @@ namespace TLunaEngine{
 		{
 			/// Calculates the inverse of this Matrix
 			/// The inverse is calculated using Cramers rule.
-			/// If no inverse exists then 'false' is returned.
+			/// If no inverse exists then 'TFALSE' is returned.
 			if ( this->IsIdentity() )
 			{
 				return *this;
@@ -516,7 +516,7 @@ namespace TLunaEngine{
 			return *this;
 		}
 		// multiply vector4
-		inline void multiplyVector4(const Vector4<T>& in, Vector4<T>& out)
+		inline TVOID multiplyVector4(const Vector4<T>& in, Vector4<T>& out)
 		{
 			out.X = in.X*M[0][0] + in.Y*M[1][0] + in.Z*M[2][0] + in.W * M[3][0];
 			out.Y = in.X*M[0][1] + in.Y*M[1][1] + in.Z*M[2][1] + in.W * M[3][1];
@@ -552,7 +552,7 @@ namespace TLunaEngine{
 			return	*this;
 		}
 		// 变换点
-		inline void TransformPoint(const Vector3<T>& in,Vector3<T>& out)
+		inline TVOID TransformPoint(const Vector3<T>& in,Vector3<T>& out)
 		{
 			out.X = in.X*M[0][0] + in.Y*M[1][0] + in.Z*M[2][0] + /*(T)1 **/ M[3][0];
 			out.Y = in.X*M[0][1] + in.Y*M[1][1] + in.Z*M[2][1] + /*(T)1 **/ M[3][1];
@@ -568,7 +568,7 @@ namespace TLunaEngine{
 			return out;
 		}
 		// 变换方向
-		inline void TransformDir(const Vector3<T>& in,Vector3<T>& out)
+		inline TVOID TransformDir(const Vector3<T>& in,Vector3<T>& out)
 		{
 			out.X = in.X*M[0][0] + in.Y*M[1][0] + in.Z*M[2][0] + /*(T)0 * M[3][0]*/0;
 			out.Y = in.X*M[0][1] + in.Y*M[1][1] + in.Z*M[2][1] + /*(T)0 * M[3][1]*/0;
@@ -590,7 +590,7 @@ namespace TLunaEngine{
             of orientation axes, scale does not affect size of translation, rotation and scaling are always
             centered on the origin.
         */
-        inline void makeTransform(const Vector3<T>& position, const Vector3<T>& scale, const Quaternion<T>& orientation)
+        inline TVOID makeTransform(const Vector3<T>& position, const Vector3<T>& scale, const Quaternion<T>& orientation)
 		{
 			// Ordering:
 			//    1. Scale
@@ -638,7 +638,7 @@ namespace TLunaEngine{
             As makeTransform except it build the inverse given the same data as makeTransform, so
             performing -translation, -rotate, 1/scale in that order.
         */
-        inline void makeInverseTransform(const Vector3<T>& position, const Vector3<T>& scale, const Quaternion<T>& orientation)
+        inline TVOID makeInverseTransform(const Vector3<T>& position, const Vector3<T>& scale, const Quaternion<T>& orientation)
 		{
 			// Invert the parameters
 			Vector3<T> invTranslate = -position;
@@ -684,12 +684,12 @@ namespace TLunaEngine{
 			M[3][3] = 1;
 		}
 
-		inline bool isAffine(void) const
+		inline TBOOL isAffine(TVOID) const
         {
             return M[0][3] == 0 && M[1][3] == 0 && M[2][3] == 0 && M[3][3] == 1;
         }
 
-		inline void extract3x3Matrix(Matrix3x3<T>& m3x3) const
+		inline TVOID extract3x3Matrix(Matrix3x3<T>& m3x3) const
         {
             m3x3.m[0][0] = M[0][0];
             m3x3.m[0][1] = M[0][1];
@@ -704,30 +704,30 @@ namespace TLunaEngine{
 
         /** Decompose a Matrix4 to orientation / scale / position.
         */
-        inline void decomposition(Vector3<T>& position, Vector3<T>& scale, Quaternion<T>& orientation) const
+        inline TVOID decomposition(Vector3<T>& position, Vector3<T>& scale, Quaternion<T>& orientation) const
 		{
 			position = this->GetTrans();
 			scale = this->GetScale();
 			orientation = this->GetRotation();
 		}
 
-		inline bool Matrix4x4<T>::isOrthogonal() const
+		inline TBOOL Matrix4x4<T>::isOrthogonal() const
 		{
 			T dp=M[0][0] * M[1][0] + M[0][1] * M[1][1] + M[0][2] * M[1][2] + M[0][3] * M[1][3];
 			if (!iszero(dp))
-				return false;
+				return TFALSE;
 			dp = M[0][0] * M[2][0] + M[0][1] * M[2][1] + M[0][2] * M[2][2] + M[0][3] * M[2][3];
 			if (!iszero(dp))
-				return false;
+				return TFALSE;
 			dp = M[0][0] * M[3][0] + M[0][1] * M[3][1] + M[0][2] * M[3][2] + M[0][3] * M[3][3];
 			if (!iszero(dp))
-				return false;
+				return TFALSE;
 			dp = M[1][0] * M[2][0] + M[1][1] * M[2][1] + M[1][2] * M[2][2] + M[1][3] * M[2][3];
 			if (!iszero(dp))
-				return false;
+				return TFALSE;
 			dp = M[1][0] * M[3][0] + M[1][1] * M[3][1] + M[1][2] * M[3][2] + M[1][3] * M[3][3];
 			if (!iszero(dp))
-				return false;
+				return TFALSE;
 			dp = M[2][0] * M[3][0] + M[2][1] * M[3][1] + M[2][2] * M[3][2] + M[2][3] * M[3][3];
 			return (iszero(dp));
 		}

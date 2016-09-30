@@ -33,45 +33,45 @@ namespace TLunaEngine{
 	class RenderDevice
 	{
 	public:
-		RenderDevice(void)
+		RenderDevice(TVOID)
 		{
 		};
-		virtual ~RenderDevice(void)
+		virtual ~RenderDevice(TVOID)
 		{
 		};
 	protected:
 	public:
 		// 初始化设备
-		virtual bool InitDevice(HWND hWnd,TBOOL bWnd,TS32 width,TS32 height) = 0;
+		virtual TBOOL InitDevice(HWND hWnd,TBOOL bWnd,TS32 width,TS32 height) = 0;
 		// 销毁设备
-		virtual void DestroyDevice() = 0;
+		virtual TVOID DestroyDevice() = 0;
 		// 开始渲染
-		virtual bool BeginRender() = 0;
+		virtual TBOOL BeginRender() = 0;
 		// 结束渲染
-		virtual void EndRender() = 0;
+		virtual TVOID EndRender() = 0;
 		// 使用默认的渲染目标
-		virtual void UseDefaultRenderTarget() = 0;
+		virtual TVOID UseDefaultRenderTarget() = 0;
 		// 使用默认视口
-		virtual void UseDefaultViewPort() = 0;
+		virtual TVOID UseDefaultViewPort() = 0;
 		// 得到后缓冲高度
 		virtual TU32 GetBufferHeight()=0;
 		// 得到后缓冲宽度
 		virtual TU32 GetBufferWidth()=0;
 		// resize buffer
 		// note: resize buffer will change to default rt and vp
-		virtual bool resizeBuffer(TU32 width,TU32 height) = 0;
+		virtual TBOOL resizeBuffer(TU32 width,TU32 height) = 0;
 		// draw
-		virtual void draw(TU32 vertexCount,TU32 startVertexLocation) = 0;
+		virtual TVOID draw(TU32 vertexCount,TU32 startVertexLocation) = 0;
 		// draw indexed
-		virtual void drawIndexed(TU32 indexCount,TU32 startIndexLocation,TU32 baseVertexLocation) = 0;
+		virtual TVOID drawIndexed(TU32 indexCount,TU32 startIndexLocation,TU32 baseVertexLocation) = 0;
 		// get d3d driver type
 		// this is for d3d
-		virtual void getD3DDriverType(RENDER_DEVICE_D3D_DRIVER_TYPE* pDriverType) = 0;
+		virtual TVOID getD3DDriverType(RENDER_DEVICE_D3D_DRIVER_TYPE* pDriverType) = 0;
 		// get d3d feature level
 		// this is for d3d
-		virtual void getD3DFeatureLevel(RENDER_DEVICE_D3D_FEATURE_LEVEL* pFeatureLevel) = 0;
+		virtual TVOID getD3DFeatureLevel(RENDER_DEVICE_D3D_FEATURE_LEVEL* pFeatureLevel) = 0;
 		// get shader profile
-		virtual const char* getShaderProfileVersion() = 0;
+		virtual const TCHAR* getShaderProfileVersion() = 0;
 	public:
 		//---------------------- 构造硬件资源 -------------------------------
 		// create buffer
@@ -125,71 +125,71 @@ namespace TLunaEngine{
 		// create compute shader
 		virtual RenderDeviceUsedCS* createComputeShader(RenderDeviceCompiledShader* pCompiledShader) = 0;
 		// create texture2d and texture2d srv from dds file
-		virtual bool createTex2DFromDDSFile(const char* file,RenderDeviceUsedTex2D** ppTex2D,RenderDeviceUsedSRV** ppSRV) = 0;
+		virtual TBOOL createTex2DFromDDSFile(const TCHAR* file,RenderDeviceUsedTex2D** ppTex2D,RenderDeviceUsedSRV** ppSRV) = 0;
 	public:
 		//---------------------- 使用硬件资源 -------------------------------
 		// use viewport
-		virtual bool useViewport(const TLRenderDeviceViewport* aVp,TU32 numVp) = 0;
+		virtual TBOOL useViewport(const TLRenderDeviceViewport* aVp,TU32 numVp) = 0;
 		// set Primitive Topology
-		virtual void setPrimitiveTopology(RENDER_DEVICE_PRIMITIVE_TOPOLOGY pt) = 0;
+		virtual TVOID setPrimitiveTopology(RENDER_DEVICE_PRIMITIVE_TOPOLOGY pt) = 0;
 		// set input layout
-		virtual void setInputLayout(RenderDeviceUsedInputLayout* pInputLayout) = 0;
+		virtual TVOID setInputLayout(RenderDeviceUsedInputLayout* pInputLayout) = 0;
 		// map resource
-		virtual bool mapResource(RenderDeviceUsedResource* pResource,TU32 subResource,
+		virtual TBOOL mapResource(RenderDeviceUsedResource* pResource,TU32 subResource,
 			RENDER_DEVICE_MAP mapType,TLRenderDeviceMappedSubresource* mappedSubresource) = 0;
 		// unmap resource
-		virtual void unmapResource(RenderDeviceUsedResource* pResource,TU32 subResource) = 0;
+		virtual TVOID unmapResource(RenderDeviceUsedResource* pResource,TU32 subResource) = 0;
 		// copy subresource region
-		virtual void copySubresourceRegion(RenderDeviceUsedResource* pDstResource,TU32 dstSubresource,
+		virtual TVOID copySubresourceRegion(RenderDeviceUsedResource* pDstResource,TU32 dstSubresource,
 			TU32 dstX,TU32 dstY,TU32 dstZ,RenderDeviceUsedResource* pSrcResource,TU32 srcSubresource,
 			const TLRenderDeviceBox* pSrcBox)=0;
 		// copy resource
-		virtual void copyResource(RenderDeviceUsedResource* pDstResource,RenderDeviceUsedResource* pSrcResource)=0;
+		virtual TVOID copyResource(RenderDeviceUsedResource* pDstResource,RenderDeviceUsedResource* pSrcResource)=0;
 		// update subresource
-		virtual void updateSubresource(RenderDeviceUsedResource* pDstResource,TU32 dstSubresource,
-			const TLRenderDeviceBox* pDstBox,const void* pSrcData,TU32 srcRowPitch,TU32 srcDepthPitch)=0;
+		virtual TVOID updateSubresource(RenderDeviceUsedResource* pDstResource,TU32 dstSubresource,
+			const TLRenderDeviceBox* pDstBox,const TVOID* pSrcData,TU32 srcRowPitch,TU32 srcDepthPitch)=0;
 		// set vertex buffer
-		virtual void setVertexBuffer(TU32 startSlot,RenderDeviceUsedBuffer* pBuffer, const TU32* pStride,const TU32* pOffset) = 0;
+		virtual TVOID setVertexBuffer(TU32 startSlot,RenderDeviceUsedBuffer* pBuffer, const TU32* pStride,const TU32* pOffset) = 0;
 		// set index buffer
-		virtual void setIndexBuffer(RenderDeviceUsedBuffer* pBuffer,RENDER_DEVICE_FORMAT format,TU32 offset)=0;
+		virtual TVOID setIndexBuffer(RenderDeviceUsedBuffer* pBuffer,RENDER_DEVICE_FORMAT format,TU32 offset)=0;
 		// set stream output target
-		virtual void setSOTarget(RenderDeviceUsedBuffer* pBuffer,const TU32* pOffset) = 0;
+		virtual TVOID setSOTarget(RenderDeviceUsedBuffer* pBuffer,const TU32* pOffset) = 0;
 		// clear render target view
-		virtual void clearRenderTargetView(RenderDeviceUsedRTV* pRenderTargetView, const TF32 colorRGBA[4]) = 0;
+		virtual TVOID clearRenderTargetView(RenderDeviceUsedRTV* pRenderTargetView, const TF32 colorRGBA[4]) = 0;
 		// clear depth stencil view
-		virtual void clearDepthStencilView(RenderDeviceUsedDSV* pDepthStencilView, TF32 depth) = 0;
+		virtual TVOID clearDepthStencilView(RenderDeviceUsedDSV* pDepthStencilView, TF32 depth) = 0;
 		// set render target
-		virtual void setRenderTarget(RenderDeviceUsedRTV* pRTV, RenderDeviceUsedDSV* pDSV) = 0;
+		virtual TVOID setRenderTarget(RenderDeviceUsedRTV* pRTV, RenderDeviceUsedDSV* pDSV) = 0;
 		// set rasterizer state
-		virtual void setRasterizerState(RenderDeviceUsedRasterizerState* pRasterizerState) = 0;
+		virtual TVOID setRasterizerState(RenderDeviceUsedRasterizerState* pRasterizerState) = 0;
 		// set depth stencil state
-		virtual void setDepthStencilState(RenderDeviceUsedDepthStencilState* pDepthStencilState) = 0;
+		virtual TVOID setDepthStencilState(RenderDeviceUsedDepthStencilState* pDepthStencilState) = 0;
 		// set blend state
-		virtual void setBlendState(RenderDeviceUsedBlendState* pBlendState,const TF32 blendFactor[4],TU32 sampleMask) = 0;
+		virtual TVOID setBlendState(RenderDeviceUsedBlendState* pBlendState,const TF32 blendFactor[4],TU32 sampleMask) = 0;
 		// set constant buffer
-		virtual void setConstantBuffer(RENDER_DEVICE_SHADER_USE_TYPE shaderType, TU32 startSlot, RenderDeviceUsedBuffer* pBuffer) = 0;
+		virtual TVOID setConstantBuffer(RENDER_DEVICE_SHADER_USE_TYPE shaderType, TU32 startSlot, RenderDeviceUsedBuffer* pBuffer) = 0;
 		// set sampler state
-		virtual void setSamplerState(RENDER_DEVICE_SHADER_USE_TYPE shaderType, TU32 startSlot, RenderDeviceUsedSamplerState* pSampler) = 0;
+		virtual TVOID setSamplerState(RENDER_DEVICE_SHADER_USE_TYPE shaderType, TU32 startSlot, RenderDeviceUsedSamplerState* pSampler) = 0;
 		// set shader resource view
-		virtual void setShaderResourceView(RENDER_DEVICE_SHADER_USE_TYPE shaderType, TU32 startSlot, RenderDeviceUsedSRV* pSRV) = 0;
+		virtual TVOID setShaderResourceView(RENDER_DEVICE_SHADER_USE_TYPE shaderType, TU32 startSlot, RenderDeviceUsedSRV* pSRV) = 0;
 		// set vertex shader
-		virtual void setVertexShader(RenderDeviceUsedVS* pVertexShader) = 0;
+		virtual TVOID setVertexShader(RenderDeviceUsedVS* pVertexShader) = 0;
 		// set hull shader
-		virtual void setHullShader(RenderDeviceUsedHS* pHullShader) = 0;
+		virtual TVOID setHullShader(RenderDeviceUsedHS* pHullShader) = 0;
 		// set domain shader
-		virtual void setDomainShader(RenderDeviceUsedDS* pDomainShader) = 0;
+		virtual TVOID setDomainShader(RenderDeviceUsedDS* pDomainShader) = 0;
 		// set geometry shader
-		virtual void setGeometryShader(RenderDeviceUsedGS* pGeometryShader) = 0;
+		virtual TVOID setGeometryShader(RenderDeviceUsedGS* pGeometryShader) = 0;
 		// set pixel shader
-		virtual void setPixelShader(RenderDeviceUsedPS* pPixelShader) = 0;
+		virtual TVOID setPixelShader(RenderDeviceUsedPS* pPixelShader) = 0;
 		// set compute shader
-		virtual void setComputeShader(RenderDeviceUsedCS* pComputeShader) = 0;
+		virtual TVOID setComputeShader(RenderDeviceUsedCS* pComputeShader) = 0;
 	public:
 		//----------------------utils functions ----------------------------
 		// calculate subresource
 		virtual TU32 calcSubresource(TU32 mipSlice,TU32 arraySlice,TU32 mipLevels) = 0;
 		// generate mips
-		virtual void generateMips(RenderDeviceUsedSRV* pSRV) = 0;
+		virtual TVOID generateMips(RenderDeviceUsedSRV* pSRV) = 0;
 	};
 };
 

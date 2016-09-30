@@ -12,8 +12,8 @@ namespace TLunaEngine{
 	class LoopCtrl
 	{
 	public:
-		LoopCtrl(void);
-		~LoopCtrl(void);
+		LoopCtrl(TVOID);
+		~LoopCtrl(TVOID);
 	private:
 		//INT64       m_frequency;		// CPU频率
 		unsigned long       m_curTime;			// 记录当前帧时间点
@@ -27,38 +27,38 @@ namespace TLunaEngine{
 		TBOOL        m_bStop;			// 是否停止了计时
 		unsigned long		m_controlTime;	// 用于计算时间控制的时间差
 		float	    m_fSecsPerFrame;	// 每帧的控制时间
-		bool	    m_bRender;			// 是否可以渲染了
-		bool		m_bTimeControl;		// 是否采用时间控制
-		char		m_szFPS[16];		// 转成字符串的FPS值
+		TBOOL	    m_bRender;			// 是否可以渲染了
+		TBOOL		m_bTimeControl;		// 是否采用时间控制
+		TCHAR		m_szFPS[16];		// 转成字符串的FPS值
 		Timer*		mTimer;
 		float		mCalcPeriod;		// 计算周期
 	public:
 		// 初始化
-		bool Init();
+		TBOOL Init();
 		// 开始计时
-		void  StartTime();
+		TVOID  StartTime();
 		// 停止计时
-		void  StopTime();
+		TVOID  StopTime();
 		// 帧更新
-		void  UpdateTime();
+		TVOID  UpdateTime();
 		// 计算FPS
-		void  CalFPS();
+		TVOID  CalFPS();
 		// 帧更新时检测时间控制
-		bool  TimeControl();
+		TBOOL  TimeControl();
 
 		TBOOL  IsStopped()        {  return   m_bStop;    }
 		float GetFPS()               {  return   m_fps;         }
-		char* GetFPSString()		{ return m_szFPS; }
+		TCHAR* GetFPSString()		{ return m_szFPS; }
 		int GetFPSStringLen()	{return 16;}
 		unsigned long GetRunTime()        {  return   m_runTime;  }
 		unsigned long GetElapsedTime()  {  return   m_bStop ? 0 : m_timeElapsed; }
-		inline bool CanRender(){return m_bRender;}
-		inline void ControlTime(bool bControl,float fSecsPerFrame)
+		inline TBOOL CanRender(){return m_bRender;}
+		inline TVOID ControlTime(TBOOL bControl,float fSecsPerFrame)
 		{
 			m_bTimeControl = bControl;
 			m_fSecsPerFrame = fSecsPerFrame;
 		}
-		inline void SetFPSCalcPeriod(float p)
+		inline TVOID SetFPSCalcPeriod(float p)
 		{
 			mCalcPeriod = p;
 		}

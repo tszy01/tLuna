@@ -24,8 +24,8 @@ namespace TLunaEngine{
 		}
 
 		// operators
-		inline bool operator==(const Plane<T>& other) const { return (D==other.D && Normal==other.Normal);}
-		inline bool operator!=(const Plane<T>& other) const { return !(D==other.D && Normal==other.Normal);}
+		inline TBOOL operator==(const Plane<T>& other) const { return (D==other.D && Normal==other.Normal);}
+		inline TBOOL operator!=(const Plane<T>& other) const { return !(D==other.D && Normal==other.Normal);}
 		inline Plane<T>& operator=(const Plane<T>& other)
 		{
 			Normal = other.Normal;
@@ -34,19 +34,19 @@ namespace TLunaEngine{
 		}
 
 		// functions
-		inline void setPlane(const Vector3<T>& point, const Vector3<T>& nvector)
+		inline TVOID setPlane(const Vector3<T>& point, const Vector3<T>& nvector)
 		{
 			Normal = nvector;
 			recalculateD(point);
 		}
 
-		inline void setPlane(const Vector3<T>& nvect, T d)
+		inline TVOID setPlane(const Vector3<T>& nvect, T d)
 		{
 			Normal = nvect;
 			D = d;
 		}
 
-		inline void setPlane(const Vector3<T>& point1, const Vector3<T>& point2, const Vector3<T>& point3)
+		inline TVOID setPlane(const Vector3<T>& point1, const Vector3<T>& point2, const Vector3<T>& point3)
 		{
 			// creates the plane from 3 memberpoints
 			Normal = (point2 - point1).crossProduct(point3 - point1);
@@ -59,20 +59,20 @@ namespace TLunaEngine{
 		/** \param lineVect Vector of the line to intersect with.
 		\param linePoint Point of the line to intersect with.
 		\param outIntersection Place to store the intersection point, if there is one.
-		\return True if there was an intersection, false if there was not.
+		\return True if there was an intersection, TFALSE if there was not.
 		*/
-		inline bool getIntersectionWithLine(const Vector3<T>& linePoint,
+		inline TBOOL getIntersectionWithLine(const Vector3<T>& linePoint,
 				const Vector3<T>& lineVect,
 				Vector3<T>& outIntersection) const
 		{
 			T t2 = Normal.dotProduct(lineVect);
 
 			if (t2 == 0)
-				return false;
+				return TFALSE;
 
 			T t =- (Normal.dotProduct(linePoint) + D) / t2;
 			outIntersection = linePoint + (lineVect * t);
-			return true;
+			return TTRUE;
 		}
 
 		//! Get percentage of line between two points where an intersection with this plane happens.
@@ -95,9 +95,9 @@ namespace TLunaEngine{
 		/** \param linePoint1 Point 1 of the line.
 		\param linePoint2 Point 2 of the line.
 		\param outIntersection Place to store the intersection point, if there is one.
-		\return True if there was an intersection, false if there was not.
+		\return True if there was an intersection, TFALSE if there was not.
 		*/
-		inline bool getIntersectionWithLimitedLine(
+		inline TBOOL getIntersectionWithLimitedLine(
 				const Vector3<T>& linePoint1,
 				const Vector3<T>& linePoint2,
 				Vector3<T>& outIntersection) const
@@ -140,7 +140,7 @@ namespace TLunaEngine{
 		}
 
 		//! Recalculates the distance from origin by applying a new member point to the plane.
-		inline void recalculateD(const Vector3<T>& MPoint)
+		inline TVOID recalculateD(const Vector3<T>& MPoint)
 		{
 			D = - MPoint.dotProduct(Normal);
 		}
@@ -154,7 +154,7 @@ namespace TLunaEngine{
 
 		//! Tests if there is an intersection with the other plane
 		/** \return True if there is a intersection. */
-		inline bool existsIntersection(const Plane<T>& other) const
+		inline TBOOL existsIntersection(const Plane<T>& other) const
 		{
 			Vector3<T> cross = other.Normal.crossProduct(Normal);
 			return cross.getLength() > ROUNDING_ERROR_32;
@@ -164,8 +164,8 @@ namespace TLunaEngine{
 		/** \param other Other plane to intersect with.
 		\param outLinePoint Base point of intersection line.
 		\param outLineVect Vector of intersection.
-		\return True if there is a intersection, false if not. */
-		inline bool getIntersectionWithPlane(const Plane<T>& other,
+		\return True if there is a intersection, TFALSE if not. */
+		inline TBOOL getIntersectionWithPlane(const Plane<T>& other,
 				Vector3<T>& outLinePoint,
 				Vector3<T>& outLineVect) const
 		{
@@ -175,7 +175,7 @@ namespace TLunaEngine{
 			const T det = fn00*fn11 - fn01*fn01;
 
 			if ((TF64)(abs_(det)) < ROUNDING_ERROR_64 )
-				return false;
+				return TFALSE;
 
 			const TF32 invdet = 1.0f / (TF32)det;
 			const TF32 fc0 = (TF32)(fn11*-D + fn01*other.D) * invdet;
@@ -183,18 +183,18 @@ namespace TLunaEngine{
 
 			outLineVect = Normal.crossProduct(other.Normal);
 			outLinePoint = Normal*fc0 + other.Normal*fc1;
-			return true;
+			return TTRUE;
 		}
 
 		//! Get the intersection point with two other planes if there is one.
-		inline bool getIntersectionWithPlanes(const Plane<T>& o1,
+		inline TBOOL getIntersectionWithPlanes(const Plane<T>& o1,
 				const Plane<T>& o2, Vector3<T>& outPoint) const
 		{
 			Vector3<T> linePoint, lineVect;
 			if (getIntersectionWithPlane(o1, linePoint, lineVect))
 				return o2.getIntersectionWithLine(linePoint, lineVect, outPoint);
 
-			return false;
+			return TFALSE;
 		}
 
 		//! Test if the triangle would be front or backfacing from any point.
@@ -205,8 +205,8 @@ namespace TLunaEngine{
 		Do not use this method with points as it will give wrong results!
 		\param lookDirection: Look direction.
 		\return True if the plane is front facing and
-		false if it is backfacing. */
-		inline bool isFrontFacing(const Vector3<T>& lookDirection) const
+		TFALSE if it is backfacing. */
+		inline TBOOL isFrontFacing(const Vector3<T>& lookDirection) const
 		{
 			const T d = Normal.dotProduct(lookDirection);
 			return F32_LOWER_EQUAL_0 ( d );

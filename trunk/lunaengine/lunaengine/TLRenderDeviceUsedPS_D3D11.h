@@ -1,6 +1,7 @@
 #ifndef _TLRENDERDEVICEUSEDPS_D3D11_H_
 #define _TLRENDERDEVICEUSEDPS_D3D11_H_
 
+#include "TLCommonTypeDef.h"
 #include "TLRenderDeviceUsedPS.h"
 #include <d3d11.h>
 
@@ -20,7 +21,7 @@ namespace TLunaEngine
 			return mD3DPS;
 		}
 		// init with d3d ps
-		bool initWithD3DPS(ID3D11PixelShader* d3dShader);
+		TBOOL initWithD3DPS(ID3D11PixelShader* d3dShader);
 	};
 }
 

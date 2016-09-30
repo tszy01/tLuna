@@ -1,6 +1,7 @@
 #ifndef _TLRENDERDEVICEUSEDSAMPLERSTATE_D3D11_H_
 #define _TLRENDERDEVICEUSEDSAMPLERSTATE_D3D11_H_
 
+#include "TLCommonTypeDef.h"
 #include "TLRenderDeviceUsedSamplerState.h"
 #include <d3d11.h>
 namespace TLunaEngine
@@ -19,7 +20,7 @@ namespace TLunaEngine
 			return mD3DSamplerState;
 		}
 		// init with d3d sampler state
-		bool initWithD3DSamplerState(ID3D11SamplerState* d3dState);
+		TBOOL initWithD3DSamplerState(ID3D11SamplerState* d3dState);
 	};
 }
 

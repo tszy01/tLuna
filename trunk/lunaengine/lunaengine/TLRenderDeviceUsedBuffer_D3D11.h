@@ -28,7 +28,7 @@ namespace TLunaEngine
 			return mD3DBuffer;
 		}
 		// init with d3d buffer
-		bool initWithD3DBuffer(ID3D11Buffer* d3dBuffer);
+		TBOOL initWithD3DBuffer(ID3D11Buffer* d3dBuffer);
 	};
 }
 

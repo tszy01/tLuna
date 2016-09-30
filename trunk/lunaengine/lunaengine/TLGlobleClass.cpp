@@ -7,35 +7,35 @@
 namespace TLunaEngine{
 	GlobleClass* Singleton<GlobleClass>::m_Ptr = 0;
 
-	GlobleClass::GlobleClass(void) : m_pTri(0), m_strResDir(""), /*m_pDebugFont(0), */m_bShowDebugInfo(false), m_bEditor(false), mLoopCtrl(0)
+	GlobleClass::GlobleClass(TVOID) : m_pTri(0), m_strResDir(""), /*m_pDebugFont(0), */m_bShowDebugInfo(TFALSE), m_bEditor(TFALSE), mLoopCtrl(0)
 	{
 	}
 
-	GlobleClass::~GlobleClass(void)
+	GlobleClass::~GlobleClass(TVOID)
 	{
 	}
 
-	bool GlobleClass::InitGlobleClass()
+	TBOOL GlobleClass::InitGlobleClass()
 	{
 		// Triangle
 		m_pTri = new TestTriangle();
 		if(!m_pTri->InitTriangle())
-			return false;
+			return TFALSE;
 		// Debug信息
 		String strAll = m_strResDir + "gui\\font\\simkai.ttf";
 		if(!GUIFontManager::getSingletonPtr()->initDebugFont(strAll.GetString(),24,256))
 		{
-			return false;
+			return TFALSE;
 		}
 		// init loop control
 		mLoopCtrl = new LoopCtrl();
 		mLoopCtrl->Init();
 		mLoopCtrl->StartTime();
 
-		return true;
+		return TTRUE;
 	}
 
-	void GlobleClass::DestroyGlobleClass()
+	TVOID GlobleClass::DestroyGlobleClass()
 	{
 		// destroy loop control
 		if (mLoopCtrl)
@@ -54,7 +54,7 @@ namespace TLunaEngine{
 		}
 	}
 
-	void GlobleClass::updateLoopCtrl()
+	TVOID GlobleClass::updateLoopCtrl()
 	{
 		if (mLoopCtrl)
 		{
@@ -62,16 +62,16 @@ namespace TLunaEngine{
 		}
 	}
 
-	bool GlobleClass::getLoopCtrlCanRender()
+	TBOOL GlobleClass::getLoopCtrlCanRender()
 	{
 		if (mLoopCtrl)
 		{
 			return mLoopCtrl->CanRender();
 		}
-		return false;
+		return TFALSE;
 	}
 
-	void GlobleClass::calcFPS()
+	TVOID GlobleClass::calcFPS()
 	{
 		if (mLoopCtrl)
 		{
@@ -88,12 +88,12 @@ namespace TLunaEngine{
 		return 0.0f;
 	}
 
-	bool GlobleClass::OnUpdate(float fTimeElapsed)
+	TBOOL GlobleClass::OnUpdate(float fTimeElapsed)
 	{
-		return true;
+		return TTRUE;
 	}
 
-	bool GlobleClass::OnRender(float fTimeElapsed)
+	TBOOL GlobleClass::OnRender(float fTimeElapsed)
 	{
 		// Debug信息
 		if (m_bShowDebugInfo && mLoopCtrl)
@@ -104,7 +104,7 @@ namespace TLunaEngine{
 		}
 		// Triangle
 		m_pTri->OnRender();
-		return true;
+		return TTRUE;
 	}
 
 }

@@ -17,7 +17,7 @@ namespace TLunaEngine{
 	}
 
 	//-------------------------------------------------------------------------
-	bool Timer::setOption( const std::string & key, const void * val )
+	TBOOL Timer::setOption( const std::string & key, const TVOID * val )
 	{
 		if ( key == "QueryAffinityMask" )
 		{
@@ -36,15 +36,15 @@ namespace TLunaEngine{
 				( ( ( newTimerMask & procMask ) != 0 ) && isPO2<TU32>( newTimerMask ) ) )
 			{
 				mTimerMask = newTimerMask;
-				return true;
+				return TTRUE;
 			}
 		}
 
-		return false;
+		return TFALSE;
 	}
 
 	//-------------------------------------------------------------------------
-	void Timer::reset()
+	TVOID Timer::reset()
 	{
 		// Get the current process core mask
 		DWORD_PTR procMask;

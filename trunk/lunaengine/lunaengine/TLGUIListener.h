@@ -11,17 +11,17 @@ namespace TLunaEngine{
 	{
 	public:
 
-		GUIListener(void)
+		GUIListener(TVOID)
 		{
 		}
 
-		virtual ~GUIListener(void)
+		virtual ~GUIListener(TVOID)
 		{
 		}
 
 	public:
 		// 动画播放完毕发送
-		virtual void OnAnimePlayedOver(int iContainerID,TUByte yAnimeType) = 0;
+		virtual TVOID OnAnimePlayedOver(int iContainerID,TUByte yAnimeType) = 0;
 	};
 
 }

@@ -15,13 +15,13 @@ namespace TLunaEngine
 		}
 	}
 
-	bool RenderDeviceUsedBlendState_D3D11::initWithD3DBlendState(ID3D11BlendState* d3dState)
+	TBOOL RenderDeviceUsedBlendState_D3D11::initWithD3DBlendState(ID3D11BlendState* d3dState)
 	{
 		if(mD3DBlendState)
-			return false;
+			return TFALSE;
 		if(!d3dState)
-			return false;
+			return TFALSE;
 		mD3DBlendState = d3dState;
-		return true;
+		return TTRUE;
 	}
 }

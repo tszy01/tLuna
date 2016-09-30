@@ -1,18 +1,18 @@
 #ifndef _TLSINGLETON_H_
 #define _TLSINGLETON_H_
 
-
+#include "TLCommonTypeDef.h"
 namespace TLunaEngine{
 
 	template<class T>
 	class Singleton
 	{
 	public:
-		Singleton(void)
+		Singleton(TVOID)
 		{
 		}
 
-		virtual ~Singleton(void)
+		virtual ~Singleton(TVOID)
 		{
 		}
 	public:
@@ -22,7 +22,7 @@ namespace TLunaEngine{
 				m_Ptr = new T;
 			return m_Ptr;
 		};
-		static void delSingletonPtr()
+		static TVOID delSingletonPtr()
 		{
 			if(m_Ptr)
 			{
@@ -47,7 +47,7 @@ namespace TLunaEngine{
 //				sPtr = new classname();\
 //			return sPtr;\
 //		}\
-//		static void delSingletonPtr()\
+//		static TVOID delSingletonPtr()\
 //		{\
 //			if(sPtr)\
 //				delete sPtr;\

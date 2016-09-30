@@ -17,8 +17,8 @@ namespace TLunaEngine{
 	{
 		friend class Singleton<GUIMgr>;
 	protected:
-		GUIMgr(void);
-		~GUIMgr(void);
+		GUIMgr(TVOID);
+		~GUIMgr(TVOID);
 	private:
 		GUIContainer* m_pRootContainer;	// 跟容器，里面不要放控件
 		GUIListener* m_pSceneListener;	// 上层接收器的指针
@@ -28,7 +28,7 @@ namespace TLunaEngine{
 		{
 			return m_pRootContainer;
 		}
-		inline void SetRootContainer(GUIContainer* pContainer)
+		inline TVOID SetRootContainer(GUIContainer* pContainer)
 		{
 			m_pRootContainer = pContainer;
 		}
@@ -42,7 +42,7 @@ namespace TLunaEngine{
 			return TNULL;
 		}
 		// 销毁
-		inline void DestroyRootContainer()
+		inline TVOID DestroyRootContainer()
 		{
 			if (m_pRootContainer)
 			{
@@ -51,7 +51,7 @@ namespace TLunaEngine{
 			}
 		}
 		// 帧更新
-		inline void Update(float fTimeElapsed)
+		inline TVOID Update(float fTimeElapsed)
 		{
 			if (m_pRootContainer)
 			{
@@ -59,7 +59,7 @@ namespace TLunaEngine{
 			}
 		}
 		// 帧渲染
-		inline void Render(float fTimeElapsed)
+		inline TVOID Render(float fTimeElapsed)
 		{
 			if (m_pRootContainer)
 			{
@@ -67,24 +67,24 @@ namespace TLunaEngine{
 			}
 		}
 		// 从文件加载
-		bool LoadFromFile(const char* file);
+		TBOOL LoadFromFile(const TCHAR* file);
 		// 设置上层接收器
-		inline void SetSceneListener(GUIListener* pListener)
+		inline TVOID SetSceneListener(GUIListener* pListener)
 		{
 			m_pSceneListener = pListener;
 		}
 	private:
 		// 加载方法
 		// 加载Container
-		bool LoadContainer(FILE* stream,GUIContainer* pParentContainer,GUIContainer** ppContainer);
+		TBOOL LoadContainer(FILE* stream,GUIContainer* pParentContainer,GUIContainer** ppContainer);
 		// 加载Ctrl
-		bool LoadCtrl(FILE* stream,GUIContainer* pParentContainer,GUICtrl** ppCtrl);
+		TBOOL LoadCtrl(FILE* stream,GUIContainer* pParentContainer,GUICtrl** ppCtrl);
 		// 加载动画
-		bool LoadAnime(FILE* stream,GUIContainer* pNewContainer,TUByte yAnimeType);
+		TBOOL LoadAnime(FILE* stream,GUIContainer* pNewContainer,TUByte yAnimeType);
 	public:
 		// ------------- 以下重写GUIListener -------------------
 		// 动画播放完毕发送
-		virtual void OnAnimePlayedOver(int iContainerID,TUByte yAnimeType)
+		virtual TVOID OnAnimePlayedOver(int iContainerID,TUByte yAnimeType)
 		{
 			if (m_pSceneListener)
 			{

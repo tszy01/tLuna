@@ -14,11 +14,11 @@ namespace TLunaEngine{
 	{
 	public:
 
-		Vector4(void) : X(0),Y(0),Z(0),W(0)
+		Vector4(TVOID) : X(0),Y(0),Z(0),W(0)
 		{
 		}
 
-		~Vector4(void)
+		~Vector4(TVOID)
 		{
 		}
 	public:
@@ -91,7 +91,7 @@ namespace TLunaEngine{
 			return *this;
 		}
 
-		inline bool operator == ( const Vector4<T>& rkVector ) const
+		inline TBOOL operator == ( const Vector4<T>& rkVector ) const
 		{
 			return ( X == rkVector.X &&
 				Y == rkVector.Y &&
@@ -99,7 +99,7 @@ namespace TLunaEngine{
 				W == rkVector.W );
 		}
 
-		inline bool operator != ( const Vector4<T>& rkVector ) const
+		inline TBOOL operator != ( const Vector4<T>& rkVector ) const
 		{
 			return ( X != rkVector.X ||
 				Y != rkVector.Y ||
@@ -264,7 +264,7 @@ namespace TLunaEngine{
 		}
 
 		// 得到数组
-		inline void GetArray(T* value)
+		inline TVOID GetArray(T* value)
 		{
 			if (!value)
 			{

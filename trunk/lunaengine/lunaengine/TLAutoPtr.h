@@ -7,7 +7,7 @@ namespace TLunaEngine{
 	class AutoPtr
 	{
 	public:
-		AutoPtr(void) : m_pPtr(0)
+		AutoPtr(TVOID) : m_pPtr(0)
 		{
 		}
 
@@ -20,7 +20,7 @@ namespace TLunaEngine{
 			m_pPtr = other.m_pPtr;
 		}
 
-		~AutoPtr(void)
+		~AutoPtr(TVOID)
 		{
 			if(m_pPtr)
 			{
@@ -57,7 +57,7 @@ namespace TLunaEngine{
 			m_pPtr = ptr;
 		}
 
-		inline bool IsNullPtr() const
+		inline TBOOL IsNullPtr() const
 		{
 			return m_pPtr==0;
 		}

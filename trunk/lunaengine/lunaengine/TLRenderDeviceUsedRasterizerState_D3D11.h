@@ -1,6 +1,7 @@
 #ifndef _TLRENDERDEVICEUSEDRASTERIZERSTATE_D3D11_H_
 #define _TLRENDERDEVICEUSEDRASTERIZERSTATE_D3D11_H_
 
+#include "TLCommonTypeDef.h"
 #include "TLRenderDeviceUsedRasterizerState.h"
 #include <d3d11.h>
 namespace TLunaEngine
@@ -19,7 +20,7 @@ namespace TLunaEngine
 			return mD3DRasterizerState;
 		}
 		// init with d3d rasterizer state
-		bool initWithD3DRasterizerState(ID3D11RasterizerState* d3dState);
+		TBOOL initWithD3DRasterizerState(ID3D11RasterizerState* d3dState);
 	};
 }
 

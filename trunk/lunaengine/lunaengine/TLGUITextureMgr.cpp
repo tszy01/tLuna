@@ -20,12 +20,12 @@
 namespace TLunaEngine{
 	GUITextureMgr* Singleton<GUITextureMgr>::m_Ptr = 0;
 
-	GUITextureMgr::GUITextureMgr(void) : m_bufferHeight(0),m_bufferWidth(0),mVB(TNULL),mVBSet(TNULL),
+	GUITextureMgr::GUITextureMgr(TVOID) : m_bufferHeight(0),m_bufferWidth(0),mVB(TNULL),mVBSet(TNULL),
 		mVS(TNULL),mPS(TNULL),mInputLayout(TNULL),mDepthStencilState(TNULL),mBlendState(TNULL),mSamplerState(TNULL)
 	{
 	}
 
-	GUITextureMgr::~GUITextureMgr(void)
+	GUITextureMgr::~GUITextureMgr(TVOID)
 	{
 		m_bufferHeight = 0;
 		m_bufferWidth = 0;
@@ -83,7 +83,7 @@ namespace TLunaEngine{
 		mSRVList.clear();
 	}
 
-	TBOOL GUITextureMgr::Init(TU32 bufferWidth, TU32 bufferHeight, const char *effectFile)
+	TBOOL GUITextureMgr::Init(TU32 bufferWidth, TU32 bufferHeight, const TCHAR* effectFile)
 	{
 		m_bufferHeight = bufferHeight;
 		m_bufferWidth = bufferWidth;
@@ -94,7 +94,7 @@ namespace TLunaEngine{
 		return TTRUE;
 	}
 
-	void GUITextureMgr::DestroyAllTex()
+	TVOID GUITextureMgr::DestroyAllTex()
 	{
 		std::map<int,RenderDeviceUsedSRV*>::iterator itr = mSRVList.begin();
 		for(;itr!=mSRVList.end();++itr)
@@ -114,7 +114,7 @@ namespace TLunaEngine{
 	{
 		int texID = -1;
 		TxtFileReader::ReadLineInteger(&texID,stream,1,' ');
-		char strResult[1024] = {0};
+		TCHAR strResult[1024] = {0};
 		int nCount = 1024;
 		TxtFileReader::ReadLineString(strResult,stream,TNULL,TNULL,1024,TNULL);
 		RenderDevice* pDevice = RenderMgr::getSingletonPtr()->getDevice();
@@ -169,7 +169,7 @@ namespace TLunaEngine{
 		return TTRUE;
 	}
 
-	TBOOL GUITextureMgr::LoadTexFromFile(const char *file)
+	TBOOL GUITextureMgr::LoadTexFromFile(const TCHAR* file)
 	{
 		// 先检测，清空原来的
 		DestroyAllTex();
@@ -181,8 +181,8 @@ namespace TLunaEngine{
 			return TFALSE;
 		}
 		// 匹配第一行字符
-		bool bEqual = false;
-		char strResult[1024] = {0};
+		TBOOL bEqual = TFALSE;
+		TCHAR strResult[1024] = {0};
 		int nCount = 1024;
 		if(!TxtFileReader::ReadLineString(strResult,stream,"TUI_TEX_100",&bEqual,nCount,TNULL))
 		{
@@ -210,7 +210,7 @@ namespace TLunaEngine{
 		return TTRUE;
 	}
 
-	TBOOL GUITextureMgr::InitD3DObj(const char* effectFile)
+	TBOOL GUITextureMgr::InitD3DObj(const TCHAR* effectFile)
 	{
 		// Init D3DObj
 		RenderDevice* pDevice = RenderMgr::getSingletonPtr()->getDevice();
@@ -327,7 +327,7 @@ namespace TLunaEngine{
 		return TTRUE;
 	}
 
-	bool GUITextureMgr::DrawGUICtrl(TS32 x, TS32 y, TS32 width, TS32 height, float texX, float texY, float texR, float texB, int texId,float alpha)
+	TBOOL GUITextureMgr::DrawGUICtrl(TS32 x, TS32 y, TS32 width, TS32 height, float texX, float texY, float texR, float texB, int texId,float alpha)
 	{
 		RenderDeviceUsedSRV* pSRV = TNULL;
 		std::map<int,RenderDeviceUsedSRV*>::iterator itr = mSRVList.find(texId);
@@ -337,7 +337,7 @@ namespace TLunaEngine{
 		}
 		if (pSRV == TNULL)
 		{
-			return false;
+			return TFALSE;
 		}
 		RenderDevice* pDevice = RenderMgr::getSingletonPtr()->getDevice();
 		TLunaEngine::Vector4<float> color(1.0f,1.0f,1.0f,alpha);
@@ -388,7 +388,7 @@ namespace TLunaEngine{
 		pDevice->setBlendState(mBlendState,blendFactor,0xffffffff);
 		pDevice->setDepthStencilState(mDepthStencilState);
 		pDevice->draw(6,0);
-		return true;
+		return TTRUE;
 	}
 
 }

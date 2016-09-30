@@ -5,11 +5,11 @@
 namespace TLunaEngine{
 	ResMgr* Singleton<ResMgr>::m_Ptr = 0;
 
-	ResMgr::ResMgr(void) : m_eListState(RES_LIST_STATE_NONE)
+	ResMgr::ResMgr(TVOID) : m_eListState(RES_LIST_STATE_NONE)
 	{
 	}
 
-	ResMgr::~ResMgr(void)
+	ResMgr::~ResMgr(TVOID)
 	{
 		// 这个链表的资源要在外部删除
 		std::list<ResObject*>::iterator itr = m_ResObjList.begin();
@@ -21,7 +21,7 @@ namespace TLunaEngine{
 		m_ResObjList.clear();
 	}
 
-	void ResMgr::OperateList()
+	TVOID ResMgr::OperateList()
 	{
 		if(m_eListState!=RES_LIST_STATE_NONE)
 			return ;
@@ -40,7 +40,7 @@ namespace TLunaEngine{
 				{
 					if(!pObj->InitResObject())
 					{
-						TLunaEngine::Log::WriteLine(TLunaEngine::Log::LOG_LEVEL_ERROR,true,__FILE__,__LINE__,"InitResObject Error!");
+						TLunaEngine::Log::WriteLine(TLunaEngine::Log::LOG_LEVEL_ERROR,TTRUE,__FILE__,__LINE__,"InitResObject Error!");
 						_ASSERT(0);
 					}
 				}

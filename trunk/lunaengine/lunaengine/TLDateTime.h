@@ -10,8 +10,8 @@ namespace TLunaEngine{
 	class DateTime
 	{
 	public:
-		DateTime(void);
-		~DateTime(void);
+		DateTime(TVOID);
+		~DateTime(TVOID);
 		DateTime(int year,int month,int day);
 		DateTime(const DateTime& dateTime);
 	public:
@@ -49,19 +49,19 @@ namespace TLunaEngine{
 			return m_Day;
 		}
 		// 设置值
-		inline void SetDateTime(int year,int month,int day)
+		inline TVOID SetDateTime(int year,int month,int day)
 		{
 			m_Year = year;
 			m_Month = month;
 			m_Day = day;
 		}
 		// 这个nDays可以是负数，那就是减
-		void AddDays(int nDays);
+		TVOID AddDays(int nDays);
 		// 是否和另一个相等
-		bool IsEqual(const DateTime& dateTime);
+		TBOOL IsEqual(const DateTime& dateTime);
 	private:
-		void AddOneDay();
-		void SubOneDay();
+		TVOID AddOneDay();
+		TVOID SubOneDay();
 	};
 
 }

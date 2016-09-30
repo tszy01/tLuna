@@ -1,6 +1,7 @@
 #ifndef _TLRENDERDEVICEUSEDDSV_D3D11_H_
 #define _TLRENDERDEVICEUSEDDSV_D3D11_H_
 
+#include "TLCommonTypeDef.h"
 #include "TLRenderDeviceUsedDSV.h"
 #include "TLRenderDeviceUsedView_D3D11.h"
 #include <d3d11.h>
@@ -27,7 +28,7 @@ namespace TLunaEngine
 			return mD3DDSV;
 		}
 		// init with d3d dsv
-		bool initWithD3DDSV(ID3D11DepthStencilView* d3dView);
+		TBOOL initWithD3DDSV(ID3D11DepthStencilView* d3dView);
 	};
 }
 

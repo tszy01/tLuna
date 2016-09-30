@@ -23,8 +23,8 @@ namespace TLunaEngine{
 	{
 		friend class Singleton<GUITextureMgr>;
 	protected:
-		GUITextureMgr(void);
-		~GUITextureMgr(void);
+		GUITextureMgr(TVOID);
+		~GUITextureMgr(TVOID);
 	private:
 		TU32 m_bufferWidth;	// 后缓冲宽
 		TU32 m_bufferHeight;// 后缓冲高
@@ -39,17 +39,17 @@ namespace TLunaEngine{
 		std::map<int,RenderDeviceUsedSRV*> mSRVList;
 	public:
 		// 初始化
-		TBOOL Init(TU32 bufferWidth,TU32 bufferHeight,const char* effectFile);
+		TBOOL Init(TU32 bufferWidth,TU32 bufferHeight,const TCHAR* effectFile);
 		// 加载纹理
-		TBOOL LoadTexFromFile(const char* file);
+		TBOOL LoadTexFromFile(const TCHAR* file);
 		// 销毁
-		void DestroyAllTex();
+		TVOID DestroyAllTex();
 		// 渲染
 		// 这里绘画区域传相对于屏幕的，纹理坐标传真正的纹理映射值（0-1）
-		bool DrawGUICtrl(TS32 x,TS32 y,TS32 width,TS32 height,float texX,float texY,float texR,float texB,int texId,float alpha);
+		TBOOL DrawGUICtrl(TS32 x,TS32 y,TS32 width,TS32 height,float texX,float texY,float texR,float texB,int texId,float alpha);
 	private:
 		// 其它D3D资源
-		TBOOL InitD3DObj(const char* effectFile);
+		TBOOL InitD3DObj(const TCHAR* effectFile);
 		// 读取纹理ID，文件名
 		TBOOL LoadTexArray(FILE* stream);
 	};

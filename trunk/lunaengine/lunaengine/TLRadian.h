@@ -37,12 +37,12 @@ namespace TLunaEngine
 		Radian operator / ( TF32 f ) const { return Radian ( mRad / f ); }
 		Radian& operator /= ( TF32 f ) { mRad /= f; return *this; }
 
-		bool operator <  ( const Radian& r ) const { return mRad <  r.mRad; }
-		bool operator <= ( const Radian& r ) const { return mRad <= r.mRad; }
-		bool operator == ( const Radian& r ) const { return mRad == r.mRad; }
-		bool operator != ( const Radian& r ) const { return mRad != r.mRad; }
-		bool operator >= ( const Radian& r ) const { return mRad >= r.mRad; }
-		bool operator >  ( const Radian& r ) const { return mRad >  r.mRad; }
+		TBOOL operator <  ( const Radian& r ) const { return mRad <  r.mRad; }
+		TBOOL operator <= ( const Radian& r ) const { return mRad <= r.mRad; }
+		TBOOL operator == ( const Radian& r ) const { return mRad == r.mRad; }
+		TBOOL operator != ( const Radian& r ) const { return mRad != r.mRad; }
+		TBOOL operator >= ( const Radian& r ) const { return mRad >= r.mRad; }
+		TBOOL operator >  ( const Radian& r ) const { return mRad >  r.mRad; }
 	};
 }
 

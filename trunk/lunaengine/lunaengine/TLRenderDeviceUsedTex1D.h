@@ -13,7 +13,7 @@ namespace TLunaEngine
 		virtual ~RenderDeviceUsedTex1D(){};
 	public:
 		// get resource type
-		virtual void getResourceType(RENDER_DEVICE_RESOURCE_DIMENSION* pType)
+		virtual TVOID getResourceType(RENDER_DEVICE_RESOURCE_DIMENSION* pType)
 		{
 			if(pType)
 			{

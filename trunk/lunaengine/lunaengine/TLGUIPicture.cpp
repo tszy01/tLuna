@@ -2,7 +2,7 @@
 #include "TLGUITextureMgr.h"
 
 namespace TLunaEngine{
-	GUIPicture::GUIPicture(void) : GUICtrl(),
+	GUIPicture::GUIPicture(TVOID) : GUICtrl(),
 	m_iTexID(-1),
 	m_texX(0),
 	m_texY(0),
@@ -11,16 +11,16 @@ namespace TLunaEngine{
 	{
 	}
 
-	GUIPicture::~GUIPicture(void)
+	GUIPicture::~GUIPicture(TVOID)
 	{
 	}
 
-	bool GUIPicture::InitGUIPicture(int iIndex,GUIContainer* pContainer,TS32 x,TS32 y,TS32 width,TS32 height,
+	TBOOL GUIPicture::InitGUIPicture(int iIndex,GUIContainer* pContainer,TS32 x,TS32 y,TS32 width,TS32 height,
 									  int iTexID, float texX, float texY, float texR, float texB)
 	{
 		if (!GUICtrl::InitCtrlBase(iIndex,pContainer,x,y,width,height))
 		{
-			return false;
+			return TFALSE;
 		}
 		m_eCtrlType = GUI_CTRL_PICTURE;
 		m_iTexID = iTexID;
@@ -28,10 +28,10 @@ namespace TLunaEngine{
 		m_texY = texY;
 		m_texR = texR;
 		m_texB = texB;
-		return true;
+		return TTRUE;
 	}
 
-	void GUIPicture::DestroyCtrl()
+	TVOID GUIPicture::DestroyCtrl()
 	{
 		m_eCtrlType = GUI_CTRL_NONE;
 		m_iTexID = -1;
@@ -42,19 +42,19 @@ namespace TLunaEngine{
 		GUICtrl::DestroyCtrl();
 	}
 
-	bool GUIPicture::Update(float fTimeElapsed)
+	TBOOL GUIPicture::Update(float fTimeElapsed)
 	{
 		return GUICtrl::Update(fTimeElapsed);
 	}
 
-	bool GUIPicture::Render(float fTimeElapsed)
+	TBOOL GUIPicture::Render(float fTimeElapsed)
 	{
 		if (!GUICtrl::Render(fTimeElapsed))
 		{
-			return false;
+			return TFALSE;
 		}
 		GUITextureMgr::getSingletonPtr()->DrawGUICtrl(m_posXFinal,m_posYFinal,m_width,m_height,m_texX,m_texY,m_texR,m_texB,m_iTexID,m_fAlpha);
-		return true;
+		return TTRUE;
 	}
 
 }

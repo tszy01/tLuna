@@ -71,13 +71,13 @@ namespace TLunaEngine{
 			return *this;
 		}
 
-		inline bool operator== (const DualQuaternion<T>& rhs) const
+		inline TBOOL operator== (const DualQuaternion<T>& rhs) const
 		{
 			return (rhs.w == w) && (rhs.x == x) && (rhs.y == y) && (rhs.z == z) && 
 				(rhs.dw == dw) && (rhs.dx == dx) && (rhs.dy == dy) && (rhs.dz == dz);
 		}
 
-		inline bool operator!= (const DualQuaternion<T>& rhs) const
+		inline TBOOL operator!= (const DualQuaternion<T>& rhs) const
 		{
 			return !operator==(rhs);
 		}
@@ -95,14 +95,14 @@ namespace TLunaEngine{
 		}
 		
 		/// Check whether this dual quaternion contains valid values
-		inline bool isNaN() const
+		inline TBOOL isNaN() const
 		{
 			return TLunaEngine::isNaN(w) || TLunaEngine::isNaN(x) || TLunaEngine::isNaN(y) || TLunaEngine::isNaN(z) ||  
 				TLunaEngine::isNaN(dw) || TLunaEngine::isNaN(dx) || TLunaEngine::isNaN(dy) || TLunaEngine::isNaN(dz);
 		}
 
 		/// Construct a dual quaternion from a rotation described by a Quaternion and a translation described by a Vector3
-		void fromRotationTranslation (const Quaternion<T>& q, const Vector3<T>& trans)
+		TVOID fromRotationTranslation (const Quaternion<T>& q, const Vector3<T>& trans)
 		{
 			// non-dual part (just copy the quaternion):
 			w = q.W;
@@ -119,7 +119,7 @@ namespace TLunaEngine{
 		}
 		
 		/// Convert a dual quaternion into its two components, a Quaternion representing the rotation and a Vector3 representing the translation
-		void toRotationTranslation (Quaternion<T>& q, Vector3<T>& translation) const
+		TVOID toRotationTranslation (Quaternion<T>& q, Vector3<T>& translation) const
 		{
 			// regular quaternion (just copy the non-dual part):
 			q.W = w;

@@ -34,9 +34,9 @@ namespace TLunaEngine{
 		inline Line<T> operator-(const Vector3<T>& point) const { return Line<T>(start - point, end - point); }
 		inline Line<T>& operator-=(const Vector3<T>& point) { start -= point; end -= point; return *this; }
 		// 开始和结尾必须都符合
-		inline bool operator==(const Line<T>& other) const
+		inline TBOOL operator==(const Line<T>& other) const
 		{ return start==other.start && end==other.end;}
-		inline bool operator!=(const Line<T>& other) const
+		inline TBOOL operator!=(const Line<T>& other) const
 		{ return start!=other.start || end!=other.end;}
 		// 赋值
 		inline Line<T>& operator=(const Line<T>& other)
@@ -49,13 +49,13 @@ namespace TLunaEngine{
 
 		// functions
 		//! Set this line to a new line going through the two points.
-		inline void setLine(const T& xa, const T& ya, const T& za, const T& xb, const T& yb, const T& zb)
+		inline TVOID setLine(const T& xa, const T& ya, const T& za, const T& xb, const T& yb, const T& zb)
 		{start.set(xa, ya, za); end.set(xb, yb, zb); updateDir();}
 		//! Set this line to a new line going through the two points.
-		inline void setLine(const Vector3<T>& nstart, const Vector3<T>& nend)
+		inline TVOID setLine(const Vector3<T>& nstart, const Vector3<T>& nend)
 		{start.set(nstart); end.set(nend); updateDir();}
 		//! Set this line to new line given as parameter.
-		inline void setLine(const Line<T>& line)
+		inline TVOID setLine(const Line<T>& line)
 		{start.set(line.start); end.set(line.end); updateDir();}
 
 		// 计算方向
@@ -96,9 +96,9 @@ namespace TLunaEngine{
 		//! Check if the given point is between start and end of the line.
 		/** Assumes that the point is already somewhere on the line.
 		\param point The point to test.
-		\return True if point is on the line between start and end, else false.
+		\return True if point is on the line between start and end, else TFALSE.
 		*/
-		inline bool isPointBetweenStartAndEnd(const Vector3<T>& point) const
+		inline TBOOL isPointBetweenStartAndEnd(const Vector3<T>& point) const
 		{
 			return point.isBetweenPoints(start, end);
 		}
@@ -130,7 +130,7 @@ namespace TLunaEngine{
 		\return True if there is an intersection.
 		If there is one, the distance to the first intersection point
 		is stored in outdistance. */
-		inline bool getIntersectionWithSphere(const Vector3<T>& sorigin, T sradius, T& outdistance) const
+		inline TBOOL getIntersectionWithSphere(const Vector3<T>& sorigin, T sradius, T& outdistance) const
 		{
 			Vector3<T> q = sorigin - start;
 			T c = q.getLength();
@@ -138,10 +138,10 @@ namespace TLunaEngine{
 			T d = sradius * sradius - (c*c - v*v);
 
 			if (d < (T)0.0f)
-				return false;
+				return TFALSE;
 
 			outdistance = (T)((TF32)v - FastSqrt((TF32)d));
-			return true;
+			return TTRUE;
 		}
 
 		// member variables

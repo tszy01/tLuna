@@ -1,16 +1,17 @@
 #ifndef _TLMUTEX_H_
 #define _TLMUTEX_H_
 #include <Windows.h>
+#include "TLCommonTypeDef.h"
 namespace TLunaEngine{
 	class Mutex
 	{
 	public:
 
-		Mutex(void):mMutex(NULL)
+		Mutex(TVOID):mMutex(TNULL)
 		{
 		}
 
-		~Mutex(void)
+		~Mutex(TVOID)
 		{
 			CloseMutexHandle();
 		}
@@ -19,24 +20,24 @@ namespace TLunaEngine{
 		HANDLE mMutex;
 
 	public:
-		bool CreateMutexHandle()
+		TBOOL CreateMutexHandle()
 		{
 			if(!mMutex)
 			{
-				mMutex = ::CreateMutex(NULL,FALSE,NULL);
+				mMutex = ::CreateMutex(TNULL,FALSE, TNULL);
 				if(!mMutex)
-					return false;
-				return true;
+					return TFALSE;
+				return TTRUE;
 			}
-			return false;
+			return TFALSE;
 		}
 
-		void CloseMutexHandle()
+		TVOID CloseMutexHandle()
 		{
 			if(mMutex)
 			{
 				::CloseHandle(mMutex);
-				mMutex = NULL;
+				mMutex = TNULL;
 			}
 		}
 
@@ -45,24 +46,24 @@ namespace TLunaEngine{
 			return mMutex;
 		}
 
-		bool IsNull() const
+		TBOOL IsNull() const
 		{
-			return mMutex==NULL;
+			return mMutex == TNULL;
 		}
 
-		void SetNull()
+		TVOID SetNull()
 		{
-			mMutex=NULL;
+			mMutex = TNULL;
 		}
 
-		void SwapMutexHandle(Mutex& right)
+		TVOID SwapMutexHandle(Mutex& right)
 		{
 			HANDLE rightHandle = right.mMutex;
 			right.mMutex = mMutex;
 			mMutex = rightHandle;
 		}
 
-		void CopyMutexHandle(const Mutex& right)
+		TVOID CopyMutexHandle(const Mutex& right)
 		{
 			mMutex = right.mMutex;
 		}

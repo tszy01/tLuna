@@ -10,10 +10,10 @@ namespace TLunaEngine{
 	class Ray
 	{
 	public:
-		Ray(void)
+		Ray(TVOID)
 		{
 		}
-		~Ray(void)
+		~Ray(TVOID)
 		{
 		}
 		Ray(const Ray<T>& other)
@@ -39,7 +39,7 @@ namespace TLunaEngine{
 		// --------- 方法 ----------------------
 
 		// 重载=
-		inline void operator=(const Ray<T>& other)
+		inline TVOID operator=(const Ray<T>& other)
 		{
 			m_Orig = other.m_Orig;
 			m_Dir = other.m_Dir;
@@ -49,7 +49,7 @@ namespace TLunaEngine{
 		{
 			return m_Orig;
 		}
-		inline void SetOrig(const Vector3<T>& orig)
+		inline TVOID SetOrig(const Vector3<T>& orig)
 		{
 			m_Orig = orig;
 		}
@@ -58,7 +58,7 @@ namespace TLunaEngine{
 		{
 			return m_Dir;
 		}
-		inline void SetDir(const Vector3<T>& dir)
+		inline TVOID SetDir(const Vector3<T>& dir)
 		{
 			m_Dir = dir;
 			m_Dir.normalize();

@@ -15,13 +15,13 @@ namespace TLunaEngine
 		}
 	}
 
-	bool RenderDeviceUsedBuffer_D3D11::initWithD3DBuffer(ID3D11Buffer* d3dBuffer)
+	TBOOL RenderDeviceUsedBuffer_D3D11::initWithD3DBuffer(ID3D11Buffer* d3dBuffer)
 	{
 		if(mD3DBuffer)
-			return false;
+			return TFALSE;
 		if(!d3dBuffer)
-			return false;
+			return TFALSE;
 		mD3DBuffer = d3dBuffer;
-		return true;
+		return TTRUE;
 	}
 }

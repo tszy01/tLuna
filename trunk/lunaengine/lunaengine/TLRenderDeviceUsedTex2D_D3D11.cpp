@@ -16,13 +16,13 @@ namespace TLunaEngine
 		}
 	}
 
-	bool RenderDeviceUsedTex2D_D3D11::initWithD3DTex2D(ID3D11Texture2D* d3dTex)
+	TBOOL RenderDeviceUsedTex2D_D3D11::initWithD3DTex2D(ID3D11Texture2D* d3dTex)
 	{
 		if(mD3DTex2D)
-			return false;
+			return TFALSE;
 		if(!d3dTex)
-			return false;
+			return TFALSE;
 		mD3DTex2D = d3dTex;
-		return true;
+		return TTRUE;
 	}
 }

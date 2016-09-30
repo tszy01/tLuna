@@ -19,7 +19,7 @@ namespace TLunaEngine
 		}
 	}
 
-	void* RenderDeviceCompiledShader_D3D11::getBufferPointer()
+	TVOID* RenderDeviceCompiledShader_D3D11::getBufferPointer()
 	{
 		if(mD3DBlob)
 		{
@@ -37,61 +37,61 @@ namespace TLunaEngine
 		return 0;
 	}
 
-	bool RenderDeviceCompiledShader_D3D11::readFromFile(const char* file)
+	TBOOL RenderDeviceCompiledShader_D3D11::readFromFile(const TCHAR* file)
 	{
 		if(!file)
-			return false;
+			return TFALSE;
 		if(mD3DBlob)
-			return false;
-		void* buffer = 0;
+			return TFALSE;
+		TVOID* buffer = 0;
 		size_t readSize = 0;
 		if(!TxtFileReader::ReadAllFile(file,"rb",&buffer,&readSize))
-			return false;
+			return TFALSE;
 		if(!buffer || readSize<=0)
-			return false;
+			return TFALSE;
 		if(FAILED(D3DCreateBlob(readSize,&mD3DBlob)))
 		{
 			free(buffer);
-			return false;
+			return TFALSE;
 		}
 		memcpy(mD3DBlob->GetBufferPointer(),buffer,readSize);
 		free(buffer);
-		return true;
+		return TTRUE;
 	}
 
-	bool RenderDeviceCompiledShader_D3D11::writeToFile(const char* file)
+	TBOOL RenderDeviceCompiledShader_D3D11::writeToFile(const TCHAR* file)
 	{
 		if(!file)
-			return false;
+			return TFALSE;
 		if(!mD3DBlob)
-			return false;
+			return TFALSE;
 		if(mD3DBlob->GetBufferSize() == 0)
-			return false;
+			return TFALSE;
 		FILE* stream = 0;
 		int re = fopen_s(&stream,file,"wb");
 		if(re!=0)
 		{
-			return false;
+			return TFALSE;
 		}
 		size_t writeSize = fwrite(mD3DBlob->GetBufferPointer(),1,mD3DBlob->GetBufferSize(),stream);
 		if(writeSize!=mD3DBlob->GetBufferSize())
 		{
 			fclose(stream);
-			return false;
+			return TFALSE;
 		}
-		return true;
+		return TTRUE;
 	}
 
-	bool RenderDeviceCompiledShader_D3D11::compileShader(const char* szFile, const char* szEntry, const char* szShaderType)
+	TBOOL RenderDeviceCompiledShader_D3D11::compileShader(const TCHAR* szFile, const TCHAR* szEntry, const TCHAR* szShaderType)
 	{
 		if(!szFile || !szEntry || !szShaderType)
-			return false;
+			return TFALSE;
 		RenderDevice* pDevice = RenderMgr::getSingletonPtr()->getDevice();
 		if(!pDevice)
-			return false;
+			return TFALSE;
 		String strModelVersion = pDevice->getShaderProfileVersion();
 		if(strModelVersion=="")
-			return false;
+			return TFALSE;
 		String strShaderModel = String(szShaderType) + String("_") + strModelVersion;
 
 		HRESULT hr = S_OK;
@@ -106,20 +106,20 @@ namespace TLunaEngine
 
 		ID3DBlob* pErrorBlob;
 		size_t strCount = strlen(szFile);
-		wchar_t* wStr = new wchar_t[strCount+1];
+		TWCHAR* wStr = new TWCHAR[strCount+1];
 		mbstowcs(wStr,szFile,strCount);
 		wStr[strCount] = L'\0';
 		hr = D3DCompileFromFile( wStr, TNULL, TNULL, szEntry, strShaderModel.GetString(), dwShaderFlags, 0, &mD3DBlob, &pErrorBlob );
 		if( FAILED(hr) )
 		{
 			if( pErrorBlob != TNULL )
-				OutputDebugStringA( (char*)pErrorBlob->GetBufferPointer() );
+				OutputDebugStringA( (TCHAR*)pErrorBlob->GetBufferPointer() );
 			if( pErrorBlob ) pErrorBlob->Release();
 			delete [] wStr;
-			return false;
+			return TFALSE;
 		}
 		if( pErrorBlob ) pErrorBlob->Release();
 		delete [] wStr;
-		return true;
+		return TTRUE;
 	}
 }

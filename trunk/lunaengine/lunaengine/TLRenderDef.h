@@ -242,7 +242,7 @@ namespace TLunaEngine
 	// used by map function
 	struct TLRenderDeviceMappedSubresource 
 	{
-		void *pData;
+		TVOID *pData;
 		TU32 RowPitch;
 		TU32 DepthPitch;
 	};
@@ -259,7 +259,7 @@ namespace TLunaEngine
 
 	// resource init data
 	struct TLRenderDeviceSubresourceData {
-		const void *pSysMem;
+		const TVOID *pSysMem;
 		TU32       SysMemPitch;
 		TU32       SysMemSlicePitch;
 	};

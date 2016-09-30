@@ -8,31 +8,31 @@ namespace TLunaEngine{
 	class Zip
 	{
 	public:
-		Zip(void);
-		~Zip(void);
+		Zip(TVOID);
+		~Zip(TVOID);
 	public:
 		// --------- 以下为静态方法 --------------
 
 		// 压缩
-		static int def(unsigned char* src,int srcSize,unsigned char* dest,int* destSize,int level);
+		static int def(TUByte* src,int srcSize, TUByte* dest,int* destSize,int level);
 		// 解压缩
-		static int inf(unsigned char* src,int srcSize,unsigned char* dest,int origSize);
+		static int inf(TUByte* src,int srcSize, TUByte* dest,int origSize);
 		// 添加待压缩文件到内存
-		static int AddCompressFile(char* filename);
+		static int AddCompressFile(TCHAR* filename);
 		// 生成压缩文件
-		static int CompressToFile(char* zipname);
+		static int CompressToFile(TCHAR* zipname);
 		// 解压缩文件到内存
-		static int DecompressToMem(char* zipname,unsigned char** buf);
+		static int DecompressToMem(TCHAR* zipname, TUByte** buf);
 		// 分割解压缩得文件
-		static int CopyMemToFile(char* dirname,bool bBuildFile,MemFile** ppMemFile);
+		static int CopyMemToFile(TCHAR* dirname,TBOOL bBuildFile,MemFile** ppMemFile);
 		// 清除数据
-		static void ClearBuffer();
+		static TVOID ClearBuffer();
 
 		// ---------------------------------------
 	protected:
 		// -------- 以下为静态成员 ---------------
 		// 缓冲区
-		static unsigned char* m_TempBuf;
+		static TUByte* m_TempBuf;
 		// 缓冲区大小
 		static int m_TempSize;
 		// 文件数量

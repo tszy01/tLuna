@@ -158,7 +158,7 @@ namespace TLunaEngine
 			return kProd;
 		}
 
-		inline void multiplyVector3(const Vector3<T>& rkVector, Vector3<T>& out) const
+		inline TVOID multiplyVector3(const Vector3<T>& rkVector, Vector3<T>& out) const
 		{
 			for (size_t iCol = 0; iCol < 3; iCol++)
 			{
@@ -189,7 +189,7 @@ namespace TLunaEngine
 		}
 
 		// жУ0
-		inline void setZero()
+		inline TVOID setZero()
 		{
 			for(int i=0;i<3;i++)
 				for(int j=0;j<3;j++)
@@ -197,26 +197,26 @@ namespace TLunaEngine
 		}
 
 		//! Sets the identity matrix.
-		inline void identity()
+		inline TVOID identity()
 		{ 
 			setZero(); 
 			m[0][0] = m[1][1] = m[2][2] = 1.0f;	
 		}
 		//! Checks for identity
-		inline bool isIdentity()
+		inline TBOOL isIdentity()
 		{
-			if(IR(m[0][0])!=IEEE_1_0)	return false;
-			if(IR(m[0][1])!=0)			return false;
-			if(IR(m[0][2])!=0)			return false;
+			if(IR(m[0][0])!=IEEE_1_0)	return TFALSE;
+			if(IR(m[0][1])!=0)			return TFALSE;
+			if(IR(m[0][2])!=0)			return TFALSE;
 
-			if(IR(m[1][0])!=0)			return false;
-			if(IR(m[1][1])!=IEEE_1_0)	return false;
-			if(IR(m[1][2])!=0)			return false;
+			if(IR(m[1][0])!=0)			return TFALSE;
+			if(IR(m[1][1])!=IEEE_1_0)	return TFALSE;
+			if(IR(m[1][2])!=0)			return TFALSE;
 
-			if(IR(m[2][0])!=0)			return false;
-			if(IR(m[2][1])!=0)			return false;
-			if(IR(m[2][2])!=IEEE_1_0)	return false;
-			return true;
+			if(IR(m[2][0])!=0)			return TFALSE;
+			if(IR(m[2][1])!=0)			return TFALSE;
+			if(IR(m[2][2])!=IEEE_1_0)	return TFALSE;
+			return TTRUE;
 		}
 
 		inline Matrix3x3<T> getTranspose() const

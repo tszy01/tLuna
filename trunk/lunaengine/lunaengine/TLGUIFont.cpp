@@ -22,7 +22,7 @@ namespace TLunaEngine{
 		}
 	}
 
-	void FontGlyph::cache(TU32 idx,TU32 size)
+	TVOID FontGlyph::cache(TU32 idx,TU32 size)
 	{
 		if(cached || texd)
 			return;
@@ -33,7 +33,7 @@ namespace TLunaEngine{
 			if (glyph->format == ft_glyph_format_outline ){
 				if (!FT_Render_Glyph( glyph, FT_RENDER_MODE_NORMAL)){
 					bits = glyph->bitmap;
-					unsigned char *pt = bits.buffer;
+					TUByte *pt = bits.buffer;
 					top = glyph->bitmap_top;
 					left = glyph->bitmap_left;
 					imgw = 1;
@@ -63,7 +63,7 @@ namespace TLunaEngine{
 					memset(texd,0,imgw*imgh*sizeof(TU32));
 					TU32 *texp = texd;
 					offset = size - bits.rows;
-					bool cflag = false;
+					TBOOL cflag = TFALSE;
 					for (int i = 0;i < bits.rows;i++){
 						TU32 *rowp = texp;
 						for (int j = 0;j < bits.width;j++){
@@ -83,14 +83,14 @@ namespace TLunaEngine{
 						}
 						texp += imgw;
 					}
-					cached = true;
+					cached = TTRUE;
 				}
 			}
 		}
 	}
 
 	// ------------------ GUIFont ------------------------
-	GUIFont::GUIFont(void) : 
+	GUIFont::GUIFont(TVOID) : 
 	m_Glyphs(TNULL),
 	face(TNULL),
 	library(TNULL),
@@ -101,7 +101,7 @@ namespace TLunaEngine{
 	{
 	}
 
-	GUIFont::~GUIFont(void)
+	GUIFont::~GUIFont(TVOID)
 	{
 		std::vector<TU32*>::iterator itrBuffer = mPageBufferList.begin();
 		for(;itrBuffer!=mPageBufferList.end();++itrBuffer)
@@ -136,45 +136,45 @@ namespace TLunaEngine{
 		library = TNULL;
 	}
 
-	bool GUIFont::InitFont(const char *filename, TU32 size,TU32 texPageSize,int id,FT_Library lib)
+	TBOOL GUIFont::InitFont(const TCHAR* filename, TU32 size,TU32 texPageSize,int id,FT_Library lib)
 	{
 		if(filename==TNULL || lib==TNULL || texPageSize<=0 || size<=0)
 		{
-			return false;
+			return TFALSE;
 		}
 		// Load Freetype
 		library = lib;
 		if (FT_New_Face( library,filename,0,&face )){
-			return	false;
+			return	TFALSE;
 		}
 		// 创建文字个体
 		m_Glyphs = new FontGlyph[face->num_glyphs];
 		for (int i = 0;i < face->num_glyphs;i++){
 			m_Glyphs[i].face = &face;
-			m_Glyphs[i].cached = false;
+			m_Glyphs[i].cached = TFALSE;
 		}
 		m_Id = id;
 		mFontSize = size;
 		mPageSize = texPageSize;
-		return true;
+		return TTRUE;
 	}
 
-	TU32 GUIFont::GetGlyphByChar(wchar_t c,bool& newFontCached){
-		newFontCached = false;
+	TU32 GUIFont::GetGlyphByChar(TWCHAR c,TBOOL& newFontCached){
+		newFontCached = TFALSE;
 		TU32 idx = FT_Get_Char_Index( face, c );
 		if (idx && !m_Glyphs[idx - 1].cached)
 		{
 			m_Glyphs[idx - 1].cache(idx,mFontSize);
 			catchAllFont();
-			newFontCached = true;
+			newFontCached = TTRUE;
 		}
 		return	idx;
 	}
 
-	bool GUIFont::catchAllFont()
+	TBOOL GUIFont::catchAllFont()
 	{
 		if(mPageSize==0)
-			return false;
+			return TFALSE;
 		// 摆放规则
 		// 从大到小，先摆放大的，然后摆放小的，竖着摆，一列为一行
 		// 第一遍存放到map中
@@ -200,7 +200,7 @@ namespace TLunaEngine{
 			}
 		}
 		if(maxHeight==0 || minHeight==0 || count==0)
-			return false;
+			return TFALSE;
 		// 计算buffer的大小
 		TU32 totalHeight=0,nowHeight=maxHeight;
 		TU32 fontCountPerLine=0;
@@ -417,7 +417,7 @@ namespace TLunaEngine{
 			RenderDeviceUsedTex2D* pTex = pDevice->createTex2D(&texDesc,&initData);
 			if(!pTex)
 			{
-				return false;
+				return TFALSE;
 			}
 			TLRenderDeviceSRVDesc srvDesc;
 			srvDesc.Format = RENDER_DEVICE_FORMAT_R8G8B8A8_UNORM;
@@ -428,23 +428,23 @@ namespace TLunaEngine{
 			if(!pSRV)
 			{
 				delete pTex;
-				return false;
+				return TFALSE;
 			}
 			delete pTex;
 			mSRVList.push_back(pSRV);
 		}
 		
-		return true;
+		return TTRUE;
 	}
 
 	//! returns the dimension of a text
-	void GUIFont::GetDimension(const wchar_t* text, TU32& left, TU32& right, TU32& top, TU32& bottom)
+	TVOID GUIFont::GetDimension(const TWCHAR* text, TU32& left, TU32& right, TU32& top, TU32& bottom)
 	{
 		top = left = 0;
 		right = 0;
 		bottom = mFontSize;
 
-		for(const wchar_t* p = text; *p; ++p)
+		for(const TWCHAR* p = text; *p; ++p)
 		{
 			right += GetWidthFromCharacter(*p);
 		}
@@ -453,9 +453,9 @@ namespace TLunaEngine{
 	}
 
 
-	TS32 GUIFont::GetWidthFromCharacter(wchar_t c)
+	TS32 GUIFont::GetWidthFromCharacter(TWCHAR c)
 	{
-		bool catched = false;
+		TBOOL catched = TFALSE;
 		TU32 n = GetGlyphByChar(c,catched);
 		if ( n > 0){
 			int w = m_Glyphs[n - 1].texw;
@@ -469,7 +469,7 @@ namespace TLunaEngine{
 		}
 	}
 
-	void GUIFont::PreDraw(int n,TS32* imgw,TS32* imgh,TS32* texw,TS32* texh,TS32* offx,TS32* offy,
+	TVOID GUIFont::PreDraw(int n,TS32* imgw,TS32* imgh,TS32* texw,TS32* texh,TS32* offx,TS32* offy,
 			TF32* texStartU,TF32* texEndU,TF32* texStartV,TF32* texEndV,TU32* pageIndex)
 	{
 		if (!imgw || !imgh || !texw || !texh || !offx || !offy || !texStartU || !texEndU || !texStartV || !texEndV || !pageIndex)
@@ -497,7 +497,7 @@ namespace TLunaEngine{
 	}
 
 	//! Calculates the index of the character in the text which is on a specific position.
-	TS32 GUIFont::GetCharacterFromPos(const wchar_t* text, TS32 pixel_x)
+	TS32 GUIFont::GetCharacterFromPos(const TWCHAR* text, TS32 pixel_x)
 	{
 		TS32 x = 0;
 		TS32 idx = 0;

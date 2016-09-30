@@ -13,8 +13,8 @@
 namespace TLunaEngine{
 
 	// Initialize Engine
-	bool Init(HWND hWnd,HINSTANCE hInst,TBOOL bWnd,TS32 lWidth,TS32 lHeight,
-							 float fSecsPerFrame,const char* szResDir,bool bShowDebugInfo)
+	TBOOL Init(HWND hWnd,HINSTANCE hInst,TBOOL bWnd,TS32 lWidth,TS32 lHeight,
+							 float fSecsPerFrame,const TCHAR* szResDir,TBOOL bShowDebugInfo)
 	{
 		// 记录资源根目录
 		GlobleClass::getSingletonPtr()->m_strResDir = TLunaEngine::String(szResDir);
@@ -22,13 +22,13 @@ namespace TLunaEngine{
 		TLunaEngine::String strLogConfig = GlobleClass::getSingletonPtr()->m_strResDir + "config\\logconfig.txt";
 		TLunaEngine::String strLogDir = GlobleClass::getSingletonPtr()->m_strResDir + "log\\";
 		if(!TLunaEngine::Log::InitLogSystem(strLogConfig.GetString(),strLogDir.GetString()))
-			return false;
+			return TFALSE;
 		// 建立D3D设备
 		TLunaEngine::RenderDevice* device = TLunaEngine::RenderMgr::getSingletonPtr()->createRenderDevice(TLunaEngine::RenderMgr::DT_D3D11);
 		if(!device)
-			return false;
+			return TFALSE;
 		if(!device->InitDevice(hWnd,bWnd,lWidth,lHeight))
-			return false;
+			return TFALSE;
 		// 初始化资源操作管理
 		ResMgr* pResMgr = ResMgr::getSingletonPtr();
 
@@ -37,13 +37,13 @@ namespace TLunaEngine{
 		GUIFontManager* pFontMgr = GUIFontManager::getSingletonPtr();
 		TLunaEngine::String strFontEffect = GlobleClass::getSingletonPtr()->m_strResDir + "shader\\gui\\guidefault.fx";
 		if(!pFontMgr->Init(strFontEffect.GetString(),lWidth,lHeight))
-			return false;
+			return TFALSE;
 		// UI渲染
 		GUITextureMgr* pGUIRender = GUITextureMgr::getSingletonPtr();
 		TLunaEngine::String strGUIRenderEffect = GlobleClass::getSingletonPtr()->m_strResDir + "shader\\gui\\guidefault.fx";
 		if (!pGUIRender->Init(lWidth,lHeight,strGUIRenderEffect.GetString()))
 		{
-			return false;
+			return TFALSE;
 		}
 		// UI管理
 		GUIMgr* pGUIMgr = GUIMgr::getSingletonPtr();
@@ -51,41 +51,41 @@ namespace TLunaEngine{
 		// GlobleClass
 		if (!GlobleClass::getSingletonPtr()->InitGlobleClass())
 		{
-			return false;
+			return TFALSE;
 		}
 		GlobleClass::getSingletonPtr()->m_bShowDebugInfo = bShowDebugInfo;
 
-		return true;
+		return TTRUE;
 	}
 
-	bool OnLoopCtrlUpdate(float* pTimeElapsed)
+	TBOOL OnLoopCtrlUpdate(float* pTimeElapsed)
 	{
 		// 时间控制
 		GlobleClass::getSingletonPtr()->updateLoopCtrl();
-		// 如果时间控制中就返回false
-		if (GlobleClass::getSingletonPtr()->getLoopCtrlCanRender()==false)
-			return true;
+		// 如果时间控制中就返回TFALSE
+		if (GlobleClass::getSingletonPtr()->getLoopCtrlCanRender()==TFALSE)
+			return TTRUE;
 		// 计算fps
 		GlobleClass::getSingletonPtr()->calcFPS();
 		if (pTimeElapsed)
 		{
 			*pTimeElapsed = (float)GlobleClass::getSingletonPtr()->getElapsedTime();
 		}
-		return true;
+		return TTRUE;
 	}
 
 	// Loop Engine
-	bool OnSceneUpdate(float fTimeElapsed)
+	TBOOL OnSceneUpdate(float fTimeElapsed)
 	{
 		// -------- GUI部分 -------------------------
 		GUIMgr* pGUIMgr = GUIMgr::getSingletonPtr();
 		pGUIMgr->Update(fTimeElapsed);
 		// GlobleClass
 		GlobleClass::getSingletonPtr()->OnUpdate(fTimeElapsed);
-		return true;
+		return TTRUE;
 	}
 
-	bool OnSceneRender(float fTimeElapsed)
+	TBOOL OnSceneRender(float fTimeElapsed)
 	{
 		// 渲染循环
 		TLunaEngine::RenderDevice* device = TLunaEngine::RenderMgr::getSingletonPtr()->getDevice();
@@ -98,10 +98,10 @@ namespace TLunaEngine{
 		GlobleClass::getSingletonPtr()->OnRender(fTimeElapsed);
 		// 结束渲染
 		device->EndRender();
-		return true;
+		return TTRUE;
 	}
 
-	bool OnGameLoop(UserLoop pLoop)
+	TBOOL OnGameLoop(UserLoop pLoop)
 	{
 		// 先计算帧控制
 		float timeElapsed = 0;
@@ -114,14 +114,14 @@ namespace TLunaEngine{
 			if(TLunaEngine::OnSceneUpdate(timeElapsed))
 			{
 				if(TLunaEngine::OnSceneRender(timeElapsed))
-					return true;
+					return TTRUE;
 			}
 		}
-		return false;
+		return TFALSE;
 	}
 
 	// Destroy Engine
-	bool Destroy()
+	TBOOL Destroy()
 	{
 		// GlobleClass
 		GlobleClass::getSingletonPtr()->DestroyGlobleClass();
@@ -141,21 +141,21 @@ namespace TLunaEngine{
 		TLunaEngine::RenderMgr::delSingletonPtr();
 		// 日志系统
 		TLunaEngine::Log::DestroyLogSystem();
-		return true;
+		return TTRUE;
 	}
 
 	// window size changed msg
-	bool onWindowSizeChanged(TU32 width,TU32 height)
+	TBOOL onWindowSizeChanged(TU32 width,TU32 height)
 	{
 		if(!RenderMgr::getSingletonPtr()->resizeDeviceBuffer(width,height))
-			return false;
-		return true;
+			return TFALSE;
+		return TTRUE;
 	}
 
 	// ------------- 以下是给编辑器调用的方法，游戏中不能使用 --------------------------------
 
 	// 初始化
-	bool InitForEditor(HWND hWnd,HINSTANCE hInst,TS32 lWidth,TS32 lHeight,const char* szResDir)
+	TBOOL InitForEditor(HWND hWnd,HINSTANCE hInst,TS32 lWidth,TS32 lHeight,const TCHAR* szResDir)
 	{
 		// 记录资源根目录
 		GlobleClass::getSingletonPtr()->m_strResDir = TLunaEngine::String(szResDir);
@@ -163,13 +163,13 @@ namespace TLunaEngine{
 		TLunaEngine::String strLogConfig = GlobleClass::getSingletonPtr()->m_strResDir + "config\\logconfig.txt";
 		TLunaEngine::String strLogDir = GlobleClass::getSingletonPtr()->m_strResDir + "log\\";
 		if(!TLunaEngine::Log::InitLogSystem(strLogConfig.GetString(),strLogDir.GetString()))
-			return false;
+			return TFALSE;
 		// 建立D3D设备
 		TLunaEngine::RenderDevice* device = TLunaEngine::RenderMgr::getSingletonPtr()->createRenderDevice(TLunaEngine::RenderMgr::DT_D3D11);
 		if(!device)
-			return false;
+			return TFALSE;
 		if(!device->InitDevice(hWnd,TTRUE,lWidth,lHeight))
-			return false;
+			return TFALSE;
 		// 初始化资源操作管理
 		ResMgr* pResMgr = ResMgr::getSingletonPtr();
 
@@ -178,13 +178,13 @@ namespace TLunaEngine{
 		GUIFontManager* pFontMgr = GUIFontManager::getSingletonPtr();
 		TLunaEngine::String strFontEffect = GlobleClass::getSingletonPtr()->m_strResDir + "shader\\gui\\guidefault.fx";
 		if(!pFontMgr->Init(strFontEffect.GetString(),lWidth,lHeight))
-			return false;
+			return TFALSE;
 		// UI渲染
 		GUITextureMgr* pGUIRender = GUITextureMgr::getSingletonPtr();
 		TLunaEngine::String strGUIRenderEffect = GlobleClass::getSingletonPtr()->m_strResDir + "shader\\gui\\guidefault.fx";
 		if (!pGUIRender->Init(lWidth,lHeight,strGUIRenderEffect.GetString()))
 		{
-			return false;
+			return TFALSE;
 		}
 		// UI管理
 		GUIMgr* pGUIMgr = GUIMgr::getSingletonPtr();
@@ -192,25 +192,25 @@ namespace TLunaEngine{
 		// GlobleClass
 		if (!GlobleClass::getSingletonPtr()->InitGlobleClass())
 		{
-			return false;
+			return TFALSE;
 		}
-		GlobleClass::getSingletonPtr()->m_bShowDebugInfo = false;
-		GlobleClass::getSingletonPtr()->m_bEditor = true;
-		return true;
+		GlobleClass::getSingletonPtr()->m_bShowDebugInfo = TFALSE;
+		GlobleClass::getSingletonPtr()->m_bEditor = TTRUE;
+		return TTRUE;
 	}
 
 	// 循环
-	bool OnSceneUpdateForEditor(float fTimeElapsed)
+	TBOOL OnSceneUpdateForEditor(float fTimeElapsed)
 	{
 		// -------- GUI部分 -------------------------
 		GUIMgr* pGUIMgr = GUIMgr::getSingletonPtr();
 		pGUIMgr->Update(fTimeElapsed);
 		// GlobleClass
 		GlobleClass::getSingletonPtr()->OnUpdate(fTimeElapsed);
-		return true;
+		return TTRUE;
 	}
 
-	bool OnSceneRenderForEditor(float fTimeElapsed)
+	TBOOL OnSceneRenderForEditor(float fTimeElapsed)
 	{
 		// 渲染循环
 		TLunaEngine::RenderDevice* device = TLunaEngine::RenderMgr::getSingletonPtr()->getDevice();
@@ -223,11 +223,11 @@ namespace TLunaEngine{
 		GlobleClass::getSingletonPtr()->OnRender(fTimeElapsed);
 		// 结束渲染
 		device->EndRender();
-		return true;
+		return TTRUE;
 	}
 
 	// 销毁
-	bool DestroyForEditor()
+	TBOOL DestroyForEditor()
 	{
 		// GlobleClass
 		GlobleClass::getSingletonPtr()->DestroyGlobleClass();
@@ -247,7 +247,7 @@ namespace TLunaEngine{
 		TLunaEngine::RenderMgr::delSingletonPtr();
 		// 日志系统
 		TLunaEngine::Log::DestroyLogSystem();
-		return true;
+		return TTRUE;
 	}
 
 }

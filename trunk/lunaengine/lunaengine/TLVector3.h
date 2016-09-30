@@ -39,17 +39,17 @@ namespace TLunaEngine{
 		inline Vector3<T> operator/(const T v) const { T i=(T)1.0/v; return Vector3<T>(X * i, Y * i, Z * i); }
 		inline Vector3<T>& operator/=(const T v) { T i=(T)1.0/v; X*=i; Y*=i; Z*=i; return *this; }
 		// 大小比较,必须三个同时满足
-		inline bool operator<=(const Vector3<T>&other) const { return X<=other.X && Y<=other.Y && Z<=other.Z;}
-		inline bool operator>=(const Vector3<T>&other) const { return X>=other.X && Y>=other.Y && Z>=other.Z;}
-		inline bool operator<(const Vector3<T>&other) const { return X<other.X && Y<other.Y && Z<other.Z;}
-		inline bool operator>(const Vector3<T>&other) const { return X>other.X && Y>other.Y && Z>other.Z;}
+		inline TBOOL operator<=(const Vector3<T>&other) const { return X<=other.X && Y<=other.Y && Z<=other.Z;}
+		inline TBOOL operator>=(const Vector3<T>&other) const { return X>=other.X && Y>=other.Y && Z>=other.Z;}
+		inline TBOOL operator<(const Vector3<T>&other) const { return X<other.X && Y<other.Y && Z<other.Z;}
+		inline TBOOL operator>(const Vector3<T>&other) const { return X>other.X && Y>other.Y && Z>other.Z;}
 		// 比较相等
-		inline bool operator==(const Vector3<T>& other) const
+		inline TBOOL operator==(const Vector3<T>& other) const
 		{
 			return this->equals(other);
 		}
 		// 比较不等
-		inline bool operator!=(const Vector3<T>& other) const
+		inline TBOOL operator!=(const Vector3<T>& other) const
 		{
 			return !this->equals(other);
 		}
@@ -57,7 +57,7 @@ namespace TLunaEngine{
 		// ------------------------ 成员函数 ------------------------------------
 
 		// 调用FPU的比较函数
-		inline bool equals(const Vector3<T>& other, const T tolerance = (T)ROUNDING_ERROR_32 ) const
+		inline TBOOL equals(const Vector3<T>& other, const T tolerance = (T)ROUNDING_ERROR_32 ) const
 		{
 			return TLunaEngin::equals(X, other.X, tolerance) &&
 				TLunaEngin::equals(Y, other.Y, tolerance) &&
@@ -71,7 +71,7 @@ namespace TLunaEngine{
 			still be considered equal
 		@note Both vectors should be normalised.
 		*/
-		inline bool directionEquals(const Vector3<T>& rhs,
+		inline TBOOL directionEquals(const Vector3<T>& rhs,
 			const T& tolerance) const
 		{
 			T dot = dotProduct(rhs);
@@ -81,8 +81,8 @@ namespace TLunaEngine{
 
 		}
 		// 赋值函数
-		inline void set(const T nx, const T ny, const T nz) {X=nx; Y=ny; Z=nz; }
-		inline void set(const Vector3<T>& p) { X=p.X; Y=p.Y; Z=p.Z;}
+		inline TVOID set(const T nx, const T ny, const T nz) {X=nx; Y=ny; Z=nz; }
+		inline TVOID set(const Vector3<T>& p) { X=p.X; Y=p.Y; Z=p.Z;}
 
 		// 长度
 		inline T getLength() const { return (T) sqrt((TF64)(X*X + Y*Y + Z*Z)); }
@@ -123,7 +123,7 @@ namespace TLunaEngine{
 		}
 
 		// this是否在通过begin和end的中间的线上
-		inline bool isBetweenPoints(const Vector3<T>& begin, const Vector3<T>& end) const
+		inline TBOOL isBetweenPoints(const Vector3<T>& begin, const Vector3<T>& end) const
 		{
 			T f = (end - begin).getLengthSQ();
 			return getDistanceFromSQ(begin) < f &&
@@ -164,14 +164,14 @@ namespace TLunaEngine{
 
 		// this乘以一个长度
 		// 这个函数会先将this单位化
-		inline void setLength(T newlength)
+		inline TVOID setLength(T newlength)
 		{
 			normalize();
 			*this *= newlength;
 		}
 
 		// this的每个分量乘以-1
-		inline void invert()
+		inline TVOID invert()
 		{
 			X *= -1.0f;
 			Y *= -1.0f;
@@ -180,7 +180,7 @@ namespace TLunaEngine{
 
 		// this在center的坐标系绕Y轴旋转degree角度
 		// 如果center的X,Z都是0,那就是this绕本坐标系Y旋转
-		inline void rotateXZBy(TF32 degrees, const Vector3<T>& center)
+		inline TVOID rotateXZBy(TF32 degrees, const Vector3<T>& center)
 		{
 			degrees *= DEGTORAD;
 			T cs = (T)cosf(degrees);
@@ -194,7 +194,7 @@ namespace TLunaEngine{
 
 		// this在center的坐标系绕Z轴旋转degree角度
 		// 如果center的X,Y都是0,那就是this绕本坐标系Z旋转
-		inline void rotateXYBy(TF32 degrees, const Vector3<T>& center)
+		inline TVOID rotateXYBy(TF32 degrees, const Vector3<T>& center)
 		{
 			degrees *= DEGTORAD;
 			T cs = (T)cosf(degrees);
@@ -208,7 +208,7 @@ namespace TLunaEngine{
 
 		// this在center的坐标系绕X轴旋转degree角度
 		// 如果center的Z,Y都是0,那就是this绕本坐标系X旋转
-		inline void rotateYZBy(TF32 degrees, const Vector3<T>& center)
+		inline TVOID rotateYZBy(TF32 degrees, const Vector3<T>& center)
 		{
 			degrees *= DEGTORAD;
 			T cs = (T)cosf(degrees);
@@ -294,14 +294,14 @@ namespace TLunaEngine{
 		}
 
 		//! Tests for exact zero vector
-		inline bool IsZero()
+		inline TBOOL IsZero()
 		{
-			if(IR(X) || IR(Y) || IR(Z))	return false;
-			return true;
+			if(IR(X) || IR(Y) || IR(Z))	return TFALSE;
+			return TTRUE;
 		}
 
-		/** Returns true if this vector is zero length. */
-		inline bool isZeroLength(void) const
+		/** Returns TTRUE if this vector is zero length. */
+		inline TBOOL isZeroLength(TVOID) const
 		{
 			TF32 sqlen = (X * X) + (Y * Y) + (Z * Z);
 			return (sqlen < (1e-06 * 1e-06));
@@ -319,7 +319,7 @@ namespace TLunaEngine{
 		}
 
 		// 得到数组w=1
-		inline void AsPoint(T* value)
+		inline TVOID AsPoint(T* value)
 		{
 			if(!value)
 				return;
@@ -330,7 +330,7 @@ namespace TLunaEngine{
 		}
 
 		// 得到数组w=0
-		inline void AsDirection(T* value)
+		inline TVOID AsDirection(T* value)
 		{
 			if(!value)
 				return;
@@ -347,7 +347,7 @@ namespace TLunaEngine{
                 value of x, y and z from both vectors. Lowest is taken just
                 numerically, not magnitude, so -1 < 0.
         */
-        inline void makeFloor( const Vector3<T>& cmp )
+        inline TVOID makeFloor( const Vector3<T>& cmp )
         {
             if( cmp.x < x ) x = cmp.x;
             if( cmp.y < y ) y = cmp.y;
@@ -361,7 +361,7 @@ namespace TLunaEngine{
                 value of x, y and z from both vectors. Highest is taken just
                 numerically, not magnitude, so 1 > -3.
         */
-        inline void makeCeil( const Vector3<T>& cmp )
+        inline TVOID makeCeil( const Vector3<T>& cmp )
         {
             if( cmp.x > x ) x = cmp.x;
             if( cmp.y > y ) y = cmp.y;
@@ -375,7 +375,7 @@ namespace TLunaEngine{
                 method will guarantee to generate one of them. If you need more
                 control you should use the Quaternion class.
         */
-        inline Vector3<T> perpendicular(void) const
+        inline Vector3<T> perpendicular(TVOID) const
         {
             static const TF32 fSquareZero = (TF32)(1e-06 * 1e-06);
 

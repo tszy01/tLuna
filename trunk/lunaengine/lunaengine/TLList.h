@@ -1,6 +1,7 @@
 #ifndef _TLLIST_H_
 #define _TLLIST_H_
 
+#include "TLCommonTypeDef.h"
 namespace TLunaEngine{
 
 	template<typename T>
@@ -25,8 +26,8 @@ namespace TLunaEngine{
 			Iterator& operator --()    { Current = Current->Prev; return *this; }
 			Iterator  operator ++(int) { Iterator tmp = *this; Current = Current->Next; return tmp; }
 			Iterator  operator --(int) { Iterator tmp = *this; Current = Current->Prev; return tmp; }
-			bool operator ==(const Iterator&      other) const { return Current == other.Current; }
-			bool operator !=(const Iterator&      other) const { return Current != other.Current; }
+			TBOOL operator ==(const Iterator&      other) const { return Current == other.Current; }
+			TBOOL operator !=(const Iterator&      other) const { return Current != other.Current; }
 			T & operator * () { return Current->Value; }
 			T * operator ->() { return &Current->Value; }
 		private:
@@ -36,13 +37,13 @@ namespace TLunaEngine{
 		};
 		// ----------------------------------------------
 	public:
-		List(void)
+		List(TVOID)
 		{
 			m_First = 0;
 			m_Last = 0;
 			m_Size = 0;
 		};
-		~List(void)
+		~List(TVOID)
 		{
 			clear();
 		};
@@ -62,7 +63,7 @@ namespace TLunaEngine{
 		// -------------- 成员 --------------------------
 
 		// 克隆
-		inline void Clone(const List<T>& other)
+		inline TVOID Clone(const List<T>& other)
 		{
 			if(&other == this)
 			{
@@ -89,7 +90,7 @@ namespace TLunaEngine{
 			return m_Size;
 		}
 		// 清空
-		inline void clear()
+		inline TVOID clear()
 		{
 			while(m_First)
 			{
@@ -101,12 +102,12 @@ namespace TLunaEngine{
 			m_Size = 0;
 		}
 		// 是否为空链表
-		inline bool empty() const
+		inline TBOOL empty() const
 		{
 			return (m_First == 0);
 		}
 		// 从后方插入
-		inline void push_back(const T& value)
+		inline TVOID push_back(const T& value)
 		{
 			LIST_NODE* node = new LIST_NODE;
 			node->Value = value;
@@ -120,7 +121,7 @@ namespace TLunaEngine{
 			m_Last = node;
 		}
 		// 从前面插入
-		inline void push_front(const T& value)
+		inline TVOID push_front(const T& value)
 		{
 			LIST_NODE* node = new LIST_NODE;
 			node->Value = value;
@@ -153,7 +154,7 @@ namespace TLunaEngine{
 			return Iterator(m_Last);
 		}
 		// 在某节点之后插入
-		inline void insert_after(const Iterator& it, const T& value)
+		inline TVOID insert_after(const Iterator& it, const T& value)
 		{
 			LIST_NODE* node = new LIST_NODE;
 			node->Value = value;
@@ -167,7 +168,7 @@ namespace TLunaEngine{
 				m_Last = node;
 		}
 		// 在某节点之前插入
-		inline void insert_before(const Iterator& it, const T& value)
+		inline TVOID insert_before(const Iterator& it, const T& value)
 		{
 			LIST_NODE* node = new LIST_NODE;
 			node->Value = value;
@@ -222,7 +223,7 @@ namespace TLunaEngine{
 			return m_First->Value;
 		}
 		// 得到值
-		inline bool GetValue(int iPos,T& value)
+		inline TBOOL GetValue(int iPos,T& value)
 		{
 			Iterator itr = begin();
 			int count = 0;
@@ -231,11 +232,11 @@ namespace TLunaEngine{
 				if(count == iPos)
 				{
 					value = (*itr);
-					return true;
+					return TTRUE;
 				}
 				count++;
 			}
-			return false;
+			return TFALSE;
 		}
 
 		// ----------------------------------------------

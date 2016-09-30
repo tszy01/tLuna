@@ -35,10 +35,10 @@ namespace TLunaEngine{
 		/**
 		 *	Tests if a point is contained within the sphere.
 		 *	\param		p	[in] the point to test
-		 *	\return		true if inside the sphere
+		 *	\return		TTRUE if inside the sphere
 		 */
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		inline bool Contains(const Vector3<T>& p)
+		inline TBOOL Contains(const Vector3<T>& p)
 		{
 			return Center.getDistanceFrom(p) <= Radius;
 		}
@@ -47,13 +47,13 @@ namespace TLunaEngine{
 		/**
 		 *	Tests if a sphere is contained within the sphere.
 		 *	\param		sphere	[in] the sphere to test
-		 *	\return		true if inside the sphere
+		 *	\return		TTRUE if inside the sphere
 		 */
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		inline bool Contains(const Sphere<T>& sphere)
+		inline TBOOL Contains(const Sphere<T>& sphere)
 		{
 			// If our radius is the smallest, we can't possibly contain the other sphere
-			if(Radius < sphere.Radius)	return false;
+			if(Radius < sphere.Radius)	return TFALSE;
 			// So r is always positive or null now
 			T r = Radius - sphere.Radius;
 			return Center.getDistanceFromSQ(sphere.Center) <= r*r;
@@ -63,10 +63,10 @@ namespace TLunaEngine{
 		/**
 		 *	Tests if a box is contained within the sphere.
 		 *	\param		aabb	[in] the box to test
-		 *	\return		true if inside the sphere
+		 *	\return		TTRUE if inside the sphere
 		 */
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		inline bool Contains(const Vector3<T>& min,const Vector3<T>& max)	const
+		inline TBOOL Contains(const Vector3<T>& min,const Vector3<T>& max)	const
 		{
 			// I assume if all 8 box vertices are inside the sphere, so does the whole box.
 			// Sounds ok but maybe there's a better way?
@@ -75,26 +75,26 @@ namespace TLunaEngine{
 			//const Vector3<T>& Min = ((ShadowAABB&)&aabb).mMin;
 
 			Vector3<T> p;
-			p.X=max.X; p.Y=max.Y; p.Z=max.Z;	if(Center.getDistanceFromSQ(p)>=R2)	return false;
-			p.X=min.X;							if(Center.getDistanceFromSQ(p)>=R2)	return false;
-			p.X=max.X; p.Y=min.Y;				if(Center.getDistanceFromSQ(p)>=R2)	return false;
-			p.X=min.X;							if(Center.getDistanceFromSQ(p)>=R2)	return false;
-			p.X=max.X; p.Y=max.Y; p.Z=min.Z;	if(Center.getDistanceFromSQ(p)>=R2)	return false;
-			p.X=min.X;							if(Center.getDistanceFromSQ(p)>=R2)	return false;
-			p.X=max.X; p.Y=min.Y;				if(Center.getDistanceFromSQ(p)>=R2)	return false;
-			p.X=min.X;							if(Center.getDistanceFromSQ(p)>=R2)	return false;
+			p.X=max.X; p.Y=max.Y; p.Z=max.Z;	if(Center.getDistanceFromSQ(p)>=R2)	return TFALSE;
+			p.X=min.X;							if(Center.getDistanceFromSQ(p)>=R2)	return TFALSE;
+			p.X=max.X; p.Y=min.Y;				if(Center.getDistanceFromSQ(p)>=R2)	return TFALSE;
+			p.X=min.X;							if(Center.getDistanceFromSQ(p)>=R2)	return TFALSE;
+			p.X=max.X; p.Y=max.Y; p.Z=min.Z;	if(Center.getDistanceFromSQ(p)>=R2)	return TFALSE;
+			p.X=min.X;							if(Center.getDistanceFromSQ(p)>=R2)	return TFALSE;
+			p.X=max.X; p.Y=min.Y;				if(Center.getDistanceFromSQ(p)>=R2)	return TFALSE;
+			p.X=min.X;							if(Center.getDistanceFromSQ(p)>=R2)	return TFALSE;
 
-			return true;
+			return TTRUE;
 		}
 
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/**
 		 *	Tests if the sphere intersects another sphere
 		 *	\param		sphere	[in] the other sphere
-		 *	\return		true if spheres overlap
+		 *	\return		TTRUE if spheres overlap
 		 */
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		inline bool Intersect(const Sphere<T>& sphere)	const
+		inline TBOOL Intersect(const Sphere<T>& sphere)	const
 		{
 			T r = Radius + sphere.Radius;
 			return Center.getDistanceFromSQ(sphere.Center) <= r*r;
@@ -103,14 +103,14 @@ namespace TLunaEngine{
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/**
 		 *	Checks the sphere is valid.
-		 *	\return		true if the box is valid
+		 *	\return		TTRUE if the box is valid
 		 */
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		inline bool isEmpty() const
+		inline TBOOL isEmpty() const
 		{
 			// Consistency condition for spheres: Radius >= 0.0f
-			if(Radius <= (T)(0.0f))	return false;
-			return true;
+			if(Radius <= (T)(0.0f))	return TFALSE;
+			return TTRUE;
 		}
 
 		Vector3<T>	Center;		//!< Sphere center

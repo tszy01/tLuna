@@ -1,6 +1,7 @@
 #ifndef _TLHASHTABLE_H_
 #define _TLHASHTABLE_H_
 
+#include "TLCommonTypeDef.h"
 namespace TLunaEngine{
 
 	template<typename TK,typename TV>
@@ -26,8 +27,8 @@ namespace TLunaEngine{
 			Iterator& operator --()    { Current = Current->Prev; return *this; }
 			Iterator  operator ++(int) { Iterator tmp = *this; Current = Current->Next; return tmp; }
 			Iterator  operator --(int) { Iterator tmp = *this; Current = Current->Prev; return tmp; }
-			bool operator ==(const Iterator&      other) const { return Current == other.Current; }
-			bool operator !=(const Iterator&      other) const { return Current != other.Current; }
+			TBOOL operator ==(const Iterator&      other) const { return Current == other.Current; }
+			TBOOL operator !=(const Iterator&      other) const { return Current != other.Current; }
 			HASHTABLE_NODE & operator * () { return *Current; }
 			HASHTABLE_NODE * operator ->() { return Current; }
 		private:
@@ -37,13 +38,13 @@ namespace TLunaEngine{
 		};
 		// ----------------------------------------------
 	public:
-		Hashtable(void)
+		Hashtable(TVOID)
 		{
 			m_First = 0;
 			m_Last = 0;
 			m_Size = 0;
 		};
-		~Hashtable(void)
+		~Hashtable(TVOID)
 		{
 			clear();
 		};
@@ -63,7 +64,7 @@ namespace TLunaEngine{
 
 		// ----------- 成员 --------------------------
 		// 克隆
-		inline void Clone(const Hashtable<TK,TV>& other)
+		inline TVOID Clone(const Hashtable<TK,TV>& other)
 		{
 			if(&other == this)
 			{
@@ -105,7 +106,7 @@ namespace TLunaEngine{
 			return m_Size;
 		}
 		// 清空所有
-		inline void clear()
+		inline TVOID clear()
 		{
 			while(m_First)
 			{
@@ -117,7 +118,7 @@ namespace TLunaEngine{
 			m_Size = 0;
 		}
 		// 现在是否空
-		inline bool empty()
+		inline TBOOL empty()
 		{
 			return (m_First == 0);
 		}
@@ -148,7 +149,7 @@ namespace TLunaEngine{
 			return returnIterator;
 		}
 		// 从后面插入一个
-		inline void push_back(TK key,TV& value)
+		inline TVOID push_back(TK key,TV& value)
 		{
 			HASHTABLE_NODE* node = new HASHTABLE_NODE;
 			node->Key = key;
@@ -162,20 +163,20 @@ namespace TLunaEngine{
 			m_Last = node;
 		}
 		// 是否有该key
-		inline bool find(TK key)
+		inline TBOOL find(TK key)
 		{
 			Iterator itr = begin();
 			for(;itr!=end();++itr)
 			{
 				if(itr->Key == key)
 				{
-					return true;
+					return TTRUE;
 				}
 			}
-			return false;
+			return TFALSE;
 		}
 		// 删除指定key
-		inline void remove(TK key)
+		inline TVOID remove(TK key)
 		{
 			Iterator itr = begin();
 			for(;itr!=end();++itr)
@@ -188,7 +189,7 @@ namespace TLunaEngine{
 			}
 		}
 		// 得到值
-		inline bool GetValue(TK key,TV& value)
+		inline TBOOL GetValue(TK key,TV& value)
 		{
 			Iterator itr = begin();
 			for(;itr!=end();++itr)
@@ -196,13 +197,13 @@ namespace TLunaEngine{
 				if(itr->Key == key)
 				{
 					value = itr->Value;
-					return true;
+					return TTRUE;
 				}
 			}
-			return false;
+			return TFALSE;
 		}
 		// 设置值
-		inline void SetValue(TK key,TV& value)
+		inline TVOID SetValue(TK key,TV& value)
 		{
 			Iterator itr = begin();
 			for(;itr!=end();++itr)

@@ -30,12 +30,12 @@ namespace TLunaEngine{
 		// operators
 		//! Equality operator
 		/** \param other box to compare with.
-		\return True if both boxes are equal, else false. */
-		inline bool operator==(const AABBox<T>& other) const { return (Min == other.Min && other.Max == Max);}
+		\return True if both boxes are equal, else TFALSE. */
+		inline TBOOL operator==(const AABBox<T>& other) const { return (Min == other.Min && other.Max == Max);}
 		//! Inequality operator
 		/** \param other box to compare with.
-		\return True if both boxes are different, else false. */
-		inline bool operator!=(const AABBox<T>& other) const { return !(Min == other.Min && other.Max == Max);}
+		\return True if both boxes are different, else TFALSE. */
+		inline TBOOL operator!=(const AABBox<T>& other) const { return !(Min == other.Min && other.Max == Max);}
 		// 赋值
 		inline AABBox<T>& operator=(const AABBox<T>& other)
 		{
@@ -51,14 +51,14 @@ namespace TLunaEngine{
 		*	\param		e			[in] the extents vector
 		*/
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		inline void SetCenterExtents(const Vector3<T>& c, const Vector3<T>& e)
+		inline TVOID SetCenterExtents(const Vector3<T>& c, const Vector3<T>& e)
 		{ Min = c - e; Max = c + e;	}
 
 		// functions
 		//! Adds a point to the bounding box
 		/** The box grows bigger, if point was outside of the box.
 		\param p: Point to add into the box. */
-		inline void addInternalPoint(const Vector3<T>& p)
+		inline TVOID addInternalPoint(const Vector3<T>& p)
 		{
 			addInternalPoint(p.X, p.Y, p.Z);
 		}
@@ -66,7 +66,7 @@ namespace TLunaEngine{
 		//! Adds another bounding box
 		/** The box grows bigger, if the new box was outside of the box.
 		\param b: Other bounding box to add into this box. */
-		inline void addInternalBox(const AABBox<T>& b)
+		inline TVOID addInternalBox(const AABBox<T>& b)
 		{
 			addInternalPoint(b.Max);
 			addInternalPoint(b.Min);
@@ -76,7 +76,7 @@ namespace TLunaEngine{
 		/** \param x X coord of the point.
 		\param y Y coord of the point.
 		\param z Z coord of the point. */
-		inline void reset(T x, T y, T z)
+		inline TVOID reset(T x, T y, T z)
 		{
 			Max.set(x,y,z);
 			Min = Max;
@@ -84,7 +84,7 @@ namespace TLunaEngine{
 
 		//! Resets the bounding box to a one-point box.
 		/** \param initValue New point. */
-		inline void reset(const Vector3<T>& initValue)
+		inline TVOID reset(const Vector3<T>& initValue)
 		{
 			Max = initValue;
 			Min = initValue;
@@ -95,7 +95,7 @@ namespace TLunaEngine{
 		\param x X coordinate of the point to add to this box.
 		\param y Y coordinate of the point to add to this box.
 		\param z Z coordinate of the point to add to this box. */
-		inline void addInternalPoint(T x, T y, T z)
+		inline TVOID addInternalPoint(T x, T y, T z)
 		{
 			if (x>Max.X) Max.X = x;
 			if (y>Max.Y) Max.Y = y;
@@ -108,8 +108,8 @@ namespace TLunaEngine{
 
 		//! Determines if a point is within this box.
 		/** \param p: Point to check.
-		\return True if the point is within the box and false if not */
-		inline bool isPointInside(const Vector3<T>& p) const
+		\return True if the point is within the box and TFALSE if not */
+		inline TBOOL isPointInside(const Vector3<T>& p) const
 		{
 			return (p.X >= Min.X && p.X <= Max.X &&
 				p.Y >= Min.Y && p.Y <= Max.Y &&
@@ -118,8 +118,8 @@ namespace TLunaEngine{
 
 		//! Determines if a point is within this box and its borders.
 		/** \param p: Point to check.
-		\return True if the point is within the box and false if not. */
-		inline bool isPointTotalInside(const Vector3<T>& p) const
+		\return True if the point is within the box and TFALSE if not. */
+		inline TBOOL isPointTotalInside(const Vector3<T>& p) const
 		{
 			return (p.X > Min.X && p.X < Max.X &&
 				p.Y > Min.Y && p.Y < Max.Y &&
@@ -129,8 +129,8 @@ namespace TLunaEngine{
 		//! Determines if the box intersects with another box.
 		/** \param other: Other box to check a intersection with.
 		\return True if there is an intersection with the other box,
-		otherwise false. */
-		inline bool intersectsWithBox(const AABBox<T>& other) const
+		otherwise TFALSE. */
+		inline TBOOL intersectsWithBox(const AABBox<T>& other) const
 		{
 			return (Min <= other.Max && Max >= other.Min);
 		}
@@ -140,20 +140,20 @@ namespace TLunaEngine{
 		*	Computes the 1D-intersection between two AABBs, on a given axis.
 		*	\param		a		[in] the other AABB
 		*	\param		axis	[in] the axis (0, 1, 2)
-		*	\return		true on intersection
+		*	\return		TTRUE on intersection
 		*/
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		inline bool intersectsWithBox(const AABBox<T>& other, int axis)	const
+		inline TBOOL intersectsWithBox(const AABBox<T>& other, int axis)	const
 		{
-			if(Max[axis] < other.Min[axis] || other.Max[axis] < Min[axis])	return false;
-			return true;
+			if(Max[axis] < other.Min[axis] || other.Max[axis] < Min[axis])	return TFALSE;
+			return TTRUE;
 		}
 
 		//! Check if this box is completely inside the 'other' box.
 		/** \param other: Other box to check against.
 		\return True if this box is completly inside the other box,
-		otherwise false. */
-		inline bool isFullInside(const AABBox<T>& other) const
+		otherwise TFALSE. */
+		inline TBOOL isFullInside(const AABBox<T>& other) const
 		{
 			return Min >= other.Min && Max <= other.Max;
 		}
@@ -162,8 +162,8 @@ namespace TLunaEngine{
 		/** \param linemiddle Center of the line.
 		\param linevect Vector of the line.
 		\param halflength Half length of the line.
-		\return True if there is an intersection, else false. */
-		inline bool intersectsWithLine(const Vector3<T>& linemiddle,
+		\return True if there is an intersection, else TFALSE. */
+		inline TBOOL intersectsWithLine(const Vector3<T>& linemiddle,
 					const Vector3<T>& linevect,
 					T halflength) const
 		{
@@ -173,21 +173,21 @@ namespace TLunaEngine{
 			if ((abs_(t.X) > e.X + halflength * abs_(linevect.X)) ||
 				(abs_(t.Y) > e.Y + halflength * abs_(linevect.Y)) ||
 				(abs_(t.Z) > e.Z + halflength * abs_(linevect.Z)) )
-				return false;
+				return TFALSE;
 
 			T r = e.Y * abs_(linevect.Z) + e.Z * abs_(linevect.Y);
 			if (abs_(t.Y*linevect.Z - t.Z*linevect.Y) > r )
-				return false;
+				return TFALSE;
 
 			r = e.X * abs_(linevect.Z) + e.Z * abs_(linevect.X);
 			if (abs_(t.Z*linevect.X - t.X*linevect.Z) > r )
-				return false;
+				return TFALSE;
 
 			r = e.X * abs_(linevect.Y) + e.Y * abs_(linevect.X);
 			if (abs_(t.X*linevect.Y - t.Y*linevect.X) > r)
-				return false;
+				return TFALSE;
 
-			return true;
+			return TTRUE;
 		}
 
 		//! Classifies a relation with a plane.
@@ -264,7 +264,7 @@ namespace TLunaEngine{
 
 		//! Stores all 8 edges of the box into an array
 		/** \param edges: Pointer to array of 8 edges. */
-		inline void getEdges(Vector3<T> *edges) const
+		inline TVOID getEdges(Vector3<T> *edges) const
 		{
 			if(!edges)
 			{
@@ -301,8 +301,8 @@ namespace TLunaEngine{
 		//! Check if the box is empty.
 		/** This means that there is no space between the min and max
 		edge.
-		\return True if box is empty, else false. */
-		inline bool isEmpty() const
+		\return True if box is empty, else TFALSE. */
+		inline TBOOL isEmpty() const
 		{
 			return Min.equals ( Max );
 		}
@@ -310,7 +310,7 @@ namespace TLunaEngine{
 
 		//! Repairs the box.
 		/** Necessary if for example Min and Max are swapped. */
-		inline void repair()
+		inline TVOID repair()
 		{
 			T t;
 
@@ -350,7 +350,7 @@ namespace TLunaEngine{
 		 *	\param		aabb		[out] the transformed AABB [can be *this]
 		 */
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		inline void Rotate(const Matrix4x4<T>& mtx, AABBox<T>& aabb)	const
+		inline TVOID Rotate(const Matrix4x4<T>& mtx, AABBox<T>& aabb)	const
 		{
 			// The three edges transformed: you can efficiently transform an X-only vector
 			// by just getting the "X" column of the matrix
@@ -380,7 +380,7 @@ namespace TLunaEngine{
 
 		/** Gets the minimum corner of the box.
 		*/
-		inline const Vector3<T>& getMinimum(void) const
+		inline const Vector3<T>& getMinimum(TVOID) const
 		{
 			return Min;
 		}
@@ -388,14 +388,14 @@ namespace TLunaEngine{
 		/** Gets a modifiable version of the minimum
 		corner of the box.
 		*/
-		inline Vector3<T>& getMinimum(void)
+		inline Vector3<T>& getMinimum(TVOID)
 		{
 			return Min;
 		}
 
 		/** Gets the maximum corner of the box.
 		*/
-		inline const Vector3<T>& getMaximum(void) const
+		inline const Vector3<T>& getMaximum(TVOID) const
 		{
 			return Max;
 		}
@@ -403,7 +403,7 @@ namespace TLunaEngine{
 		/** Gets a modifiable version of the maximum
 		corner of the box.
 		*/
-		inline Vector3<T>& getMaximum(void)
+		inline Vector3<T>& getMaximum(TVOID)
 		{
 			return Max;
 		}
@@ -411,12 +411,12 @@ namespace TLunaEngine{
 
 		/** Sets the minimum corner of the box.
 		*/
-		inline void setMinimum(const Vector3<T>& vec)
+		inline TVOID setMinimum(const Vector3<T>& vec)
 		{
 			Min = vec;
 		}
 
-		inline void setMinimum(T x, T y, T z)
+		inline TVOID setMinimum(T x, T y, T z)
 		{
 			Min.X = x;
 			Min.Y = y;
@@ -426,29 +426,29 @@ namespace TLunaEngine{
 		/** Changes one of the components of the minimum corner of the box
 		used to resize only one dimension of the box
 		*/
-		inline void setMinimumX(T x)
+		inline TVOID setMinimumX(T x)
 		{
 			Min.X = x;
 		}
 
-		inline void setMinimumY(T y)
+		inline TVOID setMinimumY(T y)
 		{
 			Min.Y = y;
 		}
 
-		inline void setMinimumZ(T z)
+		inline TVOID setMinimumZ(T z)
 		{
 			Min.Z = z;
 		}
 
 		/** Sets the maximum corner of the box.
 		*/
-		inline void setMaximum(const Vector3<T>& vec)
+		inline TVOID setMaximum(const Vector3<T>& vec)
 		{
 			Max = vec;
 		}
 
-		inline void setMaximum(T x, T y, T z)
+		inline TVOID setMaximum(T x, T y, T z)
 		{
 			Max.X = x;
 			Max.Y = y;
@@ -458,30 +458,30 @@ namespace TLunaEngine{
 		/** Changes one of the components of the maximum corner of the box
 		used to resize only one dimension of the box
 		*/
-		inline void setMaximumX(T x)
+		inline TVOID setMaximumX(T x)
 		{
 			Max.X = x;
 		}
 
-		inline void setMaximumY(T y)
+		inline TVOID setMaximumY(T y)
 		{
 			Max.Y = y;
 		}
 
-		inline void setMaximumZ(T z)
+		inline TVOID setMaximumZ(T z)
 		{
 			Max.Z = z;
 		}
 
 		/** Sets both minimum and maximum extents at once.
 		*/
-		inline void setExtents(const Vector3<T>& min, const Vector3<T>& max)
+		inline TVOID setExtents(const Vector3<T>& min, const Vector3<T>& max)
 		{
 			Min = min;
 			Max = max;
 		}
 
-		inline void setExtents(
+		inline TVOID setExtents(
 			T mx, T my, T mz,
 			T Mx, T My, T Mz)
 		{

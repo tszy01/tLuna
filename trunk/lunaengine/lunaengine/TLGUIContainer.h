@@ -18,15 +18,15 @@ namespace TLunaEngine{
 	class GUIContainer
 	{
 	public:
-		GUIContainer(void);
-		~GUIContainer(void);
+		GUIContainer(TVOID);
+		~GUIContainer(TVOID);
 	private:
 		std::map<int,GUIContainer*> m_SubContainerTable;		// 子容器链表
 		std::vector<GUICtrl*> m_CtrlList;								// 控件链表
 		int m_iID;													// 容器ID
 		GUIContainer* m_pParent;									// 父容器
 		GUIListener* m_pListener;								// 消息上层捕获
-		bool m_bShow;												// 是否显示
+		TBOOL m_bShow;												// 是否显示
 
 		// ------ 以下是相对于父容器的位置和大小 --------
 		// 父容器如果没有，那就是相对于整个窗口的
@@ -40,7 +40,7 @@ namespace TLunaEngine{
 		TS32 m_posYParent;
 		TS32 m_posXFinal;
 		TS32 m_posYFinal;
-		bool m_bReCal;		// 是否重新计算
+		TBOOL m_bReCal;		// 是否重新计算
 
 		// ----- 以下是动画扩展部分 ---------------------
 		// ----- 除了AnimeType剩下的都不构造了和析构了 --
@@ -62,7 +62,7 @@ namespace TLunaEngine{
 		// 这个计数根据类型不同，重置的方式也不同，要做到满足最小单位+1时才重置
 		float m_nAnimeChangedTimeCount[CATE_COUNT];
 		// 动画是否播放完成
-		bool m_bAnimePlayedOver[CATE_COUNT];
+		TBOOL m_bAnimePlayedOver[CATE_COUNT];
 
 		// ------ 以下是淡入淡出相关 --------------------
 		// 淡入淡出种类
@@ -90,27 +90,27 @@ namespace TLunaEngine{
 	public:
 		// ------ 以下是方法 ----------------------------
 		// 初始化
-		bool InitContainer(int ID,GUIContainer* pParent,TS32 x,TS32 y,TS32 width,TS32 height,TUByte yAnimeType,GUIListener* pListener);
+		TBOOL InitContainer(int ID,GUIContainer* pParent,TS32 x,TS32 y,TS32 width,TS32 height,TUByte yAnimeType,GUIListener* pListener);
 		// 初始化动画
-		bool InitFadeAnime(CONTAINER_FADE_TYPE eFadeType,float fChangedPerSec,int nTimes);
-		bool InitPicChangeAnime(int iStartIndex,int iEndIndex,float fChangedPerSec,int nTimes);
-		bool InitPosChangeAnime(TS32 startX,TS32 startY,TS32 endX,TS32 endY,float fChangedPerSec,int nTimes);
+		TBOOL InitFadeAnime(CONTAINER_FADE_TYPE eFadeType,float fChangedPerSec,int nTimes);
+		TBOOL InitPicChangeAnime(int iStartIndex,int iEndIndex,float fChangedPerSec,int nTimes);
+		TBOOL InitPosChangeAnime(TS32 startX,TS32 startY,TS32 endX,TS32 endY,float fChangedPerSec,int nTimes);
 		// 重置动画
-		void ResetFadeAnime();
-		void ResetPicChangeAnime();
-		void ResetPosChangeAnime();
+		TVOID ResetFadeAnime();
+		TVOID ResetPicChangeAnime();
+		TVOID ResetPosChangeAnime();
 		// 更新帧计算动画
-		void UpdateFadeAnime(float fTimeElapsed);
-		void UpdatePicChangeAnime(float fTimeElapsed);
-		void UpdatePosChangeAnime(float fTimeElapsed);
+		TVOID UpdateFadeAnime(float fTimeElapsed);
+		TVOID UpdatePicChangeAnime(float fTimeElapsed);
+		TVOID UpdatePosChangeAnime(float fTimeElapsed);
 		// 重新计算子控件绝对位置
-		void ReCalSubRect(TS32 parentFinalX,TS32 parentFinalY);
+		TVOID ReCalSubRect(TS32 parentFinalX,TS32 parentFinalY);
 		// 添加控件
-		bool AddCtrl(GUICtrl* pCtrl);
+		TBOOL AddCtrl(GUICtrl* pCtrl);
 		// 添加容器
-		bool AddContainer(GUIContainer* pContainer);
+		TBOOL AddContainer(GUIContainer* pContainer);
 		// 删除容器
-		void RemoveSubContainer(int ID);
+		TVOID RemoveSubContainer(int ID);
 		// 得到ID
 		inline int GetID()
 		{
@@ -156,7 +156,7 @@ namespace TLunaEngine{
 			return TNULL;
 		}
 		// 删除控件
-		inline void ClearCtrls()
+		inline TVOID ClearCtrls()
 		{
 			std::vector<GUICtrl*>::iterator itr = m_CtrlList.begin();
 			for (;itr!=m_CtrlList.end();itr++)
@@ -171,7 +171,7 @@ namespace TLunaEngine{
 			m_CtrlList.clear();
 		}
 		// 删除子容器
-		inline void ClearSubContainers()
+		inline TVOID ClearSubContainers()
 		{
 			std::map<int,GUIContainer*>::iterator itr = m_SubContainerTable.begin();
 			for (;itr!=m_SubContainerTable.end();itr++)
@@ -186,7 +186,7 @@ namespace TLunaEngine{
 			m_SubContainerTable.clear();
 		}
 		// 是容器重新计算绝对位置
-		inline void MakeReCal(bool bReCal = true)
+		inline TVOID MakeReCal(TBOOL bReCal = TTRUE)
 		{
 			m_bReCal = bReCal;
 			std::map<int,GUIContainer*>::iterator itr = m_SubContainerTable.begin();
@@ -197,24 +197,24 @@ namespace TLunaEngine{
 			}
 		}
 		// 得到是否显示
-		inline bool IsShow()
+		inline TBOOL IsShow()
 		{
 			return m_bShow;
 		}
 		// 设置是否显示
-		void ShowContainer(bool bShow = true);
+		TVOID ShowContainer(TBOOL bShow = TTRUE);
 		// 设置位置
 		// 只能设置位置，不能设置大小
-		void SetPosition(TS32 x,TS32 y)
+		TVOID SetPosition(TS32 x,TS32 y)
 		{
 			m_posX = x;
 			m_posY = y;
-			MakeReCal(true);
+			MakeReCal(TTRUE);
 		}
 		// 设置控件ALPHA
-		void SetCtrlAlpha(float fAlpha);
+		TVOID SetCtrlAlpha(float fAlpha);
 		// 设置动画类型
-		inline void SetAnimeType(TUByte yType)
+		inline TVOID SetAnimeType(TUByte yType)
 		{
 			m_yAnimeType = yType;
 		}
@@ -224,14 +224,14 @@ namespace TLunaEngine{
 			return m_yAnimeType;
 		}
 		// 动画结束时调用的函数
-		void OnAnimePlayedOver();
+		TVOID OnAnimePlayedOver();
 	public:
 		// 销毁
-		void DestroyContainer();
+		TVOID DestroyContainer();
 		// 更新
-		bool Update(float fTimeElapsed);
+		TBOOL Update(float fTimeElapsed);
 		// 渲染
-		bool Render(float fTimeElapsed);
+		TBOOL Render(float fTimeElapsed);
 	};
 
 }

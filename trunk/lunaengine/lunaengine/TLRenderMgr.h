@@ -31,14 +31,14 @@ namespace TLunaEngine
 		RenderDevice* createRenderDevice(TU32 deviceType);
 		// destroy render device
 		// only delete device, please call destroy before this
-		void destroyRenderDevice();
+		TVOID destroyRenderDevice();
 		// get the device
 		RenderDevice* getDevice()
 		{
 			return mDevice;
 		};
 		// resize device buffer
-		bool resizeDeviceBuffer(TU32 width,TU32 height);
+		TBOOL resizeDeviceBuffer(TU32 width,TU32 height);
 		// get device type
 		DEVEICE_TYPE getDeviceType()
 		{

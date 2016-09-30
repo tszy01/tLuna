@@ -20,7 +20,7 @@
 namespace TLunaEngine{
 	GUIFontManager* Singleton<GUIFontManager>::m_Ptr = 0;
 
-	GUIFontManager::GUIFontManager(void) : 
+	GUIFontManager::GUIFontManager(TVOID) : 
 	m_pUseFont(TNULL),
 	mVB(TNULL),
 	mVBSet(TNULL),
@@ -39,7 +39,7 @@ namespace TLunaEngine{
 	{
 	}
 
-	GUIFontManager::~GUIFontManager(void)
+	GUIFontManager::~GUIFontManager(TVOID)
 	{
 		if (m_pRenderText)
 		{
@@ -103,7 +103,7 @@ namespace TLunaEngine{
 		}
 	}
 
-	void GUIFontManager::DestroyAllFont()
+	TVOID GUIFontManager::DestroyAllFont()
 	{
 		m_pUseFont = TNULL;
 		std::map<int,GUIFont*>::iterator itr = m_FontTable.begin();
@@ -119,7 +119,7 @@ namespace TLunaEngine{
 		m_FontTable.clear();
 	}
 
-	int GUIFontManager::AddFont(const char* filename,TU32 size,TU32 texPageSize,int id)
+	int GUIFontManager::AddFont(const TCHAR* filename,TU32 size,TU32 texPageSize,int id)
 	{
 		GUIFont* font = new GUIFont();
 		if(!font->InitFont(filename,size,texPageSize,id,library))
@@ -131,7 +131,7 @@ namespace TLunaEngine{
 		return m_FontTable.size() - 1;
 	}
 
-	bool GUIFontManager::AddFontFromFile(const char* filename)
+	TBOOL GUIFontManager::AddFontFromFile(const TCHAR* filename)
 	{
 		// 先检测，清空原来的
 		UseFont(-1);
@@ -141,21 +141,21 @@ namespace TLunaEngine{
 		String strFile(filename);
 		if (!TxtFileReader::OpenTxtFile(strFile.GetString(),&stream))
 		{
-			return false;
+			return TFALSE;
 		}
 		// 匹配第一行字符
-		bool bEqual = false;
-		char strResult[1024] = {0};
+		TBOOL bEqual = TFALSE;
+		TCHAR strResult[1024] = {0};
 		int nCount = 1024;
 		if(!TxtFileReader::ReadLineString(strResult,stream,"TUI_FONT_100",&bEqual,nCount,TNULL))
 		{
 			TxtFileReader::CloseTxtFile(stream);
-			return false;
+			return TFALSE;
 		}
 		if(!bEqual)
 		{
 			TxtFileReader::CloseTxtFile(stream);
-			return false;
+			return TFALSE;
 		}
 		// 读取数量
 		int fontCount = 0;
@@ -166,14 +166,14 @@ namespace TLunaEngine{
 			if(!LoadFont(stream))
 			{
 				TxtFileReader::CloseTxtFile(stream);
-				return false;
+				return TFALSE;
 			}
 		}
 		TxtFileReader::CloseTxtFile(stream);
-		return true;
+		return TTRUE;
 	}
 
-	bool GUIFontManager::LoadFont(FILE* stream)
+	TBOOL GUIFontManager::LoadFont(FILE* stream)
 	{
 		// FontID
 		int fontID = -1;
@@ -185,22 +185,22 @@ namespace TLunaEngine{
 		TU32 texPageSize = 0;
 		TxtFileReader::ReadLineUInteger(&texPageSize,stream,1,' ');
 		// FontFile
-		char fontFile[1024] = {0};
+		TCHAR fontFile[1024] = {0};
 		TxtFileReader::ReadLineString(fontFile,stream,TNULL,TNULL,1024,TNULL);
 		// 加载
 		String fullFile = GlobleClass::getSingletonPtr()->m_strResDir + fontFile;
 		if(AddFont(fullFile.GetString(),fontSize,texPageSize,fontID)==-1)
-			return false;
-		return true;
+			return TFALSE;
+		return TTRUE;
 	}
 
-	bool GUIFontManager::Render(const char* text,size_t len, int x, int y, Vector4<float>& color)
+	TBOOL GUIFontManager::Render(const TCHAR* text,size_t len, int x, int y, Vector4<float>& color)
 	{
 		if(m_pUseFont==TNULL)
-			return false;
+			return TFALSE;
 		if (text==TNULL || len<=0)
 		{
-			return false;
+			return TFALSE;
 		}
 		RenderDeviceUsedSRV* pSRV = m_pUseFont->getSRV(0);
 		RenderDevice* pDevice = RenderMgr::getSingletonPtr()->getDevice();
@@ -225,11 +225,11 @@ namespace TLunaEngine{
 				delete[] m_pRenderText;
 				m_pRenderText = 0;
 			}
-			m_pRenderText = new wchar_t[len];
+			m_pRenderText = new TWCHAR[len];
 			m_nRenderTextLen = len;
 		}
 		::MultiByteToWideChar(CP_ACP,MB_PRECOMPOSED,text,len,m_pRenderText,m_nRenderTextLen);
-		wchar_t *wKeep = m_pRenderText;
+		TWCHAR *wKeep = m_pRenderText;
 		int X = x;
 		int Y = y;
 		float xPlus = 0;
@@ -238,7 +238,7 @@ namespace TLunaEngine{
 
 		while(*wKeep)
 		{
-			bool catched = false;
+			TBOOL catched = TFALSE;
 			n = m_pUseFont->GetGlyphByChar(*wKeep,catched);
 			if ( n > 0){
 				TS32 imgw=0;
@@ -299,17 +299,17 @@ namespace TLunaEngine{
 				xPlus += ((float)(texw+offx))/m_bufferWidth * 2.0f;
 			} else {
 				X += m_pUseFont->GetWidthFromCharacter(*wKeep);
-				TLunaEngine::Log::WriteLine(TLunaEngine::Log::LOG_LEVEL_ERROR,true,__FILE__,__LINE__,"Can not find char in font tex!");
+				TLunaEngine::Log::WriteLine(TLunaEngine::Log::LOG_LEVEL_ERROR,TTRUE,__FILE__,__LINE__,"Can not find character in font tex!");
 			}
 
 			++wKeep;
 		}
 		wKeep = TNULL;
 
-		return true;
+		return TTRUE;
 	}
 
-	bool GUIFontManager::Init(const char* effectFile,TU32 bufferWidth,TU32 bufferHeight)
+	TBOOL GUIFontManager::Init(const TCHAR* effectFile,TU32 bufferWidth,TU32 bufferHeight)
 	{
 		m_bufferWidth = bufferWidth;
 		m_bufferHeight = bufferHeight;
@@ -321,13 +321,13 @@ namespace TLunaEngine{
 		if(!pCompiledVS->compileShader(effectFile,"VS","vs"))
 		{
 			delete pCompiledVS;
-			return false;
+			return TFALSE;
 		}
 		mVS = pDevice->createVertexShader(pCompiledVS);
 		if(!mVS)
 		{
 			delete pCompiledVS;
-			return false;
+			return TFALSE;
 		}
 		// input layout
 		TLRenderDeviceInputElementDesc renderLI[3];
@@ -350,7 +350,7 @@ namespace TLunaEngine{
 		if(!mInputLayout)
 		{
 			delete pCompiledVS;
-			return false;
+			return TFALSE;
 		}
 		delete pCompiledVS;
 		// PS
@@ -358,13 +358,13 @@ namespace TLunaEngine{
 		if(!pCompiledPS->compileShader(effectFile,"PS","ps"))
 		{
 			delete pCompiledPS;
-			return false;
+			return TFALSE;
 		}
 		mPS = pDevice->createPixelShader(pCompiledPS);
 		if(!mPS)
 		{
 			delete pCompiledPS;
-			return false;
+			return TFALSE;
 		}
 		delete pCompiledPS;
 		// VB
@@ -386,7 +386,7 @@ namespace TLunaEngine{
 		mVB = pDevice->createBuffer(&vbDesc,&initData);
 		if(!mVB)
 		{
-			return false;
+			return TFALSE;
 		}
 		// VBSet
 		vbDesc.BindFlags = 0;
@@ -404,7 +404,7 @@ namespace TLunaEngine{
 		mBlendState = pDevice->createBlendState(&blendDesc);
 		if(!mBlendState)
 		{
-			return false;
+			return TFALSE;
 		}
 		// depth stencil state
 		TLRenderDeviceDepthStencilDesc depthDesc;
@@ -413,7 +413,7 @@ namespace TLunaEngine{
 		mDepthStencilState = pDevice->createDepthStencilState(&depthDesc);
 		if(!mDepthStencilState)
 		{
-			return false;
+			return TFALSE;
 		}
 		// sampler state
 		TLRenderDeviceSamplerDesc samplerDesc;
@@ -423,33 +423,33 @@ namespace TLunaEngine{
 		mSamplerState = pDevice->createSamplerState(&samplerDesc);
 		if(!mSamplerState)
 		{
-			return false;
+			return TFALSE;
 		}
 		// Init FreeType
 		if(FT_Init_FreeType(&library))
 		{
-			return false;
+			return TFALSE;
 		}
-		return true;
+		return TTRUE;
 	}
 
-	bool GUIFontManager::initDebugFont(const char* filename, TU32 size, TU32 texPageSize)
+	TBOOL GUIFontManager::initDebugFont(const TCHAR* filename, TU32 size, TU32 texPageSize)
 	{
 		if(m_pDebugFont!=TNULL)
 		{
-			return false;
+			return TFALSE;
 		}
 		m_pDebugFont = new GUIFont();
 		if(!m_pDebugFont->InitFont(filename,size,texPageSize,-1,library))
 		{
 			delete m_pDebugFont;
 			m_pDebugFont = TNULL;
-			return false;
+			return TFALSE;
 		}
-		return true;
+		return TTRUE;
 	}
 
-	void GUIFontManager::deleteDebugFont()
+	TVOID GUIFontManager::deleteDebugFont()
 	{
 		if(m_pDebugFont!=TNULL)
 		{
@@ -458,15 +458,15 @@ namespace TLunaEngine{
 		}
 	}
 
-	bool GUIFontManager::RenderDebugFont(const char* text, size_t len, int x, int y, Vector4<float>& color)
+	TBOOL GUIFontManager::RenderDebugFont(const TCHAR* text, size_t len, int x, int y, Vector4<float>& color)
 	{
 		if(!m_pDebugFont)
 		{
-			return false;
+			return TFALSE;
 		}
 		GUIFont* pFont = m_pUseFont;
 		m_pUseFont = m_pDebugFont;
-		bool ret = Render(text,len,x,y,color);
+		TBOOL ret = Render(text,len,x,y,color);
 		m_pUseFont = pFont;
 		return ret;
 	}

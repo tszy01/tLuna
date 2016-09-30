@@ -17,8 +17,8 @@ namespace TLunaEngine{
 	{
 		friend class Singleton<GlobleClass>;
 	protected:
-		GlobleClass(void);
-		~GlobleClass(void);
+		GlobleClass(TVOID);
+		~GlobleClass(TVOID);
 	public:
 		// 临时用 -----------------------
 		TestTriangle* m_pTri;
@@ -27,27 +27,27 @@ namespace TLunaEngine{
 		// DEBUG信息使用字体
 		//TLunaEngine::TD3DFont* m_pDebugFont;
 		// 是否显示DEBUG信息
-		bool m_bShowDebugInfo;
+		TBOOL m_bShowDebugInfo;
 		// 是否为编辑器
-		bool m_bEditor;
+		TBOOL m_bEditor;
 		// loop control
 		LoopCtrl* mLoopCtrl;
 	public:
 		// ----- 方法 -------------------
 		// 初始化
-		bool InitGlobleClass();
+		TBOOL InitGlobleClass();
 		// 销毁
-		void DestroyGlobleClass();
+		TVOID DestroyGlobleClass();
 		// 帧更新
-		bool OnUpdate(float fTimeElapsed);
+		TBOOL OnUpdate(float fTimeElapsed);
 		// 帧渲染
-		bool OnRender(float fTimeElapsed);
+		TBOOL OnRender(float fTimeElapsed);
 		// update loop control
-		void updateLoopCtrl();
+		TVOID updateLoopCtrl();
 		// get loop control renderable
-		bool getLoopCtrlCanRender();
+		TBOOL getLoopCtrlCanRender();
 		// calc fps
-		void calcFPS();
+		TVOID calcFPS();
 		// get elapsed time
 		float getElapsedTime();
 	};

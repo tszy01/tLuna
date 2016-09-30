@@ -10,18 +10,18 @@
 namespace TLunaEngine{
 
 	int Zip::m_FileNum=0;
-	unsigned char* Zip::m_TempBuf=0;
+	TUByte* Zip::m_TempBuf=0;
 	int Zip::m_TempSize=0;
 
-	Zip::Zip(void)
+	Zip::Zip(TVOID)
 	{
 	}
 
-	Zip::~Zip(void)
+	Zip::~Zip(TVOID)
 	{
 	}
 
-	void Zip::ClearBuffer()
+	TVOID Zip::ClearBuffer()
 	{
 		if(m_TempSize>0)
 		{
@@ -32,7 +32,7 @@ namespace TLunaEngine{
 		m_FileNum=0;
 	}
 
-	int Zip::def(unsigned char *src, int srcSize, unsigned char *dest, int *destSize, int level)
+	int Zip::def(TUByte *src, int srcSize, TUByte *dest, int *destSize, int level)
 	{
 		if(!src || !dest || !destSize)
 			return Z_ERRNO;
@@ -48,8 +48,8 @@ namespace TLunaEngine{
 		}
 		stream.avail_in = srcSize;
 		stream.avail_out = srcSize;
-		stream.next_in = (unsigned char*)src;
-		stream.next_out = (unsigned char*)dest;
+		stream.next_in = (TUByte*)src;
+		stream.next_out = (TUByte*)dest;
 		err=deflate(&stream,Z_FINISH);
 		if(err<0)
 		{
@@ -61,7 +61,7 @@ namespace TLunaEngine{
 		return Z_OK;
 	}
 
-	int Zip::inf(unsigned char* src,int srcSize,unsigned char* dest,int origSize)
+	int Zip::inf(TUByte* src,int srcSize, TUByte* dest,int origSize)
 	{
 		if(!src || !dest)
 			return Z_ERRNO;
@@ -77,8 +77,8 @@ namespace TLunaEngine{
 		}
 		stream.avail_in = srcSize;
 		stream.avail_out = origSize;
-		stream.next_in = (unsigned char*)src;
-		stream.next_out = (unsigned char*)dest;
+		stream.next_in = (TUByte*)src;
+		stream.next_out = (TUByte*)dest;
 		err=inflate(&stream,Z_NO_FLUSH);
 		if(err<0)
 		{
@@ -89,18 +89,18 @@ namespace TLunaEngine{
 		return Z_OK;
 	}
 
-	int Zip::AddCompressFile(char *filename)
+	int Zip::AddCompressFile(TCHAR* filename)
 	{
 		if(!filename)
 			return 0;
-		char szNoPath[1024] = {0};
+		TCHAR szNoPath[1024] = {0};
 		TLunaEngine::String::CutFilePath(filename,szNoPath);
 		// 文件名部分
 		int namelen = (int)strlen(szNoPath);
 		int lastsize = m_TempSize;
 		if(lastsize==0)
 		{
-			m_TempBuf = (unsigned char*)malloc(sizeof(int)*2+namelen);
+			m_TempBuf = (TUByte*)malloc(sizeof(int)*2+namelen);
 			memset(m_TempBuf,0,sizeof(int)*2+namelen);
 			m_FileNum=1;
 			(*((int*)m_TempBuf))=m_FileNum;
@@ -108,7 +108,7 @@ namespace TLunaEngine{
 		}
 		else
 		{
-			m_TempBuf = (unsigned char*)realloc(m_TempBuf,m_TempSize+sizeof(int)+namelen);
+			m_TempBuf = (TUByte*)realloc(m_TempBuf,m_TempSize+sizeof(int)+namelen);
 			memset(m_TempBuf+lastsize,0,sizeof(int)+namelen);
 			m_FileNum+=1;
 			(*((int*)m_TempBuf))=m_FileNum;
@@ -125,8 +125,8 @@ namespace TLunaEngine{
 			return 0;
 		}
 		int readByte = 0;
-		unsigned char filebuf[ZIP_READ_FILE_LENGTH] ={0};
-		unsigned char* tmpbuf = 0;
+		TUByte filebuf[ZIP_READ_FILE_LENGTH] ={0};
+		TUByte* tmpbuf = 0;
 		int tmpsize = 0;
 		do
 		{
@@ -139,13 +139,13 @@ namespace TLunaEngine{
 			int lasttmpsize = tmpsize;
 			if(lasttmpsize==0)
 			{
-				tmpbuf=(unsigned char*)malloc(readByte);
+				tmpbuf=(TUByte*)malloc(readByte);
 				memset(tmpbuf,0,readByte);
 				tmpsize+=readByte;
 			}
 			else
 			{
-				tmpbuf=(unsigned char*)realloc(tmpbuf,tmpsize+readByte);
+				tmpbuf=(TUByte*)realloc(tmpbuf,tmpsize+readByte);
 				memset(tmpbuf+lasttmpsize,0,readByte);
 				tmpsize+=readByte;
 			}
@@ -153,8 +153,8 @@ namespace TLunaEngine{
 			memset(filebuf,0,ZIP_READ_FILE_LENGTH);
 			if(feof(file))
 				break;
-		}while(true);
-		m_TempBuf = (unsigned char*)realloc(m_TempBuf,m_TempSize+sizeof(int)+tmpsize);
+		}while(TTRUE);
+		m_TempBuf = (TUByte*)realloc(m_TempBuf,m_TempSize+sizeof(int)+tmpsize);
 		memset(m_TempBuf+m_TempSize,0,sizeof(int)+tmpsize);
 		memcpy(m_TempBuf+m_TempSize,&tmpsize,sizeof(int));
 		m_TempSize+=sizeof(int);
@@ -165,7 +165,7 @@ namespace TLunaEngine{
 		return 1;
 	}
 
-	int Zip::CompressToFile(char *zipname)
+	int Zip::CompressToFile(TCHAR* zipname)
 	{
 		if(!zipname)
 			return 0;
@@ -175,7 +175,7 @@ namespace TLunaEngine{
 		int re = fopen_s(&output,zipname,"w");
 		if(re!=0)
 			return 0;
-		unsigned char* outbuf = new unsigned char[m_TempSize];
+		TUByte* outbuf = new TUByte[m_TempSize];
 		int outsize = 0;
 		if(def(m_TempBuf,m_TempSize,outbuf,&outsize,Z_DEFAULT_COMPRESSION)!=Z_OK)
 		{
@@ -202,7 +202,7 @@ namespace TLunaEngine{
 		return 1;
 	}
 
-	int Zip::DecompressToMem(char *zipname,unsigned char** buf)
+	int Zip::DecompressToMem(TCHAR* zipname, TUByte** buf)
 	{
 		if(!zipname)
 			return 0;
@@ -212,8 +212,8 @@ namespace TLunaEngine{
 		if(re!=0)
 			return 0;
 		int readByte = 0;
-		unsigned char filebuf[ZIP_READ_FILE_LENGTH] ={0};
-		unsigned char* tmpbuf = 0;
+		TUByte filebuf[ZIP_READ_FILE_LENGTH] ={0};
+		TUByte* tmpbuf = 0;
 		int tmpsize = 0;
 		do
 		{
@@ -226,13 +226,13 @@ namespace TLunaEngine{
 			int lasttmpsize = tmpsize;
 			if(lasttmpsize==0)
 			{
-				tmpbuf=(unsigned char*)malloc(readByte);
+				tmpbuf=(TUByte*)malloc(readByte);
 				memset(tmpbuf,0,readByte);
 				tmpsize+=readByte;
 			}
 			else
 			{
-				tmpbuf=(unsigned char*)realloc(tmpbuf,tmpsize+readByte);
+				tmpbuf=(TUByte*)realloc(tmpbuf,tmpsize+readByte);
 				memset(tmpbuf+lasttmpsize,0,readByte);
 				tmpsize+=readByte;
 			}
@@ -240,14 +240,14 @@ namespace TLunaEngine{
 			memset(filebuf,0,ZIP_READ_FILE_LENGTH);
 			if(feof(file))
 				break;
-		}while(true);
+		}while(TTRUE);
 		fclose(file);
 		// 读原尺寸
 		int origsize = *((int*)tmpbuf);
 		if(origsize<=0)
 			return 0;
 		// 解压缩
-		unsigned char* out = new unsigned char[origsize];
+		TUByte* out = new TUByte[origsize];
 		if(inf(tmpbuf+sizeof(int),tmpsize-sizeof(int),out,origsize)!=Z_OK)
 		{
 			delete [] out;
@@ -255,21 +255,21 @@ namespace TLunaEngine{
 		}
 		if(buf)
 		{
-			unsigned char* p = *buf;
-			p = (unsigned char*)malloc(origsize);
+			TUByte* p = *buf;
+			p = (TUByte*)malloc(origsize);
 			memcpy(p,out,origsize);
 		}
 		else
 		{
 			ClearBuffer();
-			m_TempBuf = (unsigned char*)malloc(origsize);
+			m_TempBuf = (TUByte*)malloc(origsize);
 			memcpy(m_TempBuf,out,origsize);
 			m_TempSize = origsize;
 		}
 		return origsize;
 	}
 
-	int Zip::CopyMemToFile(char *dirname, bool bBuildFile, MemFile **ppMemFile)
+	int Zip::CopyMemToFile(TCHAR* dirname, TBOOL bBuildFile, MemFile **ppMemFile)
 	{
 		if(!dirname || m_TempSize<=0)
 			return 0;
@@ -285,9 +285,9 @@ namespace TLunaEngine{
 		// 循环生成文件
 		for(int i=0;i<m_FileNum;i++)
 		{
-			char szName[1024]={0};
-			char szFull[1024]={0};
-			unsigned char* pContent=0;
+			TCHAR szName[1024]={0};
+			TCHAR szFull[1024]={0};
+			TUByte* pContent=0;
 			int conSize=0;
 
 			// 文件名部分
@@ -299,7 +299,7 @@ namespace TLunaEngine{
 			// 文件内容
 			num=(int)(*(m_TempBuf+offset));
 			offset+=sizeof(int);
-			pContent=new unsigned char[num];
+			pContent=new TUByte[num];
 			memcpy(pContent,m_TempBuf+offset,num);
 			conSize=num;
 			offset+=num;

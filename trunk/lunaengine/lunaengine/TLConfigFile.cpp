@@ -6,12 +6,12 @@
 
 namespace TLunaEngine{
 
-	ConfigFile::ConfigFile(void) : m_stream(0),m_bOpen(false),m_openType(OPEN_NONE)
+	ConfigFile::ConfigFile(TVOID) : m_stream(0),m_bOpen(TFALSE),m_openType(OPEN_NONE)
 	{
 		memset(m_szFileName,0,256);
 	}
 
-	ConfigFile::~ConfigFile(void)
+	ConfigFile::~ConfigFile(TVOID)
 	{
 		// 如果外部忘记调用关闭文件
 		if(m_bOpen)
@@ -20,68 +20,68 @@ namespace TLunaEngine{
 		}
 	}
 
-	bool ConfigFile::OpenFile(const char *file, ConfigFile::OPEN_FILE_TYPE type)
+	TBOOL ConfigFile::OpenFile(const TCHAR* file, ConfigFile::OPEN_FILE_TYPE type)
 	{
 		// 如果外部忘记调用关闭文件
 		if(m_bOpen || !file)
 		{
-			return false;
+			return TFALSE;
 		}
 
 		if(type == OPEN_WRITE)
 		{
 			if( fopen_s(&m_stream, file, "w+t" )!=0 )
 			{
-				return false;
+				return TFALSE;
 			}
 		}
 		else if(type == OPEN_READ)
 		{
 			if( fopen_s(&m_stream, file, "rt" )!=0 )
 			{
-				return false;
+				return TFALSE;
 			}
 		}
 		else if(type == OPEN_WRITE_AND_READ)
 		{
 			if( fopen_s(&m_stream, file, "r+t" )!=0 )
 			{
-				return false;
+				return TFALSE;
 			}
 		}
 		else
 		{
-			return false;
+			return TFALSE;
 		}
 
 		m_openType = type;
 		strcpy_s(m_szFileName,256,file);
-		m_bOpen = true;
+		m_bOpen = TTRUE;
 
 		if(!LoadFromFile())
-			return false;
+			return TFALSE;
 
-		return true;
+		return TTRUE;
 	}
 
-	bool ConfigFile::UpdateFile()
+	TBOOL ConfigFile::UpdateFile()
 	{
 		if(!m_bOpen)
-			return false;
+			return TFALSE;
 		if(m_openType == OPEN_READ)
-			return false;
+			return TFALSE;
 		
 		// 清空文件
 		fclose(m_stream);
 		if( fopen_s(&m_stream,m_szFileName,"wt")!=0 )
 		{
 			CloseFile();
-			return false;
+			return TFALSE;
 		}
 
 		// 写入文件
 		int numWrite = 0;
-		char c;
+		TCHAR c;
 		size_t szLen = 0;
 		int count = 0;
 		StrList::iterator itr = m_list.begin();
@@ -89,29 +89,29 @@ namespace TLunaEngine{
 		{
 			// 写入parameter
 			szLen = (size_t)itr->m_strParameter.GetLength();
-			numWrite = (int)fwrite(itr->m_strParameter.GetString(),sizeof(char),szLen,m_stream);
+			numWrite = (int)fwrite(itr->m_strParameter.GetString(),sizeof(TCHAR),szLen,m_stream);
 			if(numWrite!=(int)szLen)
 			{
 				CloseFile();
-				return false;
+				return TFALSE;
 			}
 
 			// 写入等号
 			c = '=';
-			numWrite = (int)fwrite(&c,sizeof(char),1,m_stream);
+			numWrite = (int)fwrite(&c,sizeof(TCHAR),1,m_stream);
 			if(numWrite!=1)
 			{
 				CloseFile();
-				return false;
+				return TFALSE;
 			}
 
 			// 写入值
 			szLen = (size_t)itr->m_strValue.GetLength();
-			numWrite = (int)fwrite(itr->m_strValue.GetString(),sizeof(char),szLen,m_stream);
+			numWrite = (int)fwrite(itr->m_strValue.GetString(),sizeof(TCHAR),szLen,m_stream);
 			if(numWrite!=szLen)
 			{
 				CloseFile();
-				return false;
+				return TFALSE;
 			}
 
 			count++;
@@ -120,19 +120,19 @@ namespace TLunaEngine{
 			if(count < (int)m_list.size())
 			{
 				c = '\n';
-				numWrite = (int)fwrite(&c,sizeof(char),1,m_stream);
+				numWrite = (int)fwrite(&c,sizeof(TCHAR),1,m_stream);
 				if(numWrite!=1)
 				{
 					CloseFile();
-					return false;
+					return TFALSE;
 				}
 			}
 		}
 		
-		return true;
+		return TTRUE;
 	}
 
-	void ConfigFile::CloseFile()
+	TVOID ConfigFile::CloseFile()
 	{
 		if(m_bOpen)
 		{
@@ -144,11 +144,11 @@ namespace TLunaEngine{
 			// 将各成员初始化
 			m_openType = OPEN_NONE;
 			memset(m_szFileName,0,256);
-			m_bOpen = false;
+			m_bOpen = TFALSE;
 		}
 	}
 
-	void ConfigFile::GetParameter(const char *paraName, String* pBuf)
+	TVOID ConfigFile::GetParameter(const TCHAR* paraName, String* pBuf)
 	{
 		if(!m_bOpen || !paraName || !pBuf)
 			return;
@@ -165,7 +165,7 @@ namespace TLunaEngine{
 		}
 	}
 
-	void ConfigFile::ChangeParameter(const char *paraName, const String* pBuf)
+	TVOID ConfigFile::ChangeParameter(const TCHAR* paraName, const String* pBuf)
 	{
 		if(!m_bOpen || !paraName || !pBuf)
 			return;
@@ -182,7 +182,7 @@ namespace TLunaEngine{
 		}
 	}
 
-	void ConfigFile::AddParameter(const char* paraName,const String* pBuf)
+	TVOID ConfigFile::AddParameter(const TCHAR* paraName,const String* pBuf)
 	{
 		if(!m_bOpen || !paraName || !pBuf)
 			return;
@@ -194,10 +194,10 @@ namespace TLunaEngine{
 		m_list.push_back(str);
 	}
 
-	bool ConfigFile::FindParameter(const char* paraName,int* pIndex)
+	TBOOL ConfigFile::FindParameter(const TCHAR* paraName,int* pIndex)
 	{
 		if(!m_bOpen || !paraName)
-			return false;
+			return TFALSE;
 		// 遍历找到parameter
 		StrList::iterator itr = m_list.begin();
 		int count = 0;
@@ -207,13 +207,13 @@ namespace TLunaEngine{
 			{
 				if(pIndex)
 					*pIndex = count;
-				return true;
+				return TTRUE;
 			}
 		}
-		return false;
+		return TFALSE;
 	}
 
-	bool ConfigFile::LoadFromFile()
+	TBOOL ConfigFile::LoadFromFile()
 	{
 		// 建一个结构体
 		FILESTR filemap;
@@ -221,16 +221,16 @@ namespace TLunaEngine{
 		filemap.m_strValue = "";
 		// 临时变量
 		int numRead = 0;
-		char c;
-		char last;
+		TCHAR c;
+		TCHAR last;
 		int count = 0;
-		bool bIsPara = true;
-		char szTmp[2] = {0};
+		TBOOL bIsPara = TTRUE;
+		TCHAR szTmp[2] = {0};
 		// 循环文件
 		while(feof(m_stream)==0)
 		{
 			// 读一个字符
-			numRead = (int)fread(&c,sizeof(char),1,m_stream);
+			numRead = (int)fread(&c,sizeof(TCHAR),1,m_stream);
 			// 读取是否成功
 			if(numRead!=1)
 			{
@@ -242,19 +242,19 @@ namespace TLunaEngine{
 					break;
 				}
 				CloseFile();
-				return false;
+				return TFALSE;
 			}
 			// 判断'='
 			if(c == '=')
 			{
-				bIsPara = false;
+				bIsPara = TFALSE;
 				count = 0;
 				last = c;
 				continue;
 			}
 			else if(c == '\n')
 			{
-				bIsPara = true;
+				bIsPara = TTRUE;
 				count = 0;
 
 				if(last != '\n')
@@ -283,7 +283,7 @@ namespace TLunaEngine{
 			// 把count加一
 			count++;
 		}
-		return true;
+		return TTRUE;
 	}
 
 }

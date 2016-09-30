@@ -1,6 +1,7 @@
 #ifndef _TLRENDERDEVICEUSEDGS_D3D11_H_
 #define _TLRENDERDEVICEUSEDGS_D3D11_H_
 
+#include "TLCommonTypeDef.h"
 #include "TLRenderDeviceUsedGS.h"
 #include <d3d11.h>
 
@@ -20,7 +21,7 @@ namespace TLunaEngine
 			return mD3DGS;
 		}
 		// init with d3d gs
-		bool initWithD3DGS(ID3D11GeometryShader* d3dShader);
+		TBOOL initWithD3DGS(ID3D11GeometryShader* d3dShader);
 	};
 }
 

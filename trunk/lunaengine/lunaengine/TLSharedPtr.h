@@ -77,7 +77,7 @@ namespace TLunaEngine {
 			// lock & copy other mutex pointer
             
 			mMutex.SetNull();
-			if(r.mMutex.IsNull()==false)
+			if(r.mMutex.IsNull()==TFALSE)
             {
 				Lock lock;
 				lock.LockMutex(r.mMutex);
@@ -109,7 +109,7 @@ namespace TLunaEngine {
 			// lock & copy other mutex pointer
 
 			mMutex.SetNull();
-			if(r.mMutex.IsNull()==false)
+			if(r.mMutex.IsNull()==TFALSE)
             {
 				Lock lock;
 				lock.LockMutex(r.mMutex);
@@ -147,7 +147,7 @@ namespace TLunaEngine {
 			@remarks
 				Assumes that the SharedPtr is uninitialised!
 		*/
-		void bind(T* rep, SharedPtrFreeMethod freeMethod = SPFM_DELETE) {
+		TVOID bind(T* rep, SharedPtrFreeMethod freeMethod = SPFM_DELETE) {
 			assert(!pRep && !pUseCount && mMutex.IsNull());
 			mMutex.CreateMutexHandle();
 			Lock lock;
@@ -158,7 +158,7 @@ namespace TLunaEngine {
 			useFreeMethod = freeMethod;
 		}
 
-		inline bool unique() const 
+		inline TBOOL unique() const 
 		{ 
 			Lock lock;
 			lock.LockMutex(mMutex); 
@@ -177,9 +177,9 @@ namespace TLunaEngine {
 		inline T* getPointer() const { return pRep; }
 		inline SharedPtrFreeMethod freeMethod() const { return useFreeMethod; }
 
-		inline bool isNull(void) const { return pRep == 0; }
+		inline TBOOL isNull(TVOID) const { return pRep == 0; }
 
-        inline void setNull(void) { 
+        inline TVOID setNull(TVOID) { 
 			if (pRep)
 			{
 				// can't scope lock mutex before release in case deleted
@@ -191,15 +191,15 @@ namespace TLunaEngine {
 
     protected:
 
-        inline void release(void)
+        inline TVOID release(TVOID)
         {
-			bool destroyThis = false;
+			TBOOL destroyThis = TFALSE;
 
             /* If the mutex is not initialized to a non-zero value, then
                neither is pUseCount nor pRep.
              */
 
-            if(mMutex.IsNull()==false)
+            if(mMutex.IsNull()==TFALSE)
 			{
 				// lock own mutex in limited scope (must unlock before destroy)
 				Lock lock;
@@ -208,7 +208,7 @@ namespace TLunaEngine {
 				{
 					if (--(*pUseCount) == 0) 
 					{
-						destroyThis = true;
+						destroyThis = TTRUE;
 	                }
 				}
             }
@@ -218,7 +218,7 @@ namespace TLunaEngine {
 			mMutex.SetNull();
         }
 
-        virtual void destroy(void)
+        virtual TVOID destroy(TVOID)
         {
             // IF YOU GET A CRASH HERE, YOU FORGOT TO FREE UP POINTERS
             // BEFORE SHUTTING OGRE DOWN
@@ -242,7 +242,7 @@ namespace TLunaEngine {
 			mMutex.CloseMutexHandle();
         }
 
-		virtual void swap(SharedPtr<T> &other) 
+		virtual TVOID swap(SharedPtr<T> &other) 
 		{
 			std::swap(pRep, other.pRep);
 			std::swap(pUseCount, other.pUseCount);
@@ -251,19 +251,19 @@ namespace TLunaEngine {
 		}
 	};
 
-	template<class T, class U> inline bool operator==(SharedPtr<T> const& a, SharedPtr<U> const& b)
+	template<class T, class U> inline TBOOL operator==(SharedPtr<T> const& a, SharedPtr<U> const& b)
 	{
 		return a.get() == b.get();
 	}
 
-	template<class T, class U> inline bool operator!=(SharedPtr<T> const& a, SharedPtr<U> const& b)
+	template<class T, class U> inline TBOOL operator!=(SharedPtr<T> const& a, SharedPtr<U> const& b)
 	{
 		return a.get() != b.get();
 	}
 
-	template<class T, class U> inline bool operator<(SharedPtr<T> const& a, SharedPtr<U> const& b)
+	template<class T, class U> inline TBOOL operator<(SharedPtr<T> const& a, SharedPtr<U> const& b)
 	{
-		return std::less<const void*>()(a.get(), b.get());
+		return std::less<const TVOID*>()(a.get(), b.get());
 	}
 	/** @} */
 	/** @} */

@@ -17,9 +17,9 @@ namespace TLunaEngine{
 	// 三角形与AABB的关系
 	//! Determines if the triangle is totally inside a bounding box.
 	/** \param box Box to check.
-	//\return True if triangle is within the box, otherwise false. */
+	//\return True if triangle is within the box, otherwise TFALSE. */
 	template<typename T>
-	bool TriIsTotalInsideBox(const Triangle<T>& tri,const AABBox<T>& box)
+	TBOOL TriIsTotalInsideBox(const Triangle<T>& tri,const AABBox<T>& box)
 	{
 		return (box.isPointInside(tri.pointA)) &&
 			(box.isPointInside(tri.pointB)) &&
@@ -28,7 +28,7 @@ namespace TLunaEngine{
 
 	// 三角形与球检测
 	template<typename T>
-	bool TriIsTotalInsideSphere(const Triangle<T>& tri,const Sphere<T>& sphere)
+	TBOOL TriIsTotalInsideSphere(const Triangle<T>& tri,const Sphere<T>& sphere)
 	{
 		return (sphere.Contains(tri.PointA)) && 
 			(sphere.Contains(tri.pointB)) && 
@@ -39,9 +39,9 @@ namespace TLunaEngine{
 	//! Get an intersection with a 3d line.
 	/** \param line Line to intersect with.
 	\param outIntersection Place to store the intersection point, if there is one.
-	\return True if there was an intersection, false if not. */
+	\return True if there was an intersection, TFALSE if not. */
 	template<typename T>
-	bool TriGetIntersectionWithLine(const Triangle<T>& tri,const Line<T>& line,Vector3<T>& outIntersection)
+	TBOOL TriGetIntersectionWithLine(const Triangle<T>& tri,const Line<T>& line,Vector3<T>& outIntersection)
 	{
 		return tri.getIntersectionWithLine(line.start,
 			line.getVector(), outIntersection) &&
@@ -50,7 +50,7 @@ namespace TLunaEngine{
 
 	// 三角形与射线检测
 	template<typename T>
-	bool TriGetInterscetionWithRay(const Triangle<T>& tri,const Ray<T>& ray,Vector3<T>& outIntersection)
+	TBOOL TriGetInterscetionWithRay(const Triangle<T>& tri,const Ray<T>& ray,Vector3<T>& outIntersection)
 	{
 		return tri.getIntersectionWithLine(ray.GetOrig(),ray.GetDir(),outIntersection);
 	}
@@ -60,9 +60,9 @@ namespace TLunaEngine{
 	// AABB与线段检测
 	//! Tests if the box intersects with a line
 	/** \param line: Line to test intersection with.
-	\return True if there is an intersection , else false. */
+	\return True if there is an intersection , else TFALSE. */
 	template<typename T>
-	bool AABBIntersectsWithLine(const AABBox<T>& aabb,const Line<T>& line)
+	TBOOL AABBIntersectsWithLine(const AABBox<T>& aabb,const Line<T>& line)
 	{
 		return aabb.intersectsWithLine(line.getMiddle(), line.getVector().normalize(),
 				(T)(line.getLength() * 0.5));
@@ -72,8 +72,8 @@ namespace TLunaEngine{
 
 	// 球与射线的检测
 	template<typename T>
-	bool IntersectBall(const Vector3<T> &orig, const Vector3<T> &dir, const Vector3<T> &center, 
-							  const T radius, Vector3<T> *pVRet, T *len,bool* pInside)
+	TBOOL IntersectBall(const Vector3<T> &orig, const Vector3<T> &dir, const Vector3<T> &center, 
+							  const T radius, Vector3<T> *pVRet, T *len,TBOOL* pInside)
 	{
 		// 球心-起始点
 		Vector3<T> distance = center - orig;
@@ -94,8 +94,8 @@ namespace TLunaEngine{
 			if(len)
 				(*len)=radius;
 			if(pInside)
-				(*pInside)=true;
-			return true;
+				(*pInside)=TTRUE;
+			return TTRUE;
 		}
 		// 如果距离和半径一样
 		// 起始点在球上
@@ -106,8 +106,8 @@ namespace TLunaEngine{
 			if(len)
 				(*len)=(T)0;
 			if(pInside)
-				(*pInside)=false;
-			return true;
+				(*pInside)=TFALSE;
+			return TTRUE;
 		}
 		// 如果距离比半径小
 		// 起始点在球内部
@@ -130,8 +130,8 @@ namespace TLunaEngine{
 			if(len)
 				(*len)=(T)flen;
 			if(pInside)
-				(*pInside)=true;
-			return true;
+				(*pInside)=TTRUE;
+			return TTRUE;
 		}
 		// 如果距离比半径大
 		// 起始点在球内部
@@ -148,8 +148,8 @@ namespace TLunaEngine{
 				if(len)
 					(*len)=(T)dirLen;
 				if(pInside)
-					(*pInside)=false;
-				return true;
+					(*pInside)=TFALSE;
+				return TTRUE;
 			}
 			else if(a<=radius)
 			{
@@ -159,16 +159,16 @@ namespace TLunaEngine{
 				if(len)
 					(*len)=(T)flen;
 				if(pInside)
-					(*pInside)=false;
-				return true;
+					(*pInside)=TFALSE;
+				return TTRUE;
 			}
 		}
-		return false;
+		return TFALSE;
 	}
 
 	template<typename T>
-	bool IntersectBallSimple(const Vector3<T>& orig,const Vector3<T>& dir,const Vector3<T>& center,
-			const T radius,Vector3<T>* pVRet,T* len,bool* pInside)
+	TBOOL IntersectBallSimple(const Vector3<T>& orig,const Vector3<T>& dir,const Vector3<T>& center,
+			const T radius,Vector3<T>* pVRet,T* len,TBOOL* pInside)
 	{
 		// 球心-起始点
 		Vector3<T> distance = center - orig;
@@ -183,8 +183,8 @@ namespace TLunaEngine{
 			if(len)
 				(*len)=(T)0;
 			if(pInside)
-				(*pInside)=true;
-			return true;
+				(*pInside)=TTRUE;
+			return TTRUE;
 		}
 		// 标准化方向
 		D3DXVECTOR3 direction;
@@ -206,8 +206,8 @@ namespace TLunaEngine{
 				if(len)
 					(*len)=(T)dirLen;
 				if(pInside)
-					(*pInside)=false;
-				return true;
+					(*pInside)=TFALSE;
+				return TTRUE;
 			}
 			else if(a<=radius)
 			{
@@ -217,21 +217,21 @@ namespace TLunaEngine{
 				if(len)
 					(*len)=(T)flen;
 				if(pInside)
-					(*pInside)=false;
-				return true;
+					(*pInside)=TFALSE;
+				return TTRUE;
 			}
 		}
-		return false;
+		return TFALSE;
 	}
 
 
 
 	// AABB与射线的检测
 	template<typename T>
-	bool IntersectAABBSimple(const Vector3<T> &orig, const Vector3<T> &dir, const Vector3<T> &min, 
-									const Vector3<T> &max, Vector3<T> *pVRet, T *len, bool *pInside)
+	TBOOL IntersectAABBSimple(const Vector3<T> &orig, const Vector3<T> &dir, const Vector3<T> &min, 
+									const Vector3<T> &max, Vector3<T> *pVRet, T *len, TBOOL *pInside)
 	{
-		bool inside = true;	// 假设在内部
+		TBOOL inside = TTRUE;	// 假设在内部
 		float xt=-1,yt=-1,zt=-1;	// 三个坐标的差,初始化为-1
 		// 标准化方向
 		Vector3<T> direction;
@@ -242,37 +242,37 @@ namespace TLunaEngine{
 		{
 			xt = min.X - orig.X;	// 计算差
 			xt /= direction.X;			// 和方向位置的比值(是方向位置的倍数)
-			inside = false;			// X轴不在内部
+			inside = TFALSE;			// X轴不在内部
 		}
 		else if(orig.X > max.X)
 		{
 			xt = max.X - orig.X;
 			xt /= direction.X;
-			inside = false;
+			inside = TFALSE;
 		}
 		if(orig.Y < min.Y)
 		{
 			yt = min.Y - orig.Y;	// 计算差
 			yt /= direction.Y;			// 和方向位置的比值(是方向位置的倍数)
-			inside = false;			// X轴不在内部
+			inside = TFALSE;			// X轴不在内部
 		}
 		else if(orig.Y > max.Y)
 		{
 			yt = max.Y - orig.Y;
 			yt /= direction.Y;
-			inside = false;
+			inside = TFALSE;
 		}
 		if(orig.Z < min.Z)
 		{
 			zt = min.Z - orig.Z;	// 计算差
 			zt /= direction.Z;			// 和方向位置的比值(是方向位置的倍数)
-			inside = false;			// X轴不在内部
+			inside = TFALSE;			// X轴不在内部
 		}
 		else if(orig.Z > max.Z)
 		{
 			zt = max.Z - orig.Z;
 			zt /= direction.Z;
-			inside = false;
+			inside = TFALSE;
 		}
 		// 如果在内部
 		if(inside)
@@ -282,8 +282,8 @@ namespace TLunaEngine{
 			if(len)
 				(*len)=(T)0;
 			if(pInside)
-				(*pInside)=true;
-			return true;
+				(*pInside)=TTRUE;
+			return TTRUE;
 		}
 		// 选择适当的相交平面
 		// 那个轴上的差的比值最大,说明和另外两个轴组成的平面先相交
@@ -300,7 +300,7 @@ namespace TLunaEngine{
 			t = zt;
 		}
 		// 根据相交平面,判断是否在盒内
-		bool result = true;	// 最后结果
+		TBOOL result = TTRUE;	// 最后结果
 		float x=0,y=0,z=0;	// 碰撞点坐标
 		switch(which)
 		{
@@ -309,13 +309,13 @@ namespace TLunaEngine{
 				y = orig.Y + direction.Y * t;
 				if(y<min.Y || y>max.Y)
 				{
-					result = false;
+					result = TFALSE;
 					break;
 				}
 				z = orig.Z + direction.Z * t;
 				if(z<min.Z || z>max.Z)
 				{
-					result = false;
+					result = TFALSE;
 					break;
 				}
 				x = orig.X + direction.X * t;
@@ -326,13 +326,13 @@ namespace TLunaEngine{
 				x = orig.X + direction.X * t;
 				if(x<min.X || x>max.X)
 				{
-					result = false;
+					result = TFALSE;
 					break;
 				}
 				z = orig.Z + direction.Z * t;
 				if(z<min.Z || z>max.Z)
 				{
-					result = false;
+					result = TFALSE;
 					break;
 				}
 				y = orig.Y + direction.Y * t;
@@ -343,13 +343,13 @@ namespace TLunaEngine{
 				x = orig.X + direction.X * t;
 				if(x<min.X || x>max.X)
 				{
-					result = false;
+					result = TFALSE;
 					break;
 				}
 				y = orig.Y + direction.Y * t;
 				if(y<min.Y || y>max.Y)
 				{
-					result = false;
+					result = TFALSE;
 					break;
 				}
 				z = orig.Z + direction.Z * t;
@@ -363,14 +363,14 @@ namespace TLunaEngine{
 			if(len)
 				(*len)=(T)t;
 			if(pInside)
-				(*pInside)=false;
+				(*pInside)=TFALSE;
 		}
 		return result;
 	}
 
 	// 计算切线方向，用于法线贴图
 	template<typename T>
-	void CalculateTangentArray(long vertexCount, const Vector3<T> *vertex, const Vector3<T> *normal,
+	TVOID CalculateTangentArray(long vertexCount, const Vector3<T> *vertex, const Vector3<T> *normal,
 		const Vector2<T> *texcoord, long triangleCount, const long* indexArray, Vector4<T> *tangent)
 	{
 		Vector3<T> *tan1 = new Vector3<T>[vertexCount * 2];
@@ -463,7 +463,7 @@ namespace TLunaEngine{
 		}
 		if (d < (T)(1e-6f - 1.0f))
 		{
-			if (fallbackAxis.isZero()==false)
+			if (fallbackAxis.isZero()==TFALSE)
 			{
 				// rotate 180 degrees about the fallback axis
 				q.FromAngleAxis(PI, fallbackAxis);
@@ -496,16 +496,16 @@ namespace TLunaEngine{
 
 	// plane / aabbox intersection test
 	template<typename T>
-	bool intersects(const Plane<T>& plane, const AABBox<T>& box)
+	TBOOL intersects(const Plane<T>& plane, const AABBox<T>& box)
 	{
 		if (plane.classifyPointRelation(box.getCenter(), box.getHalfExtent()) == ISREL3D_SPANNING)
-			return true;
-		return false;
+			return TTRUE;
+		return TFALSE;
 	}
 
 	// aabbox edge cross test
 	template<typename T>
-	bool TEST_CROSS_EDGE_BOX_MCR(const Vector3<T>& edge, const Vector3<T>& absolute_edge, const Vector3<T>& pointa,
+	TBOOL TEST_CROSS_EDGE_BOX_MCR(const Vector3<T>& edge, const Vector3<T>& absolute_edge, const Vector3<T>& pointa,
 		const Vector3<T>& pointb, const Vector3<T>& _extend, int i_dir_0, int i_dir_1, int i_comp_0, int i_comp_1)
 	{
 		const T dir0 = -edge[i_dir_0];
@@ -525,15 +525,15 @@ namespace TLunaEngine{
 		const T rad = _extend[i_comp_0] * abs_dir0 + _extend[i_comp_1] * abs_dir1;
 
 		if (pmin>rad || -rad>pmax)
-			return false;
+			return TFALSE;
 
-		return true;
+		return TTRUE;
 	}
 
 	// triangle / aabbox intersection test
 	// only use the first 3 verticies in poly
 	template<typename T>
-	bool intersects(const Polygon<T>& poly, const AABBox<T>& box)
+	TBOOL intersects(const Polygon<T>& poly, const AABBox<T>& box)
 	{
 		T minX, maxX, minY, maxY, minZ, maxZ, x, y, z;
 
@@ -569,12 +569,12 @@ namespace TLunaEngine{
 		if (minX > box.getMaximum().x || maxX < box.getMinimum().x || minY > box.getMaximum().y ||
 			maxY < box.getMinimum().y || minZ > box.getMaximum().z || maxZ < box.getMinimum().z)
 		{
-			return false;
+			return TFALSE;
 		}
 
 		Plane<T> triPlane(poly.getVertex(0), poly.getVertex(1), poly.getVertex(2));
 		if (!intersects(triPlane, box))
-			return false;
+			return TFALSE;
 		const Vector3<T> v1(poly.getVertex(0) - box.getCenter());
 		const Vector3<T> v2(poly.getVertex(1) - box.getCenter());
 		const Vector3<T> v3(poly.getVertex(2) - box.getCenter());
@@ -584,50 +584,50 @@ namespace TLunaEngine{
 		Vector3<T> abs_diff = Vector3<T>(fabs(diff.x), fabs(diff.y), fabs(diff.z)); //diff.absolute();
 		//Test With X axis
 		if (!TEST_CROSS_EDGE_BOX_MCR(diff, abs_diff, v1, v3, extends, 2, 1, 1, 2))
-			return false;
+			return TFALSE;
 		//Test With Y axis
 		if (!TEST_CROSS_EDGE_BOX_MCR(diff, abs_diff, v1, v3, extends, 0, 2, 2, 0))
-			return false;
+			return TFALSE;
 
 		//Test With Z axis
 		if (!TEST_CROSS_EDGE_BOX_MCR(diff, abs_diff, v1, v3, extends, 1, 0, 0, 1))
-			return false;
+			return TFALSE;
 
 
 		diff = v3 - v2;
 		abs_diff = Vector3<T>(fabs(diff.x), fabs(diff.y), fabs(diff.z)); //diff.absolute();
 		//Test With X axis
 		if (!TEST_CROSS_EDGE_BOX_MCR(diff, abs_diff, v2, v1, extends, 2, 1, 1, 2))
-			return false;
+			return TFALSE;
 
 		//Test With Y axis
 		if (!TEST_CROSS_EDGE_BOX_MCR(diff, abs_diff, v2, v1, extends, 0, 2, 2, 0))
-			return false;
+			return TFALSE;
 		//Test With Z axis
 		if (!TEST_CROSS_EDGE_BOX_MCR(diff, abs_diff, v2, v1, extends, 1, 0, 0, 1))
-			return false;
+			return TFALSE;
 
 		diff = v1 - v3;
 		abs_diff = Vector3<T>(fabs(diff.x), fabs(diff.y), fabs(diff.z)); //diff.absolute();
 		//Test With X axis
 		if (!TEST_CROSS_EDGE_BOX_MCR(diff, abs_diff, v3, v2, extends, 2, 1, 1, 2))
-			return false;
+			return TFALSE;
 		//Test With Y axis
 		if (!TEST_CROSS_EDGE_BOX_MCR(diff, abs_diff, v3, v2, extends, 0, 2, 2, 0))
-			return false;
+			return TFALSE;
 		//Test With Z axis
 		if (!TEST_CROSS_EDGE_BOX_MCR(diff, abs_diff, v3, v2, extends, 1, 0, 0, 1))
-			return false;
+			return TFALSE;
 
-		return true;
+		return TTRUE;
 	}
 
 	// plane clip two points of polygon
 	template<typename T>
-	void planeClipPolygonLine(const Vector3<T>& point0, const Vector3<T>& point1, T dist0, T dist1, Polygon<T>& polyClipped)
+	TVOID planeClipPolygonLine(const Vector3<T>& point0, const Vector3<T>& point1, T dist0, T dist1, Polygon<T>& polyClipped)
 	{
-		bool _prevclassif = (dist0>(T)DBL_EPSILON);
-		bool _classif = (dist1>(T)DBL_EPSILON);
+		TBOOL _prevclassif = (dist0>(T)DBL_EPSILON);
+		TBOOL _classif = (dist1>(T)DBL_EPSILON);
 		if (_classif != _prevclassif)
 		{
 			T blendfactor = (T)(-dist0 / (dist1 - dist0));
@@ -644,7 +644,7 @@ namespace TLunaEngine{
 
 	// plane clip polygon points
 	template<typename T>
-	void planeClipPolygon(const Plane<T>& plane, const Polygon<T>& polyOrig, Polygon<T>& polyClipped, bool positive)
+	TVOID planeClipPolygon(const Plane<T>& plane, const Polygon<T>& polyOrig, Polygon<T>& polyClipped, TBOOL positive)
 	{
 		//clip first point
 		T firstdist = plane.getDistanceTo(polyOrig.getVertex(0));

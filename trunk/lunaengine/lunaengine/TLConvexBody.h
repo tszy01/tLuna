@@ -38,7 +38,7 @@ namespace TLunaEngine
 
 		/** Build a new polygon representation from a frustum.
 		*/
-		void define(const Vector3<T>* frustumCorners)
+		TVOID define(const Vector3<T>* frustumCorners)
 		{
 			// ordering of the points:
 			// near (0-3), far (4-7); each (top-right, top-left, bottom-left, bottom-right)
@@ -110,7 +110,7 @@ namespace TLunaEngine
 
 		/** Build a new polygon representation from an AAB.
 		*/
-		void define(const Vector3<T>& min, const Vector3<T>& max)
+		TVOID define(const Vector3<T>& min, const Vector3<T>& max)
 		{
 			// ordering of the AAB points:
 			//		1-----2
@@ -203,21 +203,21 @@ namespace TLunaEngine
 		/** Clips the body with a frustum. The resulting holes
 			are filled with new polygons.
 		*/
-		void clip( const Plane<T>* frustumPlanes )
+		TVOID clip( const Plane<T>* frustumPlanes )
 		{
 			// clip the body with each plane
 			for ( unsigned short i = 0; i < 6; ++i )
 			{
 				// clip, but keep positive space this time since frustum planes are 
 				// the opposite to other cases (facing inwards rather than outwards)
-				clip(frustumPlanes[i], false);
+				clip(frustumPlanes[i], TFALSE);
 			}
 		}
 
 		/** Clips the body with an AAB. The resulting holes
 			are filled with new polygons.
 		*/
-		void clip( const Vector3<T>& min, const Vector3<T>& max )
+		TVOID clip( const Vector3<T>& min, const Vector3<T>& max )
 		{
 			//// only process finite boxes
 			//if (!aab.isFinite())
@@ -266,7 +266,7 @@ namespace TLunaEngine
 
 		/** Clips the body with another body.
 		*/
-		void clip(const ConvexBody<T>& body)
+		TVOID clip(const ConvexBody<T>& body)
 		{
 			if ( this == &body )
 				return;
@@ -291,7 +291,7 @@ namespace TLunaEngine
 
 		/** Clips the object by the positive half space of a plane
 		*/
-		void clip(const Plane<T>& pl, bool keepNegative = true)
+		TVOID clip(const Plane<T>& pl, TBOOL keepNegative = TTRUE)
 		{
 			if ( getPolygonCount() == 0 )
 				return;
@@ -373,7 +373,7 @@ namespace TLunaEngine
 						Vector3<T> vDirection = vCurrent - vNext;
 						vDirection.normalise();
 						Ray ray( vNext, vDirection );
-						std::pair< bool, Real > intersect = ray.intersects( pl );
+						std::pair< TBOOL, Real > intersect = ray.intersects( pl );
 
 						// store intersection
 						if ( intersect.first )
@@ -399,7 +399,7 @@ namespace TLunaEngine
 						Vector3<T> vDirection = vNext - vCurrent;
 						vDirection.normalise();
 						Vector3<T> vIntersect;
-						bool bIntersect = pl.getIntersectionWithLine(vCurrent,vDirection,vIntersect);
+						TBOOL bIntersect = pl.getIntersectionWithLine(vCurrent,vDirection,vIntersect);
 
 						// store intersection
 						if ( bIntersect )
@@ -486,7 +486,7 @@ namespace TLunaEngine
 					// detect the orientation
 					// the polygon must have the same normal direction as the plane and then n
 					Vector3<T> vCross = ( vFirst - vSecond ).crossProduct( vNext - vSecond );
-					bool frontside = ( pl.Normal ).directionEquals( vCross, (T)(DEGTORAD * 1) );
+					TBOOL frontside = ( pl.Normal ).directionEquals( vCross, (T)(DEGTORAD * 1) );
 
 					// first inserted vertex
 					Vector3<T> firstVertex;
@@ -568,7 +568,7 @@ namespace TLunaEngine
 			You must already have constructed a basic body using a 'construct' 
 			method.
 		*/
-		void extend(const Vector3<T>& pt)
+		TVOID extend(const Vector3<T>& pt)
 		{
 			// Erase all polygons facing towards the point. For all edges that
 			// are not removed twice (once in AB and once BA direction) build a
@@ -614,7 +614,7 @@ namespace TLunaEngine
 				it = itStart;
 				++it;
 
-				bool erased = false;
+				TBOOL erased = TFALSE;
 				// iterate from itStart+1 to the element before the last one
 				for ( ; it != edgeMap.end(); ++it )
 				{	
@@ -625,7 +625,7 @@ namespace TLunaEngine
 						// increment itStart before deletion (iterator invalidation)
 						std::map<Vector3<T>, Vector3<T>>::iterator delistart = itStart++;
 						edgeMap.erase(delistart);
-						erased = true;
+						erased = TTRUE;
 
 						break; // found and erased
 					}
@@ -661,7 +661,7 @@ namespace TLunaEngine
 
 		/** Resets the object.
 		*/
-		void reset( void )
+		TVOID reset( TVOID )
 		{
 			for (PolygonList::iterator it = mPolygons.begin(); 
 				it != mPolygons.end(); ++it)
@@ -673,7 +673,7 @@ namespace TLunaEngine
 
 		/** Returns the current number of polygons.
 		*/
-		size_t getPolygonCount( void ) const
+		size_t getPolygonCount( TVOID ) const
 		{
 			return mPolygons.size();
 		}
@@ -716,11 +716,11 @@ namespace TLunaEngine
 
 		/** Returns an AABB representation.
 		*/
-		AABBox<T> getAABB( void ) const;
+		AABBox<T> getAABB( TVOID ) const;
 
 		/** Checks if the body has a closed hull.
 		*/
-		bool hasClosedHull( void ) const
+		TBOOL hasClosedHull( TVOID ) const
 		{
 			// if this map is returned empty, the body is closed
 			std::map<Vector3<T>, Vector3<T>> edgeMap = getSingleEdges();
@@ -731,7 +731,7 @@ namespace TLunaEngine
 		/** Merges all neighboring polygons into one single polygon if they are
 			lay in the same plane.
 		*/
-		void mergePolygons( void )
+		TVOID mergePolygons( TVOID )
 		{
 			// Merge all polygons that lay in the same plane as one big polygon.
 			// A convex body does not have two separate regions (separated by polygons
@@ -744,7 +744,7 @@ namespace TLunaEngine
 
 			// Signals if the body holds polygons which aren't neighbors but have the same
 			// normal. That means another step has to be processed.
-			bool bDirty = false;
+			TBOOL bDirty = TFALSE;
 
 			for ( size_t iPolyA = 0; iPolyA < getPolygonCount(); ++iPolyA )
 			{
@@ -758,7 +758,7 @@ namespace TLunaEngine
 					if ( n1.directionEquals( n2, (T)(DEGTORAD * 0.00001) )  )
 					{
 						// indicates if a neighbor has been found and joined
-						bool bFound = false;
+						TBOOL bFound = TFALSE;
 
 						// search the two fitting vertices (if there are any) for the common edge
 						const size_t numVerticesA = getVertexCount( iPolyA );
@@ -837,7 +837,7 @@ namespace TLunaEngine
 									// insert new polygon
 									insertPolygon( pNew );
 
-									bFound = true;
+									bFound = TTRUE;
 									break;
 								}
 							}
@@ -848,11 +848,11 @@ namespace TLunaEngine
 							}
 						}
 
-						if ( bFound == false )
+						if ( bFound == TFALSE )
 						{
 							// there are two polygons available with the same normal direction, but they
 							// could not be merged into one single because of no shared edge
-							bDirty = true;
+							bDirty = TTRUE;
 							break;
 						}
 					}
@@ -868,22 +868,22 @@ namespace TLunaEngine
 
 		/** Determines if the current object is equal to the compared one.
 		*/
-		bool operator == ( const ConvexBody<T>& rhs ) const
+		TBOOL operator == ( const ConvexBody<T>& rhs ) const
 		{
 			if ( getPolygonCount() != rhs.getPolygonCount() )
-				return false;
+				return TFALSE;
 
 			// Compare the polygons. They may not be in correct order.
 			// A correct convex body does not have identical polygons in its body.
-			bool *bChecked = new bool[getPolygonCount()];
+			TBOOL *bChecked = new TBOOL[getPolygonCount()];
 			for ( size_t i=0; i<getPolygonCount(); ++i )
 			{
-				bChecked[ i ] = false;
+				bChecked[ i ] = TFALSE;
 			}
 
 			for ( size_t i=0; i<getPolygonCount(); ++i )
 			{
-				bool bFound = false;
+				TBOOL bFound = TFALSE;
 
 				for ( size_t j=0; j<getPolygonCount(); ++j )
 				{
@@ -892,38 +892,38 @@ namespace TLunaEngine
 
 					if ( pA == pB )
 					{
-						bFound = true;
-						bChecked[ i ] = true;
+						bFound = TTRUE;
+						bChecked[ i ] = TTRUE;
 						break;
 					}
 				}
 
-				if ( bFound == false )
+				if ( bFound == TFALSE )
 				{
 					delete [] bChecked;
 					bChecked = 0;
-					return false;
+					return TFALSE;
 				}
 			}
 
 			for ( size_t i=0; i<getPolygonCount(); ++i )
 			{
-				if ( bChecked[ i ] != true )
+				if ( bChecked[ i ] != TTRUE )
 				{
 					delete [] bChecked;
 					bChecked = 0;
-					return false;
+					return TFALSE;
 				}
 			}
 
 			delete [] bChecked;
 			bChecked = 0;
-			return true;
+			return TTRUE;
 		}
 
 		/** Determines if the current object is not equal to the compared one.
 		*/
-		bool operator != ( const ConvexBody<T>& rhs ) const
+		TBOOL operator != ( const ConvexBody<T>& rhs ) const
 		{ return !( *this == rhs ); }
 
 
@@ -933,7 +933,7 @@ namespace TLunaEngine
 			After this method is called, the ConvexBody 'owns' this Polygon
 			and will be responsible for deleting it.
 		*/
-		void insertPolygon(Polygon<T>* pdata, size_t poly)
+		TVOID insertPolygon(Polygon<T>* pdata, size_t poly)
 		{
 			assert(poly <= getPolygonCount());
 			assert( pdata != TNULL );
@@ -948,7 +948,7 @@ namespace TLunaEngine
 			After this method is called, the ConvexBody 'owns' this Polygon
 			and will be responsible for deleting it.
 		*/
-		void insertPolygon(Polygon<T>* pdata)
+		TVOID insertPolygon(Polygon<T>* pdata)
 		{
 			assert( pdata != TNULL );
 
@@ -960,7 +960,7 @@ namespace TLunaEngine
 			No checks are done whether the assembled polygon is (still) planar, 
 			the caller must ensure that this is the case.
 		*/
-		void insertVertex(size_t poly, const Vector3<T>& vdata, size_t vertex)
+		TVOID insertVertex(size_t poly, const Vector3<T>& vdata, size_t vertex)
 		{
 			assert(poly < getPolygonCount() );
 		
@@ -971,7 +971,7 @@ namespace TLunaEngine
 			No checks are done whether the assembled polygon is (still) planar, 
 			the caller must ensure that this is the case.
 		*/
-		void insertVertex(size_t poly, const Vector3<T>& vdata)
+		TVOID insertVertex(size_t poly, const Vector3<T>& vdata)
 		{
 			assert(poly < getPolygonCount() );
 
@@ -979,7 +979,7 @@ namespace TLunaEngine
 		}
 		/** Deletes a specific polygon.
 		*/
-		void deletePolygon(size_t poly)
+		TVOID deletePolygon(size_t poly)
 		{
 			assert(poly < getPolygonCount() );
 
@@ -1015,14 +1015,14 @@ namespace TLunaEngine
 		/** Moves all polygons from the parameter body to this instance.
 		@note Both the passed in object and this instance are modified
 		*/
-		void moveDataFromBody(ConvexBody<T>& body)
+		TVOID moveDataFromBody(ConvexBody<T>& body)
 		{
 			body.mPolygons.swap(this->mPolygons);
 		}
 
 		/** Deletes a specific vertex of a specific polygon.
 		*/
-		void deleteVertex(size_t poly, size_t vertex)
+		TVOID deleteVertex(size_t poly, size_t vertex)
 		{
 			assert(poly < getPolygonCount() );
 
@@ -1033,7 +1033,7 @@ namespace TLunaEngine
 		@note Again, the passed in polygon is owned by this object after this
 			call returns, and this object is resonsible for deleting it.
 		*/
-		void setPolygon(Polygon<T>* pdata, size_t poly )
+		TVOID setPolygon(Polygon<T>* pdata, size_t poly )
 		{
 			assert(poly < getPolygonCount() );
 			assert(pdata != TNULL );
@@ -1053,7 +1053,7 @@ namespace TLunaEngine
 			No checks are done whether the assembled polygon is (still) planar, 
 			the caller must ensure that this is the case.
 		*/
-		void setVertex( size_t poly, const Vector3<T>& vdata, size_t vertex )
+		TVOID setVertex( size_t poly, const Vector3<T>& vdata, size_t vertex )
 		{
 			assert(poly < getPolygonCount());
 		
@@ -1092,7 +1092,7 @@ namespace TLunaEngine
 				itStart = edgeMap.begin();	// the element to be compared with the others
 				itEnd = edgeMap.end();		// beyond the last element
 			
-				bool bFound = false;
+				TBOOL bFound = TFALSE;
 
 				for ( ; it != itEnd; ++it )
 				{
@@ -1103,13 +1103,13 @@ namespace TLunaEngine
 						edgeMap.erase( it );
 						edgeMap.erase( itStart );
 
-						bFound = true;
+						bFound = TTRUE;
 
 						break; // found
 					}
 				}
 
-				if ( bFound == false )
+				if ( bFound == TFALSE )
 				{
 					break;	// not all edges could be matched
 							// body is not closed
@@ -1121,7 +1121,7 @@ namespace TLunaEngine
 
 		/** Stores the edges of a specific polygon in a passed in structure.
 		*/
-		void storeEdgesOfPolygon(size_t poly, std::map<Vector3<T>, Vector3<T>> *edgeMap) const
+		TVOID storeEdgesOfPolygon(size_t poly, std::map<Vector3<T>, Vector3<T>> *edgeMap) const
 		{
 			assert(poly <= getPolygonCount() );
 			assert( edgeMap != TNULL );
@@ -1134,7 +1134,7 @@ namespace TLunaEngine
 			@note
 				Old data (if available) will be erased.
 		*/
-		void allocateSpace(size_t numPolygons, size_t numVertices)
+		TVOID allocateSpace(size_t numPolygons, size_t numVertices)
 		{
 			reset();
 
@@ -1160,7 +1160,7 @@ namespace TLunaEngine
 			vertex at the matching edge, if found.
 		@return True if a match was found
 		*/
-		bool findAndEraseEdgePair(const Vector3<T>& vec, 
+		TBOOL findAndEraseEdgePair(const Vector3<T>& vec, 
 			std::map<Vector3<T>, Vector3<T>>& intersectionEdges, Vector3<T>& vNext ) const
 		{
 			for (std::map<Vector3<T>, Vector3<T>>::iterator it = intersectionEdges.begin(); 
@@ -1173,7 +1173,7 @@ namespace TLunaEngine
 					// erase found edge
 					intersectionEdges.erase( it );
 
-					return true; // found!
+					return TTRUE; // found!
 				}
 				else if (it->second.equals(vec))
 				{
@@ -1182,11 +1182,11 @@ namespace TLunaEngine
 					// erase found edge
 					intersectionEdges.erase( it );
 
-					return true; // found!
+					return TTRUE; // found!
 				}
 			}
 
-			return false; // not found!
+			return TFALSE; // not found!
 		}
 	};
 }

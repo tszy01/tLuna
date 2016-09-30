@@ -4,17 +4,17 @@
 
 namespace TLunaEngine{
 
-	MemFile::MemFile(void)
+	MemFile::MemFile(TVOID)
 	{
 		ResetMem();
 	}
 
-	MemFile::~MemFile(void)
+	MemFile::~MemFile(TVOID)
 	{
 		ResetMem();
 	}
 
-	void MemFile::ResetMem()
+	TVOID MemFile::ResetMem()
 	{
 		memset(m_szPath,0,1024);
 		memset(m_szName,0,1024);
@@ -26,7 +26,7 @@ namespace TLunaEngine{
 		m_ContentSize = 0;
 	}
 
-	void MemFile::SetContent(unsigned char *pContent, int size)
+	TVOID MemFile::SetContent(TUByte *pContent, int size)
 	{
 		if(!pContent || size<=0)
 			return;
@@ -34,43 +34,43 @@ namespace TLunaEngine{
 		{
 			free(m_pContent);
 		}
-		m_pContent = (unsigned char*)malloc(size);
+		m_pContent = (TUByte*)malloc(size);
 		memcpy(m_pContent,pContent,size);
 		m_ContentSize=size;
 	}
 
-	int MemFile::GetContent(unsigned char **pContent)
+	int MemFile::GetContent(TUByte **pContent)
 	{
 		if(!pContent)
 			return 0;
 		if(m_ContentSize>0)
 		{
-			(*pContent) = (unsigned char*)malloc(m_ContentSize);
+			(*pContent) = (TUByte*)malloc(m_ContentSize);
 			memcpy(*pContent,m_pContent,m_ContentSize);
 			return m_ContentSize;
 		}
 		return 0;
 	}
 
-	void MemFile::SetFullName(char *fullname)
+	TVOID MemFile::SetFullName(TCHAR* fullname)
 	{
 		if(!fullname)
 			return;
-		char szPath[1024]={0};
-		char szName[1024]={0};
+		TCHAR szPath[1024]={0};
+		TCHAR szName[1024]={0};
 		TLunaEngine::String::CutFilePath(fullname,szName,szPath);
 		SetPath(szPath);
 		SetName(szName);
 	}
 
-	void MemFile::GetFullName(char *fullname)
+	TVOID MemFile::GetFullName(TCHAR* fullname)
 	{
 		if(!fullname)
 			return;
 		sprintf_s(fullname,1024,"%s%s",m_szPath,m_szName);
 	}
 
-	void MemFile::SetPath(char *path)
+	TVOID MemFile::SetPath(TCHAR* path)
 	{
 		if(path)
 		{
@@ -79,7 +79,7 @@ namespace TLunaEngine{
 		}
 	}
 
-	void MemFile::GetPath(char *path)
+	TVOID MemFile::GetPath(TCHAR* path)
 	{
 		if(path)
 		{
@@ -87,7 +87,7 @@ namespace TLunaEngine{
 		}
 	}
 
-	void MemFile::SetName(char *name)
+	TVOID MemFile::SetName(TCHAR* name)
 	{
 		if(name)
 		{
@@ -96,7 +96,7 @@ namespace TLunaEngine{
 		}
 	}
 
-	void MemFile::GetName(char *name)
+	TVOID MemFile::GetName(TCHAR* name)
 	{
 		if(name)
 		{

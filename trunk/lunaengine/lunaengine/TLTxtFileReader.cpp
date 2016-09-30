@@ -6,59 +6,59 @@
 #include <tchar.h>
 namespace TLunaEngine{
 
-	TxtFileReader::TxtFileReader(void)
+	TxtFileReader::TxtFileReader(TVOID)
 	{
 	}
 
-	TxtFileReader::~TxtFileReader(void)
+	TxtFileReader::~TxtFileReader(TVOID)
 	{
 	}
 
-	bool TxtFileReader::OpenTxtFile(const char *filename, FILE **ppStream)
+	TBOOL TxtFileReader::OpenTxtFile(const TCHAR* filename, FILE **ppStream)
 	{
 		if(!filename || !ppStream)
 		{
-			assert(false);
-			return false;
+			assert(TFALSE);
+			return TFALSE;
 		}
 		// 打开文件
 		int re = fopen_s(ppStream,filename,"r+");
 		if(*ppStream==0 || re!=0)
 		{
-			assert(false);
-			return false;
+			assert(TFALSE);
+			return TFALSE;
 		}
-		return true;
+		return TTRUE;
 	}
 
-	void TxtFileReader::CloseTxtFile(FILE *pStream)
+	TVOID TxtFileReader::CloseTxtFile(FILE *pStream)
 	{
 		fclose(pStream);
 	}
 
-	bool TxtFileReader::ReadLineString(char *strResult, FILE *pStream, char *strCmp, bool *bEqual, int nCount, int *pReadCount)
+	TBOOL TxtFileReader::ReadLineString(TCHAR* strResult, FILE *pStream, TCHAR* strCmp, TBOOL *bEqual, int nCount, int *pReadCount)
 	{
 		if(!strResult || !pStream || nCount<=0)
 		{
-			assert(false);
-			return false;
+			assert(TFALSE);
+			return TFALSE;
 		}
 		memset(strResult,0,nCount);
 
 		// 读取一行
 		int count = 0;
-		char c;
+		TCHAR c;
 		while(count<nCount)
 		{
-			int numRead = fread(&c,sizeof(char),1,pStream);
+			int numRead = fread(&c,sizeof(TCHAR),1,pStream);
 			if(numRead!=1)
 			{
 				if(feof(pStream))
 				{
 					break;
 				}
-				assert(false);
-				return false;
+				assert(TFALSE);
+				return TFALSE;
 			}
 			if(c=='\n')
 			{
@@ -74,33 +74,33 @@ namespace TLunaEngine{
 		{
 			if(strcmp(strResult,strCmp)==0)
 			{
-				*bEqual=true;
+				*bEqual=TTRUE;
 			}
 			else
 			{
-				*bEqual=false;
+				*bEqual=TFALSE;
 			}
 		}
-		return true;
+		return TTRUE;
 	}
 
-	bool TxtFileReader::ReadLineInteger(int *aiResult, FILE *pStream, int nCount, char splice)
+	TBOOL TxtFileReader::ReadLineInteger(int *aiResult, FILE *pStream, int nCount, TCHAR splice)
 	{
 		if(!aiResult || !pStream || nCount<=0)
 		{
-			assert(false);
-			return false;
+			assert(TFALSE);
+			return TFALSE;
 		}
 
 		int aCount = 0;
 		int cCount = 0;
-		char szTmp[32] = {0};
-		char c;
+		TCHAR szTmp[32] = {0};
+		TCHAR c;
 
 		// 循环读取一行的所有整数数据
 		while(aCount<nCount && cCount<32)
 		{
-			int numRead = fread(&c,sizeof(char),1,pStream);
+			int numRead = fread(&c,sizeof(TCHAR),1,pStream);
 			if(numRead!=1)
 			{
 				if(feof(pStream))
@@ -108,8 +108,8 @@ namespace TLunaEngine{
 					aiResult[aCount++] = atoi(szTmp);
 					break;
 				}
-				assert(false);
-				return false;
+				assert(TFALSE);
+				return TFALSE;
 			}
 			if(c=='\n')
 			{
@@ -125,26 +125,26 @@ namespace TLunaEngine{
 			}
 			szTmp[cCount++] = c;
 		}
-		return true;
+		return TTRUE;
 	}
 
-	bool TxtFileReader::ReadLineLong(long* alResult,FILE* pStream,int nCount,char splice)
+	TBOOL TxtFileReader::ReadLineLong(long* alResult,FILE* pStream,int nCount,TCHAR splice)
 	{
 		if(!alResult || !pStream || nCount<=0)
 		{
-			assert(false);
-			return false;
+			assert(TFALSE);
+			return TFALSE;
 		}
 
 		int aCount = 0;
 		int cCount = 0;
-		char szTmp[32] = {0};
-		char c;
+		TCHAR szTmp[32] = {0};
+		TCHAR c;
 
 		// 循环读取一行的所有整数数据
 		while(aCount<nCount && cCount<32)
 		{
-			int numRead = fread(&c,sizeof(char),1,pStream);
+			int numRead = fread(&c,sizeof(TCHAR),1,pStream);
 			if(numRead!=1)
 			{
 				if(feof(pStream))
@@ -152,8 +152,8 @@ namespace TLunaEngine{
 					alResult[aCount++] = atol(szTmp);
 					break;
 				}
-				assert(false);
-				return false;
+				assert(TFALSE);
+				return TFALSE;
 			}
 			if(c=='\n')
 			{
@@ -169,26 +169,26 @@ namespace TLunaEngine{
 			}
 			szTmp[cCount++] = c;
 		}
-		return true;
+		return TTRUE;
 	}
 
-	bool TxtFileReader::ReadLineShort(short* asResult,FILE* pStream,int nCount,char splice)
+	TBOOL TxtFileReader::ReadLineShort(short* asResult,FILE* pStream,int nCount,TCHAR splice)
 	{
 		if(!asResult || !pStream || nCount<=0)
 		{
-			assert(false);
-			return false;
+			assert(TFALSE);
+			return TFALSE;
 		}
 
 		int aCount = 0;
 		int cCount = 0;
-		char szTmp[32] = {0};
-		char c;
+		TCHAR szTmp[32] = {0};
+		TCHAR c;
 
 		// 循环读取一行的所有整数数据
 		while(aCount<nCount && cCount<32)
 		{
-			int numRead = fread(&c,sizeof(char),1,pStream);
+			int numRead = fread(&c,sizeof(TCHAR),1,pStream);
 			if(numRead!=1)
 			{
 				if(feof(pStream))
@@ -196,8 +196,8 @@ namespace TLunaEngine{
 					asResult[aCount++] = (short)atoi(szTmp);
 					break;
 				}
-				assert(false);
-				return false;
+				assert(TFALSE);
+				return TFALSE;
 			}
 			if(c=='\n')
 			{
@@ -213,26 +213,26 @@ namespace TLunaEngine{
 			}
 			szTmp[cCount++] = c;
 		}
-		return true;
+		return TTRUE;
 	}
 
-	bool TxtFileReader::ReadLineUInteger(unsigned int* auResult,FILE* pStream,int nCount,char splice)
+	TBOOL TxtFileReader::ReadLineUInteger(unsigned int* auResult,FILE* pStream,int nCount,TCHAR splice)
 	{
 		if(!auResult || !pStream || nCount<=0)
 		{
-			assert(false);
-			return false;
+			assert(TFALSE);
+			return TFALSE;
 		}
 
 		int aCount = 0;
 		int cCount = 0;
-		char szTmp[32] = {0};
-		char c;
+		TCHAR szTmp[32] = {0};
+		TCHAR c;
 
 		// 循环读取一行的所有整数数据
 		while(aCount<nCount && cCount<32)
 		{
-			int numRead = fread(&c,sizeof(char),1,pStream);
+			int numRead = fread(&c,sizeof(TCHAR),1,pStream);
 			if(numRead!=1)
 			{
 				if(feof(pStream))
@@ -240,8 +240,8 @@ namespace TLunaEngine{
 					auResult[aCount++] = (unsigned int)atoi(szTmp);
 					break;
 				}
-				assert(false);
-				return false;
+				assert(TFALSE);
+				return TFALSE;
 			}
 			if(c=='\n')
 			{
@@ -257,26 +257,26 @@ namespace TLunaEngine{
 			}
 			szTmp[cCount++] = c;
 		}
-		return true;
+		return TTRUE;
 	}
 
-	bool TxtFileReader::ReadLineULong(unsigned long* aulResult,FILE* pStream,int nCount,char splice)
+	TBOOL TxtFileReader::ReadLineULong(unsigned long* aulResult,FILE* pStream,int nCount,TCHAR splice)
 	{
 		if(!aulResult || !pStream || nCount<=0)
 		{
-			assert(false);
-			return false;
+			assert(TFALSE);
+			return TFALSE;
 		}
 
 		int aCount = 0;
 		int cCount = 0;
-		char szTmp[32] = {0};
-		char c;
+		TCHAR szTmp[32] = {0};
+		TCHAR c;
 
 		// 循环读取一行的所有整数数据
 		while(aCount<nCount && cCount<32)
 		{
-			int numRead = fread(&c,sizeof(char),1,pStream);
+			int numRead = fread(&c,sizeof(TCHAR),1,pStream);
 			if(numRead!=1)
 			{
 				if(feof(pStream))
@@ -284,8 +284,8 @@ namespace TLunaEngine{
 					aulResult[aCount++] = (unsigned long)atol(szTmp);
 					break;
 				}
-				assert(false);
-				return false;
+				assert(TFALSE);
+				return TFALSE;
 			}
 			if(c=='\n')
 			{
@@ -301,26 +301,26 @@ namespace TLunaEngine{
 			}
 			szTmp[cCount++] = c;
 		}
-		return true;
+		return TTRUE;
 	}
 
-	bool TxtFileReader::ReadLineUShort(unsigned short* ausResult,FILE* pStream,int nCount,char splice)
+	TBOOL TxtFileReader::ReadLineUShort(unsigned short* ausResult,FILE* pStream,int nCount,TCHAR splice)
 	{
 		if(!ausResult || !pStream || nCount<=0)
 		{
-			assert(false);
-			return false;
+			assert(TFALSE);
+			return TFALSE;
 		}
 
 		int aCount = 0;
 		int cCount = 0;
-		char szTmp[32] = {0};
-		char c;
+		TCHAR szTmp[32] = {0};
+		TCHAR c;
 
 		// 循环读取一行的所有整数数据
 		while(aCount<nCount && cCount<32)
 		{
-			int numRead = fread(&c,sizeof(char),1,pStream);
+			int numRead = fread(&c,sizeof(TCHAR),1,pStream);
 			if(numRead!=1)
 			{
 				if(feof(pStream))
@@ -328,8 +328,8 @@ namespace TLunaEngine{
 					ausResult[aCount++] = (unsigned short)atoi(szTmp);
 					break;
 				}
-				assert(false);
-				return false;
+				assert(TFALSE);
+				return TFALSE;
 			}
 			if(c=='\n')
 			{
@@ -345,29 +345,29 @@ namespace TLunaEngine{
 			}
 			szTmp[cCount++] = c;
 		}
-		return true;
+		return TTRUE;
 	}
 
-	bool TxtFileReader::ReadLineFloat(float *afResult, FILE *pStream, int nCount, char splice)
+	TBOOL TxtFileReader::ReadLineFloat(float *afResult, FILE *pStream, int nCount, TCHAR splice)
 	{
 		if(!afResult || !pStream || nCount<=0)
 		{
-			assert(false);
-			return false;
+			assert(TFALSE);
+			return TFALSE;
 		}
 
 		int aCount = 0;
 		int cCount = 0;
-		char szTmp[32] = {0};
-		char c;
+		TCHAR szTmp[32] = {0};
+		TCHAR c;
 		float tmpRe;
-		bool hasDot = false;
+		TBOOL hasDot = TFALSE;
 		int dotPos = -1;
 
 		// 循环读取一行的所有浮点数数据
 		while(aCount<nCount && cCount<32)
 		{
-			int numRead = fread(&c,sizeof(char),1,pStream);
+			int numRead = fread(&c,sizeof(TCHAR),1,pStream);
 			if(numRead!=1)
 			{
 				if(feof(pStream))
@@ -375,22 +375,22 @@ namespace TLunaEngine{
 					if(hasDot)
 					{
 						szTmp[dotPos+4] = '\0';
-						hasDot = false;
+						hasDot = TFALSE;
 						dotPos = -1;
 					}
 					tmpRe = (float)atof(szTmp);
 					afResult[aCount++] = tmpRe;
 					break;
 				}
-				assert(false);
-				return false;
+				assert(TFALSE);
+				return TFALSE;
 			}
 			if(c=='\n')
 			{
 				if(hasDot)
 				{
 					szTmp[dotPos+4] = '\0';
-					hasDot = false;
+					hasDot = TFALSE;
 					dotPos = -1;
 				}
 				tmpRe = (float)atof(szTmp);
@@ -402,7 +402,7 @@ namespace TLunaEngine{
 				if(hasDot)
 				{
 					szTmp[dotPos+4] = '\0';
-					hasDot = false;
+					hasDot = TFALSE;
 					dotPos = -1;
 				}
 				tmpRe = (float)atof(szTmp);
@@ -413,34 +413,34 @@ namespace TLunaEngine{
 			}
 			if(c=='.')
 			{
-				hasDot = true;
+				hasDot = TTRUE;
 				dotPos = cCount;
 			}
 			szTmp[cCount++] = c;
 		}
-		return true;
+		return TTRUE;
 	}
 
-	bool TxtFileReader::ReadLineDouble(double* adResult,FILE* pStream,int nCount,char splice)
+	TBOOL TxtFileReader::ReadLineDouble(double* adResult,FILE* pStream,int nCount,TCHAR splice)
 	{
 		if(!adResult || !pStream || nCount<=0)
 		{
-			assert(false);
-			return false;
+			assert(TFALSE);
+			return TFALSE;
 		}
 
 		int aCount = 0;
 		int cCount = 0;
-		char szTmp[32] = {0};
-		char c;
+		TCHAR szTmp[32] = {0};
+		TCHAR c;
 		double tmpRe;
-		bool hasDot = false;
+		TBOOL hasDot = TFALSE;
 		int dotPos = -1;
 
 		// 循环读取一行的所有浮点数数据
 		while(aCount<nCount && cCount<32)
 		{
-			int numRead = fread(&c,sizeof(char),1,pStream);
+			int numRead = fread(&c,sizeof(TCHAR),1,pStream);
 			if(numRead!=1)
 			{
 				if(feof(pStream))
@@ -448,22 +448,22 @@ namespace TLunaEngine{
 					if(hasDot)
 					{
 						szTmp[dotPos+4] = '\0';
-						hasDot = false;
+						hasDot = TFALSE;
 						dotPos = -1;
 					}
 					tmpRe = atof(szTmp);
 					adResult[aCount++] = tmpRe;
 					break;
 				}
-				assert(false);
-				return false;
+				assert(TFALSE);
+				return TFALSE;
 			}
 			if(c=='\n')
 			{
 				if(hasDot)
 				{
 					szTmp[dotPos+4] = '\0';
-					hasDot = false;
+					hasDot = TFALSE;
 					dotPos = -1;
 				}
 				tmpRe = atof(szTmp);
@@ -475,7 +475,7 @@ namespace TLunaEngine{
 				if(hasDot)
 				{
 					szTmp[dotPos+4] = '\0';
-					hasDot = false;
+					hasDot = TFALSE;
 					dotPos = -1;
 				}
 				tmpRe = atof(szTmp);
@@ -486,29 +486,29 @@ namespace TLunaEngine{
 			}
 			if(c=='.')
 			{
-				hasDot = true;
+				hasDot = TTRUE;
 				dotPos = cCount;
 			}
 			szTmp[cCount++] = c;
 		}
-		return true;
+		return TTRUE;
 	}
 
-	bool TxtFileReader::ReadAllFile(const char* szFile,const char* mode,void** buffer,size_t* readByte)
+	TBOOL TxtFileReader::ReadAllFile(const TCHAR* szFile,const TCHAR* mode,TVOID** buffer,size_t* readByte)
 	{
 		if(!szFile || !mode || !buffer || !readByte || (*buffer)!=0)
 		{
-			return false;
+			return TFALSE;
 		}
 		FILE* file = 0;
 		int re = fopen_s(&file,szFile,mode);
 		if(re!=0)
 		{
-			return false;
+			return TFALSE;
 		}
 		int readByteA = 0;
-		unsigned char filebuf[1024] ={0};
-		unsigned char* tmpbuf = 0;
+		TUByte filebuf[1024] ={0};
+		TUByte* tmpbuf = 0;
 		int tmpsize = 0;
 		do
 		{
@@ -519,7 +519,7 @@ namespace TLunaEngine{
 				{
 					fclose(file);
 					free(tmpbuf);
-					return false;
+					return TFALSE;
 				}
 				if(readByteA <= 0)
 				{
@@ -529,13 +529,13 @@ namespace TLunaEngine{
 			int lasttmpsize = tmpsize;
 			if(lasttmpsize==0)
 			{
-				tmpbuf=(unsigned char*)malloc(readByteA);
+				tmpbuf=(TUByte*)malloc(readByteA);
 				memset(tmpbuf,0,readByteA);
 				tmpsize+=readByteA;
 			}
 			else
 			{
-				tmpbuf=(unsigned char*)realloc(tmpbuf,tmpsize+readByteA);
+				tmpbuf=(TUByte*)realloc(tmpbuf,tmpsize+readByteA);
 				memset(tmpbuf+lasttmpsize,0,readByteA);
 				tmpsize+=readByteA;
 			}
@@ -543,10 +543,10 @@ namespace TLunaEngine{
 			memset(filebuf,0,1024);
 			if(feof(file))
 				break;
-		}while(true);
+		}while(TTRUE);
 		fclose(file);
-		(*buffer) = (void*)tmpbuf;
+		(*buffer) = (TVOID*)tmpbuf;
 		(*readByte) = tmpsize;
-		return true;
+		return TTRUE;
 	}
 }

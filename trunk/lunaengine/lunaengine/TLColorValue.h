@@ -40,45 +40,45 @@ namespace TLunaEngine
 			TF32 alpha = 1.0f) : r(red), g(green), b(blue), a(alpha)
 		{ }
 
-		bool operator==(const ColorValue& rhs) const;
-		bool operator!=(const ColorValue& rhs) const;
+		TBOOL operator==(const ColorValue& rhs) const;
+		TBOOL operator!=(const ColorValue& rhs) const;
 
 		TF32 r, g, b, a;
 
 		/** Retrieves colour as RGBA.
 		*/
-		RGBA getAsRGBA(void) const;
+		RGBA getAsRGBA(TVOID) const;
 
 		/** Retrieves colour as ARGB.
 		*/
-		ARGB getAsARGB(void) const;
+		ARGB getAsARGB(TVOID) const;
 
 		/** Retrieves colour as BGRA.
 		*/
-		BGRA getAsBGRA(void) const;
+		BGRA getAsBGRA(TVOID) const;
 
 		/** Retrieves colours as ABGR */
-		ABGR getAsABGR(void) const;
+		ABGR getAsABGR(TVOID) const;
 
 		/** Sets colour as RGBA.
 		*/
-		void setAsRGBA(const RGBA val);
+		TVOID setAsRGBA(const RGBA val);
 
 		/** Sets colour as ARGB.
 		*/
-		void setAsARGB(const ARGB val);
+		TVOID setAsARGB(const ARGB val);
 
 		/** Sets colour as BGRA.
 		*/
-		void setAsBGRA(const BGRA val);
+		TVOID setAsBGRA(const BGRA val);
 
 		/** Sets colour as ABGR.
 		*/
-		void setAsABGR(const ABGR val);
+		TVOID setAsABGR(const ABGR val);
 
 		/** Clamps colour value to the range [0, 1].
 		*/
-		void saturate(void)
+		TVOID saturate(TVOID)
 		{
 			if (r < 0)
 				r = 0;
@@ -103,7 +103,7 @@ namespace TLunaEngine
 
 		/** As saturate, except that this colour value is unaffected and
 		the saturated colour value is returned as a copy. */
-		ColorValue saturateCopy(void) const
+		ColorValue saturateCopy(TVOID) const
 		{
 			ColorValue ret = *this;
 			ret.saturate();
@@ -275,14 +275,14 @@ namespace TLunaEngine
 		@param saturation Saturation level, [0,1]
 		@param brightness Brightness level, [0,1]
 		*/
-		void setHSB(TF32 hue, TF32 saturation, TF32 brightness);
+		TVOID setHSB(TF32 hue, TF32 saturation, TF32 brightness);
 
 		/** Convert the current colour to Hue, Saturation and Brightness values.
 		@param hue Output hue value, scaled to the [0,1] range as opposed to the 0-360
 		@param saturation Output saturation level, [0,1]
 		@param brightness Output brightness level, [0,1]
 		*/
-		void getHSB(TF32* hue, TF32* saturation, TF32* brightness) const;
+		TVOID getHSB(TF32* hue, TF32* saturation, TF32* brightness) const;
 
 	};
 }

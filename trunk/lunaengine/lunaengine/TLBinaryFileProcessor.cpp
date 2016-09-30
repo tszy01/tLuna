@@ -5,277 +5,277 @@
 #include <string>
 #include <tchar.h>
 namespace TLunaEngine{
-	bool BinaryFileProcessor::openFile(const char* file,FILE** ppStream,const char* mode)
+	TBOOL BinaryFileProcessor::openFile(const TCHAR* file,FILE** ppStream,const TCHAR* mode)
 	{
 		if(!file || !ppStream)
-			return false;
+			return TFALSE;
 		// 打开文件
 		*ppStream = fopen(file,mode);
 		if(*ppStream==0)
 		{
-			return false;
+			return TFALSE;
 		}
-		return true;
+		return TTRUE;
 	}
 
-	void BinaryFileProcessor::closeFile(FILE* pStream)
+	TVOID BinaryFileProcessor::closeFile(FILE* pStream)
 	{
 		fclose(pStream);
 	}
 
-	bool BinaryFileProcessor::writeBytes(const void* buffer,FILE* pStream,int sizeWrite)
+	TBOOL BinaryFileProcessor::writeBytes(const TVOID* buffer,FILE* pStream,int sizeWrite)
 	{
 		if(!buffer || !pStream || sizeWrite<=0)
-			return false;
+			return TFALSE;
 		if(fwrite(buffer,1,sizeWrite,pStream)!=sizeWrite)
-			return false;
-		return true;
+			return TFALSE;
+		return TTRUE;
 	}
 
-	bool BinaryFileProcessor::writeBoolean(const bool* abWrite,FILE* pStream,int nCount)
+	TBOOL BinaryFileProcessor::writeBoolean(const TBOOL* abWrite,FILE* pStream,int nCount)
 	{
 		if(!abWrite || !pStream || nCount<=0)
-			return false;
-		if(fwrite(abWrite,sizeof(bool),nCount,pStream)!=nCount)
-			return false;
-		return true;
+			return TFALSE;
+		if(fwrite(abWrite,sizeof(TBOOL),nCount,pStream)!=nCount)
+			return TFALSE;
+		return TTRUE;
 	}
 
-	bool BinaryFileProcessor::writeInteger(const int* aiWrite,FILE* pStream,int nCount)
+	TBOOL BinaryFileProcessor::writeInteger(const int* aiWrite,FILE* pStream,int nCount)
 	{
 		if(!aiWrite || !pStream || nCount<=0)
-			return false;
+			return TFALSE;
 		if(fwrite(aiWrite,sizeof(int),nCount,pStream)!=nCount)
-			return false;
-		return true;
+			return TFALSE;
+		return TTRUE;
 	}
 
-	bool BinaryFileProcessor::writeUInteger(const unsigned int* auWrite,FILE* pStream,int nCount)
+	TBOOL BinaryFileProcessor::writeUInteger(const unsigned int* auWrite,FILE* pStream,int nCount)
 	{
 		if(!auWrite || !pStream || nCount<=0)
-			return false;
+			return TFALSE;
 		if(fwrite(auWrite,sizeof(unsigned int),nCount,pStream)!=nCount)
-			return false;
-		return true;
+			return TFALSE;
+		return TTRUE;
 	}
 
-	bool BinaryFileProcessor::writeShort(const short* asWrite,FILE* pStream,int nCount)
+	TBOOL BinaryFileProcessor::writeShort(const short* asWrite,FILE* pStream,int nCount)
 	{
 		if(!asWrite || !pStream || nCount<=0)
-			return false;
+			return TFALSE;
 		if(fwrite(asWrite,sizeof(short),nCount,pStream)!=nCount)
-			return false;
-		return true;
+			return TFALSE;
+		return TTRUE;
 	}
 
-	bool BinaryFileProcessor::writeUShort(const unsigned short* ausWrite,FILE* pStream,int nCount)
+	TBOOL BinaryFileProcessor::writeUShort(const unsigned short* ausWrite,FILE* pStream,int nCount)
 	{
 		if(!ausWrite || !pStream || nCount<=0)
-			return false;
+			return TFALSE;
 		if(fwrite(ausWrite,sizeof(unsigned short),nCount,pStream)!=nCount)
-			return false;
-		return true;
+			return TFALSE;
+		return TTRUE;
 	}
 
-	bool BinaryFileProcessor::writeLong(const long* alWrite,FILE* pStream,int nCount)
+	TBOOL BinaryFileProcessor::writeLong(const long* alWrite,FILE* pStream,int nCount)
 	{
 		if(!alWrite || !pStream || nCount<=0)
-			return false;
+			return TFALSE;
 		if(fwrite(alWrite,sizeof(long),nCount,pStream)!=nCount)
-			return false;
-		return true;
+			return TFALSE;
+		return TTRUE;
 	}
 
-	bool BinaryFileProcessor::writeULong(const unsigned long* aulWrite,FILE* pStream,int nCount)
+	TBOOL BinaryFileProcessor::writeULong(const unsigned long* aulWrite,FILE* pStream,int nCount)
 	{
 		if(!aulWrite || !pStream || nCount<=0)
-			return false;
+			return TFALSE;
 		if(fwrite(aulWrite,sizeof(unsigned long),nCount,pStream)!=nCount)
-			return false;
-		return true;
+			return TFALSE;
+		return TTRUE;
 	}
 
-	bool BinaryFileProcessor::writeFloat(const float* afWrite,FILE* pStream,int nCount)
+	TBOOL BinaryFileProcessor::writeFloat(const float* afWrite,FILE* pStream,int nCount)
 	{
 		if(!afWrite || !pStream || nCount<=0)
-			return false;
+			return TFALSE;
 		if(fwrite(afWrite,sizeof(float),nCount,pStream)!=nCount)
-			return false;
-		return true;
+			return TFALSE;
+		return TTRUE;
 	}
 
-	bool BinaryFileProcessor::writeDouble(const double* adWrite,FILE* pStream,int nCount)
+	TBOOL BinaryFileProcessor::writeDouble(const double* adWrite,FILE* pStream,int nCount)
 	{
 		if(!adWrite || !pStream || nCount<=0)
-			return false;
+			return TFALSE;
 		if(fwrite(adWrite,sizeof(double),nCount,pStream)!=nCount)
-			return false;
-		return true;
+			return TFALSE;
+		return TTRUE;
 	}
 
-	bool BinaryFileProcessor::writeString(const char* strWrite,FILE* pStream,size_t count)
+	TBOOL BinaryFileProcessor::writeString(const TCHAR* strWrite,FILE* pStream,size_t count)
 	{
 		if(!strWrite || !pStream)
-			return false;
+			return TFALSE;
 		// 先写数量
 		size_t charCount = count;
 		if(fwrite(&charCount,sizeof(size_t),1,pStream)!=1)
-			return false;
+			return TFALSE;
 		// 写内容
-		if(fwrite(strWrite,sizeof(char),count,pStream) < count)
-			return false;
-		return true;
+		if(fwrite(strWrite,sizeof(TCHAR),count,pStream) < count)
+			return TFALSE;
+		return TTRUE;
 	}
 
-	bool BinaryFileProcessor::readBytes(void* buffer,FILE* pStream,int sizeRead)
+	TBOOL BinaryFileProcessor::readBytes(TVOID* buffer,FILE* pStream,int sizeRead)
 	{
 		if(!buffer || !pStream || sizeRead<=0)
 		{
-			assert(false);
-			return false;
+			assert(TFALSE);
+			return TFALSE;
 		}
 		if(fread(buffer,1,sizeRead,pStream)!=sizeRead)
-			return false;
-		return false;
+			return TFALSE;
+		return TFALSE;
 	}
 
-	bool BinaryFileProcessor::readBoolean(bool* abResult,FILE* pStream,int nCount)
+	TBOOL BinaryFileProcessor::readBoolean(TBOOL* abResult,FILE* pStream,int nCount)
 	{
 		if(!abResult || !pStream || nCount<=0)
 		{
-			assert(false);
-			return false;
+			assert(TFALSE);
+			return TFALSE;
 		}
-		if(fread(abResult,sizeof(bool),nCount,pStream)!=nCount)
-			return false;
-		return false;
+		if(fread(abResult,sizeof(TBOOL),nCount,pStream)!=nCount)
+			return TFALSE;
+		return TFALSE;
 	}
 
-	bool BinaryFileProcessor::readInteger(int* aiResult,FILE* pStream,int nCount)
+	TBOOL BinaryFileProcessor::readInteger(int* aiResult,FILE* pStream,int nCount)
 	{
 		if(!aiResult || !pStream || nCount<=0)
 		{
-			assert(false);
-			return false;
+			assert(TFALSE);
+			return TFALSE;
 		}
 		if(fread(aiResult,sizeof(int),nCount,pStream)!=nCount)
-			return false;
-		return false;
+			return TFALSE;
+		return TFALSE;
 	}
 
-	bool BinaryFileProcessor::readUInteger(unsigned int* auResult,FILE* pStream,int nCount)
+	TBOOL BinaryFileProcessor::readUInteger(unsigned int* auResult,FILE* pStream,int nCount)
 	{
 		if(!auResult || !pStream || nCount<=0)
 		{
-			assert(false);
-			return false;
+			assert(TFALSE);
+			return TFALSE;
 		}
 		if(fread(auResult,sizeof(unsigned int),nCount,pStream)!=nCount)
-			return false;
-		return false;
+			return TFALSE;
+		return TFALSE;
 	}
 
-	bool BinaryFileProcessor::readShort(short* asResult,FILE* pStream,int nCount)
+	TBOOL BinaryFileProcessor::readShort(short* asResult,FILE* pStream,int nCount)
 	{
 		if(!asResult || !pStream || nCount<=0)
 		{
-			assert(false);
-			return false;
+			assert(TFALSE);
+			return TFALSE;
 		}
 		if(fread(asResult,sizeof(short),nCount,pStream)!=nCount)
-			return false;
-		return false;
+			return TFALSE;
+		return TFALSE;
 	}
 
-	bool BinaryFileProcessor::readUShort(unsigned short* ausResult,FILE* pStream,int nCount)
+	TBOOL BinaryFileProcessor::readUShort(unsigned short* ausResult,FILE* pStream,int nCount)
 	{
 		if(!ausResult || !pStream || nCount<=0)
 		{
-			assert(false);
-			return false;
+			assert(TFALSE);
+			return TFALSE;
 		}
 		if(fread(ausResult,sizeof(unsigned short),nCount,pStream)!=nCount)
-			return false;
-		return false;
+			return TFALSE;
+		return TFALSE;
 	}
 
-	bool BinaryFileProcessor::readLong(long* alResult,FILE* pStream,int nCount)
+	TBOOL BinaryFileProcessor::readLong(long* alResult,FILE* pStream,int nCount)
 	{
 		if(!alResult || !pStream || nCount<=0)
 		{
-			assert(false);
-			return false;
+			assert(TFALSE);
+			return TFALSE;
 		}
 		if(fread(alResult,sizeof(long),nCount,pStream)!=nCount)
-			return false;
-		return false;
+			return TFALSE;
+		return TFALSE;
 	}
 
-	bool BinaryFileProcessor::readULong(unsigned long* aulResult,FILE* pStream,int nCount)
+	TBOOL BinaryFileProcessor::readULong(unsigned long* aulResult,FILE* pStream,int nCount)
 	{
 		if(!aulResult || !pStream || nCount<=0)
 		{
-			assert(false);
-			return false;
+			assert(TFALSE);
+			return TFALSE;
 		}
 		if(fread(aulResult,sizeof(unsigned long),nCount,pStream)!=nCount)
-			return false;
-		return false;
+			return TFALSE;
+		return TFALSE;
 	}
 
-	bool BinaryFileProcessor::readFloat(float* afResult,FILE* pStream,int nCount)
+	TBOOL BinaryFileProcessor::readFloat(float* afResult,FILE* pStream,int nCount)
 	{
 		if(!afResult || !pStream || nCount<=0)
 		{
-			assert(false);
-			return false;
+			assert(TFALSE);
+			return TFALSE;
 		}
 		if(fread(afResult,sizeof(float),nCount,pStream)!=nCount)
-			return false;
-		return false;
+			return TFALSE;
+		return TFALSE;
 	}
 
-	bool BinaryFileProcessor::readDouble(double* adResult,FILE* pStream,int nCount)
+	TBOOL BinaryFileProcessor::readDouble(double* adResult,FILE* pStream,int nCount)
 	{
 		if(!adResult || !pStream || nCount<=0)
 		{
-			assert(false);
-			return false;
+			assert(TFALSE);
+			return TFALSE;
 		}
 		if(fread(adResult,sizeof(double),nCount,pStream)!=nCount)
-			return false;
-		return false;
+			return TFALSE;
+		return TFALSE;
 	}
 
-	bool BinaryFileProcessor::readString(char* strResult,FILE* pStream,const char* strCmp,bool* bEqual,int nCount,int* pReadCount)
+	TBOOL BinaryFileProcessor::readString(TCHAR* strResult,FILE* pStream,const TCHAR* strCmp,TBOOL* bEqual,int nCount,int* pReadCount)
 	{
 		if(!strResult || !pStream || nCount<=0)
 		{
-			assert(false);
-			return false;
+			assert(TFALSE);
+			return TFALSE;
 		}
 		memset(strResult,0,nCount);
 		// 读取大小
 		size_t strLen = 0;
 		if(fread(&strLen,sizeof(size_t),1,pStream)!=1)
-			return false;
+			return TFALSE;
 		if(strLen<=0)
 		{
 			if(pReadCount)
 				*pReadCount = (int)strLen;
-			return true;
+			return TTRUE;
 		}
-		char* szRead = new char[strLen];
+		TCHAR* szRead = new TCHAR[strLen];
 		memset(szRead,0,strLen);
-		if(fread(szRead,sizeof(char),strLen,pStream)!=strLen)
+		if(fread(szRead,sizeof(TCHAR),strLen,pStream)!=strLen)
 		{
 			delete [] szRead;
-			return false;
+			return TFALSE;
 		}
 		if(nCount < (int)strLen)
 		{
 			delete [] szRead;
-			return false;
+			return TFALSE;
 		}
 		strcpy(strResult,szRead);
 		if(pReadCount)
@@ -284,14 +284,14 @@ namespace TLunaEngine{
 		{
 			if(strcmp(strResult,strCmp)==0)
 			{
-				*bEqual=true;
+				*bEqual=TTRUE;
 			}
 			else
 			{
-				*bEqual=false;
+				*bEqual=TFALSE;
 			}
 		}
 		delete [] szRead;
-		return true;
+		return TTRUE;
 	}
 }

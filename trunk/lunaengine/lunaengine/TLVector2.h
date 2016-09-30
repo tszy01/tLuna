@@ -58,13 +58,13 @@ namespace TLunaEngine{
 
 		// 比较大小
 		// 必须X，Y同时满足条件
-		inline bool operator<=(const Vector2<T>&other) const { return X<=other.X && Y<=other.Y; }
-		inline bool operator>=(const Vector2<T>&other) const { return X>=other.X && Y>=other.Y; }
-		inline bool operator<(const Vector2<T>&other) const { return X<other.X && Y<other.Y; }
-		inline bool operator>(const Vector2<T>&other) const { return X>other.X && Y>other.Y; }
-		inline bool operator==(const Vector2<T>& other) const { return other.X==X && other.Y==Y; }
+		inline TBOOL operator<=(const Vector2<T>&other) const { return X<=other.X && Y<=other.Y; }
+		inline TBOOL operator>=(const Vector2<T>&other) const { return X>=other.X && Y>=other.Y; }
+		inline TBOOL operator<(const Vector2<T>&other) const { return X<other.X && Y<other.Y; }
+		inline TBOOL operator>(const Vector2<T>&other) const { return X>other.X && Y>other.Y; }
+		inline TBOOL operator==(const Vector2<T>& other) const { return other.X==X && other.Y==Y; }
 		// 不等于，有一个不等就返回真
-		inline bool operator!=(const Vector2<T>& other) const { return other.X!=X || other.Y!=Y; }
+		inline TBOOL operator!=(const Vector2<T>& other) const { return other.X!=X || other.Y!=Y; }
 
 		// ---------------------------------------------------------------------------------------
 
@@ -73,14 +73,14 @@ namespace TLunaEngine{
 		//! Checks if this vector equals the other one.
 		/** Takes floating point rounding errors into account.
 		\param other Vector to compare with.
-		\return True if the two vector are (almost) equal, else false. */
-		inline bool equals(const Vector2<T>& other) const
+		\return True if the two vector are (almost) equal, else TFALSE. */
+		inline TBOOL equals(const Vector2<T>& other) const
 		{
 			return TLunaEngine::equals(X, other.X) && TLunaEngine::equals(Y, other.Y);
 		}
 
-		inline void set(T nx, T ny) {X=nx; Y=ny; }
-		inline void set(const Vector2<T>& p) { X=p.X; Y=p.Y;}
+		inline TVOID set(T nx, T ny) {X=nx; Y=ny; }
+		inline TVOID set(const Vector2<T>& p) { X=p.X; Y=p.Y;}
 
 		//! Gets the length of the vector.
 		/** \return The length of the vector. */
@@ -121,7 +121,7 @@ namespace TLunaEngine{
 		//! rotates the point around a center by an amount of degrees.
 		/** \param degrees Amount of degrees to rotate by.
 		\param center Rotation center. */
-		inline void rotateBy(TF64 degrees, const Vector2<T>& center)
+		inline TVOID rotateBy(TF64 degrees, const Vector2<T>& center)
 		{
 			degrees *= DEGTORAD64;
 			T cs = (T)cos(degrees);
@@ -223,8 +223,8 @@ namespace TLunaEngine{
 		/** It is assumed that the point is on the line.
 		\param begin Beginning vector to compare between.
 		\param end Ending vector to compare between.
-		\return True if this vector is between begin and end, false if not. */
-		inline bool isBetweenPoints(const Vector2<T>& begin, const Vector2<T>& end) const
+		\return True if this vector is between begin and end, TFALSE if not. */
+		inline TBOOL isBetweenPoints(const Vector2<T>& begin, const Vector2<T>& end) const
 		{
 			T f = (end - begin).getLengthSQ();
 			return getDistanceFromSQ(begin) < f &&
@@ -263,14 +263,14 @@ namespace TLunaEngine{
 		/** \param a first vector to interpolate with
 		\param b second vector to interpolate with
 		\param t value between 0.0f and 1.0f. */
-		inline void interpolate(const Vector2<T>& a, const Vector2<T>& b, const TF32 t)
+		inline TVOID interpolate(const Vector2<T>& a, const Vector2<T>& b, const TF32 t)
 		{
 			X = b.X + ( ( a.X - b.X ) * t );
 			Y = b.Y + ( ( a.Y - b.Y ) * t );
 		}
 
 		// 得到数组
-		inline void GetArray(T* value)
+		inline TVOID GetArray(T* value)
 		{
 			if (!value)
 			{
