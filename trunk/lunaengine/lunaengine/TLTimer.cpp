@@ -86,7 +86,7 @@ namespace TLunaEngine{
 	}
 
 	//-------------------------------------------------------------------------
-	unsigned long Timer::getMilliseconds()
+	TU32 Timer::getMilliseconds()
 	{
 		LARGE_INTEGER curTime;
 
@@ -101,24 +101,24 @@ namespace TLunaEngine{
 		// Reset affinity
 		SetThreadAffinityMask(thread, oldMask);
 
-		LONGLONG newTime = curTime.QuadPart - mStartTime.QuadPart;
+		TS64 newTime = curTime.QuadPart - mStartTime.QuadPart;
     
 		// scale by 1000 for milliseconds
-		unsigned long newTicks = (unsigned long) (1000 * newTime / mFrequency.QuadPart);
+		TU32 newTicks = (TU32) (1000 * newTime / mFrequency.QuadPart);
 
 		// detect and compensate for performance counter leaps
 		// (surprisingly common, see Microsoft KB: Q274323)
-		unsigned long check = GetTickCount() - mStartTick;
-		signed long msecOff = (signed long)(newTicks - check);
+		TU32 check = GetTickCount() - mStartTick;
+		TS32 msecOff = (TS32)(newTicks - check);
 		if (msecOff < -100 || msecOff > 100)
 		{
 			// We must keep the timer running forward :)
-			LONGLONG adjust = (std::min)(msecOff * mFrequency.QuadPart / 1000, newTime - mLastTime);
+			TS64 adjust = (std::min)(msecOff * mFrequency.QuadPart / 1000, newTime - mLastTime);
 			mStartTime.QuadPart += adjust;
 			newTime -= adjust;
 
 			// Re-calculate milliseconds
-			newTicks = (unsigned long) (1000 * newTime / mFrequency.QuadPart);
+			newTicks = (TU32) (1000 * newTime / mFrequency.QuadPart);
 		}
 
 		// Record last time for adjust
@@ -128,7 +128,7 @@ namespace TLunaEngine{
 	}
 
 	//-------------------------------------------------------------------------
-	unsigned long Timer::getMicroseconds()
+	TU32 Timer::getMicroseconds()
 	{
 		LARGE_INTEGER curTime;
 
@@ -143,19 +143,19 @@ namespace TLunaEngine{
 		// Reset affinity
 		SetThreadAffinityMask(thread, oldMask);
 
-		LONGLONG newTime = curTime.QuadPart - mStartTime.QuadPart;
+		TS64 newTime = curTime.QuadPart - mStartTime.QuadPart;
     
 		// get milliseconds to check against GetTickCount
-		unsigned long newTicks = (unsigned long) (1000 * newTime / mFrequency.QuadPart);
+		TU32 newTicks = (TU32) (1000 * newTime / mFrequency.QuadPart);
     
 		// detect and compensate for performance counter leaps
 		// (surprisingly common, see Microsoft KB: Q274323)
-		unsigned long check = GetTickCount() - mStartTick;
-		signed long msecOff = (signed long)(newTicks - check);
+		TU32 check = GetTickCount() - mStartTick;
+		TS32 msecOff = (TS32)(newTicks - check);
 		if (msecOff < -100 || msecOff > 100)
 		{
 			// We must keep the timer running forward :)
-			LONGLONG adjust = (std::min)(msecOff * mFrequency.QuadPart / 1000, newTime - mLastTime);
+			TS64 adjust = (std::min)(msecOff * mFrequency.QuadPart / 1000, newTime - mLastTime);
 			mStartTime.QuadPart += adjust;
 			newTime -= adjust;
 		}
@@ -164,23 +164,23 @@ namespace TLunaEngine{
 		mLastTime = newTime;
 
 		// scale by 1000000 for microseconds
-		unsigned long newMicro = (unsigned long) (1000000 * newTime / mFrequency.QuadPart);
+		TU32 newMicro = (TU32) (1000000 * newTime / mFrequency.QuadPart);
 
 		return newMicro;
 	}
 
 	//-------------------------------------------------------------------------
-	unsigned long Timer::getMillisecondsCPU()
+	TU32 Timer::getMillisecondsCPU()
 	{
 		clock_t newClock = clock();
-		return (unsigned long)( (float)( newClock - mZeroClock ) / ( (float)CLOCKS_PER_SEC / 1000.0 ) ) ;
+		return (TU32)( (TF32)( newClock - mZeroClock ) / ( (TF32)CLOCKS_PER_SEC / 1000.0 ) ) ;
 	}
 
 	//-------------------------------------------------------------------------
-	unsigned long Timer::getMicrosecondsCPU()
+	TU32 Timer::getMicrosecondsCPU()
 	{
 		clock_t newClock = clock();
-		return (unsigned long)( (float)( newClock - mZeroClock ) / ( (float)CLOCKS_PER_SEC / 1000000.0 ) ) ;
+		return (TU32)( (TF32)( newClock - mZeroClock ) / ( (TF32)CLOCKS_PER_SEC / 1000000.0 ) ) ;
 	}
 
 }

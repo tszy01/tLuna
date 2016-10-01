@@ -28,7 +28,7 @@ namespace TLunaEngine
 		return TNULL;
 	}
 
-	size_t RenderDeviceCompiledShader_D3D11::getBufferSize()
+	TSIZE RenderDeviceCompiledShader_D3D11::getBufferSize()
 	{
 		if(mD3DBlob)
 		{
@@ -44,17 +44,17 @@ namespace TLunaEngine
 		if(mD3DBlob)
 			return TFALSE;
 		TVOID* buffer = 0;
-		size_t readSize = 0;
+		TU64 readSize = 0;
 		if(!TxtFileReader::ReadAllFile(file,"rb",&buffer,&readSize))
 			return TFALSE;
 		if(!buffer || readSize<=0)
 			return TFALSE;
-		if(FAILED(D3DCreateBlob(readSize,&mD3DBlob)))
+		if(FAILED(D3DCreateBlob((TSIZE)readSize,&mD3DBlob)))
 		{
 			free(buffer);
 			return TFALSE;
 		}
-		memcpy(mD3DBlob->GetBufferPointer(),buffer,readSize);
+		memcpy(mD3DBlob->GetBufferPointer(),buffer,(TSIZE)readSize);
 		free(buffer);
 		return TTRUE;
 	}
@@ -68,13 +68,13 @@ namespace TLunaEngine
 		if(mD3DBlob->GetBufferSize() == 0)
 			return TFALSE;
 		FILE* stream = 0;
-		int re = fopen_s(&stream,file,"wb");
+		TS32 re = fopen_s(&stream,file,"wb");
 		if(re!=0)
 		{
 			return TFALSE;
 		}
-		size_t writeSize = fwrite(mD3DBlob->GetBufferPointer(),1,mD3DBlob->GetBufferSize(),stream);
-		if(writeSize!=mD3DBlob->GetBufferSize())
+		TSIZE writeSize = (TSIZE)fwrite(mD3DBlob->GetBufferPointer(),1,mD3DBlob->GetBufferSize(),stream);
+		if(writeSize!=(TSIZE)mD3DBlob->GetBufferSize())
 		{
 			fclose(stream);
 			return TFALSE;
@@ -105,7 +105,7 @@ namespace TLunaEngine
 #endif
 
 		ID3DBlob* pErrorBlob;
-		size_t strCount = strlen(szFile);
+		TU32 strCount = (TU32)strlen(szFile);
 		TWCHAR* wStr = new TWCHAR[strCount+1];
 		mbstowcs(wStr,szFile,strCount);
 		wStr[strCount] = L'\0';

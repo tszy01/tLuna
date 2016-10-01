@@ -15,8 +15,8 @@ namespace TLunaEngine{
 	{
 	}
 
-	TBOOL GUIPicture::InitGUIPicture(int iIndex,GUIContainer* pContainer,TS32 x,TS32 y,TS32 width,TS32 height,
-									  int iTexID, float texX, float texY, float texR, float texB)
+	TBOOL GUIPicture::InitGUIPicture(TS32 iIndex,GUIContainer* pContainer,TS32 x,TS32 y,TS32 width,TS32 height,
+									  TS32 iTexID, TF32 texX, TF32 texY, TF32 texR, TF32 texB)
 	{
 		if (!GUICtrl::InitCtrlBase(iIndex,pContainer,x,y,width,height))
 		{
@@ -42,12 +42,12 @@ namespace TLunaEngine{
 		GUICtrl::DestroyCtrl();
 	}
 
-	TBOOL GUIPicture::Update(float fTimeElapsed)
+	TBOOL GUIPicture::Update(TF32 fTimeElapsed)
 	{
 		return GUICtrl::Update(fTimeElapsed);
 	}
 
-	TBOOL GUIPicture::Render(float fTimeElapsed)
+	TBOOL GUIPicture::Render(TF32 fTimeElapsed)
 	{
 		if (!GUICtrl::Render(fTimeElapsed))
 		{

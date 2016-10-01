@@ -12,7 +12,7 @@ namespace TLunaEngine{
 	public:
 		DateTime(TVOID);
 		~DateTime(TVOID);
-		DateTime(int year,int month,int day);
+		DateTime(TS32 year,TS32 month,TS32 day);
 		DateTime(const DateTime& dateTime);
 	public:
 		enum DAY_OF_WEEK
@@ -27,36 +27,36 @@ namespace TLunaEngine{
 			DOW_DAY_COUNT
 		};
 	private:
-		int m_Year;
-		int m_Month;
-		int m_Day;
+		TS32 m_Year;
+		TS32 m_Month;
+		TS32 m_Day;
 	public:
 		// 得到字符串
 		DAY_OF_WEEK GetDayOfWeek();
 		String GetDayOfWeekString();
 		String GetDateString();
 		// 得到数值
-		inline int GetYear()
+		inline TS32 GetYear()
 		{
 			return m_Year;
 		}
-		inline int GetMonth()
+		inline TS32 GetMonth()
 		{
 			return m_Month;
 		}
-		inline int GetDay()
+		inline TS32 GetDay()
 		{
 			return m_Day;
 		}
 		// 设置值
-		inline TVOID SetDateTime(int year,int month,int day)
+		inline TVOID SetDateTime(TS32 year,TS32 month,TS32 day)
 		{
 			m_Year = year;
 			m_Month = month;
 			m_Day = day;
 		}
 		// 这个nDays可以是负数，那就是减
-		TVOID AddDays(int nDays);
+		TVOID AddDays(TS32 nDays);
 		// 是否和另一个相等
 		TBOOL IsEqual(const DateTime& dateTime);
 	private:

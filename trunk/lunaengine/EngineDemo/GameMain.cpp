@@ -186,7 +186,7 @@ int PASCAL WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmLine,
 
 	// read command
 	TLunaEngine::String strCmd(lpCmLine);
-	int nCmd = 1;
+	TLunaEngine::TU32 nCmd = 1;
 	std::vector<TLunaEngine::String> cmds = strCmd.Split(' ', &nCmd);
 	for (int i = 0;i < (int)cmds.size();++i)
 	{

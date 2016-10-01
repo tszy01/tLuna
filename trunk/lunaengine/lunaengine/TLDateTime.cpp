@@ -10,7 +10,7 @@ namespace TLunaEngine{
 	{
 	}
 
-	DateTime::DateTime(int year, int month, int day) : m_Year(year),m_Month(month),m_Day(day)
+	DateTime::DateTime(TS32 year, TS32 month, TS32 day) : m_Year(year),m_Month(month),m_Day(day)
 	{
 	}
 
@@ -18,13 +18,13 @@ namespace TLunaEngine{
 	{
 	}
 
-	TVOID DateTime::AddDays(int nDays)
+	TVOID DateTime::AddDays(TS32 nDays)
 	{
 		if(nDays==0)
 			return;
 		else if(nDays>0)
 		{
-			int count = nDays;
+			TS32 count = nDays;
 			while(count>0)
 			{
 				AddOneDay();
@@ -33,7 +33,7 @@ namespace TLunaEngine{
 		}
 		else if(nDays<0)
 		{
-			int count = nDays * -1;
+			TS32 count = nDays * -1;
 			while(count>0)
 			{
 				SubOneDay();
@@ -44,7 +44,7 @@ namespace TLunaEngine{
 
 	TVOID DateTime::AddOneDay()
 	{
-		int newDay = m_Day + 1;
+		TS32 newDay = m_Day + 1;
 		TBOOL bRun = m_Year % 4 == 0 && m_Year % 100 !=0 || m_Year % 400 ==0; //闰年可以被4或者400整除 但是不能被100整除
 		TBOOL bAddMonth = TFALSE;
 		if(m_Month==2)
@@ -91,13 +91,13 @@ namespace TLunaEngine{
 
 	TVOID DateTime::SubOneDay()
 	{
-		int newDay = m_Day - 1;
+		TS32 newDay = m_Day - 1;
 		TBOOL bRun = m_Year % 4 == 0 && m_Year % 100 !=0 || m_Year % 400 ==0; //闰年可以被4或者400整除 但是不能被100整除
 		TBOOL bSubMonth = TFALSE;
 		if(newDay<=0)
 			bSubMonth = TTRUE;
-		int newMonth = m_Month;
-		int newYear = m_Year;
+		TS32 newMonth = m_Month;
+		TS32 newYear = m_Year;
 		if(bSubMonth)
 		{
 			newMonth -= 1;
@@ -144,13 +144,13 @@ namespace TLunaEngine{
 			m_Month += 12;  
 			m_Year--;  
 		}  
-		int A = (m_Day + 2*m_Month + 3*(m_Month+1)/5 + m_Year + m_Year/4 - m_Year/100 + m_Year/400) % 7;
+		TS32 A = (m_Day + 2*m_Month + 3*(m_Month+1)/5 + m_Year + m_Year/4 - m_Year/100 + m_Year/400) % 7;
 		return (DateTime::DAY_OF_WEEK)A;
 	}
 
 	String DateTime::GetDayOfWeekString()
 	{
-		int dow = (int)GetDayOfWeek();
+		TS32 dow = (TS32)GetDayOfWeek();
 		switch(dow)
 		{
 		case 0:

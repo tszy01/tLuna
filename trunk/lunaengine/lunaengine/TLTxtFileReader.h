@@ -30,7 +30,7 @@ namespace TLunaEngine{
 		// out bEqual:是否和比较的字符段匹配，如果没有比较，传0
 		// in nCount:一共可以装几个字符
 		// out pReadCount:返回实际读取的字符
-		static TBOOL ReadLineString(TCHAR* strResult,FILE* pStream,TCHAR* strCmp,TBOOL* bEqual,int nCount,int* pReadCount);
+		static TBOOL ReadLineString(TCHAR* strResult,FILE* pStream,TCHAR* strCmp,TBOOL* bEqual, TU32 nCount, TU32* pReadCount);
 
 		// 读取一行整数
 		// 返回：是否成功
@@ -38,15 +38,15 @@ namespace TLunaEngine{
 		// in pStream:文件指针
 		// in nCount:需要读几个整形数据
 		// in splice:用于分割N个数据的字符
-		static TBOOL ReadLineInteger(int* aiResult,FILE* pStream,int nCount,TCHAR splice);
+		static TBOOL ReadLineInteger(TS32* aiResult,FILE* pStream, TU32 nCount,TCHAR splice);
 
-		// 读取一行long
+		// 读取一行long long
 		// 返回：是否成功
 		// out alResult:返回的整形数组
 		// in pStream:文件指针
 		// in nCount:需要读几个整形数据
 		// in splice:用于分割N个数据的字符
-		static TBOOL ReadLineLong(long* alResult,FILE* pStream,int nCount,TCHAR splice);
+		static TBOOL ReadLineLongLong(TS64* allResult,FILE* pStream, TU32 nCount,TCHAR splice);
 
 		// 读取一行无符号整数
 		// 返回：是否成功
@@ -54,21 +54,21 @@ namespace TLunaEngine{
 		// in pStream:文件指针
 		// in nCount:需要读几个整形数据
 		// in splice:用于分割N个数据的字符
-		static TBOOL ReadLineUInteger(unsigned int* auResult,FILE* pStream,int nCount,TCHAR splice);
+		static TBOOL ReadLineUInteger(TU32* auResult,FILE* pStream, TU32 nCount,TCHAR splice);
 
-		// 读取一行无符号long
+		// 读取一行无符号long long
 		// 返回：是否成功
 		// out aulResult:返回的整形数组
 		// in pStream:文件指针
 		// in nCount:需要读几个整形数据
 		// in splice:用于分割N个数据的字符
-		static TBOOL ReadLineULong(unsigned long* aulResult,FILE* pStream,int nCount,TCHAR splice);
+		static TBOOL ReadLineULongLong(TU64* aullResult,FILE* pStream, TU32 nCount,TCHAR splice);
 
 		// read short
-		static TBOOL ReadLineShort(short* asResult,FILE* pStream,int nCount,TCHAR splice);
+		static TBOOL ReadLineShort(TS16* asResult,FILE* pStream, TU32 nCount,TCHAR splice);
 
 		// read ushort
-		static TBOOL ReadLineUShort(unsigned short* ausResult,FILE* pStream,int nCount,TCHAR splice);
+		static TBOOL ReadLineUShort(TU16* ausResult,FILE* pStream, TU32 nCount,TCHAR splice);
 
 		// 读取一行浮点数
 		// 返回：是否成功
@@ -76,7 +76,7 @@ namespace TLunaEngine{
 		// in pStream:文件指针
 		// in nCount:需要读几个浮点数数据
 		// in splice:用于分割N个数据的字符
-		static TBOOL ReadLineFloat(float* afResult,FILE* pStream,int nCount,TCHAR splice);
+		static TBOOL ReadLineFloat(TF32* afResult,FILE* pStream, TU32 nCount,TCHAR splice);
 
 		// 读取一行双精度
 		// 返回：是否成功
@@ -84,7 +84,7 @@ namespace TLunaEngine{
 		// in pStream:文件指针
 		// in nCount:需要读几个浮点数数据
 		// in splice:用于分割N个数据的字符
-		static TBOOL ReadLineDouble(double* adResult,FILE* pStream,int nCount,TCHAR splice);
+		static TBOOL ReadLineDouble(TF64* adResult,FILE* pStream, TU32 nCount,TCHAR splice);
 
 		// 读取全部文本内容
 		// 返回：是否成功
@@ -93,7 +93,7 @@ namespace TLunaEngine{
 		// szFile,in,file name to read
 		// mode,in,read mode
 		// note:函数本身会为buffer分配内存，请在外部释放
-		static TBOOL ReadAllFile(const TCHAR* szFile,const TCHAR* mode,TVOID** buffer,size_t* readByte);
+		static TBOOL ReadAllFile(const TCHAR* szFile,const TCHAR* mode,TVOID** buffer,TU64* pCount);
 	};
 
 }

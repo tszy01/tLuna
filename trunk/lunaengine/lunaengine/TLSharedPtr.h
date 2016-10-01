@@ -45,7 +45,7 @@ namespace TLunaEngine {
 	{
 	protected:
 		T* pRep;
-		unsigned int* pUseCount;
+		TU32* pUseCount;
 		SharedPtrFreeMethod useFreeMethod;
 	public:
 		Mutex mMutex;
@@ -58,7 +58,7 @@ namespace TLunaEngine {
         template< class Y>
 		explicit SharedPtr(Y* rep, SharedPtrFreeMethod freeMethod = SPFM_DELETE) 
 			: pRep(rep)
-			, pUseCount(rep ? new unsigned int() : 0)
+			, pUseCount(rep ? new TU32() : 0)
 			, useFreeMethod(freeMethod)
 		{
 			mMutex.SetNull();
@@ -152,7 +152,7 @@ namespace TLunaEngine {
 			mMutex.CreateMutexHandle();
 			Lock lock;
 			lock.LockMutex(mMutex);
-			pUseCount = new unsigned int();
+			pUseCount = new TU32();
 			(*pUseCount) = 1;
 			pRep = rep;
 			useFreeMethod = freeMethod;
@@ -165,14 +165,14 @@ namespace TLunaEngine {
 			assert(pUseCount); 
 			return *pUseCount == 1; 
 		}
-		inline unsigned int useCount() const 
+		inline TU32 useCount() const
 		{
 			Lock lock;
 			lock.LockMutex(mMutex); 
 			assert(pUseCount); 
 			return *pUseCount; 
 		}
-		inline unsigned int* useCountPointer() const { return pUseCount; }
+		inline TU32* useCountPointer() const { return pUseCount; }
 
 		inline T* getPointer() const { return pRep; }
 		inline SharedPtrFreeMethod freeMethod() const { return useFreeMethod; }

@@ -64,9 +64,9 @@ namespace TLunaEngine{
 					TU32 *texp = texd;
 					offset = size - bits.rows;
 					TBOOL cflag = TFALSE;
-					for (int i = 0;i < bits.rows;i++){
+					for (TS32 i = 0;i < bits.rows;i++){
 						TU32 *rowp = texp;
-						for (int j = 0;j < bits.width;j++){
+						for (TS32 j = 0;j < bits.width;j++){
 							if (*pt){
 								if (cflag){
 									*rowp = *pt;
@@ -136,7 +136,7 @@ namespace TLunaEngine{
 		library = TNULL;
 	}
 
-	TBOOL GUIFont::InitFont(const TCHAR* filename, TU32 size,TU32 texPageSize,int id,FT_Library lib)
+	TBOOL GUIFont::InitFont(const TCHAR* filename, TU32 size,TU32 texPageSize,TS32 id,FT_Library lib)
 	{
 		if(filename==TNULL || lib==TNULL || texPageSize<=0 || size<=0)
 		{
@@ -149,7 +149,7 @@ namespace TLunaEngine{
 		}
 		// 创建文字个体
 		m_Glyphs = new FontGlyph[face->num_glyphs];
-		for (int i = 0;i < face->num_glyphs;i++){
+		for (TS32 i = 0;i < face->num_glyphs;i++){
 			m_Glyphs[i].face = &face;
 			m_Glyphs[i].cached = TFALSE;
 		}
@@ -178,9 +178,9 @@ namespace TLunaEngine{
 		// 摆放规则
 		// 从大到小，先摆放大的，然后摆放小的，竖着摆，一列为一行
 		// 第一遍存放到map中
-		std::map<TU32,std::vector<int>> texHeightMap;
+		std::map<TU32,std::vector<TS32>> texHeightMap;
 		TU32 maxHeight=0,minHeight=0,count=0;
-		for (int i = 0;i < face->num_glyphs;i++){
+		for (TS32 i = 0;i < face->num_glyphs;i++){
 			if(m_Glyphs[i].cached)
 			{
 				texHeightMap[m_Glyphs[i].imgh].push_back(i);
@@ -207,7 +207,7 @@ namespace TLunaEngine{
 		TU32 nextWidth = 0;
 		while(nowHeight>=minHeight)
 		{
-			std::map<TU32,std::vector<int>>::iterator itrFind = texHeightMap.find(nowHeight);
+			std::map<TU32,std::vector<TS32>>::iterator itrFind = texHeightMap.find(nowHeight);
 			if(itrFind!=texHeightMap.end())
 			{
 				if(itrFind->second.size()>0)
@@ -266,7 +266,7 @@ namespace TLunaEngine{
 		TU32 maxRowPerPage = mPageSize / maxHeight;
 		while(nowHeight>=minHeight)
 		{
-			std::map<TU32,std::vector<int>>::iterator itrFind = texHeightMap.find(nowHeight);
+			std::map<TU32,std::vector<TS32>>::iterator itrFind = texHeightMap.find(nowHeight);
 			if(itrFind!=texHeightMap.end())
 			{
 				if(itrFind->second.size()>0)
@@ -274,9 +274,9 @@ namespace TLunaEngine{
 					if(nowHeight==maxHeight)
 					{
 						fontCountPerLine = 1;
-						for(size_t index=0;index<itrFind->second.size();++index)
+						for(TU32 index=0;index<(TU32)itrFind->second.size();++index)
 						{
-							int& iFont = itrFind->second.at(index);
+							TS32& iFont = itrFind->second.at(index);
 							texp = mPageBufferList[copyPage] + widthStep + rowCount*maxHeight*mPageSize;
 							TU32* pt = m_Glyphs[iFont].texd;
 							for (TU32 i = 0;i < m_Glyphs[iFont].imgh;i++){
@@ -320,9 +320,9 @@ namespace TLunaEngine{
 						}
 						TU32 countFontPerLine = 0;
 						TU32 countLine = 0;
-						for(size_t index=0;index<itrFind->second.size();++index)
+						for(TU32 index=0;index<(TU32)itrFind->second.size();++index)
 						{
-							int& iFont = itrFind->second.at(index);
+							TS32& iFont = itrFind->second.at(index);
 							texp = mPageBufferList[copyPage] + widthStep + rowCount*maxHeight*mPageSize + countFontPerLine*nowHeight*mPageSize;
 							TU32* pt = m_Glyphs[iFont].texd;
 							for (TU32 i = 0;i < m_Glyphs[iFont].imgh;i++){
@@ -458,7 +458,7 @@ namespace TLunaEngine{
 		TBOOL catched = TFALSE;
 		TU32 n = GetGlyphByChar(c,catched);
 		if ( n > 0){
-			int w = m_Glyphs[n - 1].texw;
+			TS32 w = m_Glyphs[n - 1].texw;
 			TS32 left = m_Glyphs[n - 1].left;
 			if (w + left > 0) return w + left;
 		}
@@ -469,7 +469,7 @@ namespace TLunaEngine{
 		}
 	}
 
-	TVOID GUIFont::PreDraw(int n,TS32* imgw,TS32* imgh,TS32* texw,TS32* texh,TS32* offx,TS32* offy,
+	TVOID GUIFont::PreDraw(TS32 n,TS32* imgw,TS32* imgh,TS32* texw,TS32* texh,TS32* offx,TS32* offy,
 			TF32* texStartU,TF32* texEndU,TF32* texStartV,TF32* texEndV,TU32* pageIndex)
 	{
 		if (!imgw || !imgh || !texw || !texh || !offx || !offy || !texStartU || !texEndU || !texStartV || !texEndV || !pageIndex)

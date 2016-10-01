@@ -32,7 +32,7 @@ namespace TLunaEngine{
 		TCHAR strCmp[16] = {0};
 		sprintf_s(strCmp,16,"TUI_CTRL_100");
 		TCHAR strResult[1024] = {0};
-		int nCount = 1024;
+		TS32 nCount = 1024;
 		if(!TxtFileReader::ReadLineString(strResult,stream,strCmp,&bEqual,nCount,TNULL))
 		{
 			TxtFileReader::CloseTxtFile(stream);
@@ -66,14 +66,14 @@ namespace TLunaEngine{
 			return TFALSE;
 		}
 		// 准备变量
-		int containerID = -1;
-		int rc[4] = {0};
-		int ctrlNum = 0;
-		int subContainerNum = 0;
-		int iAnimeType = 0;
+		TS32 containerID = -1;
+		TS32 rc[4] = {0};
+		TS32 ctrlNum = 0;
+		TS32 subContainerNum = 0;
+		TS32 iAnimeType = 0;
 		// 临时变量
 		TCHAR strResult[1024] = {0};
-		int nCount = 1024;
+		TS32 nCount = 1024;
 		TBOOL bEqual = TFALSE;
 		// Container_Begin
 		TxtFileReader::ReadLineString(strResult,stream,"Container_Begin",&bEqual,1024,TNULL);
@@ -106,7 +106,7 @@ namespace TLunaEngine{
 		}
 		// SubCtrl
 		TxtFileReader::ReadLineInteger(&ctrlNum,stream,1,' ');
-		for (int i=0;i<ctrlNum;i++)
+		for (TS32 i=0;i<ctrlNum;i++)
 		{
 			GUICtrl* pSubCtrl = TNULL;
 			if (!LoadCtrl(stream,pNewContainer,&pSubCtrl))
@@ -116,7 +116,7 @@ namespace TLunaEngine{
 		}
 		// SubContainer
 		TxtFileReader::ReadLineInteger(&subContainerNum,stream,1,' ');
-		for (int i=0;i<subContainerNum;i++)
+		for (TS32 i=0;i<subContainerNum;i++)
 		{
 			GUIContainer* pSubContainer = TNULL;
 			if (!LoadContainer(stream,pNewContainer,&pSubContainer))
@@ -142,12 +142,12 @@ namespace TLunaEngine{
 		}
 		if (yAnimeType != 0)
 		{
-			float fChangedPerSec = 0;
-			int nAnimeTimes = 0;
+			TF32 fChangedPerSec = 0;
+			TS32 nAnimeTimes = 0;
 			if (yAnimeType & CAT_FADE)
 			{
 				// 淡入淡出
-				int iFadeType = -1;
+				TS32 iFadeType = -1;
 				TxtFileReader::ReadLineInteger(&iFadeType,stream,1,' ');
 				TxtFileReader::ReadLineFloat(&fChangedPerSec,stream,1,' ');
 				TxtFileReader::ReadLineInteger(&nAnimeTimes,stream,1,' ');
@@ -159,8 +159,8 @@ namespace TLunaEngine{
 			if (yAnimeType & CAT_PIC_CHANGE)
 			{
 				// 图片帧动画
-				int iStartIndex = -1;
-				int iEndIndex = -1;
+				TS32 iStartIndex = -1;
+				TS32 iEndIndex = -1;
 				TxtFileReader::ReadLineInteger(&iStartIndex,stream,1,' ');
 				TxtFileReader::ReadLineInteger(&iEndIndex,stream,1, ' ');
 				TxtFileReader::ReadLineFloat(&fChangedPerSec,stream,1,' ');
@@ -195,12 +195,12 @@ namespace TLunaEngine{
 			return TFALSE;
 		}
 		// 准备变量
-		int index = -1;
-		int rc[4] = {0};
-		int type = 0;
+		TS32 index = -1;
+		TS32 rc[4] = {0};
+		TS32 type = 0;
 		// 临时变量
 		TCHAR strResult[1024] = {0};
-		int nCount = 1024;
+		TS32 nCount = 1024;
 		TBOOL bEqual = TFALSE;
 		// Container_Begin
 		TxtFileReader::ReadLineString(strResult,stream,"Ctrl_Begin",&bEqual,1024,TNULL);
@@ -224,8 +224,8 @@ namespace TLunaEngine{
 			GUICtrl* pNewCtrl = new GUIPicture();
 			(*ppCtrl) = pNewCtrl;
 			pParentContainer->AddCtrl(pNewCtrl);
-			int texID = -1;
-			float texRC[4] = {0};
+			TS32 texID = -1;
+			TF32 texRC[4] = {0};
 			// 注意这里没有判断TEXID的合法性
 			TxtFileReader::ReadLineInteger(&texID,stream,1,' ');
 			TxtFileReader::ReadLineFloat(texRC,stream,4,',');
@@ -241,14 +241,14 @@ namespace TLunaEngine{
 			GUICtrl* pNewCtrl = new GUIText();
 			(*ppCtrl) = pNewCtrl;
 			pParentContainer->AddCtrl(pNewCtrl);
-			int fontID = -1;
-			float fontColor[4] = {0};
+			TS32 fontID = -1;
+			TF32 fontColor[4] = {0};
 			// 注意这里没有判断fontID的合法性
 			TxtFileReader::ReadLineInteger(&fontID,stream,1,' ');
 			TxtFileReader::ReadLineFloat(fontColor,stream,4,',');
 			GUIText* pText = (GUIText*)pNewCtrl;
 			if (!pText->InitGUIText(index,pParentContainer,(TS32)rc[0],(TS32)rc[1],(TS32)rc[2],
-				(TS32)rc[3],fontID,TLunaEngine::Vector4<float>(fontColor[0],fontColor[1],fontColor[2],fontColor[3])))
+				(TS32)rc[3],fontID,TLunaEngine::Vector4<TF32>(fontColor[0],fontColor[1],fontColor[2],fontColor[3])))
 			{
 				return TFALSE;
 			}

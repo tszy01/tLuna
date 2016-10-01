@@ -423,7 +423,7 @@ namespace TLunaEngine
 		//pointer to the image data
 		TUByte* bits(0);
 		//image width and height
-		unsigned int width(0), height(0);
+		TU32 width(0), height(0);
 		//check the file signature and deduce its format
 		fif = FreeImage_GetFileType(file, 0);
 		//if still unknown, try to guess the file format from the file extension
@@ -445,9 +445,9 @@ namespace TLunaEngine
 			return TNULL;
 		}
 		// 得到一个像素的大小，单位是位
-		unsigned int pixelBits = FreeImage_GetBPP(dib);
+		TU32 pixelBits = FreeImage_GetBPP(dib);
 		// 得到一行的大小，单位是字节
-		unsigned int rawSize = FreeImage_GetLine(dib);
+		TU32 rawSize = FreeImage_GetLine(dib);
 		// 得到Image类型
 		FREE_IMAGE_TYPE fit = FreeImage_GetImageType(dib);
 		//retrieve the image data
@@ -502,12 +502,12 @@ namespace TLunaEngine
 		TUByte* newBuff = new TUByte[rawSize*height];
 		if(pixelBits==32)
 		{
-			int count = 0;
+			TS32 count = 0;
 			// Calculate the number of bytes per pixel (3 for 24-bit or 4 for 32-bit)
-			int bytespp = rawSize / width;
-			for(unsigned int y = 0; y < height; y++) {
+			TS32 bytespp = rawSize / width;
+			for(TU32 y = 0; y < height; y++) {
 				TUByte *bits = FreeImage_GetScanLine(dib, y);
-				for(unsigned x = 0; x < width; x++) {
+				for(TU32 x = 0; x < width; x++) {
 					// Set pixel color to green with a transparency of 128
 					newBuff[count*4+0] = bits[FI_RGBA_RED];
 					newBuff[count*4+1] = bits[FI_RGBA_GREEN];
@@ -521,12 +521,12 @@ namespace TLunaEngine
 		}
 		else if(pixelBits==24)
 		{
-			int count = 0;
+			TS32 count = 0;
 			// Calculate the number of bytes per pixel (3 for 24-bit or 4 for 32-bit)
-			int bytespp = rawSize / width;
-			for(unsigned int y = 0; y < height; y++) {
+			TS32 bytespp = rawSize / width;
+			for(TU32 y = 0; y < height; y++) {
 				TUByte *bits = FreeImage_GetScanLine(dib, y);
-				for(unsigned x = 0; x < width; x++) {
+				for(TU32 x = 0; x < width; x++) {
 					// Set pixel color to green with a transparency of 128
 					newBuff[count*3+0] = bits[FI_RGBA_RED];
 					newBuff[count*3+1] = bits[FI_RGBA_GREEN];

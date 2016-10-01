@@ -14,7 +14,7 @@ namespace TLunaEngine{
 		clock_t mZeroClock;
 
 		TU32 mStartTick;
-		LONGLONG mLastTime;
+		TS64 mLastTime;
 		LARGE_INTEGER mStartTime;
 		LARGE_INTEGER mFrequency;
 
@@ -50,16 +50,16 @@ namespace TLunaEngine{
 		TVOID reset();
 
 		/** Returns milliseconds since initialisation or last reset */
-		unsigned long getMilliseconds();
+		TU32 getMilliseconds();
 
 		/** Returns microseconds since initialisation or last reset */
-		unsigned long getMicroseconds();
+		TU32 getMicroseconds();
 
 		/** Returns milliseconds since initialisation or last reset, only CPU time measured */
-		unsigned long getMillisecondsCPU();
+		TU32 getMillisecondsCPU();
 
 		/** Returns microseconds since initialisation or last reset, only CPU time measured */
-		unsigned long getMicrosecondsCPU();
+		TU32 getMicrosecondsCPU();
 	};
 }
 

@@ -143,7 +143,7 @@ namespace TLunaEngine{
 		*	\return		TTRUE on intersection
 		*/
 		///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		inline TBOOL intersectsWithBox(const AABBox<T>& other, int axis)	const
+		inline TBOOL intersectsWithBox(const AABBox<T>& other, TS32 axis)	const
 		{
 			if(Max[axis] < other.Min[axis] || other.Max[axis] < Min[axis])	return TFALSE;
 			return TTRUE;
@@ -322,7 +322,7 @@ namespace TLunaEngine{
 				{ t=Min.Z; Min.Z = Max.Z; Max.Z=t; }
 		}
 
-		//! Operator for AABB *= float. Scales the extents, keeps same center.
+		//! Operator for AABB *= T. Scales the extents, keeps same center.
 		inline AABBox<T>& scale(T s)
 		{
 			Vector3<T> Center = getCenter();

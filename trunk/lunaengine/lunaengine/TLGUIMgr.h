@@ -33,7 +33,7 @@ namespace TLunaEngine{
 			m_pRootContainer = pContainer;
 		}
 		// 根据ID找到容器
-		inline GUIContainer* FindContainer(int iID)
+		inline GUIContainer* FindContainer(TS32 iID)
 		{
 			if (m_pRootContainer)
 			{
@@ -51,7 +51,7 @@ namespace TLunaEngine{
 			}
 		}
 		// 帧更新
-		inline TVOID Update(float fTimeElapsed)
+		inline TVOID Update(TF32 fTimeElapsed)
 		{
 			if (m_pRootContainer)
 			{
@@ -59,7 +59,7 @@ namespace TLunaEngine{
 			}
 		}
 		// 帧渲染
-		inline TVOID Render(float fTimeElapsed)
+		inline TVOID Render(TF32 fTimeElapsed)
 		{
 			if (m_pRootContainer)
 			{
@@ -84,7 +84,7 @@ namespace TLunaEngine{
 	public:
 		// ------------- 以下重写GUIListener -------------------
 		// 动画播放完毕发送
-		virtual TVOID OnAnimePlayedOver(int iContainerID,TUByte yAnimeType)
+		virtual TVOID OnAnimePlayedOver(TS32 iContainerID,TUByte yAnimeType)
 		{
 			if (m_pSceneListener)
 			{

@@ -21,7 +21,7 @@ namespace TLunaEngine{
 		DestroyCtrl();
 	}
 
-	TBOOL GUICtrl::InitCtrlBase(int iIndex, TLunaEngine::GUIContainer *pContainer, TS32 x, TS32 y, TS32 width, TS32 height)
+	TBOOL GUICtrl::InitCtrlBase(TS32 iIndex, TLunaEngine::GUIContainer *pContainer, TS32 x, TS32 y, TS32 width, TS32 height)
 	{
 		m_iIndex = iIndex;
 		m_pContainer = pContainer;
@@ -60,7 +60,7 @@ namespace TLunaEngine{
 		}
 	}
 
-	TBOOL GUICtrl::Update(float fTimeElapsed)
+	TBOOL GUICtrl::Update(TF32 fTimeElapsed)
 	{
 		if (!m_bShow)
 		{
@@ -69,7 +69,7 @@ namespace TLunaEngine{
 		return TTRUE;
 	}
 
-	TBOOL GUICtrl::Render(float fTimeElapsed)
+	TBOOL GUICtrl::Render(TF32 fTimeElapsed)
 	{
 		if (!m_bShow)
 		{

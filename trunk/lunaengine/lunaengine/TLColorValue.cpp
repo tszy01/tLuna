@@ -252,11 +252,11 @@ namespace TLunaEngine
 		// wrap hue
 		if (hue > 1.0f)
 		{
-			hue -= (int)hue;
+			hue -= (TS32)hue;
 		}
 		else if (hue < 0.0f)
 		{
-			hue += (int)hue + 1;
+			hue += (TS32)hue + 1;
 		}
 		// clamp saturation / brightness
 		saturation = TLunaEngine::min_<TF32>(saturation, (TF32)1.0);
@@ -286,7 +286,7 @@ namespace TLunaEngine
 			// wrap around, and allow mathematical errors
 			hueDomain = 0.0f;
 		}
-		unsigned short domain = (unsigned short)hueDomain;
+		TU16 domain = (TU16)hueDomain;
 		TF32 f1 = brightness * (1 - saturation);
 		TF32 f2 = brightness * (1 - saturation * (hueDomain - domain));
 		TF32 f3 = brightness * (1 - saturation * (1 - (hueDomain - domain)));

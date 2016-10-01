@@ -204,10 +204,10 @@ namespace TLunaEngine
 			//
 			// Assume endpoint tangents are parallel with line with neighbour
 
-			size_t i, numPoints;
+			TU32 i, numPoints;
 			TBOOL isClosed;
 
-			numPoints = mPoints.size();
+			numPoints = (TU32)mPoints.size();
 			if (numPoints < 2)
 			{
 				// Can't do anything yet

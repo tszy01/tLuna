@@ -45,7 +45,7 @@ namespace TLunaEngine
 		}
 
 		// жиди[]
-		inline T* operator[](int iRow)
+		inline T* operator[](TUByte iRow)
 		{
 			return m[iRow];
 		}
@@ -62,9 +62,9 @@ namespace TLunaEngine
         inline Matrix3x3<T> operator+ (const Matrix3x3<T>& rkMatrix) const
 		{
 			Matrix3x3<T> kSum;
-			for (size_t iRow = 0; iRow < 3; iRow++)
+			for (TUByte iRow = 0; iRow < 3; iRow++)
 			{
-				for (size_t iCol = 0; iCol < 3; iCol++)
+				for (TUByte iCol = 0; iCol < 3; iCol++)
 				{
 					kSum.m[iRow][iCol] = m[iRow][iCol] +
 						rkMatrix.m[iRow][iCol];
@@ -75,9 +75,9 @@ namespace TLunaEngine
 
 		inline Matrix3x3<T>& operator +=(const Matrix3x3<T>& rkMatrix)
 		{
-			for (size_t iRow = 0; iRow < 3; iRow++)
+			for (TUByte iRow = 0; iRow < 3; iRow++)
 			{
-				for (size_t iCol = 0; iCol < 3; iCol++)
+				for (TUByte iCol = 0; iCol < 3; iCol++)
 				{
 					m[iRow][iCol] = m[iRow][iCol] +
 						rkMatrix.m[iRow][iCol];
@@ -91,9 +91,9 @@ namespace TLunaEngine
         inline Matrix3x3<T> operator- (const Matrix3x3<T>& rkMatrix) const
 		{
 			Matrix3x3<T> kDiff;
-			for (size_t iRow = 0; iRow < 3; iRow++)
+			for (TUByte iRow = 0; iRow < 3; iRow++)
 			{
-				for (size_t iCol = 0; iCol < 3; iCol++)
+				for (TUByte iCol = 0; iCol < 3; iCol++)
 				{
 					kDiff.m[iRow][iCol] = m[iRow][iCol] -
 						rkMatrix.m[iRow][iCol];
@@ -104,9 +104,9 @@ namespace TLunaEngine
 
 		inline Matrix3x3<T>& operator-= (const Matrix3x3<T>& rkMatrix)
 		{
-			for (size_t iRow = 0; iRow < 3; iRow++)
+			for (TUByte iRow = 0; iRow < 3; iRow++)
 			{
-				for (size_t iCol = 0; iCol < 3; iCol++)
+				for (TUByte iCol = 0; iCol < 3; iCol++)
 				{
 					m[iRow][iCol] = m[iRow][iCol] -
 						rkMatrix.m[iRow][iCol];
@@ -120,9 +120,9 @@ namespace TLunaEngine
         inline Matrix3x3<T> operator* (const Matrix3x3<T>& rkMatrix) const
 		{
 			Matrix3x3<T> kProd;
-			for (size_t iRow = 0; iRow < 3; iRow++)
+			for (TUByte iRow = 0; iRow < 3; iRow++)
 			{
-				for (size_t iCol = 0; iCol < 3; iCol++)
+				for (TUByte iCol = 0; iCol < 3; iCol++)
 				{
 					kProd.m[iRow][iCol] =
 						m[iRow][0]*rkMatrix.m[0][iCol] +
@@ -151,7 +151,7 @@ namespace TLunaEngine
         inline Vector3<T> operator* (const Vector3<T>& rkVector) const
 		{
 			Vector3<T> kProd;
-			for (size_t iCol = 0; iCol < 3; iCol++)
+			for (TUByte iCol = 0; iCol < 3; iCol++)
 			{
 				kProd[iCol] = rkVector.X*m[iCol][0] + rkVector.Y*m[iCol][1] + rkVector.Z*m[iCol][2];
 			}
@@ -160,7 +160,7 @@ namespace TLunaEngine
 
 		inline TVOID multiplyVector3(const Vector3<T>& rkVector, Vector3<T>& out) const
 		{
-			for (size_t iCol = 0; iCol < 3; iCol++)
+			for (TUByte iCol = 0; iCol < 3; iCol++)
 			{
 				out[iCol] = rkVector.X*m[iCol][0] + rkVector.Y*m[iCol][1] + rkVector.Z*m[iCol][2];
 			}
@@ -170,9 +170,9 @@ namespace TLunaEngine
         inline Matrix3x3<T> operator* (T fScalar) const
 		{
 			Matrix3x3<T> kProd;
-			for (size_t iRow = 0; iRow < 3; iRow++)
+			for (TUByte iRow = 0; iRow < 3; iRow++)
 			{
-				for (size_t iCol = 0; iCol < 3; iCol++)
+				for (TUByte iCol = 0; iCol < 3; iCol++)
 					kProd[iRow][iCol] = fScalar*m[iRow][iCol];
 			}
 			return kProd;
@@ -180,9 +180,9 @@ namespace TLunaEngine
 
 		inline Matrix3x3<T>& operator*= (T fScalar)
 		{
-			for (size_t iRow = 0; iRow < 3; iRow++)
+			for (TUByte iRow = 0; iRow < 3; iRow++)
 			{
-				for (size_t iCol = 0; iCol < 3; iCol++)
+				for (TUByte iCol = 0; iCol < 3; iCol++)
 					m[iRow][iCol] = fScalar*m[iRow][iCol];
 			}
 			return *this;
@@ -191,8 +191,8 @@ namespace TLunaEngine
 		// жУ0
 		inline TVOID setZero()
 		{
-			for(int i=0;i<3;i++)
-				for(int j=0;j<3;j++)
+			for(TUByte i=0;i<3;i++)
+				for(TUByte j=0;j<3;j++)
 					m[i][j] = (T)0;
 		}
 
@@ -222,9 +222,9 @@ namespace TLunaEngine
 		inline Matrix3x3<T> getTranspose() const
 		{
 			Matrix3 kTranspose;
-			for (size_t iRow = 0; iRow < 3; iRow++)
+			for (TUByte iRow = 0; iRow < 3; iRow++)
 			{
-				for (size_t iCol = 0; iCol < 3; iCol++)
+				for (TUByte iCol = 0; iCol < 3; iCol++)
 					kTranspose[iRow][iCol] = m[iCol][iRow];
 			}
 			return kTranspose;
@@ -273,9 +273,9 @@ namespace TLunaEngine
 
 			fDet = TLunaEngine::reciprocal(fDet);
 
-			for (size_t iRow = 0; iRow < 3; iRow++)
+			for (TUByte iRow = 0; iRow < 3; iRow++)
 			{
-				for (size_t iCol = 0; iCol < 3; iCol++)
+				for (TUByte iCol = 0; iCol < 3; iCol++)
 					rkInverse[iRow][iCol] *= fDet;
 			}
 			return rkInverse;

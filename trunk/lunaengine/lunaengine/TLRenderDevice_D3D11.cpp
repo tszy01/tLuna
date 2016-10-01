@@ -195,7 +195,7 @@ namespace TLunaEngine {
 			//
 			// Clear the back buffer
 			//
-			float ClearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f }; // red, green, blue, alpha
+			TF32 ClearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f }; // red, green, blue, alpha
 			m_pImmediateContext->ClearRenderTargetView( m_pRenderTargetView, ClearColor );
 
 			//

@@ -390,7 +390,7 @@ namespace TLunaEngine{
 	{
 		RenderDevice* pDevice = RenderMgr::getSingletonPtr()->getDevice();
 		// Update our time
-		static float t = 0.0f;
+		static TF32 t = 0.0f;
 		static TU32 dwTimeStart = 0;
 		TU32 dwTimeCur = GetTickCount();
 		if( dwTimeStart == 0 )

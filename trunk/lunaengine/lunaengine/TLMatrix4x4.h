@@ -29,8 +29,8 @@ namespace TLunaEngine{
 		}
 		Matrix4x4(const Matrix4x4<T>& mat)
 		{
-			for(int i=0;i<4;i++)
-				for(int j=0;j<4;j++)
+			for(TUByte i=0;i<4;i++)
+				for(TUByte j=0;j<4;j++)
 					M[i][j] = mat.M[i][j];
 		}
 
@@ -44,8 +44,8 @@ namespace TLunaEngine{
 		// 置0
 		inline TVOID SetZero()
 		{
-			for(int i=0;i<4;i++)
-				for(int j=0;j<4;j++)
+			for(TUByte i=0;i<4;i++)
+				for(TUByte j=0;j<4;j++)
 					M[i][j] = (T)0;
 		}
 		//! Sets the identity matrix.
@@ -81,8 +81,8 @@ namespace TLunaEngine{
 		// 重载=
 		inline TVOID operator=(const Matrix4x4<T>& mat)
 		{
-			for(int i=0;i<4;i++)
-				for(int j=0;j<4;j++)
+			for(TUByte i=0;i<4;i++)
+				for(TUByte j=0;j<4;j++)
 					M[i][j] = mat.M[i][j];
 		}
 		// 直接赋值
@@ -98,7 +98,7 @@ namespace TLunaEngine{
 			return *this;
 		}
 		// 重载[]
-		inline T* operator[](int iRow)
+		inline T* operator[](TUByte iRow)
 		{
 			return M[iRow];
 		}
@@ -116,35 +116,35 @@ namespace TLunaEngine{
 			//temp += sizeof(T)*4;
 		}
 		// 得到一行
-		inline TVOID GetRow(int iRow,T* value)
+		inline TVOID GetRow(TUByte iRow,T* value)
 		{
 			if(!value)
 				return;
-			for(int i=0;i<4;i++)
+			for(TUByte i=0;i<4;i++)
 				value[i] = M[iRow][i];
 		}
 		// 赋值一行
-		inline TVOID SetRow(int iRow,T* value)
+		inline TVOID SetRow(TUByte iRow,T* value)
 		{
 			if(!value)
 				return;
-			for(int i=0;i<4;i++)
+			for(TUByte i=0;i<4;i++)
 				M[iRow][i] = value[i];
 		}
 		// 得到一列
-		inline TVOID GetCol(int iCol,T* value)
+		inline TVOID GetCol(TUByte iCol,T* value)
 		{
 			if(!value)
 				return;
-			for(int i=0;i<4;i++)
+			for(TUByte i=0;i<4;i++)
 				value[i] = M[i][iCol];
 		}
 		// 赋值一列
-		inline TVOID SetCol(int iCol,T* value)
+		inline TVOID SetCol(TUByte iCol,T* value)
 		{
 			if(!value)
 				return;
-			for(int i=0;i<4;i++)
+			for(TUByte i=0;i<4;i++)
 				M[i][iCol] = value[i];
 		}
 		// 得到偏移分量
@@ -264,7 +264,7 @@ namespace TLunaEngine{
 		inline TVOID SetRotX(TF32 degrees)
 		{
 			degrees *= DEGTORAD;
-			float Cos = cosf(degrees), Sin = sinf(degrees); 
+			TF32 Cos = cosf(degrees), Sin = sinf(degrees); 
 			Identity(); 
 			M[1][1] = M[2][2] = (T)Cos; 
 			M[2][1] = (T)(-Sin);	
@@ -274,7 +274,7 @@ namespace TLunaEngine{
 		inline TVOID SetRotY(TF32 degrees)	
 		{ 
 			degrees *= DEGTORAD;
-			float Cos = cosf(degrees), Sin = sinf(degrees); 
+			TF32 Cos = cosf(degrees), Sin = sinf(degrees); 
 			Identity(); 
 			M[0][0] = M[2][2] = (T)Cos; 
 			M[2][0] = (T)Sin;	
@@ -284,7 +284,7 @@ namespace TLunaEngine{
 		inline TVOID SetRotZ(TF32 degrees)	
 		{ 
 			degrees *= DEGTORAD;
-			float Cos = cosf(degrees), Sin = sinf(degrees); 
+			TF32 Cos = cosf(degrees), Sin = sinf(degrees); 
 			Identity(); 
 			M[0][0] = M[1][1] = (T)Cos; 
 			M[1][0] = (T)(-Sin);	
@@ -345,8 +345,8 @@ namespace TLunaEngine{
 		inline Matrix4x4<T> GetTranspose()
 		{
 			Matrix4x4<T> out;
-			for(int i=0;i<4;i++)
-				for(int j=0;j<4;j++)
+			for(TUByte i=0;i<4;i++)
+				for(TUByte j=0;j<4;j++)
 					out[i][j] = M[j][i];
 			return out;
 		}

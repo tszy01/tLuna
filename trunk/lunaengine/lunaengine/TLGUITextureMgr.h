@@ -36,7 +36,7 @@ namespace TLunaEngine{
 		RenderDeviceUsedBlendState* mBlendState;
 		RenderDeviceUsedSamplerState* mSamplerState;
 		RenderDeviceUsedInputLayout* mInputLayout;
-		std::map<int,RenderDeviceUsedSRV*> mSRVList;
+		std::map<TS32,RenderDeviceUsedSRV*> mSRVList;
 	public:
 		// 初始化
 		TBOOL Init(TU32 bufferWidth,TU32 bufferHeight,const TCHAR* effectFile);
@@ -46,7 +46,7 @@ namespace TLunaEngine{
 		TVOID DestroyAllTex();
 		// 渲染
 		// 这里绘画区域传相对于屏幕的，纹理坐标传真正的纹理映射值（0-1）
-		TBOOL DrawGUICtrl(TS32 x,TS32 y,TS32 width,TS32 height,float texX,float texY,float texR,float texB,int texId,float alpha);
+		TBOOL DrawGUICtrl(TS32 x,TS32 y,TS32 width,TS32 height,TF32 texX,TF32 texY,TF32 texR,TF32 texB,TS32 texId,TF32 alpha);
 	private:
 		// 其它D3D资源
 		TBOOL InitD3DObj(const TCHAR* effectFile);

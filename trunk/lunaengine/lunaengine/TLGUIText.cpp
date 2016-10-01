@@ -13,7 +13,7 @@ namespace TLunaEngine{
 	{
 	}
 
-	TBOOL GUIText::InitGUIText(int iIndex, TLunaEngine::GUIContainer *pContainer, TS32 x, TS32 y, TS32 width, TS32 height, int iFontID, Vector4<float>& color)
+	TBOOL GUIText::InitGUIText(TS32 iIndex, TLunaEngine::GUIContainer *pContainer, TS32 x, TS32 y, TS32 width, TS32 height, TS32 iFontID, Vector4<TF32>& color)
 	{
 		if (!GUICtrl::InitCtrlBase(iIndex,pContainer,x,y,width,height))
 		{
@@ -33,12 +33,12 @@ namespace TLunaEngine{
 		GUICtrl::DestroyCtrl();
 	}
 
-	TBOOL GUIText::Update(float fTimeElapsed)
+	TBOOL GUIText::Update(TF32 fTimeElapsed)
 	{
 		return GUICtrl::Update(fTimeElapsed);
 	}
 
-	TBOOL GUIText::Render(float fTimeElapsed)
+	TBOOL GUIText::Render(TF32 fTimeElapsed)
 	{
 		if (!GUICtrl::Render(fTimeElapsed))
 		{
@@ -46,7 +46,7 @@ namespace TLunaEngine{
 		}
 		GUIFontManager* pFontMgr = GUIFontManager::getSingletonPtr();
 		pFontMgr->UseFont(m_iFontID);
-		pFontMgr->Render(m_strText.GetString(),(size_t)m_strText.GetLength()+1,m_posXFinal,m_posYFinal,m_color);
+		pFontMgr->Render(m_strText.GetString(),m_strText.GetLength()+1,m_posXFinal,m_posYFinal,m_color);
 		return TTRUE;
 	}
 

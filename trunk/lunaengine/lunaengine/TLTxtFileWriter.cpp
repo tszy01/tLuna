@@ -22,7 +22,7 @@ namespace TLunaEngine{
 			return TFALSE;
 		}
 		// 打开文件
-		int re = fopen_s(ppStream,filename,"wt");
+		TS32 re = fopen_s(ppStream,filename,"wt");
 		if(*ppStream==0 || re!=0)
 		{
 			assert(TFALSE);
@@ -36,22 +36,22 @@ namespace TLunaEngine{
 		fclose(pStream);
 	}
 
-	TBOOL TxtFileWriter::WriteLineString(const TCHAR* strWrite,FILE* pStream,int count)
+	TBOOL TxtFileWriter::WriteLineString(const TCHAR* strWrite,FILE* pStream, TU32 count)
 	{
 		if(!strWrite || !pStream)
 			return TFALSE;
-		if((int)fwrite(strWrite,sizeof(TCHAR),count,pStream) < count)
+		if((TU32)fwrite(strWrite,sizeof(TCHAR),count,pStream) < count)
 			return TFALSE;
 		const TCHAR* szTmp = "\n";
 		fwrite(szTmp,sizeof(TCHAR),1,pStream);
 		return TTRUE;
 	}
 
-	TBOOL TxtFileWriter::WriteLineInteger(const int* aiWrite,FILE* pStream,int nCount,TCHAR splice)
+	TBOOL TxtFileWriter::WriteLineInteger(const TS32* aiWrite,FILE* pStream, TU32 nCount,TCHAR splice)
 	{
 		if(!aiWrite || !pStream || nCount<=0)
 			return TFALSE;
-		for(int i=0;i<nCount;i++)
+		for(TU32 i=0;i<nCount;i++)
 		{
 			TCHAR szTmp[64] = {0};
 			sprintf(szTmp,"%d",aiWrite[i]);
@@ -66,14 +66,14 @@ namespace TLunaEngine{
 		return TTRUE;
 	}
 
-	TBOOL TxtFileWriter::WriteLineLong(const long* alWrite,FILE* pStream,int nCount,TCHAR splice)
+	TBOOL TxtFileWriter::WriteLineLongLong(const TS64* allWrite,FILE* pStream, TU32 nCount,TCHAR splice)
 	{
-		if(!alWrite || !pStream || nCount<=0)
+		if(!allWrite || !pStream || nCount<=0)
 			return TFALSE;
-		for(int i=0;i<nCount;i++)
+		for(TU32 i=0;i<nCount;i++)
 		{
 			TCHAR szTmp[64] = {0};
-			sprintf(szTmp,"%ld",alWrite[i]);
+			sprintf(szTmp,"%Ld",allWrite[i]);
 			fwrite(szTmp,sizeof(TCHAR),strlen(szTmp),pStream);
 			if(i<nCount-1)
 			{
@@ -85,14 +85,14 @@ namespace TLunaEngine{
 		return TTRUE;
 	}
 
-	TBOOL TxtFileWriter::WriteLineShort(const short* asWrite,FILE* pStream,int nCount,TCHAR splice)
+	TBOOL TxtFileWriter::WriteLineShort(const TS16* asWrite,FILE* pStream, TU32 nCount,TCHAR splice)
 	{
 		if(!asWrite || !pStream || nCount<=0)
 			return TFALSE;
-		for(int i=0;i<nCount;i++)
+		for(TU32 i=0;i<nCount;i++)
 		{
 			TCHAR szTmp[64] = {0};
-			sprintf(szTmp,"%d",asWrite[i]);
+			sprintf(szTmp,"%hd",asWrite[i]);
 			fwrite(szTmp,sizeof(TCHAR),strlen(szTmp),pStream);
 			if(i<nCount-1)
 			{
@@ -104,11 +104,11 @@ namespace TLunaEngine{
 		return TTRUE;
 	}
 
-	TBOOL TxtFileWriter::WriteLineUInteger(const unsigned int* auWrite,FILE* pStream,int nCount,TCHAR splice)
+	TBOOL TxtFileWriter::WriteLineUInteger(const TU32* auWrite,FILE* pStream, TU32 nCount,TCHAR splice)
 	{
 		if(!auWrite || !pStream || nCount<=0)
 			return TFALSE;
-		for(int i=0;i<nCount;i++)
+		for(TU32 i=0;i<nCount;i++)
 		{
 			TCHAR szTmp[64] = {0};
 			sprintf(szTmp,"%u",auWrite[i]);
@@ -123,14 +123,14 @@ namespace TLunaEngine{
 		return TTRUE;
 	}
 
-	TBOOL TxtFileWriter::WriteLineULong(const unsigned long* aulWrite,FILE* pStream,int nCount,TCHAR splice)
+	TBOOL TxtFileWriter::WriteLineULongLong(const TU64* aullWrite,FILE* pStream, TU32 nCount,TCHAR splice)
 	{
-		if(!aulWrite || !pStream || nCount<=0)
+		if(!aullWrite || !pStream || nCount<=0)
 			return TFALSE;
-		for(int i=0;i<nCount;i++)
+		for(TU32 i=0;i<nCount;i++)
 		{
 			TCHAR szTmp[64] = {0};
-			sprintf(szTmp,"%lu",aulWrite[i]);
+			sprintf(szTmp,"%Lu",aullWrite[i]);
 			fwrite(szTmp,sizeof(TCHAR),strlen(szTmp),pStream);
 			if(i<nCount-1)
 			{
@@ -142,14 +142,14 @@ namespace TLunaEngine{
 		return TTRUE;
 	}
 
-	TBOOL TxtFileWriter::WriteLineUShort(const unsigned short* ausWrite,FILE* pStream,int nCount,TCHAR splice)
+	TBOOL TxtFileWriter::WriteLineUShort(const TU16* ausWrite,FILE* pStream, TU32 nCount,TCHAR splice)
 	{
 		if(!ausWrite || !pStream || nCount<=0)
 			return TFALSE;
-		for(int i=0;i<nCount;i++)
+		for(TU32 i=0;i<nCount;i++)
 		{
 			TCHAR szTmp[64] = {0};
-			sprintf(szTmp,"%u",ausWrite[i]);
+			sprintf(szTmp,"%hu",ausWrite[i]);
 			fwrite(szTmp,sizeof(TCHAR),strlen(szTmp),pStream);
 			if(i<nCount-1)
 			{
@@ -161,11 +161,11 @@ namespace TLunaEngine{
 		return TTRUE;
 	}
 
-	TBOOL TxtFileWriter::WriteLineFloat(const float* afWrite,FILE* pStream,int nCount,TCHAR splice)
+	TBOOL TxtFileWriter::WriteLineFloat(const TF32* afWrite,FILE* pStream, TU32 nCount,TCHAR splice)
 	{
 		if(!afWrite || !pStream || nCount<=0)
 			return TFALSE;
-		for(int i=0;i<nCount;i++)
+		for(TU32 i=0;i<nCount;i++)
 		{
 			TCHAR szTmp[64] = {0};
 			sprintf(szTmp,"%.3f",afWrite[i]);
@@ -180,11 +180,11 @@ namespace TLunaEngine{
 		return TTRUE;
 	}
 
-	TBOOL TxtFileWriter::WriteLineDouble(const double* adWrite,FILE* pStream,int nCount,TCHAR splice)
+	TBOOL TxtFileWriter::WriteLineDouble(const TF64* adWrite,FILE* pStream, TU32 nCount,TCHAR splice)
 	{
 		if(!adWrite || !pStream || nCount<=0)
 			return TFALSE;
-		for(int i=0;i<nCount;i++)
+		for(TU32 i=0;i<nCount;i++)
 		{
 			TCHAR szTmp[64] = {0};
 			sprintf(szTmp,"%.6lf",adWrite[i]);
@@ -199,17 +199,17 @@ namespace TLunaEngine{
 		return TTRUE;
 	}
 
-	TBOOL TxtFileWriter::WriteAllFile(const TCHAR* szFile,const TCHAR* mode,const TVOID* buffer,size_t writeByte)
+	TBOOL TxtFileWriter::WriteAllFile(const TCHAR* szFile,const TCHAR* mode,const TVOID* buffer, TU64 nCount)
 	{
-		if(!szFile || !mode || !buffer || writeByte<=0)
+		if(!szFile || !mode || !buffer || nCount <=0)
 			return TFALSE;
 		FILE* file = 0;
-		int re = fopen_s(&file,szFile,mode);
+		TS32 re = fopen_s(&file,szFile,mode);
 		if(re!=0)
 		{
 			return TFALSE;
 		}
-		if(fwrite(buffer,1,writeByte,file)!=writeByte)
+		if((TU64)fwrite(buffer,1, nCount,file)!= nCount)
 		{
 			fclose(file);
 			return TFALSE;

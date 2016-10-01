@@ -25,8 +25,8 @@ namespace TLunaEngine{
 			Iterator() : Current(0) {}
 			Iterator& operator ++()    { Current = Current->Next; return *this; }
 			Iterator& operator --()    { Current = Current->Prev; return *this; }
-			Iterator  operator ++(int) { Iterator tmp = *this; Current = Current->Next; return tmp; }
-			Iterator  operator --(int) { Iterator tmp = *this; Current = Current->Prev; return tmp; }
+			Iterator  operator ++(TS32) { Iterator tmp = *this; Current = Current->Next; return tmp; }
+			Iterator  operator --(TS32) { Iterator tmp = *this; Current = Current->Prev; return tmp; }
 			TBOOL operator ==(const Iterator&      other) const { return Current == other.Current; }
 			TBOOL operator !=(const Iterator&      other) const { return Current != other.Current; }
 			HASHTABLE_NODE & operator * () { return *Current; }
@@ -54,7 +54,7 @@ namespace TLunaEngine{
 		// 末尾指针
 		HASHTABLE_NODE* m_Last;
 		// 大小
-		int m_Size;
+		TS32 m_Size;
 	public:
 		// 拷贝构造
 		Hashtable(const Hashtable<TK,TV>& other) : m_First(0), m_Last(0), m_Size(0)
@@ -101,7 +101,7 @@ namespace TLunaEngine{
 			return Iterator(m_Last);
 		}
 		// 返回大小
-		inline int size()
+		inline TS32 size()
 		{
 			return m_Size;
 		}

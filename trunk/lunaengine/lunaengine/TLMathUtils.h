@@ -113,7 +113,7 @@ namespace TLunaEngine{
 		// 起始点在球内部
 		if(dis<radius)
 		{
-			float flen = 0;
+			TF32 flen = 0;
 			// 如果投影是0
 			// 碰撞点平方=半径平方-距离平方
 			if(abs(dirLen)<=0.1f)
@@ -138,8 +138,8 @@ namespace TLunaEngine{
 		// 只有投影>0时才可能相交
 		if(dis>radius && dirLen>0.0f)
 		{
-			float af = dis*dis - dirLen*dirLen;
-			float a = sqrt(af);
+			TF32 af = dis*dis - dirLen*dirLen;
+			TF32 a = sqrt(af);
 			// 这个值必须小于等于半径才相交
 			if(abs(a-radius)<=0.1f)
 			{
@@ -153,7 +153,7 @@ namespace TLunaEngine{
 			}
 			else if(a<=radius)
 			{
-				float flen = dirLen - sqrt(radius*radius - af);
+				TF32 flen = dirLen - sqrt(radius*radius - af);
 				if(pVRet)
 					(*pVRet)=orig + direction * flen;
 				if(len)
@@ -196,8 +196,8 @@ namespace TLunaEngine{
 		// 只有投影>0时才可能相交
 		if(dis>radius && dirLen>0.0f)
 		{
-			float af = dis*dis - dirLen*dirLen;
-			float a = sqrt(af);
+			TF32 af = dis*dis - dirLen*dirLen;
+			TF32 a = sqrt(af);
 			// 这个值必须小于等于半径才相交
 			if(abs(a-radius)<=0.1f)
 			{
@@ -211,7 +211,7 @@ namespace TLunaEngine{
 			}
 			else if(a<=radius)
 			{
-				float flen = dirLen - sqrt(radius*radius - af);
+				TF32 flen = dirLen - sqrt(radius*radius - af);
 				if(pVRet)
 					(*pVRet)=orig + direction * flen;
 				if(len)
@@ -232,7 +232,7 @@ namespace TLunaEngine{
 									const Vector3<T> &max, Vector3<T> *pVRet, T *len, TBOOL *pInside)
 	{
 		TBOOL inside = TTRUE;	// 假设在内部
-		float xt=-1,yt=-1,zt=-1;	// 三个坐标的差,初始化为-1
+		TF32 xt=-1,yt=-1,zt=-1;	// 三个坐标的差,初始化为-1
 		// 标准化方向
 		Vector3<T> direction;
 		direction = dir.normalize();
@@ -287,8 +287,8 @@ namespace TLunaEngine{
 		}
 		// 选择适当的相交平面
 		// 那个轴上的差的比值最大,说明和另外两个轴组成的平面先相交
-		int which = 0;
-		float t = xt;
+		TS32 which = 0;
+		TF32 t = xt;
 		if(yt>t)
 		{
 			which = 1;
@@ -301,7 +301,7 @@ namespace TLunaEngine{
 		}
 		// 根据相交平面,判断是否在盒内
 		TBOOL result = TTRUE;	// 最后结果
-		float x=0,y=0,z=0;	// 碰撞点坐标
+		TF32 x=0,y=0,z=0;	// 碰撞点坐标
 		switch(which)
 		{
 		case 0:	// YZ平面
@@ -370,19 +370,19 @@ namespace TLunaEngine{
 
 	// 计算切线方向，用于法线贴图
 	template<typename T>
-	TVOID CalculateTangentArray(long vertexCount, const Vector3<T> *vertex, const Vector3<T> *normal,
-		const Vector2<T> *texcoord, long triangleCount, const long* indexArray, Vector4<T> *tangent)
+	TVOID CalculateTangentArray(TS32 vertexCount, const Vector3<T> *vertex, const Vector3<T> *normal,
+		const Vector2<T> *texcoord, TS32 triangleCount, const TS32* indexArray, Vector4<T> *tangent)
 	{
 		Vector3<T> *tan1 = new Vector3<T>[vertexCount * 2];
 		Vector3<T> *tan2 = tan1 + vertexCount;
 		//::ZeroMemory(tan1, vertexCount * sizeof(Ogre::Vector3) * 2);
 		memset(tan1,0,vertexCount * sizeof(Vector3<T>) * 2);
     
-		for (long a = 0; a < triangleCount; a++)
+		for (TS32 a = 0; a < triangleCount; a++)
 		{
-			long i1 = indexArray[a*3+0];
-			long i2 = indexArray[a*3+1];
-			long i3 = indexArray[a*3+2];
+			TS32 i1 = indexArray[a*3+0];
+			TS32 i2 = indexArray[a*3+1];
+			TS32 i3 = indexArray[a*3+2];
         
 			const Ogre::Vector3& v1 = vertex[i1];
 			const Ogre::Vector3& v2 = vertex[i2];
@@ -392,19 +392,19 @@ namespace TLunaEngine{
 			const Ogre::Vector2& w2 = texcoord[i2];
 			const Ogre::Vector2& w3 = texcoord[i3];
         
-			float x1 = v2.x - v1.x;
-			float x2 = v3.x - v1.x;
-			float y1 = v2.y - v1.y;
-			float y2 = v3.y - v1.y;
-			float z1 = v2.z - v1.z;
-			float z2 = v3.z - v1.z;
+			TF32 x1 = v2.x - v1.x;
+			TF32 x2 = v3.x - v1.x;
+			TF32 y1 = v2.y - v1.y;
+			TF32 y2 = v3.y - v1.y;
+			TF32 z1 = v2.z - v1.z;
+			TF32 z2 = v3.z - v1.z;
         
-			float s1 = w2.x - w1.x;
-			float s2 = w3.x - w1.x;
-			float t1 = w2.y - w1.y;
-			float t2 = w3.y - w1.y;
+			TF32 s1 = w2.x - w1.x;
+			TF32 s2 = w3.x - w1.x;
+			TF32 t1 = w2.y - w1.y;
+			TF32 t2 = w3.y - w1.y;
         
-			float r = 1.0F / (s1 * t2 - s2 * t1);
+			TF32 r = 1.0F / (s1 * t2 - s2 * t1);
 			Vector3<T> sdir((t2 * x1 - t1 * x2) * r, (t2 * y1 - t1 * y2) * r,
 					(t2 * z1 - t1 * z2) * r);
 			Vector3<T> tdir((s1 * x2 - s2 * x1) * r, (s1 * y2 - s2 * y1) * r,
@@ -419,7 +419,7 @@ namespace TLunaEngine{
 			tan2[i3] += tdir;
 		}
     
-		for (long a = 0; a < vertexCount; a++)
+		for (TS32 a = 0; a < vertexCount; a++)
 		{
 			const Vector3<T>& n = normal[a];
 			const Vector3<T>& t = tan1[a];
@@ -506,7 +506,7 @@ namespace TLunaEngine{
 	// aabbox edge cross test
 	template<typename T>
 	TBOOL TEST_CROSS_EDGE_BOX_MCR(const Vector3<T>& edge, const Vector3<T>& absolute_edge, const Vector3<T>& pointa,
-		const Vector3<T>& pointb, const Vector3<T>& _extend, int i_dir_0, int i_dir_1, int i_comp_0, int i_comp_1)
+		const Vector3<T>& pointb, const Vector3<T>& _extend, TS32 i_dir_0, TS32 i_dir_1, TS32 i_comp_0, TS32 i_comp_1)
 	{
 		const T dir0 = -edge[i_dir_0];
 		const T dir1 = edge[i_dir_1];
@@ -541,7 +541,7 @@ namespace TLunaEngine{
 		minY = maxY = poly.getVertex(0).Y;
 		minZ = maxZ = poly.getVertex(0).Z;
 
-		for (int i = 1; i < 3; ++i)
+		for (TS32 i = 1; i < 3; ++i)
 		{
 			x = poly.getVertex(i).x;
 			y = poly.getVertex(i).y;
@@ -658,7 +658,7 @@ namespace TLunaEngine{
 			polyClipped.insertVertex(polyOrig.getVertex(0));
 		}
 		T olddist = firstdist;
-		for (int i = 1; i<(int)polyOrig.getVertexCount(); i++)
+		for (TS32 i = 1; i<(TS32)polyOrig.getVertexCount(); i++)
 		{
 			T dist = plane.getDistanceTo(polyOrig.getVertex(i));
 			if (positive)

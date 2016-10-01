@@ -21,7 +21,7 @@ namespace TLunaEngine{
 
 	public:
 		// 动画播放完毕发送
-		virtual TVOID OnAnimePlayedOver(int iContainerID,TUByte yAnimeType) = 0;
+		virtual TVOID OnAnimePlayedOver(TS32 iContainerID,TUByte yAnimeType) = 0;
 	};
 
 }

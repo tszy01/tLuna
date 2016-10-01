@@ -111,7 +111,7 @@ namespace TLunaEngine
 		}
 
 		/// Array accessor operator
-		inline TF32 operator [] (const size_t i) const
+		inline TF32 operator [] (const TSIZE i) const
 		{
 			assert(i < 4);
 
@@ -119,7 +119,7 @@ namespace TLunaEngine
 		}
 
 		/// Array accessor operator
-		inline TF32& operator [] (const size_t i)
+		inline TF32& operator [] (const TSIZE i)
 		{
 			assert(i < 4);
 

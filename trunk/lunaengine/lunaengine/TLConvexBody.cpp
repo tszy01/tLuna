@@ -8,9 +8,9 @@ namespace TLunaEngine
 	{
 		AABBox<T> aab;
 
-		for ( size_t i = 0; i < getPolygonCount(); ++i )
+		for (TU32 i = 0; i < getPolygonCount(); ++i )
 		{
-			for ( size_t j = 0; j < getVertexCount( i ); ++j )
+			for (TU32 j = 0; j < getVertexCount( i ); ++j )
 			{
 				aab.addInternalPoint( getVertex( i, j ) );
 			}

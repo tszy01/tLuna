@@ -47,7 +47,7 @@ namespace TLunaEngine{
 			m_pRenderText = 0;
 		}
 		m_pUseFont = TNULL;
-		std::map<int,GUIFont*>::iterator itr = m_FontTable.begin();
+		std::map<TS32,GUIFont*>::iterator itr = m_FontTable.begin();
 		for(;itr!=m_FontTable.end();itr++)
 		{
 			GUIFont* pObj = itr->second;
@@ -106,7 +106,7 @@ namespace TLunaEngine{
 	TVOID GUIFontManager::DestroyAllFont()
 	{
 		m_pUseFont = TNULL;
-		std::map<int,GUIFont*>::iterator itr = m_FontTable.begin();
+		std::map<TS32,GUIFont*>::iterator itr = m_FontTable.begin();
 		for(;itr!=m_FontTable.end();itr++)
 		{
 			GUIFont* pObj = itr->second;
@@ -119,7 +119,7 @@ namespace TLunaEngine{
 		m_FontTable.clear();
 	}
 
-	int GUIFontManager::AddFont(const TCHAR* filename,TU32 size,TU32 texPageSize,int id)
+	TS32 GUIFontManager::AddFont(const TCHAR* filename,TU32 size,TU32 texPageSize,TS32 id)
 	{
 		GUIFont* font = new GUIFont();
 		if(!font->InitFont(filename,size,texPageSize,id,library))
@@ -127,7 +127,7 @@ namespace TLunaEngine{
 			delete font;
 			return -1;
 		}
-		m_FontTable.insert(std::pair<int,GUIFont*>(id,font));
+		m_FontTable.insert(std::pair<TS32,GUIFont*>(id,font));
 		return m_FontTable.size() - 1;
 	}
 
@@ -146,7 +146,7 @@ namespace TLunaEngine{
 		// 匹配第一行字符
 		TBOOL bEqual = TFALSE;
 		TCHAR strResult[1024] = {0};
-		int nCount = 1024;
+		TS32 nCount = 1024;
 		if(!TxtFileReader::ReadLineString(strResult,stream,"TUI_FONT_100",&bEqual,nCount,TNULL))
 		{
 			TxtFileReader::CloseTxtFile(stream);
@@ -158,10 +158,10 @@ namespace TLunaEngine{
 			return TFALSE;
 		}
 		// 读取数量
-		int fontCount = 0;
+		TS32 fontCount = 0;
 		TxtFileReader::ReadLineInteger(&fontCount,stream,1,' ');
 		// 循环读取
-		for (int i=0;i<fontCount;i++)
+		for (TS32 i=0;i<fontCount;i++)
 		{
 			if(!LoadFont(stream))
 			{
@@ -176,7 +176,7 @@ namespace TLunaEngine{
 	TBOOL GUIFontManager::LoadFont(FILE* stream)
 	{
 		// FontID
-		int fontID = -1;
+		TS32 fontID = -1;
 		TxtFileReader::ReadLineInteger(&fontID,stream,1,' ');
 		// FontSize
 		TU32 fontSize = 0;
@@ -194,7 +194,7 @@ namespace TLunaEngine{
 		return TTRUE;
 	}
 
-	TBOOL GUIFontManager::Render(const TCHAR* text,size_t len, int x, int y, Vector4<float>& color)
+	TBOOL GUIFontManager::Render(const TCHAR* text,TU32 len, TS32 x, TS32 y, Vector4<TF32>& color)
 	{
 		if(m_pUseFont==TNULL)
 			return TFALSE;
@@ -218,7 +218,7 @@ namespace TLunaEngine{
 		pDevice->setBlendState(mBlendState,blendFactor,0xffffffff);
 		pDevice->setDepthStencilState(mDepthStencilState);
 		// 分配渲染文字空间
-		if ((int)len > m_nRenderTextLen || !m_pRenderText)
+		if (len > m_nRenderTextLen || !m_pRenderText)
 		{
 			if (m_pRenderText)
 			{
@@ -228,11 +228,11 @@ namespace TLunaEngine{
 			m_pRenderText = new TWCHAR[len];
 			m_nRenderTextLen = len;
 		}
-		::MultiByteToWideChar(CP_ACP,MB_PRECOMPOSED,text,len,m_pRenderText,m_nRenderTextLen);
+		::MultiByteToWideChar(CP_ACP,MB_PRECOMPOSED,text,(TS32)len,m_pRenderText,(TS32)m_nRenderTextLen);
 		TWCHAR *wKeep = m_pRenderText;
-		int X = x;
-		int Y = y;
-		float xPlus = 0;
+		TS32 X = x;
+		TS32 Y = y;
+		TF32 xPlus = 0;
 		TU32 n;
 		TU32 nowPageIndex=0;
 
@@ -254,10 +254,10 @@ namespace TLunaEngine{
 				TU32 pageIndex;
 				m_pUseFont->PreDraw(n,&imgw,&imgh,&texw,&texh,&offx,&offy,&texStartU,&texEndU,&texStartV,&texEndV,&pageIndex);
 
-				float xFinal = -1.0f + ((float)(x+offx))/m_bufferWidth * 2.0f + xPlus;
-				float yFinal = (-1.0f + ((float)(y+offy))/m_bufferHeight * 2.0f) * -1.0f;
-				float xLen = ((float)(imgw-1))/m_bufferWidth * 2.0f;
-				float yLen = ((float)(imgh-1))/m_bufferHeight * 2.0f;
+				TF32 xFinal = -1.0f + ((TF32)(x+offx))/m_bufferWidth * 2.0f + xPlus;
+				TF32 yFinal = (-1.0f + ((TF32)(y+offy))/m_bufferHeight * 2.0f) * -1.0f;
+				TF32 xLen = ((TF32)(imgw-1))/m_bufferWidth * 2.0f;
+				TF32 yLen = ((TF32)(imgh-1))/m_bufferHeight * 2.0f;
 
 				// vbSet
 				GUI_VERTEX_DEF* pVertex;
@@ -265,23 +265,23 @@ namespace TLunaEngine{
 				if(pDevice->mapResource(mVBSet,0,RENDER_DEVICE_MAP_READ_WRITE,&mappedRes))
 				{
 					pVertex = (GUI_VERTEX_DEF*)mappedRes.pData;
-					pVertex[0].Pos = TLunaEngine::Vector3<float>(xFinal,yFinal,0);
-					pVertex[0].Tex = TLunaEngine::Vector2<float>(texStartU,texStartV);
+					pVertex[0].Pos = TLunaEngine::Vector3<TF32>(xFinal,yFinal,0);
+					pVertex[0].Tex = TLunaEngine::Vector2<TF32>(texStartU,texStartV);
 					pVertex[0].Color = color;
-					pVertex[1].Pos = TLunaEngine::Vector3<float>(xFinal+xLen,yFinal-yLen,0);
-					pVertex[1].Tex = TLunaEngine::Vector2<float>(texEndU,texEndV);
+					pVertex[1].Pos = TLunaEngine::Vector3<TF32>(xFinal+xLen,yFinal-yLen,0);
+					pVertex[1].Tex = TLunaEngine::Vector2<TF32>(texEndU,texEndV);
 					pVertex[1].Color = color;
-					pVertex[2].Pos = TLunaEngine::Vector3<float>(xFinal,yFinal-yLen,0);
-					pVertex[2].Tex = TLunaEngine::Vector2<float>(texStartU,texEndV);
+					pVertex[2].Pos = TLunaEngine::Vector3<TF32>(xFinal,yFinal-yLen,0);
+					pVertex[2].Tex = TLunaEngine::Vector2<TF32>(texStartU,texEndV);
 					pVertex[2].Color = color;
-					pVertex[3].Pos = TLunaEngine::Vector3<float>(xFinal,yFinal,0);
-					pVertex[3].Tex = TLunaEngine::Vector2<float>(texStartU,texStartV);
+					pVertex[3].Pos = TLunaEngine::Vector3<TF32>(xFinal,yFinal,0);
+					pVertex[3].Tex = TLunaEngine::Vector2<TF32>(texStartU,texStartV);
 					pVertex[3].Color = color;
-					pVertex[4].Pos = TLunaEngine::Vector3<float>(xFinal+xLen,yFinal,0);
-					pVertex[4].Tex = TLunaEngine::Vector2<float>(texEndU,texStartV);
+					pVertex[4].Pos = TLunaEngine::Vector3<TF32>(xFinal+xLen,yFinal,0);
+					pVertex[4].Tex = TLunaEngine::Vector2<TF32>(texEndU,texStartV);
 					pVertex[4].Color = color;
-					pVertex[5].Pos = TLunaEngine::Vector3<float>(xFinal+xLen,yFinal-yLen,0);
-					pVertex[5].Tex = TLunaEngine::Vector2<float>(texEndU,texEndV);
+					pVertex[5].Pos = TLunaEngine::Vector3<TF32>(xFinal+xLen,yFinal-yLen,0);
+					pVertex[5].Tex = TLunaEngine::Vector2<TF32>(texEndU,texEndV);
 					pVertex[5].Color = color;
 					pDevice->unmapResource(mVBSet,0);
 					pDevice->copyResource(mVB,mVBSet);
@@ -296,7 +296,7 @@ namespace TLunaEngine{
 				pDevice->draw(6,0);
 
 				X += m_pUseFont->GetWidthFromCharacter(*wKeep);
-				xPlus += ((float)(texw+offx))/m_bufferWidth * 2.0f;
+				xPlus += ((TF32)(texw+offx))/m_bufferWidth * 2.0f;
 			} else {
 				X += m_pUseFont->GetWidthFromCharacter(*wKeep);
 				TLunaEngine::Log::WriteLine(TLunaEngine::Log::LOG_LEVEL_ERROR,TTRUE,__FILE__,__LINE__,"Can not find character in font tex!");
@@ -370,12 +370,12 @@ namespace TLunaEngine{
 		// VB
 		GUI_VERTEX_DEF vertices[] =
 		{
-			{ TLunaEngine::Vector3<float>( -1.0f, 1.0f, 0.0f ), TLunaEngine::Vector2<float>( 0.0f, 0.0f ), TLunaEngine::Vector4<float>(1.0f,1.0f,1.0f,1.0f) },
-			{ TLunaEngine::Vector3<float>( 1.0f, -1.0f, 0.0f ), TLunaEngine::Vector2<float>( 1.0f,1.0f ), TLunaEngine::Vector4<float>(1.0f,1.0f,1.0f,1.0f) },
-			{ TLunaEngine::Vector3<float>( -1.0f, -1.0f, 0.0f ), TLunaEngine::Vector2<float>( 0.0f, 1.0f ), TLunaEngine::Vector4<float>(1.0f,1.0f,1.0f,1.0f) },
-			{ TLunaEngine::Vector3<float>( -1.0f, 1.0f, 0.0f ), TLunaEngine::Vector2<float>( 0.0f, 0.0f ), TLunaEngine::Vector4<float>(1.0f,1.0f,1.0f,1.0f) },
-			{ TLunaEngine::Vector3<float>( 1.0f, 1.0f, 0.0f ), TLunaEngine::Vector2<float>( 1.0f, 0.0f ), TLunaEngine::Vector4<float>(1.0f,1.0f,1.0f,1.0f) },
-			{ TLunaEngine::Vector3<float>( 1.0f, -1.0f, 0.0f ), TLunaEngine::Vector2<float>( 1.0f, 1.0f ), TLunaEngine::Vector4<float>(1.0f,1.0f,1.0f,1.0f) },
+			{ TLunaEngine::Vector3<TF32>( -1.0f, 1.0f, 0.0f ), TLunaEngine::Vector2<TF32>( 0.0f, 0.0f ), TLunaEngine::Vector4<TF32>(1.0f,1.0f,1.0f,1.0f) },
+			{ TLunaEngine::Vector3<TF32>( 1.0f, -1.0f, 0.0f ), TLunaEngine::Vector2<TF32>( 1.0f,1.0f ), TLunaEngine::Vector4<TF32>(1.0f,1.0f,1.0f,1.0f) },
+			{ TLunaEngine::Vector3<TF32>( -1.0f, -1.0f, 0.0f ), TLunaEngine::Vector2<TF32>( 0.0f, 1.0f ), TLunaEngine::Vector4<TF32>(1.0f,1.0f,1.0f,1.0f) },
+			{ TLunaEngine::Vector3<TF32>( -1.0f, 1.0f, 0.0f ), TLunaEngine::Vector2<TF32>( 0.0f, 0.0f ), TLunaEngine::Vector4<TF32>(1.0f,1.0f,1.0f,1.0f) },
+			{ TLunaEngine::Vector3<TF32>( 1.0f, 1.0f, 0.0f ), TLunaEngine::Vector2<TF32>( 1.0f, 0.0f ), TLunaEngine::Vector4<TF32>(1.0f,1.0f,1.0f,1.0f) },
+			{ TLunaEngine::Vector3<TF32>( 1.0f, -1.0f, 0.0f ), TLunaEngine::Vector2<TF32>( 1.0f, 1.0f ), TLunaEngine::Vector4<TF32>(1.0f,1.0f,1.0f,1.0f) },
 		};
 		TLRenderDeviceBufferDesc vbDesc;
 		vbDesc.BindFlags = RENDER_DEVICE_BIND_FLAG_VERTEX_BUFFER;
@@ -458,7 +458,7 @@ namespace TLunaEngine{
 		}
 	}
 
-	TBOOL GUIFontManager::RenderDebugFont(const TCHAR* text, size_t len, int x, int y, Vector4<float>& color)
+	TBOOL GUIFontManager::RenderDebugFont(const TCHAR* text, TU32 len, TS32 x, TS32 y, Vector4<TF32>& color)
 	{
 		if(!m_pDebugFont)
 		{

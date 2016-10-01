@@ -10,9 +10,9 @@ namespace TLunaEngine{
 	// 渲染输入结构体
 	struct GUI_VERTEX_DEF
 	{
-		TLunaEngine::Vector3<float> Pos;
-		TLunaEngine::Vector2<float> Tex;
-		TLunaEngine::Vector4<float> Color;
+		TLunaEngine::Vector3<TF32> Pos;
+		TLunaEngine::Vector2<TF32> Tex;
+		TLunaEngine::Vector4<TF32> Color;
 	};
 
 	// Ctrl种类

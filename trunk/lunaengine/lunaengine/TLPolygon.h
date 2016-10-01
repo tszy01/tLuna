@@ -69,7 +69,7 @@ namespace TLunaEngine
 		/** Inserts a vertex at a specific position.
 		@note Vertices must be coplanar.
 		*/
-		TVOID insertVertex(const Vector3<T>& vdata, size_t vertexIndex)
+		TVOID insertVertex(const Vector3<T>& vdata, TU32 vertexIndex)
 		{
 			// TODO: optional: check planarity
 			assert(vertexIndex <= getVertexCount());
@@ -99,7 +99,7 @@ namespace TLunaEngine
 
 		/** Returns a vertex.
 		*/
-		const Vector3<T>& getVertex(size_t vertex) const
+		const Vector3<T>& getVertex(TU32 vertex) const
 		{
 			assert(vertex < getVertexCount());
 
@@ -109,7 +109,7 @@ namespace TLunaEngine
 		/** Sets a specific vertex of a polygon.
 		@note Vertices must be coplanar.
 		*/
-		TVOID setVertex(const Vector3<T>& vdata, size_t vertexIndex)
+		TVOID setVertex(const Vector3<T>& vdata, TU32 vertexIndex)
 		{
 			// TODO: optional: check planarity
 			assert(vertexIndex < getVertexCount());
@@ -122,7 +122,7 @@ namespace TLunaEngine
 		*/
 		TVOID removeDuplicates(TVOID)
 		{
-			for ( size_t i = 0; i < getVertexCount(); ++i )
+			for (TU32 i = 0; i < (TU32)getVertexCount(); ++i )
 			{
 				const Vector3<T>& a = getVertex( i );
 				const Vector3<T>& b = getVertex( (i + 1)%getVertexCount() );
@@ -137,9 +137,9 @@ namespace TLunaEngine
 
 		/** Vertex count.
 		*/
-		size_t getVertexCount(TVOID) const
+		TU32 getVertexCount(TVOID) const
 		{
-			return mVertexList.size();
+			return (TU32)mVertexList.size();
 		}
 
 		/** Returns the polygon normal.
@@ -153,7 +153,7 @@ namespace TLunaEngine
 
 		/** Deletes a specific vertex.
 		*/
-		TVOID deleteVertex(size_t vertex)
+		TVOID deleteVertex(TU32 vertex)
 		{
 			assert( vertex < getVertexCount() );
 
@@ -173,8 +173,8 @@ namespace TLunaEngine
 		{
 			// sum the angles 
 			TF32 anglesum = 0;
-			size_t n = getVertexCount();
-			for (size_t i = 0; i < n; i++) 
+			TU32 n = getVertexCount();
+			for (TU32 i = 0; i < n; i++)
 			{
 				const Vector3<T>& p1 = getVertex(i);
 				const Vector3<T>& p2 = getVertex((i + 1) % n);
@@ -209,9 +209,9 @@ namespace TLunaEngine
 		{
 			assert( edgeMap != TNULL );
 
-			size_t vertexCount = getVertexCount();
+			TU32 vertexCount = getVertexCount();
 
-			for ( size_t i = 0; i < vertexCount; ++i )
+			for (TU32 i = 0; i < vertexCount; ++i )
 			{
 				edgeMap->insert( std::pair<Vector3<T>, Vector3<T>>( getVertex( i ), getVertex( ( i + 1 ) % vertexCount ) ) );
 			}
@@ -235,9 +235,9 @@ namespace TLunaEngine
 
 			// Compare vertices. They may differ in its starting position.
 			// find start
-			size_t start = 0;
+			TU32 start = 0;
 			TBOOL foundStart = TFALSE;
-			for (size_t i = 0; i < getVertexCount(); ++i )
+			for (TU32 i = 0; i < getVertexCount(); ++i )
 			{	
 				if (getVertex(0).equals(rhs.getVertex(i)))
 				{
@@ -250,7 +250,7 @@ namespace TLunaEngine
 			if (!foundStart)
 				return TFALSE;
 
-			for (size_t i = 0; i < getVertexCount(); ++i )
+			for (TU32 i = 0; i < getVertexCount(); ++i )
 			{
 				const Vector3<T>& vA = getVertex( i );
 				const Vector3<T>& vB = rhs.getVertex( ( i + start) % getVertexCount() );

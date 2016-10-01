@@ -26,7 +26,7 @@ namespace TLunaEngine{
 		m_ContentSize = 0;
 	}
 
-	TVOID MemFile::SetContent(TUByte *pContent, int size)
+	TVOID MemFile::SetContent(TUByte *pContent, TSIZE size)
 	{
 		if(!pContent || size<=0)
 			return;
@@ -39,7 +39,7 @@ namespace TLunaEngine{
 		m_ContentSize=size;
 	}
 
-	int MemFile::GetContent(TUByte **pContent)
+	TS32 MemFile::GetContent(TUByte **pContent)
 	{
 		if(!pContent)
 			return 0;

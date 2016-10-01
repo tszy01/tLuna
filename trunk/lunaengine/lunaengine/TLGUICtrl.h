@@ -15,10 +15,10 @@ namespace TLunaEngine{
 		virtual ~GUICtrl(TVOID);
 	protected:
 		GUI_CTRL_TYPE m_eCtrlType;	// 控件类型
-		int m_iIndex;				// 控件在容器中索引
+		TS32 m_iIndex;				// 控件在容器中索引
 		GUIContainer* m_pContainer;	// 指向容器
 		TBOOL m_bShow;				// 是否显示
-		float m_fAlpha;				// ALPHA值
+		TF32 m_fAlpha;				// ALPHA值
 
 		// ------ 以下是相对于容器的位置和大小 --------
 		TS32 m_posX;
@@ -33,11 +33,11 @@ namespace TLunaEngine{
 		// 销毁
 		virtual TVOID DestroyCtrl();
 		// 更新
-		virtual TBOOL Update(float fTimeElapsed);
+		virtual TBOOL Update(TF32 fTimeElapsed);
 		// 渲染
-		virtual TBOOL Render(float fTimeElapsed);
+		virtual TBOOL Render(TF32 fTimeElapsed);
 		// 设置ALPHA
-		virtual TVOID SetAlpha(float fAlpha)
+		virtual TVOID SetAlpha(TF32 fAlpha)
 		{
 			m_fAlpha = fAlpha;
 		}
@@ -45,10 +45,10 @@ namespace TLunaEngine{
 		// ------ 以下为子类调用 ----------------------
 		// 初始化
 		// 子类在初始化中必须调用此函数
-		TBOOL InitCtrlBase(int iIndex,GUIContainer* pContainer,TS32 x,TS32 y,TS32 width,TS32 height);
+		TBOOL InitCtrlBase(TS32 iIndex,GUIContainer* pContainer,TS32 x,TS32 y,TS32 width,TS32 height);
 	public:
 		// 得到索引
-		inline int GetIndex()
+		inline TS32 GetIndex()
 		{
 			return m_iIndex;
 		}

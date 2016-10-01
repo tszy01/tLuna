@@ -28,7 +28,7 @@ namespace TLunaEngine
 		}
 		ConvexBody( const ConvexBody<T>& cpy )
 		{
-			for ( size_t i = 0; i < cpy.getPolygonCount(); ++i )
+			for (TU32 i = 0; i < cpy.getPolygonCount(); ++i )
 			{
 				Polygon *p = new Polygon<T>();
 				*p = cpy.getPolygon( i );
@@ -206,7 +206,7 @@ namespace TLunaEngine
 		TVOID clip( const Plane<T>* frustumPlanes )
 		{
 			// clip the body with each plane
-			for ( unsigned short i = 0; i < 6; ++i )
+			for ( TU16 i = 0; i < 6; ++i )
 			{
 				// clip, but keep positive space this time since frustum planes are 
 				// the opposite to other cases (facing inwards rather than outwards)
@@ -276,7 +276,7 @@ namespace TLunaEngine
 
 			Plane<T> pl;
 
-			for ( size_t iPoly = 0; iPoly < body.getPolygonCount(); ++iPoly )
+			for (TU32 iPoly = 0; iPoly < body.getPolygonCount(); ++iPoly )
 			{
 				const Polygon<T>& p = body.getPolygon( iPoly );
 
@@ -308,12 +308,12 @@ namespace TLunaEngine
 
 			// clip all polygons by the intersection plane
 			// add only valid or intersected polygons to *this
-			for ( size_t iPoly = 0; iPoly < current.getPolygonCount(); ++iPoly )
+			for (TU32 iPoly = 0; iPoly < current.getPolygonCount(); ++iPoly )
 			{
 
 				// fetch vertex count and ignore polygons with less than three vertices
 				// the polygon is not valid and won't be added
-				const size_t vertexCount = current.getVertexCount( iPoly );
+				const TU32 vertexCount = current.getVertexCount( iPoly );
 				if ( vertexCount < 3 )
 					continue;
 
@@ -334,7 +334,7 @@ namespace TLunaEngine
 				// - side is !clipSide: vertex will be untouched
 				// - side is NOSIDE:   vertex will be untouched
 				EIntersectionRelation3D *side = new EIntersectionRelation3D[vertexCount];
-				for ( size_t iVertex = 0; iVertex < vertexCount; ++iVertex )
+				for (TU32 iVertex = 0; iVertex < vertexCount; ++iVertex )
 				{
 					side[ iVertex ] = pl.getSide( p.getVertex( iVertex ) );
 				}
@@ -345,10 +345,10 @@ namespace TLunaEngine
 				// - both points outside: discard both (don't add them to the body)
 				// - first vertex is inside, second is outside: add the intersection point
 				// - first vertex is outside, second is inside: add the intersection point, then the second
-				for ( size_t iVertex = 0; iVertex < vertexCount; ++iVertex )
+				for (TU32 iVertex = 0; iVertex < vertexCount; ++iVertex )
 				{
 					// determine the next vertex
-					size_t iNextVertex = ( iVertex + 1 ) % vertexCount;
+					TU32 iNextVertex = ( iVertex + 1 ) % vertexCount;
 
 					const Vector3& vCurrent = p.getVertex( iVertex );
 					const Vector3& vNext    = p.getVertex( iNextVertex );
@@ -575,7 +575,7 @@ namespace TLunaEngine
 			// convex polygon (triangle) with the point.
 			std::map<Vector3<T>, Vector3<T>> edgeMap;
 
-			for ( size_t i = 0; i < getPolygonCount(); ++i )
+			for (TU32 i = 0; i < getPolygonCount(); ++i )
 			{
 				const Vector3<T>& normal = getNormal( i );
 				// direction of the point in regard to the polygon
@@ -673,23 +673,23 @@ namespace TLunaEngine
 
 		/** Returns the current number of polygons.
 		*/
-		size_t getPolygonCount( TVOID ) const
+		TU32 getPolygonCount( TVOID ) const
 		{
-			return mPolygons.size();
+			return (TU32)mPolygons.size();
 		}
 
 		/** Returns the number of vertices for a polygon
 		*/
-		size_t getVertexCount( size_t poly ) const
+		TU32 getVertexCount(TU32 poly ) const
 		{
 			assert(poly < getPolygonCount());
 		
-			return mPolygons[ poly ]->getVertexCount();
+			return (TU32)mPolygons[ poly ]->getVertexCount();
 		}
 
 		/** Returns a polygon.
 		*/
-		const Polygon<T>& getPolygon( size_t poly ) const
+		const Polygon<T>& getPolygon(TU32 poly ) const
 		{
 			assert(poly < getPolygonCount());
 
@@ -698,7 +698,7 @@ namespace TLunaEngine
 
 		/** Returns a specific vertex of a polygon.
 		*/
-		const Vector3<T>& getVertex( size_t poly, size_t vertex ) const
+		const Vector3<T>& getVertex(TU32 poly, TU32 vertex ) const
 		{
 			assert( poly < getPolygonCount() );
 		
@@ -707,7 +707,7 @@ namespace TLunaEngine
 
 		/** Returns the normal of a specified polygon.
 		*/
-		const Vector3<T>& getNormal( size_t poly )
+		const Vector3<T>& getNormal(TU32 poly )
 		{
 			assert( poly < getPolygonCount() );
 		
@@ -746,10 +746,10 @@ namespace TLunaEngine
 			// normal. That means another step has to be processed.
 			TBOOL bDirty = TFALSE;
 
-			for ( size_t iPolyA = 0; iPolyA < getPolygonCount(); ++iPolyA )
+			for (TU32 iPolyA = 0; iPolyA < getPolygonCount(); ++iPolyA )
 			{
 
-				for ( size_t iPolyB = iPolyA+1; iPolyB < getPolygonCount(); ++iPolyB )
+				for (TU32 iPolyB = iPolyA+1; iPolyB < getPolygonCount(); ++iPolyB )
 				{
 					const Vector3<T>& n1 = getNormal( iPolyA );
 					const Vector3<T>& n2 = getNormal( iPolyB );
@@ -761,11 +761,11 @@ namespace TLunaEngine
 						TBOOL bFound = TFALSE;
 
 						// search the two fitting vertices (if there are any) for the common edge
-						const size_t numVerticesA = getVertexCount( iPolyA );
-						for ( size_t iVertexA = 0; iVertexA < numVerticesA; ++iVertexA )
+						const TU32 numVerticesA = getVertexCount( iPolyA );
+						for (TU32 iVertexA = 0; iVertexA < numVerticesA; ++iVertexA )
 						{
-							const size_t numVerticesB = getVertexCount( iPolyB );
-							for ( size_t iVertexB = 0; iVertexB < numVerticesB; ++iVertexB )
+							const TU32 numVerticesB = getVertexCount( iPolyB );
+							for (TU32 iVertexB = 0; iVertexB < numVerticesB; ++iVertexB )
 							{
 								const Vector3<T>& aCurrent	= getVertex( iPolyA, iVertexA );
 								const Vector3<T>& aNext		= getVertex( iPolyA, (iVertexA + 1) % getVertexCount( iPolyA ) );
@@ -782,32 +782,32 @@ namespace TLunaEngine
 
 									// insert all vertices of A up to the join (including the common vertex, ignoring
 									// whether the first vertex of A may be a shared vertex)
-									for ( size_t i = 0; i <= iVertexA; ++i )
+									for (TU32 i = 0; i <= iVertexA; ++i )
 									{
 										pNew->insertVertex( getVertex( iPolyA, i%numVerticesA ) );
 									}
 
 									// insert all vertices of B _after_ the join to the end
-									for ( size_t i = iVertexB + 2; i < numVerticesB; ++i )
+									for (TU32 i = iVertexB + 2; i < numVerticesB; ++i )
 									{
 										pNew->insertVertex( getVertex( iPolyB, i ) );
 									}
 
 									// insert all vertices of B from the beginning up to the join (including the common vertex
 									// and excluding the first vertex if the first is part of the shared edge)
-									for ( size_t i = 0; i <= iVertexB; ++i )
+									for (TU32 i = 0; i <= iVertexB; ++i )
 									{
 										pNew->insertVertex( getVertex( iPolyB, i%numVerticesB ) );
 									}
 
 									// insert all vertices of A _after_ the join to the end
-									for ( size_t i = iVertexA + 2; i < numVerticesA; ++i )
+									for (TU32 i = iVertexA + 2; i < numVerticesA; ++i )
 									{
 										pNew->insertVertex( getVertex( iPolyA, i ) );
 									}
 
 									// in case there are double vertices (in special cases), remove them
-									for ( size_t i = 0; i < pNew->getVertexCount(); ++i )
+									for (TU32 i = 0; i < pNew->getVertexCount(); ++i )
 									{
 										const Vector3<T>& a = pNew->getVertex( i );
 										const Vector3<T>& b = pNew->getVertex( (i + 1) % pNew->getVertexCount() );
@@ -876,16 +876,16 @@ namespace TLunaEngine
 			// Compare the polygons. They may not be in correct order.
 			// A correct convex body does not have identical polygons in its body.
 			TBOOL *bChecked = new TBOOL[getPolygonCount()];
-			for ( size_t i=0; i<getPolygonCount(); ++i )
+			for (TU32 i=0; i<getPolygonCount(); ++i )
 			{
 				bChecked[ i ] = TFALSE;
 			}
 
-			for ( size_t i=0; i<getPolygonCount(); ++i )
+			for (TU32 i=0; i<getPolygonCount(); ++i )
 			{
 				TBOOL bFound = TFALSE;
 
-				for ( size_t j=0; j<getPolygonCount(); ++j )
+				for (TU32 j=0; j<getPolygonCount(); ++j )
 				{
 					const Polygon<T>& pA = getPolygon( i );
 					const Polygon<T>& pB = rhs.getPolygon( j );
@@ -906,7 +906,7 @@ namespace TLunaEngine
 				}
 			}
 
-			for ( size_t i=0; i<getPolygonCount(); ++i )
+			for (TU32 i=0; i<getPolygonCount(); ++i )
 			{
 				if ( bChecked[ i ] != TTRUE )
 				{
@@ -933,7 +933,7 @@ namespace TLunaEngine
 			After this method is called, the ConvexBody 'owns' this Polygon
 			and will be responsible for deleting it.
 		*/
-		TVOID insertPolygon(Polygon<T>* pdata, size_t poly)
+		TVOID insertPolygon(Polygon<T>* pdata, TU32 poly)
 		{
 			assert(poly <= getPolygonCount());
 			assert( pdata != TNULL );
@@ -960,7 +960,7 @@ namespace TLunaEngine
 			No checks are done whether the assembled polygon is (still) planar, 
 			the caller must ensure that this is the case.
 		*/
-		TVOID insertVertex(size_t poly, const Vector3<T>& vdata, size_t vertex)
+		TVOID insertVertex(TU32 poly, const Vector3<T>& vdata, TU32 vertex)
 		{
 			assert(poly < getPolygonCount() );
 		
@@ -971,7 +971,7 @@ namespace TLunaEngine
 			No checks are done whether the assembled polygon is (still) planar, 
 			the caller must ensure that this is the case.
 		*/
-		TVOID insertVertex(size_t poly, const Vector3<T>& vdata)
+		TVOID insertVertex(TU32 poly, const Vector3<T>& vdata)
 		{
 			assert(poly < getPolygonCount() );
 
@@ -979,7 +979,7 @@ namespace TLunaEngine
 		}
 		/** Deletes a specific polygon.
 		*/
-		TVOID deletePolygon(size_t poly)
+		TVOID deletePolygon(TU32 poly)
 		{
 			assert(poly < getPolygonCount() );
 
@@ -994,7 +994,7 @@ namespace TLunaEngine
 		@note
 			The retrieved polygon needs to be deleted later by the caller.
 		*/
-		Polygon<T>* unlinkPolygon(size_t poly)
+		Polygon<T>* unlinkPolygon(TU32 poly)
 		{
 			assert( poly < getPolygonCount() );
 
@@ -1022,7 +1022,7 @@ namespace TLunaEngine
 
 		/** Deletes a specific vertex of a specific polygon.
 		*/
-		TVOID deleteVertex(size_t poly, size_t vertex)
+		TVOID deleteVertex(TU32 poly, TU32 vertex)
 		{
 			assert(poly < getPolygonCount() );
 
@@ -1033,7 +1033,7 @@ namespace TLunaEngine
 		@note Again, the passed in polygon is owned by this object after this
 			call returns, and this object is resonsible for deleting it.
 		*/
-		TVOID setPolygon(Polygon<T>* pdata, size_t poly )
+		TVOID setPolygon(Polygon<T>* pdata, TU32 poly )
 		{
 			assert(poly < getPolygonCount() );
 			assert(pdata != TNULL );
@@ -1053,7 +1053,7 @@ namespace TLunaEngine
 			No checks are done whether the assembled polygon is (still) planar, 
 			the caller must ensure that this is the case.
 		*/
-		TVOID setVertex( size_t poly, const Vector3<T>& vdata, size_t vertex )
+		TVOID setVertex(TU32 poly, const Vector3<T>& vdata, TU32 vertex )
 		{
 			assert(poly < getPolygonCount());
 		
@@ -1069,11 +1069,11 @@ namespace TLunaEngine
 
 			// put all edges of all polygons into a list every edge has to be
 			// walked in each direction once	
-			for ( size_t i = 0; i < getPolygonCount(); ++i )
+			for (TU32 i = 0; i < getPolygonCount(); ++i )
 			{
 				const Polygon<T>& p = getPolygon( i );
 
-				for ( size_t j = 0; j < p.getVertexCount(); ++j )
+				for (TU32 j = 0; j < p.getVertexCount(); ++j )
 				{
 					const Vector3<T>& a = p.getVertex( j );
 					const Vector3<T>& b = p.getVertex( ( j + 1 ) % p.getVertexCount() );
@@ -1121,7 +1121,7 @@ namespace TLunaEngine
 
 		/** Stores the edges of a specific polygon in a passed in structure.
 		*/
-		TVOID storeEdgesOfPolygon(size_t poly, std::map<Vector3<T>, Vector3<T>> *edgeMap) const
+		TVOID storeEdgesOfPolygon(TU32 poly, std::map<Vector3<T>, Vector3<T>> *edgeMap) const
 		{
 			assert(poly <= getPolygonCount() );
 			assert( edgeMap != TNULL );
@@ -1134,16 +1134,16 @@ namespace TLunaEngine
 			@note
 				Old data (if available) will be erased.
 		*/
-		TVOID allocateSpace(size_t numPolygons, size_t numVertices)
+		TVOID allocateSpace(TU32 numPolygons, TU32 numVertices)
 		{
 			reset();
 
 			// allocate numPolygons polygons with each numVertices vertices
-			for ( size_t iPoly = 0; iPoly < numPolygons; ++iPoly )
+			for (TU32 iPoly = 0; iPoly < numPolygons; ++iPoly )
 			{
 				Polygon<T> *poly = new Polygon<T>;
 
-				for ( size_t iVertex = 0; iVertex < numVertices; ++iVertex )
+				for (TU32 iVertex = 0; iVertex < numVertices; ++iVertex )
 				{
 					poly->insertVertex( Vector3::ZERO );
 				}

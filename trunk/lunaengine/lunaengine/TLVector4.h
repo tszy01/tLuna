@@ -47,12 +47,12 @@ namespace TLunaEngine{
 		{
 		}
 
-		inline T operator [] ( const size_t i ) const
+		inline T operator [] ( const TSIZE i ) const
 		{
 			return *(&X+i);
 		}
 
-		inline T& operator [] ( const size_t i )
+		inline T& operator [] ( const TSIZE i )
 		{
 			return *(&X+i);
 		}
@@ -308,7 +308,7 @@ namespace TLunaEngine{
 		vec Vector with which to calculate the dot product (together
 		with this one).
 		@returns
-		A float representing the dot product value.
+		A T representing the dot product value.
 		*/
 		inline T dotProduct(const Vector4<T>& vec) const
 		{

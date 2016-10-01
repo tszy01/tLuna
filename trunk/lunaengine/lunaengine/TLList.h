@@ -24,8 +24,8 @@ namespace TLunaEngine{
 			Iterator() : Current(0) {}
 			Iterator& operator ++()    { Current = Current->Next; return *this; }
 			Iterator& operator --()    { Current = Current->Prev; return *this; }
-			Iterator  operator ++(int) { Iterator tmp = *this; Current = Current->Next; return tmp; }
-			Iterator  operator --(int) { Iterator tmp = *this; Current = Current->Prev; return tmp; }
+			Iterator  operator ++(TS32) { Iterator tmp = *this; Current = Current->Next; return tmp; }
+			Iterator  operator --(TS32) { Iterator tmp = *this; Current = Current->Prev; return tmp; }
 			TBOOL operator ==(const Iterator&      other) const { return Current == other.Current; }
 			TBOOL operator !=(const Iterator&      other) const { return Current != other.Current; }
 			T & operator * () { return Current->Value; }
@@ -53,7 +53,7 @@ namespace TLunaEngine{
 		// 末尾指针
 		LIST_NODE* m_Last;
 		// 大小
-		int m_Size;
+		TS32 m_Size;
 	public:
 		// 拷贝构造
 		List(const List<T>& other) : m_First(0), m_Last(0), m_Size(0)
@@ -85,7 +85,7 @@ namespace TLunaEngine{
 			return *this;
 		}
 		// 得到大小
-		inline int size() const
+		inline TS32 size() const
 		{
 			return m_Size;
 		}
@@ -208,10 +208,10 @@ namespace TLunaEngine{
 			return returnIterator;
 		}
 		// 重载[]
-		inline T& operator[](int iPos)
+		inline T& operator[](TS32 iPos)
 		{
 			Iterator itr = begin();
-			int count = 0;
+			TS32 count = 0;
 			for(;itr!=end();++itr)
 			{
 				if(count == iPos)
@@ -223,10 +223,10 @@ namespace TLunaEngine{
 			return m_First->Value;
 		}
 		// 得到值
-		inline TBOOL GetValue(int iPos,T& value)
+		inline TBOOL GetValue(TS32 iPos,T& value)
 		{
 			Iterator itr = begin();
-			int count = 0;
+			TS32 count = 0;
 			for(;itr!=end();++itr)
 			{
 				if(count == iPos)

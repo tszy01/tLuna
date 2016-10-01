@@ -32,10 +32,10 @@ namespace TLunaEngine{
 		TVOID SetVariable(TCHAR* varName);
 		TVOID GetVariable(TCHAR* varName);
 		TVOID CloseLuaBase();
-		TVOID Pop(int n);
+		TVOID Pop(TS32 n);
 		// C++调用lua函数
 		// 如果是用lua基本库调用，请使用本函数，并且在调用之后需要pop出N个返回值
-		TBOOL CallFunction(int nargs,int nresults);
+		TBOOL CallFunction(TS32 nargs,TS32 nresults);
 		inline lua_State* GetState(){return m_state;}
 
 	protected:
@@ -46,25 +46,25 @@ namespace TLunaEngine{
 		** access functions (stack -> C)
 		*/
 
-		int				Lua_isnumber (int idx){return lua_isnumber(m_state,idx);};
-		int             Lua_isstring (int idx){return lua_isstring(m_state,idx);};
-		int             Lua_iscfunction (int idx){return lua_iscfunction(m_state,idx);};
-		int             Lua_isuserdata (int idx){return lua_isuserdata(m_state,idx);};
-		int             Lua_type (int idx){return lua_type(m_state,idx);};
-		const TCHAR*	Lua_typename (int tp){return lua_typename(m_state,tp);};
+		TS32				Lua_isnumber (TS32 idx){return lua_isnumber(m_state,idx);};
+		TS32             Lua_isstring (TS32 idx){return lua_isstring(m_state,idx);};
+		TS32             Lua_iscfunction (TS32 idx){return lua_iscfunction(m_state,idx);};
+		TS32             Lua_isuserdata (TS32 idx){return lua_isuserdata(m_state,idx);};
+		TS32             Lua_type (TS32 idx){return lua_type(m_state,idx);};
+		const TCHAR*	Lua_typename (TS32 tp){return lua_typename(m_state,tp);};
 
-		int				Lua_equal (int idx1, int idx2){return lua_equal(m_state,idx1,idx2);};
-		int				Lua_rawequal (int idx1, int idx2){return lua_rawequal(m_state,idx1,idx2);};
-		int				Lua_lessthan (int idx1, int idx2){return lua_lessthan(m_state,idx1,idx2);};
+		TS32				Lua_equal (TS32 idx1, TS32 idx2){return lua_equal(m_state,idx1,idx2);};
+		TS32				Lua_rawequal (TS32 idx1, TS32 idx2){return lua_rawequal(m_state,idx1,idx2);};
+		TS32				Lua_lessthan (TS32 idx1, TS32 idx2){return lua_lessthan(m_state,idx1,idx2);};
 
-		lua_Number      Lua_tonumber (int idx){return lua_tonumber(m_state,idx);};
-		int             Lua_toboolean (int idx){return lua_toboolean(m_state,idx);};
-		const TCHAR*	Lua_tostring (int idx){return lua_tostring(m_state,idx);};
-		size_t          Lua_strlen (int idx){return lua_strlen(m_state,idx);};
-		lua_CFunction   Lua_tocfunction (int idx){return lua_tocfunction(m_state,idx);};
-		TVOID			*Lua_touserdata (int idx){return lua_touserdata(m_state,idx);};
-		lua_State		*Lua_tothread (int idx){return lua_tothread(m_state,idx);};
-		const TVOID		*Lua_topointer (int idx){return lua_topointer(m_state,idx);};
+		lua_Number      Lua_tonumber (TS32 idx){return lua_tonumber(m_state,idx);};
+		TS32             Lua_toboolean (TS32 idx){return lua_toboolean(m_state,idx);};
+		const TCHAR*	Lua_tostring (TS32 idx){return lua_tostring(m_state,idx);};
+		TSIZE          Lua_strlen (TS32 idx){return lua_strlen(m_state,idx);};
+		lua_CFunction   Lua_tocfunction (TS32 idx){return lua_tocfunction(m_state,idx);};
+		TVOID			*Lua_touserdata (TS32 idx){return lua_touserdata(m_state,idx);};
+		lua_State		*Lua_tothread (TS32 idx){return lua_tothread(m_state,idx);};
+		const TVOID		*Lua_topointer (TS32 idx){return lua_topointer(m_state,idx);};
 
 
 		/*
@@ -72,7 +72,7 @@ namespace TLunaEngine{
 		*/
 		TVOID  Lua_pushnil (){return lua_pushnil(m_state);};
 		TVOID  Lua_pushnumber (lua_Number n){return lua_pushnumber(m_state,n);};
-		TVOID  Lua_pushlstring (const TCHAR* s, size_t l){return lua_pushlstring(m_state,s,l);};
+		TVOID  Lua_pushlstring (const TCHAR* s, TSIZE l){return lua_pushlstring(m_state,s,l);};
 		TVOID  Lua_pushstring (const TCHAR* s){return lua_pushstring(m_state,s);};
 		const TCHAR* Lua_pushvfstring (const TCHAR* fmt,va_list argp){return lua_pushvfstring(m_state,fmt,argp);};
 		const TCHAR* Lua_pushfstring (const TCHAR* fmt, ...)
@@ -83,31 +83,31 @@ namespace TLunaEngine{
 			va_end(args);
 			return str;
 		};
-		TVOID  Lua_pushcclosure (lua_CFunction fn, int n){return lua_pushcclosure(m_state,fn,n);};
-		TVOID  Lua_pushboolean (int b){return lua_pushboolean(m_state,b);};
+		TVOID  Lua_pushcclosure (lua_CFunction fn, TS32 n){return lua_pushcclosure(m_state,fn,n);};
+		TVOID  Lua_pushboolean (TS32 b){return lua_pushboolean(m_state,b);};
 		TVOID  Lua_pushlightuserdata (TVOID *p){return lua_pushlightuserdata(m_state,p);};
 
 
 		/*
 		** get functions (Lua -> stack)
 		*/
-		TVOID  Lua_gettable (int idx){return lua_gettable(m_state,idx);};
-		TVOID  Lua_rawget (int idx){return lua_rawget(m_state,idx);};
-		TVOID  Lua_rawgeti (int idx, int n){return lua_rawgeti(m_state,idx,n);};
+		TVOID  Lua_gettable (TS32 idx){return lua_gettable(m_state,idx);};
+		TVOID  Lua_rawget (TS32 idx){return lua_rawget(m_state,idx);};
+		TVOID  Lua_rawgeti (TS32 idx, TS32 n){return lua_rawgeti(m_state,idx,n);};
 		TVOID  Lua_newtable (){return lua_newtable(m_state);};
-		TVOID *Lua_newuserdata (size_t sz){return lua_newuserdata(m_state,sz);};
-		int   Lua_getmetatable (int objindex){return lua_getmetatable(m_state,objindex);};
-		TVOID  Lua_getfenv (int idx){return lua_getfenv(m_state,idx);};
+		TVOID *Lua_newuserdata (TSIZE sz){return lua_newuserdata(m_state,sz);};
+		TS32   Lua_getmetatable (TS32 objindex){return lua_getmetatable(m_state,objindex);};
+		TVOID  Lua_getfenv (TS32 idx){return lua_getfenv(m_state,idx);};
 
 
 		/*
 		** set functions (stack -> Lua)
 		*/
-		TVOID  Lua_settable (int idx){return lua_settable(m_state,idx);};
-		TVOID  Lua_rawset (int idx){return lua_rawset(m_state,idx);};
-		TVOID  Lua_rawseti (int idx, int n){return lua_rawseti(m_state,idx,n);};
-		int   Lua_setmetatable (int objindex){return lua_setmetatable(m_state,objindex);};
-		int   Lua_setfenv (int idx){return lua_setfenv(m_state,idx);};
+		TVOID  Lua_settable (TS32 idx){return lua_settable(m_state,idx);};
+		TVOID  Lua_rawset (TS32 idx){return lua_rawset(m_state,idx);};
+		TVOID  Lua_rawseti (TS32 idx, TS32 n){return lua_rawseti(m_state,idx,n);};
+		TS32   Lua_setmetatable (TS32 objindex){return lua_setmetatable(m_state,objindex);};
+		TS32   Lua_setfenv (TS32 idx){return lua_setfenv(m_state,idx);};
 
 		// ---------------------------------------------------------------------
 	};

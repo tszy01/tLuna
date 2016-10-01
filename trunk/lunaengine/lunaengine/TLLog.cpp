@@ -6,7 +6,7 @@ namespace TLunaEngine{
 
 	// 初始化静态成员
 	TLunaEngine::String* Log::m_filterArray = 0;
-	int Log::m_filterCount = 0;
+	TS32 Log::m_filterCount = 0;
 	TCHAR Log::m_logPath[256] = {0};
 	TBOOL Log::m_bOpen = TFALSE;
 	Log::LOG_LEVEL Log::m_minLevel = LOG_LEVEL_INFO;
@@ -37,7 +37,7 @@ namespace TLunaEngine{
 		{
 			m_filterArray = new String[m_filterCount];
 		}
-		for(int i=0;i<m_filterCount;i++)
+		for(TS32 i=0;i<m_filterCount;i++)
 		{
 			TCHAR sz[128] ={0};
 			strTmp = "";
@@ -48,7 +48,7 @@ namespace TLunaEngine{
 		// 读取是否打开写日志
 		strTmp = "";
 		ConfigFile.GetParameter("OpenWriteLog",&strTmp);
-		int boolean = atoi(strTmp.GetString());
+		TS32 boolean = atoi(strTmp.GetString());
 		if(boolean==0)
 			m_bOpen=TFALSE;
 		else
@@ -92,7 +92,7 @@ namespace TLunaEngine{
 			::FreeConsole();
 	}
 
-	TVOID Log::WriteLine(LOG_LEVEL level,TBOOL bTrue, TCHAR* codeName, int codeLine, TCHAR* content)
+	TVOID Log::WriteLine(LOG_LEVEL level,TBOOL bTrue, TCHAR* codeName, TS32 codeLine, TCHAR* content)
 	{
 		// 可以没有内容
 		// 但是必须有Path
@@ -109,7 +109,7 @@ namespace TLunaEngine{
 			return;
 		// 过滤文件名中的路径
 		String strCode(codeName);
-		for(int i=0;i<m_filterCount&&m_filterArray;i++)
+		for(TS32 i=0;i<m_filterCount&&m_filterArray;i++)
 		{
 			if(strCode.Find(m_filterArray[i],0,TFALSE)!=-1)
 				return;
@@ -139,7 +139,7 @@ namespace TLunaEngine{
 		{
 			return ;
 		}
-		int numwrite = fwrite(strWrite.GetString(),sizeof(TCHAR),strWrite.GetLength(),stream);
+		TU32 numwrite = (TU32)fwrite(strWrite.GetString(),sizeof(TCHAR),strWrite.GetLength(),stream);
 		if(ferror(stream))
 		{
 			fclose(stream);

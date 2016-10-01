@@ -80,17 +80,17 @@ namespace TLunaEngine{
 		}
 
 		// 写入文件
-		int numWrite = 0;
+		TU32 numWrite = 0;
 		TCHAR c;
-		size_t szLen = 0;
-		int count = 0;
+		TU32 szLen = 0;
+		TU32 count = 0;
 		StrList::iterator itr = m_list.begin();
 		for(;itr!=m_list.end();itr++)
 		{
 			// 写入parameter
-			szLen = (size_t)itr->m_strParameter.GetLength();
-			numWrite = (int)fwrite(itr->m_strParameter.GetString(),sizeof(TCHAR),szLen,m_stream);
-			if(numWrite!=(int)szLen)
+			szLen = itr->m_strParameter.GetLength();
+			numWrite = (TU32)fwrite(itr->m_strParameter.GetString(),sizeof(TCHAR),szLen,m_stream);
+			if(numWrite!=szLen)
 			{
 				CloseFile();
 				return TFALSE;
@@ -98,7 +98,7 @@ namespace TLunaEngine{
 
 			// 写入等号
 			c = '=';
-			numWrite = (int)fwrite(&c,sizeof(TCHAR),1,m_stream);
+			numWrite = (TU32)fwrite(&c,sizeof(TCHAR),1,m_stream);
 			if(numWrite!=1)
 			{
 				CloseFile();
@@ -106,8 +106,8 @@ namespace TLunaEngine{
 			}
 
 			// 写入值
-			szLen = (size_t)itr->m_strValue.GetLength();
-			numWrite = (int)fwrite(itr->m_strValue.GetString(),sizeof(TCHAR),szLen,m_stream);
+			szLen = itr->m_strValue.GetLength();
+			numWrite = (TU32)fwrite(itr->m_strValue.GetString(),sizeof(TCHAR),szLen,m_stream);
 			if(numWrite!=szLen)
 			{
 				CloseFile();
@@ -117,10 +117,10 @@ namespace TLunaEngine{
 			count++;
 
 			// 写入换行
-			if(count < (int)m_list.size())
+			if(count < (TU32)m_list.size())
 			{
 				c = '\n';
-				numWrite = (int)fwrite(&c,sizeof(TCHAR),1,m_stream);
+				numWrite = (TU32)fwrite(&c,sizeof(TCHAR),1,m_stream);
 				if(numWrite!=1)
 				{
 					CloseFile();
@@ -194,13 +194,13 @@ namespace TLunaEngine{
 		m_list.push_back(str);
 	}
 
-	TBOOL ConfigFile::FindParameter(const TCHAR* paraName,int* pIndex)
+	TBOOL ConfigFile::FindParameter(const TCHAR* paraName,TS32* pIndex)
 	{
 		if(!m_bOpen || !paraName)
 			return TFALSE;
 		// 遍历找到parameter
 		StrList::iterator itr = m_list.begin();
-		int count = 0;
+		TS32 count = 0;
 		for(;itr!=m_list.end();itr++,count++)
 		{
 			if(strcmp(paraName,itr->m_strParameter.GetString())==0)
@@ -220,17 +220,17 @@ namespace TLunaEngine{
 		filemap.m_strParameter = "";
 		filemap.m_strValue = "";
 		// 临时变量
-		int numRead = 0;
+		TU32 numRead = 0;
 		TCHAR c;
 		TCHAR last;
-		int count = 0;
+		TU32 count = 0;
 		TBOOL bIsPara = TTRUE;
 		TCHAR szTmp[2] = {0};
 		// 循环文件
 		while(feof(m_stream)==0)
 		{
 			// 读一个字符
-			numRead = (int)fread(&c,sizeof(TCHAR),1,m_stream);
+			numRead = (TU32)fread(&c,sizeof(TCHAR),1,m_stream);
 			// 读取是否成功
 			if(numRead!=1)
 			{

@@ -69,7 +69,7 @@ namespace TLunaEngine{
 			delete mBlendState;
 			mBlendState = 0;
 		}
-		std::map<int,RenderDeviceUsedSRV*>::iterator itr = mSRVList.begin();
+		std::map<TS32,RenderDeviceUsedSRV*>::iterator itr = mSRVList.begin();
 		for(;itr!=mSRVList.end();++itr)
 		{
 			RenderDeviceUsedSRV* pSRV = itr->second;
@@ -96,7 +96,7 @@ namespace TLunaEngine{
 
 	TVOID GUITextureMgr::DestroyAllTex()
 	{
-		std::map<int,RenderDeviceUsedSRV*>::iterator itr = mSRVList.begin();
+		std::map<TS32,RenderDeviceUsedSRV*>::iterator itr = mSRVList.begin();
 		for(;itr!=mSRVList.end();++itr)
 		{
 			RenderDeviceUsedSRV* pSRV = itr->second;
@@ -112,10 +112,10 @@ namespace TLunaEngine{
 
 	TBOOL GUITextureMgr::LoadTexArray(FILE* stream)
 	{
-		int texID = -1;
+		TS32 texID = -1;
 		TxtFileReader::ReadLineInteger(&texID,stream,1,' ');
 		TCHAR strResult[1024] = {0};
-		int nCount = 1024;
+		TS32 nCount = 1024;
 		TxtFileReader::ReadLineString(strResult,stream,TNULL,TNULL,1024,TNULL);
 		RenderDevice* pDevice = RenderMgr::getSingletonPtr()->getDevice();
 		String fullFile = GlobleClass::getSingletonPtr()->m_strResDir + strResult;
@@ -165,7 +165,7 @@ namespace TLunaEngine{
 		}
 		delete image;
 		delete pTex;
-		mSRVList.insert(std::pair<int,RenderDeviceUsedSRV*>(texID,pSRV));
+		mSRVList.insert(std::pair<TS32,RenderDeviceUsedSRV*>(texID,pSRV));
 		return TTRUE;
 	}
 
@@ -183,7 +183,7 @@ namespace TLunaEngine{
 		// 匹配第一行字符
 		TBOOL bEqual = TFALSE;
 		TCHAR strResult[1024] = {0};
-		int nCount = 1024;
+		TS32 nCount = 1024;
 		if(!TxtFileReader::ReadLineString(strResult,stream,"TUI_TEX_100",&bEqual,nCount,TNULL))
 		{
 			TxtFileReader::CloseTxtFile(stream);
@@ -195,10 +195,10 @@ namespace TLunaEngine{
 			return TFALSE;
 		}
 		// 读取数量
-		int texCount = 0;
+		TS32 texCount = 0;
 		TxtFileReader::ReadLineInteger(&texCount,stream,1,' ');
 		// 循环读取
-		for (int i=0;i<texCount;i++)
+		for (TS32 i=0;i<texCount;i++)
 		{
 			if(!LoadTexArray(stream))
 			{
@@ -269,12 +269,12 @@ namespace TLunaEngine{
 		// VB
 		GUI_VERTEX_DEF vertices[] =
 		{
-			{ TLunaEngine::Vector3<float>( -1.0f, 1.0f, 0.0f ), TLunaEngine::Vector2<float>( 0.0f, 0.0f ), TLunaEngine::Vector4<float>(1.0f,1.0f,1.0f,1.0f) },
-			{ TLunaEngine::Vector3<float>( 1.0f, -1.0f, 0.0f ), TLunaEngine::Vector2<float>( 1.0f,1.0f ), TLunaEngine::Vector4<float>(1.0f,1.0f,1.0f,1.0f) },
-			{ TLunaEngine::Vector3<float>( -1.0f, -1.0f, 0.0f ), TLunaEngine::Vector2<float>( 0.0f, 1.0f ), TLunaEngine::Vector4<float>(1.0f,1.0f,1.0f,1.0f) },
-			{ TLunaEngine::Vector3<float>( -1.0f, 1.0f, 0.0f ), TLunaEngine::Vector2<float>( 0.0f, 0.0f ), TLunaEngine::Vector4<float>(1.0f,1.0f,1.0f,1.0f) },
-			{ TLunaEngine::Vector3<float>( 1.0f, 1.0f, 0.0f ), TLunaEngine::Vector2<float>( 1.0f, 0.0f ), TLunaEngine::Vector4<float>(1.0f,1.0f,1.0f,1.0f) },
-			{ TLunaEngine::Vector3<float>( 1.0f, -1.0f, 0.0f ), TLunaEngine::Vector2<float>( 1.0f, 1.0f ), TLunaEngine::Vector4<float>(1.0f,1.0f,1.0f,1.0f) },
+			{ TLunaEngine::Vector3<TF32>( -1.0f, 1.0f, 0.0f ), TLunaEngine::Vector2<TF32>( 0.0f, 0.0f ), TLunaEngine::Vector4<TF32>(1.0f,1.0f,1.0f,1.0f) },
+			{ TLunaEngine::Vector3<TF32>( 1.0f, -1.0f, 0.0f ), TLunaEngine::Vector2<TF32>( 1.0f,1.0f ), TLunaEngine::Vector4<TF32>(1.0f,1.0f,1.0f,1.0f) },
+			{ TLunaEngine::Vector3<TF32>( -1.0f, -1.0f, 0.0f ), TLunaEngine::Vector2<TF32>( 0.0f, 1.0f ), TLunaEngine::Vector4<TF32>(1.0f,1.0f,1.0f,1.0f) },
+			{ TLunaEngine::Vector3<TF32>( -1.0f, 1.0f, 0.0f ), TLunaEngine::Vector2<TF32>( 0.0f, 0.0f ), TLunaEngine::Vector4<TF32>(1.0f,1.0f,1.0f,1.0f) },
+			{ TLunaEngine::Vector3<TF32>( 1.0f, 1.0f, 0.0f ), TLunaEngine::Vector2<TF32>( 1.0f, 0.0f ), TLunaEngine::Vector4<TF32>(1.0f,1.0f,1.0f,1.0f) },
+			{ TLunaEngine::Vector3<TF32>( 1.0f, -1.0f, 0.0f ), TLunaEngine::Vector2<TF32>( 1.0f, 1.0f ), TLunaEngine::Vector4<TF32>(1.0f,1.0f,1.0f,1.0f) },
 		};
 		TLRenderDeviceBufferDesc vbDesc;
 		vbDesc.BindFlags = RENDER_DEVICE_BIND_FLAG_VERTEX_BUFFER;
@@ -327,10 +327,10 @@ namespace TLunaEngine{
 		return TTRUE;
 	}
 
-	TBOOL GUITextureMgr::DrawGUICtrl(TS32 x, TS32 y, TS32 width, TS32 height, float texX, float texY, float texR, float texB, int texId,float alpha)
+	TBOOL GUITextureMgr::DrawGUICtrl(TS32 x, TS32 y, TS32 width, TS32 height, TF32 texX, TF32 texY, TF32 texR, TF32 texB, TS32 texId,TF32 alpha)
 	{
 		RenderDeviceUsedSRV* pSRV = TNULL;
-		std::map<int,RenderDeviceUsedSRV*>::iterator itr = mSRVList.find(texId);
+		std::map<TS32,RenderDeviceUsedSRV*>::iterator itr = mSRVList.find(texId);
 		if(itr!=mSRVList.end())
 		{
 			pSRV = itr->second;
@@ -340,35 +340,35 @@ namespace TLunaEngine{
 			return TFALSE;
 		}
 		RenderDevice* pDevice = RenderMgr::getSingletonPtr()->getDevice();
-		TLunaEngine::Vector4<float> color(1.0f,1.0f,1.0f,alpha);
+		TLunaEngine::Vector4<TF32> color(1.0f,1.0f,1.0f,alpha);
 		// 计算
-		float xFinal = -1.0f + ((float)(x))/m_bufferWidth * 2.0f;
-		float yFinal = (-1.0f + ((float)(y))/m_bufferHeight * 2.0f) * -1.0f;
-		float xLen = ((float)(width))/m_bufferWidth * 2.0f;
-		float yLen = ((float)(height))/m_bufferHeight * 2.0f;
+		TF32 xFinal = -1.0f + ((TF32)(x))/m_bufferWidth * 2.0f;
+		TF32 yFinal = (-1.0f + ((TF32)(y))/m_bufferHeight * 2.0f) * -1.0f;
+		TF32 xLen = ((TF32)(width))/m_bufferWidth * 2.0f;
+		TF32 yLen = ((TF32)(height))/m_bufferHeight * 2.0f;
 		// vbSet
 		GUI_VERTEX_DEF* pVertex;
 		TLRenderDeviceMappedSubresource mappedRes;
 		if(pDevice->mapResource(mVBSet,0,RENDER_DEVICE_MAP_READ_WRITE,&mappedRes))
 		{
 			pVertex = (GUI_VERTEX_DEF*)mappedRes.pData;
-			pVertex[0].Pos = TLunaEngine::Vector3<float>(xFinal,yFinal,0);
-			pVertex[0].Tex = TLunaEngine::Vector2<float>(texX,texY);
+			pVertex[0].Pos = TLunaEngine::Vector3<TF32>(xFinal,yFinal,0);
+			pVertex[0].Tex = TLunaEngine::Vector2<TF32>(texX,texY);
 			pVertex[0].Color = color;
-			pVertex[1].Pos = TLunaEngine::Vector3<float>(xFinal+xLen,yFinal-yLen,0);
-			pVertex[1].Tex = TLunaEngine::Vector2<float>(texR,texB);
+			pVertex[1].Pos = TLunaEngine::Vector3<TF32>(xFinal+xLen,yFinal-yLen,0);
+			pVertex[1].Tex = TLunaEngine::Vector2<TF32>(texR,texB);
 			pVertex[1].Color = color;
-			pVertex[2].Pos = TLunaEngine::Vector3<float>(xFinal,yFinal-yLen,0);
-			pVertex[2].Tex = TLunaEngine::Vector2<float>(texX,texB);
+			pVertex[2].Pos = TLunaEngine::Vector3<TF32>(xFinal,yFinal-yLen,0);
+			pVertex[2].Tex = TLunaEngine::Vector2<TF32>(texX,texB);
 			pVertex[2].Color = color;
-			pVertex[3].Pos = TLunaEngine::Vector3<float>(xFinal,yFinal,0);
-			pVertex[3].Tex = TLunaEngine::Vector2<float>(texX,texY);
+			pVertex[3].Pos = TLunaEngine::Vector3<TF32>(xFinal,yFinal,0);
+			pVertex[3].Tex = TLunaEngine::Vector2<TF32>(texX,texY);
 			pVertex[3].Color = color;
-			pVertex[4].Pos = TLunaEngine::Vector3<float>(xFinal+xLen,yFinal,0);
-			pVertex[4].Tex = TLunaEngine::Vector2<float>(texR,texY);
+			pVertex[4].Pos = TLunaEngine::Vector3<TF32>(xFinal+xLen,yFinal,0);
+			pVertex[4].Tex = TLunaEngine::Vector2<TF32>(texR,texY);
 			pVertex[4].Color = color;
-			pVertex[5].Pos = TLunaEngine::Vector3<float>(xFinal+xLen,yFinal-yLen,0);
-			pVertex[5].Tex = TLunaEngine::Vector2<float>(texR,texB);
+			pVertex[5].Pos = TLunaEngine::Vector3<TF32>(xFinal+xLen,yFinal-yLen,0);
+			pVertex[5].Tex = TLunaEngine::Vector2<TF32>(texR,texB);
 			pVertex[5].Color = color;
 			pDevice->unmapResource(mVBSet,0);
 			pDevice->copyResource(mVB,mVBSet);

@@ -39,9 +39,9 @@ namespace TLunaEngine{
 		// 销毁
 		TVOID DestroyGlobleClass();
 		// 帧更新
-		TBOOL OnUpdate(float fTimeElapsed);
+		TBOOL OnUpdate(TF32 fTimeElapsed);
 		// 帧渲染
-		TBOOL OnRender(float fTimeElapsed);
+		TBOOL OnRender(TF32 fTimeElapsed);
 		// update loop control
 		TVOID updateLoopCtrl();
 		// get loop control renderable
@@ -49,7 +49,7 @@ namespace TLunaEngine{
 		// calc fps
 		TVOID calcFPS();
 		// get elapsed time
-		float getElapsedTime();
+		TF32 getElapsedTime();
 	};
 
 }

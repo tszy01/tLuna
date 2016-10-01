@@ -42,7 +42,7 @@ namespace TLunaEngine{
 		}
 
 		/// Array accessor operator
-		inline T operator [] ( const size_t i ) const
+		inline T operator [] ( const TSIZE i ) const
 		{
 			assert( i < 8 );
 
@@ -50,7 +50,7 @@ namespace TLunaEngine{
 		}
 
 		/// Array accessor operator
-		inline T& operator [] ( const size_t i )
+		inline T& operator [] ( const TSIZE i )
 		{
 			assert( i < 8 );
 

@@ -52,7 +52,7 @@ namespace TLunaEngine{
 		{
 			return;
 		}
-		unsigned long stopTime = mTimer->getMilliseconds();
+		TU32 stopTime = mTimer->getMilliseconds();
 		m_runTime += stopTime - m_lastTime;
 		m_bStop = TTRUE;
 
@@ -68,7 +68,7 @@ namespace TLunaEngine{
 	    
 		if(m_bTimeControl)
 		{
-			unsigned long thisElapsed = 0;
+			TU32 thisElapsed = 0;
 			thisElapsed = m_curTime - m_lastTime;
 			m_controlTime += thisElapsed;
 			m_runTime += thisElapsed;
@@ -95,7 +95,7 @@ namespace TLunaEngine{
 
 	TBOOL LoopCtrl::TimeControl()
 	{
-		if((float)m_controlTime<m_fSecsPerFrame*1000.0f)
+		if((TF32)m_controlTime<m_fSecsPerFrame*1000.0f)
 		{
 			return TTRUE;
 		}
@@ -111,7 +111,7 @@ namespace TLunaEngine{
 		m_numFrames++;
 		if ( m_curTime - m_lastUpdate  >=  mCalcPeriod )
 		{
-			m_fps  =  (float)m_numFrames / (float)(m_curTime - m_lastUpdate) * 1000.0f;
+			m_fps  =  (TF32)m_numFrames / (TF32)(m_curTime - m_lastUpdate) * 1000.0f;
 			sprintf_s(m_szFPS,"fps:%.0f",m_fps);
 
 			m_lastUpdate = m_curTime;

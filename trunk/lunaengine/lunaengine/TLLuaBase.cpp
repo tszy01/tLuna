@@ -21,7 +21,7 @@ namespace TLunaEngine{
 		luaL_openlibs(m_state);  /* open libraries */
 		lua_gc(m_state, LUA_GCRESTART, 0);
 
-		int temp_int; 
+		TS32 temp_int; 
 		temp_int = luaL_loadfile(m_state,luaFile);
 		if (temp_int)
 		{
@@ -54,7 +54,7 @@ namespace TLunaEngine{
 		lua_getglobal(m_state,varName);
 	}
 
-	TBOOL LuaBase::CallFunction(int nargs, int nresults)
+	TBOOL LuaBase::CallFunction(TS32 nargs, TS32 nresults)
 	{
 		if(!m_state)
 			return TFALSE;
@@ -75,7 +75,7 @@ namespace TLunaEngine{
 		}
 	}
 
-	TVOID LuaBase::Pop(int n)
+	TVOID LuaBase::Pop(TS32 n)
 	{
 		if(!m_state)
 			return;

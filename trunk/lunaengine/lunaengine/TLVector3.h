@@ -394,12 +394,12 @@ namespace TLunaEngine{
             return perp;
         }
 
-		inline T operator [] (const size_t i) const
+		inline T operator [] (const TSIZE i) const
 		{
 			return *(&X + i);
 		}
 
-		inline T& operator [] (const size_t i)
+		inline T& operator [] (const TSIZE i)
 		{
 			return *(&X + i);
 		}

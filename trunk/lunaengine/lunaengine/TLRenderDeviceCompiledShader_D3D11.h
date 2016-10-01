@@ -15,7 +15,7 @@ namespace TLunaEngine
 		// get buffer pointer
 		virtual TVOID* getBufferPointer(); 
 		// get buffer size
-		virtual size_t getBufferSize();
+		virtual TSIZE getBufferSize();
 		// read from file
 		virtual TBOOL readFromFile(const TCHAR* file);
 		// write to file

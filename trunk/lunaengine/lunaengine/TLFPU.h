@@ -535,13 +535,13 @@ namespace TLunaEngine{
 	//! See http://www.magic-software.com/3DGEDInvSqrt.html
 	inline TF32 FastRSqrt(TF32 number)
 	{
-		long i;
+		TS32 i;
 		TF32 x2, y;
 		const TF32 threehalfs = 1.5f;
 
 		x2 = number * 0.5f;
 		y  = number;
-		i  = * (long *) &y;
+		i  = * (TS32 *) &y;
 		i  = 0x5f3759df - (i >> 1);
 		y  = * (TF32 *) &i;
 		y  = y * (threehalfs - (x2 * y * y));

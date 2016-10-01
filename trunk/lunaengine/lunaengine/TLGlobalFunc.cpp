@@ -14,7 +14,7 @@ namespace TLunaEngine{
 
 	// Initialize Engine
 	TBOOL Init(HWND hWnd,HINSTANCE hInst,TBOOL bWnd,TS32 lWidth,TS32 lHeight,
-							 float fSecsPerFrame,const TCHAR* szResDir,TBOOL bShowDebugInfo)
+							 TF32 fSecsPerFrame,const TCHAR* szResDir,TBOOL bShowDebugInfo)
 	{
 		// 记录资源根目录
 		GlobleClass::getSingletonPtr()->m_strResDir = TLunaEngine::String(szResDir);
@@ -58,7 +58,7 @@ namespace TLunaEngine{
 		return TTRUE;
 	}
 
-	TBOOL OnLoopCtrlUpdate(float* pTimeElapsed)
+	TBOOL OnLoopCtrlUpdate(TF32* pTimeElapsed)
 	{
 		// 时间控制
 		GlobleClass::getSingletonPtr()->updateLoopCtrl();
@@ -69,13 +69,13 @@ namespace TLunaEngine{
 		GlobleClass::getSingletonPtr()->calcFPS();
 		if (pTimeElapsed)
 		{
-			*pTimeElapsed = (float)GlobleClass::getSingletonPtr()->getElapsedTime();
+			*pTimeElapsed = (TF32)GlobleClass::getSingletonPtr()->getElapsedTime();
 		}
 		return TTRUE;
 	}
 
 	// Loop Engine
-	TBOOL OnSceneUpdate(float fTimeElapsed)
+	TBOOL OnSceneUpdate(TF32 fTimeElapsed)
 	{
 		// -------- GUI部分 -------------------------
 		GUIMgr* pGUIMgr = GUIMgr::getSingletonPtr();
@@ -85,7 +85,7 @@ namespace TLunaEngine{
 		return TTRUE;
 	}
 
-	TBOOL OnSceneRender(float fTimeElapsed)
+	TBOOL OnSceneRender(TF32 fTimeElapsed)
 	{
 		// 渲染循环
 		TLunaEngine::RenderDevice* device = TLunaEngine::RenderMgr::getSingletonPtr()->getDevice();
@@ -104,7 +104,7 @@ namespace TLunaEngine{
 	TBOOL OnGameLoop(UserLoop pLoop)
 	{
 		// 先计算帧控制
-		float timeElapsed = 0;
+		TF32 timeElapsed = 0;
 		if (TLunaEngine::OnLoopCtrlUpdate(&timeElapsed))
 		{
 			// 调用上层逻辑
@@ -200,7 +200,7 @@ namespace TLunaEngine{
 	}
 
 	// 循环
-	TBOOL OnSceneUpdateForEditor(float fTimeElapsed)
+	TBOOL OnSceneUpdateForEditor(TF32 fTimeElapsed)
 	{
 		// -------- GUI部分 -------------------------
 		GUIMgr* pGUIMgr = GUIMgr::getSingletonPtr();
@@ -210,7 +210,7 @@ namespace TLunaEngine{
 		return TTRUE;
 	}
 
-	TBOOL OnSceneRenderForEditor(float fTimeElapsed)
+	TBOOL OnSceneRenderForEditor(TF32 fTimeElapsed)
 	{
 		// 渲染循环
 		TLunaEngine::RenderDevice* device = TLunaEngine::RenderMgr::getSingletonPtr()->getDevice();

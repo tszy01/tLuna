@@ -6,7 +6,7 @@
 namespace TLunaEngine{
 
 	// 定义函数指针，上层游戏循环时调用
-	typedef TVOID(*UserLoop)(float fTimeElapsed);
+	typedef TVOID(*UserLoop)(TF32 fTimeElapsed);
 
 	// -------------------------- 以下为导出全局函数，上层调用 ------------------------------
 
@@ -20,12 +20,12 @@ namespace TLunaEngine{
 	// szResDir:资源根目录
 	// bShowDebugInfo:是否显示Debug信息
 	TBOOL Init(HWND hWnd,HINSTANCE hInst,TBOOL bWnd,TS32 lWidth,TS32 lHeight,
-							 float fSecsPerFrame,const TCHAR* szResDir,TBOOL bShowDebugInfo);
+							 TF32 fSecsPerFrame,const TCHAR* szResDir,TBOOL bShowDebugInfo);
 
 	// 引擎循环
-	TBOOL OnLoopCtrlUpdate(float* pTimeElapsed);
-	TBOOL OnSceneUpdate(float fTimeElapsed);
-	TBOOL OnSceneRender(float fTimeElapsed);
+	TBOOL OnLoopCtrlUpdate(TF32* pTimeElapsed);
+	TBOOL OnSceneUpdate(TF32 fTimeElapsed);
+	TBOOL OnSceneRender(TF32 fTimeElapsed);
 
 	// 游戏循环
 	TBOOL OnGameLoop(UserLoop pLoop);
@@ -47,8 +47,8 @@ namespace TLunaEngine{
 	TBOOL InitForEditor(HWND hWnd,HINSTANCE hInst,TS32 lWidth,TS32 lHeight,const TCHAR* szResDir);
 
 	// 引擎循环
-	TBOOL OnSceneUpdateForEditor(float fTimeElapsed);
-	TBOOL OnSceneRenderForEditor(float fTimeElapsed);
+	TBOOL OnSceneUpdateForEditor(TF32 fTimeElapsed);
+	TBOOL OnSceneRenderForEditor(TF32 fTimeElapsed);
 
 	// 引擎退出
 	TBOOL DestroyForEditor();

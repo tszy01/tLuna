@@ -20,13 +20,13 @@ namespace TLunaEngine{
 		// 指向第一个元素
 		T* m_pFront;
 		// 一共有几个有效
-		int m_nUsed;
+		TS32 m_nUsed;
 		// 一共开辟的个数
-		int m_nAlloc;
+		TS32 m_nAlloc;
 		// T的大小
-		size_t m_eleSize;
+		TSIZE m_eleSize;
 		// 当前开辟的空间大小
-		size_t m_nowSize;
+		TSIZE m_nowSize;
 
 		// --------------------------------------------------
 	public:
@@ -36,13 +36,13 @@ namespace TLunaEngine{
 		// elementSize:T的大小
 		// nAlloc:预先开辟几个
 		// eleInit:初始化的值
-		inline Array(size_t elementSize,int nAlloc,T& eleInit)
+		inline Array(TSIZE elementSize,TS32 nAlloc,T& eleInit)
 		{
 			m_eleSize = elementSize;
 			m_nowSize = m_eleSize * nAlloc;
 			m_nAlloc = nAlloc;
-			m_pFront = (T*)malloc(m_nowSize);;
-			for(int i=0;i<nAlloc;i++)
+			m_pFront = (T*)malloc(m_nowSize);
+			for(TS32 i=0;i<nAlloc;i++)
 			{
 				T* pSeek = m_pFront + i;
 				memcpy(pSeek,&eleInit,m_eleSize);
@@ -52,7 +52,7 @@ namespace TLunaEngine{
 
 		// 构造函数,只初始化T的大小
 		// elementSize:T的大小
-		inline Array(size_t elementSize)
+		inline Array(TSIZE elementSize)
 		{
 			m_eleSize = elementSize;
 			m_nowSize = 0;
@@ -75,8 +75,8 @@ namespace TLunaEngine{
 			{
 				free(m_pFront);
 			}
-			int origAlloc = other.GetLength();
-			int eleSize = other.GetElementSize();
+			TS32 origAlloc = other.GetLength();
+			TS32 eleSize = other.GetElementSize();
 			m_eleSize = eleSize;
 			m_nowSize = m_eleSize * origAlloc;
 			m_nAlloc = origAlloc;
@@ -93,10 +93,10 @@ namespace TLunaEngine{
 		}
 
 		// 由数组构造
-		inline Array(T* pArray,size_t elementSize,int arrayLen)
+		inline Array(T* pArray, TSIZE elementSize,TS32 arrayLen)
 		{
-			int origAlloc = arrayLen;
-			int eleSize = elementSize;
+			TS32 origAlloc = arrayLen;
+			TS32 eleSize = elementSize;
 			m_eleSize = eleSize;
 			m_nowSize = m_eleSize * origAlloc;
 			m_nAlloc = origAlloc;
@@ -110,15 +110,15 @@ namespace TLunaEngine{
 		// 如果比原来多，复制所有内容
 		// nAlloc:新的空间有几个元素
 		// eleInit:初始化的值
-		inline TBOOL ReAlloc(int nAlloc,T& eleInit)
+		inline TBOOL ReAlloc(TS32 nAlloc,T& eleInit)
 		{
 			if(m_eleSize==0 || nAlloc<=0)
 				return TFALSE;
 			// 先分配
-			size_t destSize = m_eleSize*nAlloc;
+			TSIZE destSize = m_eleSize*nAlloc;
 			T* pNewMem = (T*)malloc(destSize);
 			// 对内存赋值默认构造的T
-			for(int i=0;i<nAlloc;i++)
+			for(TS32 i=0;i<nAlloc;i++)
 			{
 				T* pSeek = pNewMem + i;
 				memcpy(pSeek,&eleInit,m_eleSize);
@@ -155,14 +155,14 @@ namespace TLunaEngine{
 		};
 
 		// 得到元素的方法
-		inline T& GetElement(int iPos)
+		inline T& GetElement(TS32 iPos)
 		{
 			T* pSeek = m_pFront + iPos;
 			return *pSeek;
 		}
 
 		// 设置元素的方法
-		inline TVOID SetElement(int iPos,T& ele)
+		inline TVOID SetElement(TS32 iPos,T& ele)
 		{
 			if(iPos<0)
 				return;
@@ -179,7 +179,7 @@ namespace TLunaEngine{
 		};
 
 		// 重载[]
-		inline T& operator[](int iPos)
+		inline T& operator[](TS32 iPos)
 		{
 			if(iPos<0)
 				return (*m_pFront);
@@ -197,19 +197,19 @@ namespace TLunaEngine{
 		}
 
 		// 得到长度
-		inline int GetLength()
+		inline TS32 GetLength()
 		{
 			return m_nUsed;
 		};
 		
 		// 得到现在开辟的长度
-		inline int GetAlloc()
+		inline TS32 GetAlloc()
 		{
 			return m_nAlloc;
 		};
 
 		// 得到元素大小
-		inline size_t GetElementSize()
+		inline TSIZE GetElementSize()
 		{
 			return m_eleSize;
 		};
@@ -221,14 +221,14 @@ namespace TLunaEngine{
 		};
 
 		// 得到普通数组
-		inline int GetBuffer(T** ppBuffer)
+		inline TS32 GetBuffer(T** ppBuffer)
 		{
 			if(!ppBuffer)
 				return -1;
 			if(m_nUsed <= 0 || !m_pFront)
 				return -1;
 			(*ppBuffer) = new T[m_nUsed];
-			for(int i=0;i<m_nUsed;i++)
+			for(TS32 i=0;i<m_nUsed;i++)
 				(*ppBuffer)[i] = GetElement(i);
 			return m_nUsed;
 		}

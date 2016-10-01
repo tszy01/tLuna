@@ -47,10 +47,10 @@ namespace TLunaEngine{
 		~GUIFont();
 
 		//! loads a truetype font file
-		TBOOL InitFont(const TCHAR* filename,TU32 size,TU32 texPageSize,int id,FT_Library lib);
+		TBOOL InitFont(const TCHAR* filename,TU32 size,TU32 texPageSize,TS32 id,FT_Library lib);
 
 		//! draws an text and clips it to the specified rectangle if wanted
-		TVOID PreDraw(int n,TS32* imgw,TS32* imgh,TS32* texw,TS32* texh,TS32* offx,TS32* offy,
+		TVOID PreDraw(TS32 n,TS32* imgw,TS32* imgh,TS32* texw,TS32* texh,TS32* offx,TS32* offy,
 			TF32* texStartU,TF32* texEndU,TF32* texStartV,TF32* texEndV,TU32* pageIndex);
 
 		//! returns the dimension of a text
@@ -65,7 +65,7 @@ namespace TLunaEngine{
 		// catch all font to one dsv
 		TBOOL catchAllFont();
 
-		inline int GetId()
+		inline TS32 GetId()
 		{
 			return m_Id;
 		}
@@ -75,7 +75,7 @@ namespace TLunaEngine{
 		FontGlyph* m_Glyphs;
 		FT_Library	library;
 		FT_Face		face;
-		int			m_Id;	// 全局唯一ID
+		TS32			m_Id;	// 全局唯一ID
 		//RenderDeviceUsedSRV* mSRV;
 		//TU32 mTotalWidth;
 		//TU32 mTotalHeight;

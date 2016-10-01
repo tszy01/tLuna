@@ -19,24 +19,24 @@ namespace TLunaEngine{
 
 	struct SimpleVertex
 	{
-		Vector3<float> Pos;
-		Vector2<float> Tex;
+		Vector3<TF32> Pos;
+		Vector2<TF32> Tex;
 	};
 
 	struct CBNeverChanges
 	{
-		Matrix4x4<float> mView;
+		Matrix4x4<TF32> mView;
 	};
 
 	struct CBChangeOnResize
 	{
-		Matrix4x4<float> mProjection;
+		Matrix4x4<TF32> mProjection;
 	};
 
 	struct CBChangesEveryFrame
 	{
-		Matrix4x4<float> mWorld;
-		Matrix4x4<float> transMat;
+		Matrix4x4<TF32> mWorld;
+		Matrix4x4<TF32> transMat;
 	};
 
 	class TestTriangle
@@ -65,7 +65,7 @@ namespace TLunaEngine{
 		// 绘画
 		TVOID OnRender();
 	public:
-		float ta;
+		TF32 ta;
 	};
 
 }

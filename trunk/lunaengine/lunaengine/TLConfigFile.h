@@ -57,37 +57,49 @@ namespace TLunaEngine{
 		TBOOL UpdateFile(); 
 		// 得到某个值
 		TVOID GetParameter(const TCHAR* paraName, String* pBuf);
-		inline int GetParameterAsInt(const TCHAR* paraName)
+		inline TS16 GetParameterAsShort(const TCHAR* paraName)
+		{
+			String strTmp;
+			GetParameter(paraName, &strTmp);
+			return strTmp.GetStringAsShort();
+		}
+		inline TU16 GetParameterAsUShort(const TCHAR* paraName)
+		{
+			String strTmp;
+			GetParameter(paraName, &strTmp);
+			return strTmp.GetStringAsUShort();
+		}
+		inline TS32 GetParameterAsInt(const TCHAR* paraName)
 		{
 			String strTmp;
 			GetParameter(paraName,&strTmp);
 			return strTmp.GetStringAsInt();
 		}
-		inline unsigned int GetParameterAsUInt(const TCHAR* paraName)
+		inline TU32 GetParameterAsUInt(const TCHAR* paraName)
 		{
 			String strTmp;
 			GetParameter(paraName,&strTmp);
 			return strTmp.GetStringAsUInt();
 		}
-		inline long GetParameterAsLong(const TCHAR* paraName)
+		inline TS64 GetParameterAsLongLong(const TCHAR* paraName)
 		{
 			String strTmp;
 			GetParameter(paraName,&strTmp);
-			return strTmp.GetStringAsLong();
+			return strTmp.GetStringAsLongLong();
 		}
-		inline unsigned long GetParameterAsULong(const TCHAR* paraName)
+		inline TU64 GetParameterAsULongLong(const TCHAR* paraName)
 		{
 			String strTmp;
 			GetParameter(paraName,&strTmp);
-			return strTmp.GetStringAsULong();
+			return strTmp.GetStringAsULongLong();
 		}
-		inline float GetParameterAsFloat(const TCHAR* paraName)
+		inline TF32 GetParameterAsFloat(const TCHAR* paraName)
 		{
 			String strTmp;
 			GetParameter(paraName,&strTmp);
 			return strTmp.GetStringAsFloat();
 		}
-		inline double GetParameterAsDouble(const TCHAR* paraName)
+		inline TF64 GetParameterAsDouble(const TCHAR* paraName)
 		{
 			String strTmp;
 			GetParameter(paraName,&strTmp);
@@ -101,36 +113,52 @@ namespace TLunaEngine{
 		}
 		// 在内存中修改某个值
 		TVOID ChangeParameter(const TCHAR* paraName, const String* pBuf);
-		inline TVOID ChangeParameter(const TCHAR* paraName, int value)
+		inline TVOID ChangeParameter(const TCHAR* paraName, TS16 value)
+		{
+			String strTmp;
+			strTmp.Format("%hd", value);
+			ChangeParameter(paraName, &strTmp);
+		}
+		inline TVOID ChangeParameter(const TCHAR* paraName, TU16 value)
+		{
+			String strTmp;
+			strTmp.Format("%hu", value);
+			ChangeParameter(paraName, &strTmp);
+		}
+		inline TVOID ChangeParameter(const TCHAR* paraName, TS32 value)
 		{
 			String strTmp;
 			strTmp.Format("%d",value);
 			ChangeParameter(paraName,&strTmp);
 		}
-		inline TVOID ChangeParameter(const TCHAR* paraName, unsigned int value)
+		inline TVOID ChangeParameter(const TCHAR* paraName, TU32 value)
 		{
 			String strTmp;
 			strTmp.Format("%u",value);
 			ChangeParameter(paraName,&strTmp);
 		}
-		inline TVOID ChangeParameter(const TCHAR* paraName, long value)
+		inline TVOID ChangeParameter(const TCHAR* paraName, TS64 value)
 		{
-			ChangeParameter(paraName,(int)value);
+			String strTmp;
+			strTmp.Format("%Ld", value);
+			ChangeParameter(paraName, &strTmp);
 		}
-		inline TVOID ChangeParameter(const TCHAR* paraName, unsigned long value)
+		inline TVOID ChangeParameter(const TCHAR* paraName, TU64 value)
 		{
-			ChangeParameter(paraName,(int)value);
+			String strTmp;
+			strTmp.Format("%Lu", value);
+			ChangeParameter(paraName, &strTmp);
 		}
-		inline TVOID ChangeParameter(const TCHAR* paraName, float value)
+		inline TVOID ChangeParameter(const TCHAR* paraName, TF32 value)
 		{
 			String strTmp;
 			strTmp.Format("%f",value);
 			ChangeParameter(paraName,&strTmp);
 		}
-		inline TVOID ChangeParameter(const TCHAR* paraName, double value)
+		inline TVOID ChangeParameter(const TCHAR* paraName, TF64 value)
 		{
 			String strTmp;
-			strTmp.Format("%f",value);
+			strTmp.Format("%lf",value);
 			ChangeParameter(paraName,&strTmp);
 		}
 		inline TVOID ChangeParameter(const TCHAR* paraName, TBOOL value)
@@ -142,36 +170,52 @@ namespace TLunaEngine{
 		}
 		// 添加一组
 		TVOID AddParameter(const TCHAR* paraName, const String* pBuf);
-		inline TVOID AddParameter(const TCHAR* paraName, int value)
+		inline TVOID AddParameter(const TCHAR* paraName, TS16 value)
+		{
+			String strTmp;
+			strTmp.Format("%hd", value);
+			AddParameter(paraName, &strTmp);
+		}
+		inline TVOID AddParameter(const TCHAR* paraName, TU16 value)
+		{
+			String strTmp;
+			strTmp.Format("%hu", value);
+			AddParameter(paraName, &strTmp);
+		}
+		inline TVOID AddParameter(const TCHAR* paraName, TS32 value)
 		{
 			String strTmp;
 			strTmp.Format("%d",value);
 			AddParameter(paraName,&strTmp);
 		}
-		inline TVOID AddParameter(const TCHAR* paraName, unsigned int value)
+		inline TVOID AddParameter(const TCHAR* paraName, TU32 value)
 		{
 			String strTmp;
 			strTmp.Format("%u",value);
 			AddParameter(paraName,&strTmp);
 		}
-		inline TVOID AddParameter(const TCHAR* paraName, long value)
+		inline TVOID AddParameter(const TCHAR* paraName, TS64 value)
 		{
-			AddParameter(paraName,(int)value);
+			String strTmp;
+			strTmp.Format("%Ld", value);
+			AddParameter(paraName, &strTmp);
 		}
-		inline TVOID AddParameter(const TCHAR* paraName, unsigned long value)
+		inline TVOID AddParameter(const TCHAR* paraName, TU64 value)
 		{
-			AddParameter(paraName,(int)value);
+			String strTmp;
+			strTmp.Format("%Lu", value);
+			AddParameter(paraName, &strTmp);
 		}
-		inline TVOID AddParameter(const TCHAR* paraName, float value)
+		inline TVOID AddParameter(const TCHAR* paraName, TF32 value)
 		{
 			String strTmp;
 			strTmp.Format("%f",value);
 			AddParameter(paraName,&strTmp);
 		}
-		inline TVOID AddParameter(const TCHAR* paraName, double value)
+		inline TVOID AddParameter(const TCHAR* paraName, TF64 value)
 		{
 			String strTmp;
-			strTmp.Format("%f",value);
+			strTmp.Format("%lf",value);
 			AddParameter(paraName,&strTmp);
 		}
 		inline TVOID AddParameter(const TCHAR* paraName, TBOOL value)
@@ -182,9 +226,9 @@ namespace TLunaEngine{
 				AddParameter(paraName,1);
 		}
 		// 找到名字
-		TBOOL FindParameter(const TCHAR* paraName, int* pIndex);
+		TBOOL FindParameter(const TCHAR* paraName, TS32* pIndex);
 		// 得到List的个数
-		inline int GetListNum(){return (int)m_list.size();}
+		inline TS32 GetListNum(){return (TS32)m_list.size();}
 	};
 
 }

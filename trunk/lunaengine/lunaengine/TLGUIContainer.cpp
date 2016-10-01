@@ -25,7 +25,7 @@ namespace TLunaEngine{
 		DestroyContainer();
 	}
 
-	TBOOL GUIContainer::InitContainer(int ID, TLunaEngine::GUIContainer *pParent, TS32 x, TS32 y, TS32 width, TS32 height,TUByte yAnimeType,GUIListener* pListener)
+	TBOOL GUIContainer::InitContainer(TS32 ID, TLunaEngine::GUIContainer *pParent, TS32 x, TS32 y, TS32 width, TS32 height,TUByte yAnimeType,GUIListener* pListener)
 	{
 		m_iID = ID;
 		m_pParent = pParent;
@@ -47,7 +47,7 @@ namespace TLunaEngine{
 		return TTRUE;
 	}
 
-	TBOOL GUIContainer::InitFadeAnime(CONTAINER_FADE_TYPE eFadeType,float fChangedPerSec,int nTimes)
+	TBOOL GUIContainer::InitFadeAnime(CONTAINER_FADE_TYPE eFadeType, TF32 fChangedPerSec,TS32 nTimes)
 	{
 		if (nTimes==0 || fChangedPerSec<=0 || eFadeType == CFF_NONE)
 		{
@@ -82,12 +82,12 @@ namespace TLunaEngine{
 		m_bAnimePlayedOver[CATE_FADE] = TFALSE;
 	}
 
-	TVOID GUIContainer::UpdateFadeAnime(float fTimeElapsed)
+	TVOID GUIContainer::UpdateFadeAnime(TF32 fTimeElapsed)
 	{
 		if (m_iNowAnimeTimes[CATE_FADE] < m_nAnimeTimes[CATE_FADE] || m_nAnimeTimes[CATE_FADE] == -1)
 		{
 			// 计算当前帧需要增加多少值
-			float fNeedPlusAlpha = m_nAnimeChangedPerSec[CATE_FADE] * fTimeElapsed;
+			TF32 fNeedPlusAlpha = m_nAnimeChangedPerSec[CATE_FADE] * fTimeElapsed;
 			// 如果当前播放的次数小于一共要播的，说明需要播放了
 			switch (m_eAnimeFadeType)
 			{
@@ -189,7 +189,7 @@ namespace TLunaEngine{
 		}
 	}
 
-	TBOOL GUIContainer::InitPicChangeAnime(int iStartIndex,int iEndIndex,float fChangedPerSec,int nTimes)
+	TBOOL GUIContainer::InitPicChangeAnime(TS32 iStartIndex,TS32 iEndIndex, TF32 fChangedPerSec,TS32 nTimes)
 	{
 		if (nTimes==0 || fChangedPerSec<=0 || iStartIndex == -1 || iEndIndex == -1)
 		{
@@ -220,7 +220,7 @@ namespace TLunaEngine{
 		m_bAnimePlayedOver[CATE_PIC_CHANGE] = TFALSE;
 	}
 
-	TVOID GUIContainer::UpdatePicChangeAnime(float fTimeElapsed)
+	TVOID GUIContainer::UpdatePicChangeAnime(TF32 fTimeElapsed)
 	{
 		if (m_iNowAnimeTimes[CATE_PIC_CHANGE] < m_nAnimeTimes[CATE_PIC_CHANGE] || m_nAnimeTimes[CATE_PIC_CHANGE] == -1)
 		{
@@ -256,7 +256,7 @@ namespace TLunaEngine{
 		}
 	}
 
-	TBOOL GUIContainer::InitPosChangeAnime(TS32 startX,TS32 startY,TS32 endX,TS32 endY,float fChangedPerSec,int nTimes)
+	TBOOL GUIContainer::InitPosChangeAnime(TS32 startX,TS32 startY,TS32 endX,TS32 endY, TF32 fChangedPerSec,TS32 nTimes)
 	{
 		m_posChangeStartX = startX;
 		m_posChangeStartY = startY;
@@ -286,7 +286,7 @@ namespace TLunaEngine{
 		m_bAnimePlayedOver[CATE_POS_CHANGE] = TFALSE;
 	}
 
-	TVOID GUIContainer::UpdatePosChangeAnime(float fTimeElapsed)
+	TVOID GUIContainer::UpdatePosChangeAnime(TF32 fTimeElapsed)
 	{
 		if (m_iNowAnimeTimes[CATE_POS_CHANGE] < m_nAnimeTimes[CATE_POS_CHANGE] || m_nAnimeTimes[CATE_POS_CHANGE] == -1)
 		{
@@ -385,7 +385,7 @@ namespace TLunaEngine{
 				pCtrl->ReCalSubRect(m_posXFinal,m_posYFinal);
 			}
 			// 计算子容器
-			std::map<int,GUIContainer*>::iterator itrC = m_SubContainerTable.begin();
+			std::map<TS32,GUIContainer*>::iterator itrC = m_SubContainerTable.begin();
 			for (;itrC!=m_SubContainerTable.end();itrC++)
 			{
 				GUIContainer* pSubContainer = itrC->second;
@@ -405,7 +405,7 @@ namespace TLunaEngine{
 		{
 			return TFALSE;
 		}
-		m_SubContainerTable.insert(std::pair<int,GUIContainer*>(pContainer->GetID(),pContainer));
+		m_SubContainerTable.insert(std::pair<TS32,GUIContainer*>(pContainer->GetID(),pContainer));
 		return TTRUE;
 	}
 
@@ -441,7 +441,7 @@ namespace TLunaEngine{
 		ClearSubContainers();
 	}
 
-	TVOID GUIContainer::RemoveSubContainer(int ID)
+	TVOID GUIContainer::RemoveSubContainer(TS32 ID)
 	{
 		GUIContainer* pSubContainer = GetSubContainer(ID);
 		if (pSubContainer)
@@ -457,7 +457,7 @@ namespace TLunaEngine{
 		}
 	}
 
-	TBOOL GUIContainer::Update(float fTimeElapsed)
+	TBOOL GUIContainer::Update(TF32 fTimeElapsed)
 	{
 		if (!m_bShow)
 		{
@@ -492,7 +492,7 @@ namespace TLunaEngine{
 			pCtrl->Update(fTimeElapsed);
 		}
 		// 计算子容器
-		std::map<int,GUIContainer*>::iterator itrC = m_SubContainerTable.begin();
+		std::map<TS32,GUIContainer*>::iterator itrC = m_SubContainerTable.begin();
 		for (;itrC!=m_SubContainerTable.end();itrC++)
 		{
 			GUIContainer* pSubContainer = itrC->second;
@@ -501,7 +501,7 @@ namespace TLunaEngine{
 		return TTRUE;
 	}
 
-	TBOOL GUIContainer::Render(float fTimeElapsed)
+	TBOOL GUIContainer::Render(TF32 fTimeElapsed)
 	{
 		if (!m_bShow)
 		{
@@ -515,7 +515,7 @@ namespace TLunaEngine{
 			pCtrl->Render(fTimeElapsed);
 		}
 		// 计算子容器
-		std::map<int,GUIContainer*>::iterator itrC = m_SubContainerTable.begin();
+		std::map<TS32,GUIContainer*>::iterator itrC = m_SubContainerTable.begin();
 		for (;itrC!=m_SubContainerTable.end();itrC++)
 		{
 			GUIContainer* pSubContainer = itrC->second;
@@ -524,7 +524,7 @@ namespace TLunaEngine{
 		return TTRUE;
 	}
 
-	TVOID GUIContainer::SetCtrlAlpha(float fAlpha)
+	TVOID GUIContainer::SetCtrlAlpha(TF32 fAlpha)
 	{
 		// 计算子控件
 		std::vector<GUICtrl*>::iterator itr = m_CtrlList.begin();
@@ -534,7 +534,7 @@ namespace TLunaEngine{
 			pCtrl->SetAlpha(fAlpha);
 		}
 		// 计算子容器
-		std::map<int,GUIContainer*>::iterator itrC = m_SubContainerTable.begin();
+		std::map<TS32,GUIContainer*>::iterator itrC = m_SubContainerTable.begin();
 		for (;itrC!=m_SubContainerTable.end();itrC++)
 		{
 			GUIContainer* pSubContainer = itrC->second;
@@ -553,7 +553,7 @@ namespace TLunaEngine{
 			pCtrl->ShowCtrl(bShow);
 		}
 		// 计算子容器
-		std::map<int,GUIContainer*>::iterator itrC = m_SubContainerTable.begin();
+		std::map<TS32,GUIContainer*>::iterator itrC = m_SubContainerTable.begin();
 		for (;itrC!=m_SubContainerTable.end();itrC++)
 		{
 			GUIContainer* pSubContainer = itrC->second;

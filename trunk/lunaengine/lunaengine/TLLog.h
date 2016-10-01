@@ -22,7 +22,7 @@ namespace TLunaEngine{
 		// 含有剔除路径的代码文件名将不被输出到日志
 		static String* m_filterArray;
 		// 剔除列表大小
-		static int m_filterCount;
+		static TS32 m_filterCount;
 		// 保存日志路径
 		static TCHAR m_logPath[256];
 		// 从配置文件读取是否打开写日志
@@ -47,7 +47,7 @@ namespace TLunaEngine{
 		// codeName:一般传__FILE__，文件名
 		// condLine:一般传__LINE__，所在行数
 		// content:日志内容，日志结尾自动加\n形成一行
-		static TVOID WriteLine(LOG_LEVEL level,TBOOL bTrue,TCHAR* codeName,int codeLine,TCHAR* content);
+		static TVOID WriteLine(LOG_LEVEL level,TBOOL bTrue,TCHAR* codeName,TS32 codeLine,TCHAR* content);
 		static TVOID WriteTConsole(LOG_LEVEL level,TBOOL bTrue,TCHAR* content);
 	};
 

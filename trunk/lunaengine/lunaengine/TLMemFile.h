@@ -13,16 +13,16 @@ namespace TLunaEngine{
 		TCHAR m_szPath[1024];	// 路径
 		TCHAR m_szName[1024];	// 名字
 		TUByte* m_pContent;		// 内容
-		int m_ContentSize;		// 内容大小
+		TSIZE m_ContentSize;	// 内容大小
 	public:
 		// 清空内存
 		TVOID ResetMem();
 		// 得到内容大小
-		inline int GetContentSize(){return m_ContentSize;}
+		inline TSIZE GetContentSize(){return m_ContentSize;}
 		// 设置内容
-		TVOID SetContent(TUByte* pContent,int size);
+		TVOID SetContent(TUByte* pContent, TSIZE size);
 		// 得到内容
-		int GetContent(TUByte** pContent);
+		TS32 GetContent(TUByte** pContent);
 		// 设置全名
 		TVOID SetFullName(TCHAR* fullname);
 		// 得到全名

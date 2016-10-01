@@ -79,28 +79,28 @@ namespace TLunaEngine{
 		}
 	}
 
-	float GlobleClass::getElapsedTime()
+	TF32 GlobleClass::getElapsedTime()
 	{
 		if (mLoopCtrl)
 		{
-			return (float)mLoopCtrl->GetElapsedTime();
+			return (TF32)mLoopCtrl->GetElapsedTime();
 		}
 		return 0.0f;
 	}
 
-	TBOOL GlobleClass::OnUpdate(float fTimeElapsed)
+	TBOOL GlobleClass::OnUpdate(TF32 fTimeElapsed)
 	{
 		return TTRUE;
 	}
 
-	TBOOL GlobleClass::OnRender(float fTimeElapsed)
+	TBOOL GlobleClass::OnRender(TF32 fTimeElapsed)
 	{
 		// Debug信息
 		if (m_bShowDebugInfo && mLoopCtrl)
 		{
 			//m_pDebugFont->FontPrint(LoopCtrl::getSingletonPtr()->GetFPSString(),0,0,D3DXCOLOR(0.0f,1.0f,0.0f,1.0f),100,32,TLunaEngine::FA_LEFT);
 			GUIFontManager::getSingletonPtr()->RenderDebugFont(mLoopCtrl->GetFPSString(),
-				mLoopCtrl->GetFPSStringLen(),0,0,Vector4<float>(0.0f,1.0f,0.0f,1.0f));
+				mLoopCtrl->GetFPSStringLen(),0,0,Vector4<TF32>(0.0f,1.0f,0.0f,1.0f));
 		}
 		// Triangle
 		m_pTri->OnRender();
