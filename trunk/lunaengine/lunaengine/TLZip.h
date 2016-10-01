@@ -22,7 +22,7 @@ namespace TLunaEngine{
 		// 生成压缩文件
 		static TS32 CompressToFile(TCHAR* zipname);
 		// 解压缩文件到内存
-		static TS32 DecompressToMem(TCHAR* zipname, TUByte** buf);
+		static TU64 DecompressToMem(TCHAR* zipname, TUByte** buf);
 		// 分割解压缩得文件
 		static TS32 CopyMemToFile(TCHAR* dirname,TBOOL bBuildFile,MemFile** ppMemFile);
 		// 清除数据

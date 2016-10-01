@@ -29,7 +29,7 @@ THE SOFTWARE.
 #define __TLSHAREDPTR_H__
 
 #include "TLLock.h"
-#include <utility>
+#include "TLCommonFunc.h"
 #include <assert.h>
 
 namespace TLunaEngine {
@@ -244,9 +244,9 @@ namespace TLunaEngine {
 
 		virtual TVOID swap(SharedPtr<T> &other) 
 		{
-			std::swap(pRep, other.pRep);
-			std::swap(pUseCount, other.pUseCount);
-			std::swap(useFreeMethod, other.useFreeMethod);
+			TLunaEngine::swap(pRep, other.pRep);
+			TLunaEngine::swap(pUseCount, other.pUseCount);
+			TLunaEngine::swap(useFreeMethod, other.useFreeMethod);
 			mMutex.SwapMutexHandle(other.mMutex);
 		}
 	};
@@ -263,7 +263,7 @@ namespace TLunaEngine {
 
 	template<class T, class U> inline TBOOL operator<(SharedPtr<T> const& a, SharedPtr<U> const& b)
 	{
-		return std::less<const TVOID*>()(a.get(), b.get());
+		return TLunaEngine::less((TVOID*)a.get(), (TVOID*)b.get());
 	}
 	/** @} */
 	/** @} */

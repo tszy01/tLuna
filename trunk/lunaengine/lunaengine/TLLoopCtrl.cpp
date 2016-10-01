@@ -1,5 +1,6 @@
 #include "TLLoopCtrl.h"
 #include "TLTimer.h"
+#include <stdio.h>
 
 namespace TLunaEngine{
 	LoopCtrl::LoopCtrl(TVOID) : 

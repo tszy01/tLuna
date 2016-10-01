@@ -3,8 +3,7 @@
 #include "TLRenderDevice.h"
 #include "TLRenderDeviceUsedTex2D.h"
 #include "TLRenderDeviceUsedSRV.h"
-#include <map>
-#include <vector>
+#include "TLMap.h"
 
 namespace TLunaEngine{
 
@@ -103,18 +102,18 @@ namespace TLunaEngine{
 
 	GUIFont::~GUIFont(TVOID)
 	{
-		std::vector<TU32*>::iterator itrBuffer = mPageBufferList.begin();
+		List<TU32*>::Iterator itrBuffer = mPageBufferList.begin();
 		for(;itrBuffer!=mPageBufferList.end();++itrBuffer)
 		{
 			TU32* del = *itrBuffer;
 			if (del)
 			{
 				delete [] del;
-				del = 0;
+				(*itrBuffer) = 0;
 			}
 		}
 		mPageBufferList.clear();
-		std::vector<RenderDeviceUsedSRV*>::iterator itrSRV = mSRVList.begin();
+		List<RenderDeviceUsedSRV*>::Iterator itrSRV = mSRVList.begin();
 		for(;itrSRV!=mSRVList.end();++itrSRV)
 		{
 			RenderDeviceUsedSRV* del = *itrSRV;
@@ -178,7 +177,7 @@ namespace TLunaEngine{
 		// 摆放规则
 		// 从大到小，先摆放大的，然后摆放小的，竖着摆，一列为一行
 		// 第一遍存放到map中
-		std::map<TU32,std::vector<TS32>> texHeightMap;
+		Map<TU32,List<TS32>> texHeightMap;
 		TU32 maxHeight=0,minHeight=0,count=0;
 		for (TS32 i = 0;i < face->num_glyphs;i++){
 			if(m_Glyphs[i].cached)
@@ -207,22 +206,22 @@ namespace TLunaEngine{
 		TU32 nextWidth = 0;
 		while(nowHeight>=minHeight)
 		{
-			std::map<TU32,std::vector<TS32>>::iterator itrFind = texHeightMap.find(nowHeight);
-			if(itrFind!=texHeightMap.end())
+			List<TS32> valueList;
+			if(texHeightMap.get(nowHeight, valueList) == TTRUE)
 			{
-				if(itrFind->second.size()>0)
+				if(valueList.size()>0)
 				{
 					if(nowHeight==maxHeight)
 					{
 						TU32 maxCount = mPageSize / nowHeight;
-						totalHeight = nowHeight * (itrFind->second.size() / maxCount);
-						nextWidth = itrFind->second.size() % maxCount * nowHeight;
+						totalHeight = nowHeight * ((TU32)valueList.size() / maxCount);
+						nextWidth = valueList.size() % maxCount * nowHeight;
 						fontCountPerLine = 1;
 					}
 					else
 					{
-						TU32 lineCount = itrFind->second.size() / fontCountPerLine;
-						if(itrFind->second.size() % fontCountPerLine > 0)
+						TU32 lineCount = (TU32)valueList.size() / fontCountPerLine;
+						if((TU32)valueList.size() % fontCountPerLine > 0)
 						{
 							lineCount++;
 						}
@@ -266,17 +265,17 @@ namespace TLunaEngine{
 		TU32 maxRowPerPage = mPageSize / maxHeight;
 		while(nowHeight>=minHeight)
 		{
-			std::map<TU32,std::vector<TS32>>::iterator itrFind = texHeightMap.find(nowHeight);
-			if(itrFind!=texHeightMap.end())
+			List<TS32> valueList;
+			if(texHeightMap.get(nowHeight, valueList) == TTRUE)
 			{
-				if(itrFind->second.size()>0)
+				if(valueList.size()>0)
 				{
 					if(nowHeight==maxHeight)
 					{
 						fontCountPerLine = 1;
-						for(TU32 index=0;index<(TU32)itrFind->second.size();++index)
+						for(TU32 index=0;index<(TU32)valueList.size();++index)
 						{
-							TS32& iFont = itrFind->second.at(index);
+							TS32 iFont = valueList.get(index);
 							texp = mPageBufferList[copyPage] + widthStep + rowCount*maxHeight*mPageSize;
 							TU32* pt = m_Glyphs[iFont].texd;
 							for (TU32 i = 0;i < m_Glyphs[iFont].imgh;i++){
@@ -313,16 +312,16 @@ namespace TLunaEngine{
 					}
 					else
 					{
-						TU32 lineCount = itrFind->second.size() / fontCountPerLine;
-						if(itrFind->second.size() % fontCountPerLine > 0)
+						TU32 lineCount = (TU32)valueList.size() / fontCountPerLine;
+						if((TU32)valueList.size() % fontCountPerLine > 0)
 						{
 							lineCount++;
 						}
 						TU32 countFontPerLine = 0;
 						TU32 countLine = 0;
-						for(TU32 index=0;index<(TU32)itrFind->second.size();++index)
+						for(TU32 index=0;index<(TU32)valueList.size();++index)
 						{
-							TS32& iFont = itrFind->second.at(index);
+							TS32 iFont = valueList.get(index);
 							texp = mPageBufferList[copyPage] + widthStep + rowCount*maxHeight*mPageSize + countFontPerLine*nowHeight*mPageSize;
 							TU32* pt = m_Glyphs[iFont].texd;
 							for (TU32 i = 0;i < m_Glyphs[iFont].imgh;i++){
@@ -383,7 +382,7 @@ namespace TLunaEngine{
 			fontCountPerLine <<= 1;
 		}
 		// 构建渲染组建
-		std::vector<RenderDeviceUsedSRV*>::iterator itrSRV = mSRVList.begin();
+		List<RenderDeviceUsedSRV*>::Iterator itrSRV = mSRVList.begin();
 		for(;itrSRV!=mSRVList.end();++itrSRV)
 		{
 			RenderDeviceUsedSRV* del = *itrSRV;

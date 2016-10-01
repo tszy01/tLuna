@@ -12,7 +12,7 @@ namespace TLunaEngine{
 	ResMgr::~ResMgr(TVOID)
 	{
 		// 这个链表的资源要在外部删除
-		std::list<ResObject*>::iterator itr = m_ResObjList.begin();
+		List<ResObject*>::Iterator itr = m_ResObjList.begin();
 		for(;itr!=m_ResObjList.end();itr++)
 		{
 			ResObject* pObj = (*itr);
@@ -29,7 +29,7 @@ namespace TLunaEngine{
 			return ;
 		m_eListState = RES_LIST_STATE_OPERATING;
 		// 迭代操作
-		std::list<ResObject*>::iterator itr = m_ResObjList.begin();
+		List<ResObject*>::Iterator itr = m_ResObjList.begin();
 		for(;itr!=m_ResObjList.end();itr++)
 		{
 			ResObject* pObj = (*itr);

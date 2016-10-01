@@ -63,15 +63,16 @@ namespace TLunaEngine{
 		*/
 		inline TBOOL getIntersectionWithLine(const Vector3<T>& linePoint,
 				const Vector3<T>& lineVect,
-				Vector3<T>& outIntersection) const
+				Vector3<T>& outIntersection, TF32& outTValue) const
 		{
 			T t2 = Normal.dotProduct(lineVect);
 
 			if (t2 == 0)
 				return TFALSE;
 
-			T t =- (Normal.dotProduct(linePoint) + D) / t2;
+			TF32 t =(TF32)(- (Normal.dotProduct(linePoint) + D) / t2);
 			outIntersection = linePoint + (lineVect * t);
+			outTValue = t;
 			return TTRUE;
 		}
 
@@ -100,9 +101,9 @@ namespace TLunaEngine{
 		inline TBOOL getIntersectionWithLimitedLine(
 				const Vector3<T>& linePoint1,
 				const Vector3<T>& linePoint2,
-				Vector3<T>& outIntersection) const
+				Vector3<T>& outIntersection, TF32& outTValue) const
 		{
-			return (getIntersectionWithLine(linePoint1, linePoint2 - linePoint1, outIntersection) &&
+			return (getIntersectionWithLine(linePoint1, linePoint2 - linePoint1, outIntersection, outTValue) &&
 					outIntersection.isBetweenPoints(linePoint1, linePoint2));
 		}
 
@@ -191,8 +192,9 @@ namespace TLunaEngine{
 				const Plane<T>& o2, Vector3<T>& outPoint) const
 		{
 			Vector3<T> linePoint, lineVect;
+			TF32 tmpTValue;
 			if (getIntersectionWithPlane(o1, linePoint, lineVect))
-				return o2.getIntersectionWithLine(linePoint, lineVect, outPoint);
+				return o2.getIntersectionWithLine(linePoint, lineVect, outPoint, tmpTValue);
 
 			return TFALSE;
 		}

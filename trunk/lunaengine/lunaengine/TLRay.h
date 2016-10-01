@@ -64,13 +64,13 @@ namespace TLunaEngine{
 			m_Dir.normalize();
 		}
 		// 得到t步之后的点
-		inline Vector3<T> GetDest(T t)
+		inline Vector3<T> GetDest(TF32 t)
 		{
 			Vector3<T> pos = m_Orig + m_Dir * t;
 			return pos;
 		}
 		// 往相反方向走t步之后的点
-		inline Vector3<T> GetNegDest(T t)
+		inline Vector3<T> GetNegDest(TF32 t)
 		{
 			Vector3<T> pos = m_Orig - m_Dir * t;
 			return pos;

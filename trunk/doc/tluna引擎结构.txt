@@ -10,6 +10,8 @@ Version 0.4.3
 5、版本管理切换为Git
 6、EngineDemo运行参数修改为，-editor执行编辑器，-initfile [filename]指定初始化脚本文件
 7、添加配置宏定义选项
+8、修改引擎中的类型使用，全部使用自定义类型
+9、取消使用stl模板类型，全部使用自定义类型
 
 0.4.3
 1、添加TColorValue类，处理颜色
@@ -122,16 +124,28 @@ HLSL代码编译工具
 
 LunaEngine项目：
 数学部分
-TVector3<T>:3d向量
-TVector2<T>:2d向量
-TMatrix4x4<T>:4X4矩阵,使用了TVector3<T>的定义
-TRay<T>:射线类,使用了TVector3<T>,TMatrix4x4<T>的定义
-TLine<T>:线段类
-TTriangle<T>:三角形
-TPlane<T>:平面
-TAABBbox<T>:AABB包围盒
-TSphere<T>:包围球
-TQuaternion<T>:四元数类
+TLFPU.h:全局处理函数
+TLMathUtils.h:全局函数
+Vector4<T>:4d向量
+Vector3<T>:3d向量
+Vector2<T>:2d向量
+Matrix3x3<T>:3X3矩阵
+Matrix4x4<T>:4X4矩阵
+Ray<T>:射线类
+Radian<T>:弧度
+Degree<T>:角度
+Line<T>:线段类
+Triangle<T>:三角形
+Plane<T>:平面
+PlaneBoundedVolume<T>:平面围成的体积
+Polygon<T>:多边形
+AABBbox<T>:AABB包围盒
+Sphere<T>:包围球
+Quaternion<T>:四元数类
+DualQuaternion<T>:双四元数
+RotationalSpline<T>:旋转样条曲线
+SimpleSpline<T>:样条曲线
+ConvexBody<T>:凸面体
 注:
 1、所有TMath涉及到的坐标系,均以左手坐标系为准(X向右,Y向上,Z向里)
 2、所有向量为横向量,3D向量点W=1,射线W=0
@@ -142,24 +156,27 @@ TQuaternion<T>:四元数类
 8、其它图元的转换均放在自己的类里实现
 
 内存部分
-TArray<T>:一个可以动态添加元素的数组
-THashtable<T>:一个<Key,Value>对的链表
-TList<T>:一个双向链表
+Map<T>:一个<Key,Value>对的链表
+List<T>:一个双向链表
 注意:今后在设计到以上内存数据结构的时候,尽量使用这些结构,或者STL的结构,不要自己再另外做处理了
 
 其它基本处理
-TConfigFile:简单的值对文件操作类
-TMemFile:内存文件映射
-TLog:日志系统
-TTxtFileReader:用于读取TXT文本文件的数据
-TDateTime:日期时间操作
-TAutoPtr<T>:智能指针
-TString:字符串类
-TSingleton<T>:单例模式,需要子类继承使用
-TCommonTypeDef.h -- 定义一些基本
-TSharePtr<T>：引用计数智能指针
-TMutex：互斥信号
-TLock：互斥锁
+ConfigFile:简单的值对文件操作类
+MemFile:内存文件映射
+Log:日志系统
+TxtFileReader:用于读取TXT文本文件的数据
+TxtFileWritter:用于写入TXT文本文件的数据
+DateTime:日期时间操作
+AutoPtr<T>:智能指针
+String:字符串类
+Singleton<T>:单例模式,需要子类继承使用
+TLCommonTypeDef.h -- 定义一些基本
+TLConfigDef.h -- 全局配置定义
+TLCommonFunc.h -- 全局函数
+SharePtr<T>：引用计数智能指针
+Mutex：互斥信号
+Lock：互斥锁
+BinaryFileProcessor -- 二进制文件读写处理
 
 关于压缩
 Dependence:zlib,1.2.3
@@ -178,66 +195,49 @@ OrigSize<int> 压缩之前的文件总大小,用于制造缓冲区
 
 lua脚本部分
 Dependence:lua,5.1
-TLuaBase:Lua脚本解析基础类
+LuaBase:Lua脚本解析基础类
 
 XML部分
-Dependence:Xerces,3.1.0
-TXMLBase:XML综合处理
+请直接使用tinyxml处理xml文档
 
 引擎逻辑部分
-_DEVICECONFIG -- D3D初始化用结构体
-TD3D10Dev -- 对应D3D10的设备接口及主要函数
-TD3DObject -- 对应D3D10中的相关接口，每一个物体对应一个
-GlobleFunc.h -- 提供全局对外接口
+TLGlobleFunc.h -- 提供全局对外接口
 TLGUIDefine.h -- 定义GUI相关
-TLTriangle -- 测试用三角形
-TLResMgr -- 资源加载释放管理
-TLIResObject -- 资源物体，物体公共接口
-TLLoopCtrl -- 时间控制类
-TLGUIFont -- 字体类
-TLGUIFontManager -- 字体管理类，统一字体对外接口
-TLGUITextureMgr -- UI纹理管理类，负责纹理渲染
-TLGUIMgr -- UI控件统一管理
-TLGUIContainer -- UI容器类
-TLGUICtrl -- UI控件类
-TLGUIPicture -- 图片类控件
-TLGUIText -- 文字类控件
-TLGlobleClass -- 存储全局变量和方法
-TLIGUIListener -- 消息传递接口，只提供函数定义
-KeyCodeDef.h -- 定义虚拟键值
-TLInputMsgMgr -- 统一接受GameInput传过来的消息
-TTimer -- 时间计算
-TLImage -- 处理纹理类
+TestTriangle -- 测试用三角形
+ResMgr -- 资源加载释放管理
+ResObject -- 资源物体，物体公共接口
+LoopCtrl -- 时间控制类
+GUIFont -- 字体类
+GUIFontManager -- 字体管理类，统一字体对外接口
+GUITextureMgr -- UI纹理管理类，负责纹理渲染
+GUIMgr -- UI控件统一管理
+GUIContainer -- UI容器类
+GUICtrl -- UI控件类
+GUIPicture -- 图片类控件
+GUIText -- 文字类控件
+GlobleClass -- 存储全局变量和方法
+GUIListener -- 消息传递接口，只提供函数定义
+Timer -- 时间计算
+Image -- 处理纹理类
 
 渲染部分
-TLRenderMgr -- 负责统一管理渲染器
-TLIRenderDevice -- 渲染器接口
-TLIRenderDeviceUsed -- 包括子接口，用于处理各种渲染硬件使用的东西
-TLRenderDevice_D3D11 -- D3D11实现的渲染器
-TLRender...渲染使用的全部接口
-
-LunaEditor项目：
-编辑器工程
-EditorFunc -- 入口
-TLEditorMgr -- 统一管理类
-TLEditorMainFrame -- 主窗口
-TLEditorApp -- wx的入口
+RenderMgr -- 负责统一管理渲染器
+RenderDevice -- 渲染器接口
+RenderDeviceUsed... -- 包括子接口，用于处理各种渲染硬件使用的东西
+..._D3D11 -- D3D11的实现
 
 EngineDemo项目：
-TGameInput -- 使用DInput封装接口，处理键盘，鼠标，手柄输入
-GameFunc.h -- 全局函数
-_INITPARAM -- 初始化数据
-_MAINWNDCONFIG -- 主窗口初始化结构体
-TLGUISceneDef.h -- GUI场景需要用到的定义
-CLuaInit -- 初始化脚本接口
-TLMainWindow -- 主窗口
-TLIGUIScene -- GUI场景类，需要上层派生
-TLGUISceneMgr -- GUI场景管理
-TStartGUIScene -- 游戏入口GUI
-TGameUIListener -- 上层监听UI消息的类，全局唯一实例
-
-ExampleEditor项目：
-启动编辑器
+EditorMgr -- Editor用统一管理类
+EditorMainFrame -- Editor用主窗口
+EditorApp -- wxWidget的入口
+ConfigDef.h -- 全局配置定义
+KeyCodeDef.h -- 定义虚拟键值
+GameInput -- 使用DInput封装接口，处理键盘，鼠标，手柄输入
+GameMain -- 全局函数
+LuaInitApp -- 初始化脚本接口
+MainWindow -- 主窗口
+GUISceneMgr -- GUI场景管理
+InputMsgMgr -- 统一处理输入消息
 
 ====================== 目录说明 =====================================================
 文件索引：
@@ -256,6 +256,11 @@ shader：HLSL EFFECT文件
 texture：纹理文件
 model：模型文件
 map：地图文件
+
+====================== 运行示例程序 =================================================
+EngineDemo运行参数
+-editor执行编辑器
+-initfile [filename]指定初始化脚本文件，默认为运行目录中的initApp.lua
 
 ====================== 测试数据 =====================================================
 pentium D 2.0GHz  7300GT  最高尽200fps		潘

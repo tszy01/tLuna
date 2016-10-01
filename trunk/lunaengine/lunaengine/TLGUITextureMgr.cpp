@@ -69,16 +69,16 @@ namespace TLunaEngine{
 			delete mBlendState;
 			mBlendState = 0;
 		}
-		std::map<TS32,RenderDeviceUsedSRV*>::iterator itr = mSRVList.begin();
+		Map<TS32,RenderDeviceUsedSRV*>::Iterator itr = mSRVList.begin();
 		for(;itr!=mSRVList.end();++itr)
 		{
-			RenderDeviceUsedSRV* pSRV = itr->second;
+			RenderDeviceUsedSRV* pSRV = itr->Value;
 			if (pSRV)
 			{
 				delete pSRV;
 				pSRV = 0;
 			}
-			itr->second = TNULL;
+			itr->Value = TNULL;
 		}
 		mSRVList.clear();
 	}
@@ -96,16 +96,16 @@ namespace TLunaEngine{
 
 	TVOID GUITextureMgr::DestroyAllTex()
 	{
-		std::map<TS32,RenderDeviceUsedSRV*>::iterator itr = mSRVList.begin();
+		Map<TS32,RenderDeviceUsedSRV*>::Iterator itr = mSRVList.begin();
 		for(;itr!=mSRVList.end();++itr)
 		{
-			RenderDeviceUsedSRV* pSRV = itr->second;
+			RenderDeviceUsedSRV* pSRV = itr->Value;
 			if (pSRV)
 			{
 				delete pSRV;
 				pSRV = 0;
 			}
-			itr->second = TNULL;
+			itr->Value = TNULL;
 		}
 		mSRVList.clear();
 	}
@@ -165,7 +165,7 @@ namespace TLunaEngine{
 		}
 		delete image;
 		delete pTex;
-		mSRVList.insert(std::pair<TS32,RenderDeviceUsedSRV*>(texID,pSRV));
+		mSRVList.push_back(texID,pSRV);
 		return TTRUE;
 	}
 
@@ -330,10 +330,10 @@ namespace TLunaEngine{
 	TBOOL GUITextureMgr::DrawGUICtrl(TS32 x, TS32 y, TS32 width, TS32 height, TF32 texX, TF32 texY, TF32 texR, TF32 texB, TS32 texId,TF32 alpha)
 	{
 		RenderDeviceUsedSRV* pSRV = TNULL;
-		std::map<TS32,RenderDeviceUsedSRV*>::iterator itr = mSRVList.find(texId);
+		Map<TS32,RenderDeviceUsedSRV*>::Iterator itr = mSRVList.find(texId);
 		if(itr!=mSRVList.end())
 		{
-			pSRV = itr->second;
+			pSRV = itr->Value;
 		}
 		if (pSRV == TNULL)
 		{

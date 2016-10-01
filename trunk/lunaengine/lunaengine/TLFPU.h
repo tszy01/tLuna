@@ -25,6 +25,9 @@ namespace TLunaEngine{
 	const TF32 ROUNDING_ERROR_32 = 0.00005f;
 	const TF64 ROUNDING_ERROR_64 = 0.000005;
 
+	const TF64 T_FLT_MIN = 1.175494351e-38F;
+	const TF64 T_FLT_MAX = 3.402823466e+38F;
+
 	#ifdef PI // make sure we don't collide with a define
 	#undef PI
 	#endif

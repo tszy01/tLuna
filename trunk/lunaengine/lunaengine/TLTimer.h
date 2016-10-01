@@ -4,7 +4,7 @@
 #include "TLCommonTypeDef.h"
 #include <Windows.h>
 #include <time.h>
-#include <string>
+#include "TLString.h"
 
 namespace TLunaEngine{
 
@@ -44,7 +44,7 @@ namespace TLunaEngine{
 			@par
 				On failure, TFALSE is returned.
 		*/
-		TBOOL setOption( const std::string& strKey, const TVOID* pValue );
+		TBOOL setOption( const String& strKey, const TVOID* pValue );
 
 		/** Resets timer */
 		TVOID reset();

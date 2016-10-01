@@ -374,9 +374,6 @@
     <ClInclude Include="TLLoopCtrl.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="TLArray.h">
-      <Filter>Common</Filter>
-    </ClInclude>
     <ClInclude Include="TLAutoPtr.h">
       <Filter>Common</Filter>
     </ClInclude>
@@ -393,9 +390,6 @@
       <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="TLDateTime.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="TLHashtable.h">
       <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="TLList.h">
@@ -522,6 +516,15 @@
       <Filter>Render\Render_D3D11</Filter>
     </ClInclude>
     <ClInclude Include="TLConfigDef.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="TLMap.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="TLCommonFunc.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="TLPair.h">
       <Filter>Common</Filter>
     </ClInclude>
   </ItemGroup>

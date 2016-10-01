@@ -113,9 +113,9 @@ namespace TLunaEngine{
 		\param outIntersection Place to store the intersection point, if there is one.
 		\return True if there was an intersection, TFALSE if there was not. */
 		inline TBOOL getIntersectionWithLine(const Vector3<T>& linePoint,
-			const Vector3<T>& lineVect, Vector3<T>& outIntersection) const
+			const Vector3<T>& lineVect, Vector3<T>& outIntersection, TF32& outTValue) const
 		{
-			if (getIntersectionOfPlaneWithLine(linePoint, lineVect, outIntersection))
+			if (getIntersectionOfPlaneWithLine(linePoint, lineVect, outIntersection, outTValue))
 				return isPointInside(outIntersection);
 
 			return TFALSE;

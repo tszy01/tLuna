@@ -2,8 +2,7 @@
 #define _TLSTRING_H_
 
 #include "TLSharedPtr.h"
-#include <list>
-#include <vector>
+#include "TLList.h"
 namespace TLunaEngine{
 
 	class String
@@ -116,11 +115,11 @@ namespace TLunaEngine{
 		TS32 Find(const TWCHAR *szFind, TU32 startPos,TBOOL bRight) const;
 		TS32 Find(const String& strFind, TU32 startPos,TBOOL bRight) const;
 		// 分解字符串
-		std::vector<String> Split(TCHAR sz, TU32* pCount) const;
-		std::vector<String> Split(TWCHAR sz, TU32* pCount) const;
+		List<String> Split(TCHAR sz, TU32* pCount) const;
+		List<String> Split(TWCHAR sz, TU32* pCount) const;
 		//// 删除分配的空间用
 		//// 这个函数解决跨DLL释放空间问题
-		//inline TVOID ClearSplitList(std::list<String>& list)
+		//inline TVOID ClearSplitList(List<String>& list)
 		//{
 		//	list.clear();
 		//}

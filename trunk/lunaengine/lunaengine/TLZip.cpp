@@ -205,7 +205,7 @@ namespace TLunaEngine{
 		return 1;
 	}
 
-	TS32 Zip::DecompressToMem(TCHAR* zipname, TUByte** buf)
+	TU64 Zip::DecompressToMem(TCHAR* zipname, TUByte** buf)
 	{
 		if(!zipname)
 			return 0;

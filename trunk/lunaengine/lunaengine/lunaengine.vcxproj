@@ -121,6 +121,7 @@
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <MinimalRebuild>true</MinimalRebuild>
+      <DisableSpecificWarnings>4819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Lib>
       <OutputFile>$(SolutionDir)\..\lib\$(Platform)\$(Configuration)\$(ProjectName).lib</OutputFile>
@@ -161,6 +162,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Lib>
       <OutputFile>$(SolutionDir)\..\lib\$(Platform)\$(Configuration)\$(ProjectName).lib</OutputFile>
@@ -226,6 +228,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TLColorValue.h" />
+    <ClInclude Include="TLCommonFunc.h" />
     <ClInclude Include="TLConfigDef.h" />
     <ClInclude Include="TLConvexBody.h" />
     <ClInclude Include="TLDegree.h" />
@@ -233,14 +236,13 @@
     <ClInclude Include="TLMathUtils.h" />
     <ClInclude Include="TLGlobalFunc.h" />
     <ClInclude Include="TLAABBox.h" />
-    <ClInclude Include="TLArray.h" />
     <ClInclude Include="TLAutoPtr.h" />
     <ClInclude Include="TLBinaryFileProcessor.h" />
     <ClInclude Include="TLCommonTypeDef.h" />
     <ClInclude Include="TLConfigFile.h" />
     <ClInclude Include="TLDateTime.h" />
     <ClInclude Include="TLFPU.h" />
-    <ClInclude Include="TLHashtable.h" />
+    <ClInclude Include="TLMap.h" />
     <ClInclude Include="TLGlobleClass.h" />
     <ClInclude Include="TLGUIContainer.h" />
     <ClInclude Include="TLGUICtrl.h" />
@@ -254,6 +256,7 @@
     <ClInclude Include="TLGUIListener.h" />
     <ClInclude Include="TLImage.h" />
     <ClInclude Include="TLLine.h" />
+    <ClInclude Include="TLPair.h" />
     <ClInclude Include="TLRenderDevice.h" />
     <ClInclude Include="TLRenderDeviceUsed.h" />
     <ClInclude Include="TLRenderDeviceUsedBlendState.h" />

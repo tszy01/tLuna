@@ -1,7 +1,7 @@
 #ifndef _TLROTATIONALSPLINE_H_
 #define _TLROTATIONALSPLINE_H_
 #include "TLQuaternion.h"
-#include <vector>
+#include "TLList.h"
 #include <assert.h>
 
 namespace TLunaEngine
@@ -224,8 +224,8 @@ namespace TLunaEngine
 
     protected:
         TBOOL mAutoCalc;
-		std::vector<Quaternion<T>> mPoints;
-        std::vector<Quaternion<T>> mTangents;
+		List<Quaternion<T>> mPoints;
+		List<Quaternion<T>> mTangents;
 	};
 
 	// define float rotational spline

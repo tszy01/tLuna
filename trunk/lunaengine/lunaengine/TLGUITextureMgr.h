@@ -4,7 +4,7 @@
 #include "TLGUIFont.h"
 #include "TLGUIDefine.h"
 #include "TLSingleton.h"
-#include <map>
+#include "TLMap.h"
 
 namespace TLunaEngine{
 	class RenderDeviceUsedBuffer;
@@ -36,7 +36,7 @@ namespace TLunaEngine{
 		RenderDeviceUsedBlendState* mBlendState;
 		RenderDeviceUsedSamplerState* mSamplerState;
 		RenderDeviceUsedInputLayout* mInputLayout;
-		std::map<TS32,RenderDeviceUsedSRV*> mSRVList;
+		Map<TS32,RenderDeviceUsedSRV*> mSRVList;
 	public:
 		// 初始化
 		TBOOL Init(TU32 bufferWidth,TU32 bufferHeight,const TCHAR* effectFile);

@@ -2,6 +2,7 @@
 #define _TLRENDERDEF_H_
 #include "TLCommonTypeDef.h"
 #include "TLString.h"
+#include "TLFPU.h"
 
 namespace TLunaEngine
 {
@@ -692,8 +693,8 @@ namespace TLunaEngine
 			MipLODBias = 0.0f;
 			MaxAnisotropy = 16;
 			BorderColor[0] = BorderColor[1] = BorderColor[2] = BorderColor[3] = 0.0f;
-			MinLOD = -FLT_MAX;
-			MaxLOD = FLT_MAX;
+			MinLOD = -(TF32)T_FLT_MAX;
+			MaxLOD = (TF32)T_FLT_MAX;
 		};
 	};
 }

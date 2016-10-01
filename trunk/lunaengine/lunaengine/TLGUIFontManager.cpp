@@ -47,15 +47,16 @@ namespace TLunaEngine{
 			m_pRenderText = 0;
 		}
 		m_pUseFont = TNULL;
-		std::map<TS32,GUIFont*>::iterator itr = m_FontTable.begin();
+		Map<TS32,GUIFont*>::Iterator itr = m_FontTable.begin();
 		for(;itr!=m_FontTable.end();itr++)
 		{
-			GUIFont* pObj = itr->second;
+			GUIFont* pObj = itr->Value;
 			if (pObj)
 			{
 				delete pObj;
 				pObj = 0;
 			}
+			itr->Value = TNULL;
 		}
 		m_FontTable.clear();
 		deleteDebugFont();
@@ -106,20 +107,21 @@ namespace TLunaEngine{
 	TVOID GUIFontManager::DestroyAllFont()
 	{
 		m_pUseFont = TNULL;
-		std::map<TS32,GUIFont*>::iterator itr = m_FontTable.begin();
+		Map<TS32,GUIFont*>::Iterator itr = m_FontTable.begin();
 		for(;itr!=m_FontTable.end();itr++)
 		{
-			GUIFont* pObj = itr->second;
+			GUIFont* pObj = itr->Value;
 			if (pObj)
 			{
 				delete pObj;
 				pObj = 0;
 			}
+			itr->Value = TNULL;
 		}
 		m_FontTable.clear();
 	}
 
-	TS32 GUIFontManager::AddFont(const TCHAR* filename,TU32 size,TU32 texPageSize,TS32 id)
+	TU32 GUIFontManager::AddFont(const TCHAR* filename,TU32 size,TU32 texPageSize,TS32 id)
 	{
 		GUIFont* font = new GUIFont();
 		if(!font->InitFont(filename,size,texPageSize,id,library))
@@ -127,8 +129,8 @@ namespace TLunaEngine{
 			delete font;
 			return -1;
 		}
-		m_FontTable.insert(std::pair<TS32,GUIFont*>(id,font));
-		return m_FontTable.size() - 1;
+		m_FontTable.push_back(id,font);
+		return (TU32)m_FontTable.size() - 1;
 	}
 
 	TBOOL GUIFontManager::AddFontFromFile(const TCHAR* filename)

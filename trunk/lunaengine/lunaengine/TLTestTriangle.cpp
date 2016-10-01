@@ -58,6 +58,11 @@ namespace TLunaEngine{
 			delete mCB[2];
 			mCB[2] = 0;
 		}
+		if (mSRV)
+		{
+			delete mSRV;
+			mSRV = 0;
+		}
 		if (mVS)
 		{
 			delete mVS;
@@ -351,7 +356,7 @@ namespace TLunaEngine{
 		samplerDesc.AddressU = RENDER_DEVICE_TEXTURE_ADDRESS_WRAP;
 		samplerDesc.AddressV = RENDER_DEVICE_TEXTURE_ADDRESS_WRAP;
 		samplerDesc.AddressW = RENDER_DEVICE_TEXTURE_ADDRESS_WRAP;
-		samplerDesc.MaxLOD = FLT_MAX;
+		samplerDesc.MaxLOD = (TF32)T_FLT_MAX;
 		samplerDesc.MinLOD = 0;
 		samplerDesc.Filter = RENDER_DEVICE_FILTER_MIN_MAG_MIP_LINEAR;
 		mSamplerState = pDevice->createSamplerState(&samplerDesc);

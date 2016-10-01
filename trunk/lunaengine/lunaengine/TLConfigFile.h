@@ -5,7 +5,8 @@
 // Name=Value
 // 不能空格，不能换行
 
-#include <list>
+#include <stdio.h>
+#include "TLList.h"
 
 #include "TLString.h"
 
@@ -17,7 +18,7 @@ namespace TLunaEngine{
 		String m_strValue;
 	}FILESTR,*LPFILESTR;
 
-	typedef std::list<FILESTR> StrList;
+	typedef List<FILESTR> StrList;
 
 	class ConfigFile
 	{
@@ -140,13 +141,13 @@ namespace TLunaEngine{
 		inline TVOID ChangeParameter(const TCHAR* paraName, TS64 value)
 		{
 			String strTmp;
-			strTmp.Format("%Ld", value);
+			strTmp.Format("%lld", value);
 			ChangeParameter(paraName, &strTmp);
 		}
 		inline TVOID ChangeParameter(const TCHAR* paraName, TU64 value)
 		{
 			String strTmp;
-			strTmp.Format("%Lu", value);
+			strTmp.Format("%llu", value);
 			ChangeParameter(paraName, &strTmp);
 		}
 		inline TVOID ChangeParameter(const TCHAR* paraName, TF32 value)
@@ -197,13 +198,13 @@ namespace TLunaEngine{
 		inline TVOID AddParameter(const TCHAR* paraName, TS64 value)
 		{
 			String strTmp;
-			strTmp.Format("%Ld", value);
+			strTmp.Format("%lld", value);
 			AddParameter(paraName, &strTmp);
 		}
 		inline TVOID AddParameter(const TCHAR* paraName, TU64 value)
 		{
 			String strTmp;
-			strTmp.Format("%Lu", value);
+			strTmp.Format("%llu", value);
 			AddParameter(paraName, &strTmp);
 		}
 		inline TVOID AddParameter(const TCHAR* paraName, TF32 value)

@@ -217,7 +217,7 @@ namespace TLunaEngine{
 		m_szPtr.setNull();
 		m_nLength = 0;
 		TCHAR szTmp[64] = {0};
-		sprintf_s(szTmp,64,"%Ld", llRight);
+		sprintf_s(szTmp,64,"%lld", llRight);
 		TU32 n = (TU32)strlen(szTmp);
 		m_szPtr = SharedPtr<TCHAR>(new TCHAR[n+1],TLunaEngine::SPFM_DELETE_T);
 		TCHAR* szMyContent = m_szPtr.getPointer();
@@ -231,7 +231,7 @@ namespace TLunaEngine{
 		m_szPtr.setNull();
 		m_nLength = 0;
 		TCHAR szTmp[64] = {0};
-		sprintf_s(szTmp,64,"%Lu",ullRight);
+		sprintf_s(szTmp,64,"%llu",ullRight);
 		TU32 n = (TU32)strlen(szTmp);
 		m_szPtr = SharedPtr<TCHAR>(new TCHAR[n+1],TLunaEngine::SPFM_DELETE_T);
 		TCHAR* szMyContent = m_szPtr.getPointer();
@@ -431,7 +431,7 @@ namespace TLunaEngine{
 		m_szPtr.setNull();
 		m_nLength = 0;
 		TCHAR szTmp[64] = {0};
-		sprintf_s(szTmp,64,"%Ld",llRight);
+		sprintf_s(szTmp,64,"%lld",llRight);
 		TU32 n = (TU32)strlen(szTmp);
 		m_szPtr = SharedPtr<TCHAR>(new TCHAR[n+1],TLunaEngine::SPFM_DELETE_T);
 		TCHAR* szMyContent = m_szPtr.getPointer();
@@ -445,7 +445,7 @@ namespace TLunaEngine{
 		m_szPtr.setNull();
 		m_nLength = 0;
 		TCHAR szTmp[64] = {0};
-		sprintf_s(szTmp,64,"%Lu",ullRight);
+		sprintf_s(szTmp,64,"%llu",ullRight);
 		TU32 n = (TU32)strlen(szTmp);
 		m_szPtr = SharedPtr<TCHAR>(new TCHAR[n+1],TLunaEngine::SPFM_DELETE_T);
 		TCHAR* szMyContent = m_szPtr.getPointer();
@@ -864,7 +864,7 @@ namespace TLunaEngine{
 		if(m_szPtr.isNull()==TFALSE)
 		{
 			TCHAR szTmp2[64] = {0};
-			sprintf_s(szTmp2,64,"%Ld", llRight);
+			sprintf_s(szTmp2,64,"%lld", llRight);
 			TU32 n = (TU32)strlen(szTmp2);
 
 			TCHAR* sz = new TCHAR[n+m_nLength+1];
@@ -896,7 +896,7 @@ namespace TLunaEngine{
 		if(m_szPtr.isNull()==TFALSE)
 		{
 			TCHAR szTmp2[64] = {0};
-			sprintf_s(szTmp2,64,"%Lu",ullRight);
+			sprintf_s(szTmp2,64,"%llu",ullRight);
 			TU32 n = (TU32)strlen(szTmp2);
 
 			TCHAR* sz = new TCHAR[n+m_nLength+1];
@@ -1748,9 +1748,9 @@ namespace TLunaEngine{
 		return -1;
 	}
 
-	std::vector<String> String::Split(TCHAR sz, TU32* pCount) const
+	List<String> String::Split(TCHAR sz, TU32* pCount) const
 	{
-		std::vector<String> aResult;
+		List<String> aResult;
 		if(m_szPtr.isNull() || !pCount) 
 			return aResult;
 
@@ -1783,9 +1783,9 @@ namespace TLunaEngine{
 		return aResult;
 	}
 
-	std::vector<String> String::Split(TWCHAR sz, TU32* pCount) const
+	List<String> String::Split(TWCHAR sz, TU32* pCount) const
 	{
-		std::vector<String> aResult;
+		List<String> aResult;
 		if(m_szPtr.isNull() || !pCount) 
 			return aResult;
 

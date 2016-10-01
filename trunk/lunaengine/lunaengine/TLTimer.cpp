@@ -17,7 +17,7 @@ namespace TLunaEngine{
 	}
 
 	//-------------------------------------------------------------------------
-	TBOOL Timer::setOption( const std::string & key, const TVOID * val )
+	TBOOL Timer::setOption( const String& key, const TVOID * val )
 	{
 		if ( key == "QueryAffinityMask" )
 		{
@@ -113,7 +113,7 @@ namespace TLunaEngine{
 		if (msecOff < -100 || msecOff > 100)
 		{
 			// We must keep the timer running forward :)
-			TS64 adjust = (std::min)(msecOff * mFrequency.QuadPart / 1000, newTime - mLastTime);
+			TS64 adjust = min_(msecOff * mFrequency.QuadPart / 1000, newTime - mLastTime);
 			mStartTime.QuadPart += adjust;
 			newTime -= adjust;
 
@@ -155,7 +155,7 @@ namespace TLunaEngine{
 		if (msecOff < -100 || msecOff > 100)
 		{
 			// We must keep the timer running forward :)
-			TS64 adjust = (std::min)(msecOff * mFrequency.QuadPart / 1000, newTime - mLastTime);
+			TS64 adjust = min_(msecOff * mFrequency.QuadPart / 1000, newTime - mLastTime);
 			mStartTime.QuadPart += adjust;
 			newTime -= adjust;
 		}

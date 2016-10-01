@@ -1,6 +1,7 @@
 #include "TLMemFile.h"
 
 #include "TLString.h"
+#include <stdio.h>
 
 namespace TLunaEngine{
 
@@ -39,7 +40,7 @@ namespace TLunaEngine{
 		m_ContentSize=size;
 	}
 
-	TS32 MemFile::GetContent(TUByte **pContent)
+	TSIZE MemFile::GetContent(TUByte **pContent)
 	{
 		if(!pContent)
 			return 0;

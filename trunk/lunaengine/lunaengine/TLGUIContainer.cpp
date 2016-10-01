@@ -378,17 +378,17 @@ namespace TLunaEngine{
 				m_posYFinal = m_posY;
 			}
 			// 计算子控件
-			std::vector<GUICtrl*>::iterator itr = m_CtrlList.begin();
+			List<GUICtrl*>::Iterator itr = m_CtrlList.begin();
 			for (;itr!=m_CtrlList.end();itr++)
 			{
 				GUICtrl* pCtrl = (*itr);
 				pCtrl->ReCalSubRect(m_posXFinal,m_posYFinal);
 			}
 			// 计算子容器
-			std::map<TS32,GUIContainer*>::iterator itrC = m_SubContainerTable.begin();
+			Map<TS32,GUIContainer*>::Iterator itrC = m_SubContainerTable.begin();
 			for (;itrC!=m_SubContainerTable.end();itrC++)
 			{
-				GUIContainer* pSubContainer = itrC->second;
+				GUIContainer* pSubContainer = itrC->Value;
 				pSubContainer->ReCalSubRect(m_posXFinal,m_posYFinal);
 			}
 			m_bReCal = TFALSE;
@@ -405,7 +405,7 @@ namespace TLunaEngine{
 		{
 			return TFALSE;
 		}
-		m_SubContainerTable.insert(std::pair<TS32,GUIContainer*>(pContainer->GetID(),pContainer));
+		m_SubContainerTable.push_back(pContainer->GetID(),pContainer);
 		return TTRUE;
 	}
 
@@ -485,17 +485,17 @@ namespace TLunaEngine{
 			ReCalSubRect(m_posXParent,m_posYParent);
 		}
 		// 计算子控件
-		std::vector<GUICtrl*>::iterator itr = m_CtrlList.begin();
+		List<GUICtrl*>::Iterator itr = m_CtrlList.begin();
 		for (;itr!=m_CtrlList.end();itr++)
 		{
 			GUICtrl* pCtrl = (*itr);
 			pCtrl->Update(fTimeElapsed);
 		}
 		// 计算子容器
-		std::map<TS32,GUIContainer*>::iterator itrC = m_SubContainerTable.begin();
+		Map<TS32,GUIContainer*>::Iterator itrC = m_SubContainerTable.begin();
 		for (;itrC!=m_SubContainerTable.end();itrC++)
 		{
-			GUIContainer* pSubContainer = itrC->second;
+			GUIContainer* pSubContainer = itrC->Value;
 			pSubContainer->Update(fTimeElapsed);
 		}
 		return TTRUE;
@@ -508,17 +508,17 @@ namespace TLunaEngine{
 			return TFALSE;
 		}
 		// 计算子控件
-		std::vector<GUICtrl*>::iterator itr = m_CtrlList.begin();
+		List<GUICtrl*>::Iterator itr = m_CtrlList.begin();
 		for (;itr!=m_CtrlList.end();itr++)
 		{
 			GUICtrl* pCtrl = (*itr);
 			pCtrl->Render(fTimeElapsed);
 		}
 		// 计算子容器
-		std::map<TS32,GUIContainer*>::iterator itrC = m_SubContainerTable.begin();
+		Map<TS32,GUIContainer*>::Iterator itrC = m_SubContainerTable.begin();
 		for (;itrC!=m_SubContainerTable.end();itrC++)
 		{
-			GUIContainer* pSubContainer = itrC->second;
+			GUIContainer* pSubContainer = itrC->Value;
 			pSubContainer->Render(fTimeElapsed);
 		}
 		return TTRUE;
@@ -527,17 +527,17 @@ namespace TLunaEngine{
 	TVOID GUIContainer::SetCtrlAlpha(TF32 fAlpha)
 	{
 		// 计算子控件
-		std::vector<GUICtrl*>::iterator itr = m_CtrlList.begin();
+		List<GUICtrl*>::Iterator itr = m_CtrlList.begin();
 		for (;itr!=m_CtrlList.end();itr++)
 		{
 			GUICtrl* pCtrl = (*itr);
 			pCtrl->SetAlpha(fAlpha);
 		}
 		// 计算子容器
-		std::map<TS32,GUIContainer*>::iterator itrC = m_SubContainerTable.begin();
+		Map<TS32,GUIContainer*>::Iterator itrC = m_SubContainerTable.begin();
 		for (;itrC!=m_SubContainerTable.end();itrC++)
 		{
-			GUIContainer* pSubContainer = itrC->second;
+			GUIContainer* pSubContainer = itrC->Value;
 			pSubContainer->SetCtrlAlpha(fAlpha);
 		}
 	}
@@ -546,17 +546,17 @@ namespace TLunaEngine{
 	{
 		m_bShow = bShow;
 		// 计算子控件
-		std::vector<GUICtrl*>::iterator itr = m_CtrlList.begin();
+		List<GUICtrl*>::Iterator itr = m_CtrlList.begin();
 		for (;itr!=m_CtrlList.end();itr++)
 		{
 			GUICtrl* pCtrl = (*itr);
 			pCtrl->ShowCtrl(bShow);
 		}
 		// 计算子容器
-		std::map<TS32,GUIContainer*>::iterator itrC = m_SubContainerTable.begin();
+		Map<TS32,GUIContainer*>::Iterator itrC = m_SubContainerTable.begin();
 		for (;itrC!=m_SubContainerTable.end();itrC++)
 		{
-			GUIContainer* pSubContainer = itrC->second;
+			GUIContainer* pSubContainer = itrC->Value;
 			pSubContainer->ShowContainer(bShow);
 		}
 	}

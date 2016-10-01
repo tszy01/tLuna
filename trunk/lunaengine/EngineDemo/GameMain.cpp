@@ -1,3 +1,9 @@
+#ifdef DEMO_CHECK_MEM_LEAK
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+#endif // DEMO_CHECK_MEM_LEAK
+
 #include "GameMain.h"
 #include "GameInput.h"
 #include "InputMsgMgr.h"
@@ -178,16 +184,35 @@ void OnCatchInputMsg(BYTE yType,void* param)
 	}
 }
 
+#ifdef BUILD_TEST
+int runTest()
+{
+	TLunaEngine::SharedPtr<int> a = TLunaEngine::SharedPtr<int>(new int);
+	TLunaEngine::SharedPtr<int> b = TLunaEngine::SharedPtr<int>(new int);
+	if (a < b)
+	{
+		printf("a < b\n");
+	}
+	return 0;
+}
+#endif // BUILD_TEST
+
 int PASCAL WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmLine, int nCmdShow)
 {
+#ifdef DEMO_CHECK_MEM_LEAK
+	//_CrtSetBreakAlloc(538);
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+#endif // DEMO_CHECK_MEM_LEAK
 	// init variables
 	TLunaEngine::String initScriptFile("initapp.lua");
 	bool bEditor = false;
+	bool bTest = false;
 
 	// read command
 	TLunaEngine::String strCmd(lpCmLine);
 	TLunaEngine::TU32 nCmd = 1;
-	std::vector<TLunaEngine::String> cmds = strCmd.Split(' ', &nCmd);
+	TLunaEngine::List<TLunaEngine::String> cmds = strCmd.Split(' ', &nCmd);
+	strCmd.~String();
 	for (int i = 0;i < (int)cmds.size();++i)
 	{
 		if (cmds[i] == "-editor")
@@ -198,7 +223,18 @@ int PASCAL WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmLine,
 		{
 			initScriptFile = cmds[i + 1];
 		}
+		if (cmds[i] == "-test")
+		{
+			bTest = true;
+		}
 	}
+
+#ifdef BUILD_TEST
+	if (bTest)
+	{
+		return runTest();
+	}
+#endif // BUILD_TEST
 
 	// read init script
 	if (!LuaInit::getSingletonPtr()->InitWindowScript(initScriptFile.GetString()))

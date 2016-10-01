@@ -41,18 +41,18 @@ namespace TLunaEngine{
 	\param outIntersection Place to store the intersection point, if there is one.
 	\return True if there was an intersection, TFALSE if not. */
 	template<typename T>
-	TBOOL TriGetIntersectionWithLine(const Triangle<T>& tri,const Line<T>& line,Vector3<T>& outIntersection)
+	TBOOL TriGetIntersectionWithLine(const Triangle<T>& tri,const Line<T>& line,Vector3<T>& outIntersection,TF32& outTValue)
 	{
 		return tri.getIntersectionWithLine(line.start,
-			line.getVector(), outIntersection) &&
+			line.getVector(), outIntersection, outTValue) &&
 			outIntersection.isBetweenPoints(line.start, line.end);
 	}
 
 	// 三角形与射线检测
 	template<typename T>
-	TBOOL TriGetInterscetionWithRay(const Triangle<T>& tri,const Ray<T>& ray,Vector3<T>& outIntersection)
+	TBOOL TriGetInterscetionWithRay(const Triangle<T>& tri,const Ray<T>& ray,Vector3<T>& outIntersection, TF32& outTValue)
 	{
-		return tri.getIntersectionWithLine(ray.GetOrig(),ray.GetDir(),outIntersection);
+		return tri.getIntersectionWithLine(ray.GetOrig(),ray.GetDir(),outIntersection, outTValue);
 	}
 
 	// 平面与线段,射线检测可以直接用Plane成员函数
@@ -500,6 +500,20 @@ namespace TLunaEngine{
 	{
 		if (plane.classifyPointRelation(box.getCenter(), box.getHalfExtent()) == ISREL3D_SPANNING)
 			return TTRUE;
+		return TFALSE;
+	}
+
+	// plane / ray intersection test
+	template<typename T>
+	TBOOL intersects(const Plane<T>& plane, const Ray<T>& ray, Vector3<T>& outInterection, TF32& outTValue)
+	{
+		if (plane.getIntersectionWithLine(ray.m_Orig, ray.m_Dir, outInterection, outTValue) == TTRUE)
+		{
+			if (outTValue >= 0.0f)
+			{
+				return TTRUE;
+			}
+		}
 		return TFALSE;
 	}
 

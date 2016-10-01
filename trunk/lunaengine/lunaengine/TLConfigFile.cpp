@@ -84,7 +84,7 @@ namespace TLunaEngine{
 		TCHAR c;
 		TU32 szLen = 0;
 		TU32 count = 0;
-		StrList::iterator itr = m_list.begin();
+		StrList::Iterator itr = m_list.begin();
 		for(;itr!=m_list.end();itr++)
 		{
 			// 写入parameter
@@ -154,7 +154,7 @@ namespace TLunaEngine{
 			return;
 
 		// 遍历找到parameter
-		StrList::iterator itr = m_list.begin();
+		StrList::Iterator itr = m_list.begin();
 		for(;itr!=m_list.end();itr++)
 		{
 			if(strcmp(paraName,itr->m_strParameter.GetString())==0)
@@ -171,7 +171,7 @@ namespace TLunaEngine{
 			return;
 
 		// 遍历找到parameter
-		StrList::iterator itr = m_list.begin();
+		StrList::Iterator itr = m_list.begin();
 		for(;itr!=m_list.end();itr++)
 		{
 			if(strcmp(paraName,itr->m_strParameter.GetString())==0)
@@ -199,7 +199,7 @@ namespace TLunaEngine{
 		if(!m_bOpen || !paraName)
 			return TFALSE;
 		// 遍历找到parameter
-		StrList::iterator itr = m_list.begin();
+		StrList::Iterator itr = m_list.begin();
 		TS32 count = 0;
 		for(;itr!=m_list.end();itr++,count++)
 		{

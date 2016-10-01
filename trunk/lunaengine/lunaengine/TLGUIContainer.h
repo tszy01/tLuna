@@ -2,10 +2,9 @@
 #define _TLGUICONTAINER_H_
 
 #include "TLGUIDefine.h"
-#include <map>
+#include "TLMap.h"
 #include "TLGUICtrl.h"
-#include <list>
-#include <vector>
+#include "TLList.h"
 namespace TLunaEngine{
 
 	class GUICtrl;
@@ -21,8 +20,8 @@ namespace TLunaEngine{
 		GUIContainer(TVOID);
 		~GUIContainer(TVOID);
 	private:
-		std::map<TS32,GUIContainer*> m_SubContainerTable;		// 子容器链表
-		std::vector<GUICtrl*> m_CtrlList;								// 控件链表
+		Map<TS32,GUIContainer*> m_SubContainerTable;		// 子容器链表
+		List<GUICtrl*> m_CtrlList;								// 控件链表
 		TS32 m_iID;													// 容器ID
 		GUIContainer* m_pParent;									// 父容器
 		GUIListener* m_pListener;								// 消息上层捕获
@@ -129,9 +128,9 @@ namespace TLunaEngine{
 		inline GUIContainer* GetSubContainer(TS32 iID)
 		{
 			GUIContainer* pContainer = TNULL;
-			std::map<TS32,TLunaEngine::GUIContainer*>::iterator itr = m_SubContainerTable.find(iID);
+			Map<TS32,TLunaEngine::GUIContainer*>::Iterator itr = m_SubContainerTable.find(iID);
 			if(itr!=m_SubContainerTable.end())
-				return itr->second;
+				return itr->Value;
 			return pContainer;
 		}
 		// 递归找容器
@@ -143,10 +142,10 @@ namespace TLunaEngine{
 				return this;
 			}
 			// 调用子容器的方法
-			std::map<TS32,GUIContainer*>::iterator itr = m_SubContainerTable.begin();
+			Map<TS32,GUIContainer*>::Iterator itr = m_SubContainerTable.begin();
 			for (;itr!=m_SubContainerTable.end();itr++)
 			{
-				GUIContainer* pSubContainer = itr->second;
+				GUIContainer* pSubContainer = itr->Value;
 				GUIContainer* pFind = pSubContainer->FindContainer(iID);
 				if (pFind)
 				{
@@ -158,7 +157,7 @@ namespace TLunaEngine{
 		// 删除控件
 		inline TVOID ClearCtrls()
 		{
-			std::vector<GUICtrl*>::iterator itr = m_CtrlList.begin();
+			List<GUICtrl*>::Iterator itr = m_CtrlList.begin();
 			for (;itr!=m_CtrlList.end();itr++)
 			{
 				GUICtrl* pCtrl = (*itr);
@@ -173,10 +172,10 @@ namespace TLunaEngine{
 		// 删除子容器
 		inline TVOID ClearSubContainers()
 		{
-			std::map<TS32,GUIContainer*>::iterator itr = m_SubContainerTable.begin();
+			Map<TS32,GUIContainer*>::Iterator itr = m_SubContainerTable.begin();
 			for (;itr!=m_SubContainerTable.end();itr++)
 			{
-				GUIContainer* pSubContainer = itr->second;
+				GUIContainer* pSubContainer = itr->Value;
 				if (pSubContainer)
 				{
 					delete pSubContainer;
@@ -189,10 +188,10 @@ namespace TLunaEngine{
 		inline TVOID MakeReCal(TBOOL bReCal = TTRUE)
 		{
 			m_bReCal = bReCal;
-			std::map<TS32,GUIContainer*>::iterator itr = m_SubContainerTable.begin();
+			Map<TS32,GUIContainer*>::Iterator itr = m_SubContainerTable.begin();
 			for (;itr!=m_SubContainerTable.end();itr++)
 			{
-				GUIContainer* pSubContainer = itr->second;
+				GUIContainer* pSubContainer = itr->Value;
 				pSubContainer->MakeReCal(bReCal);
 			}
 		}

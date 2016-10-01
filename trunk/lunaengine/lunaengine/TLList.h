@@ -30,6 +30,17 @@ namespace TLunaEngine{
 			TBOOL operator !=(const Iterator&      other) const { return Current != other.Current; }
 			T & operator * () { return Current->Value; }
 			T * operator ->() { return &Current->Value; }
+			Iterator& advance(TU32 n)
+			{
+				for (TU32 i = 0;i < n;++i)
+				{
+					if (Current)
+					{
+						Current = Current->Next;
+					}
+				}
+				return *this;
+			}
 		private:
 			Iterator(LIST_NODE* begin) : Current(begin) {}
 			LIST_NODE* Current;
@@ -53,17 +64,17 @@ namespace TLunaEngine{
 		// 末尾指针
 		LIST_NODE* m_Last;
 		// 大小
-		TS32 m_Size;
+		TU64 m_Size;
 	public:
 		// 拷贝构造
 		List(const List<T>& other) : m_First(0), m_Last(0), m_Size(0)
 		{
-			Clone(other);
+			clone(other);
 		}
 		// -------------- 成员 --------------------------
 
 		// 克隆
-		inline TVOID Clone(const List<T>& other)
+		inline TVOID clone(const List<T>& other)
 		{
 			if(&other == this)
 			{
@@ -81,11 +92,11 @@ namespace TLunaEngine{
 		// 重载=
 		inline List<T>& operator=(const List<T>& other)
 		{
-			Clone(other);
+			clone(other);
 			return *this;
 		}
 		// 得到大小
-		inline TS32 size() const
+		inline TU64 size() const
 		{
 			return m_Size;
 		}
@@ -207,11 +218,47 @@ namespace TLunaEngine{
 			--m_Size;
 			return returnIterator;
 		}
-		// 重载[]
-		inline T& operator[](TS32 iPos)
+		// 根据值删除
+		inline Iterator erase(const T& value)
+		{
+			Iterator itr = find(value);
+			if (itr != end())
+			{
+				return erase(itr);
+			}
+			return itr;
+		}
+		// 是否有该value
+		inline TBOOL has(const T& value)
 		{
 			Iterator itr = begin();
-			TS32 count = 0;
+			for (;itr != end();++itr)
+			{
+				if ((*itr) == value)
+				{
+					return TTRUE;
+				}
+			}
+			return TFALSE;
+		}
+		// 是否有该value
+		inline Iterator find(const T& value)
+		{
+			Iterator itr = begin();
+			for (;itr != end();++itr)
+			{
+				if ((*itr) == key)
+				{
+					return itr;
+				}
+			}
+			return Iterator(0);
+		}
+		// 重载[]
+		inline T& operator[](TU64 iPos)
+		{
+			Iterator itr = begin();
+			TU64 count = 0;
 			for(;itr!=end();++itr)
 			{
 				if(count == iPos)
@@ -222,11 +269,25 @@ namespace TLunaEngine{
 			}
 			return m_First->Value;
 		}
-		// 得到值
-		inline TBOOL GetValue(TS32 iPos,T& value)
+		// 设置值
+		inline TVOID set(TU64 iPos, const T& value)
 		{
 			Iterator itr = begin();
-			TS32 count = 0;
+			TU64 count = 0;
+			for (;itr != end();++itr)
+			{
+				if (count == iPos)
+				{
+					(*itr) == value;
+				}
+				count++;
+			}
+		}
+		// 得到值
+		inline TBOOL get(TU64 iPos,T& value)
+		{
+			Iterator itr = begin();
+			TU64 count = 0;
 			for(;itr!=end();++itr)
 			{
 				if(count == iPos)
@@ -237,6 +298,13 @@ namespace TLunaEngine{
 				count++;
 			}
 			return TFALSE;
+		}
+		// 得到值
+		inline T get(TU64 iPos)
+		{
+			T result;
+			get(iPos, result);
+			return result;
 		}
 
 		// ----------------------------------------------

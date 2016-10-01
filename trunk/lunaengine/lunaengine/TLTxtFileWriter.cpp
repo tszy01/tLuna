@@ -73,7 +73,7 @@ namespace TLunaEngine{
 		for(TU32 i=0;i<nCount;i++)
 		{
 			TCHAR szTmp[64] = {0};
-			sprintf(szTmp,"%Ld",allWrite[i]);
+			sprintf(szTmp,"%lld",allWrite[i]);
 			fwrite(szTmp,sizeof(TCHAR),strlen(szTmp),pStream);
 			if(i<nCount-1)
 			{
@@ -130,7 +130,7 @@ namespace TLunaEngine{
 		for(TU32 i=0;i<nCount;i++)
 		{
 			TCHAR szTmp[64] = {0};
-			sprintf(szTmp,"%Lu",aullWrite[i]);
+			sprintf(szTmp,"%llu",aullWrite[i]);
 			fwrite(szTmp,sizeof(TCHAR),strlen(szTmp),pStream);
 			if(i<nCount-1)
 			{

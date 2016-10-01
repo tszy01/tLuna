@@ -2,7 +2,8 @@
 #define _TLPLANEBOUNDEDVOLUME_H_
 #include "TLPlane.h"
 #include <assert.h>
-#include <vector>
+#include "TLList.h"
+#include "TLMap.h"
 
 namespace TLunaEngine
 {
@@ -11,7 +12,7 @@ namespace TLunaEngine
 	{
 	public:
         /// Publicly accessible plane list, you can modify this direct
-		std::vector<Plane<T>> planes;
+		List<Plane<T>> planes;
         EIntersectionRelation3D outside;
 
 		PlaneBoundedVolume() :outside(ISREL3D_BACK) {}
@@ -24,7 +25,7 @@ namespace TLunaEngine
         */
         inline TBOOL intersects(const Vector3<T>& center, const Vector3<T>& halfSize) const
         {
-			std::vector<Plane<T>>::iterator itr = planes.begin();
+			List<Plane<T>>::Iterator itr = planes.begin();
 			for (;itr != planes.end(); ++itr)
             {
                 const Plane<T>& plane = *itr;
@@ -46,7 +47,7 @@ namespace TLunaEngine
         */
         inline TBOOL intersects(const Vector3<T>& center, T radius) const
         {
-            std::vector<Plane<T>>::iterator itr = planes.begin();
+			List<Plane<T>>::Iterator itr = planes.begin();
 			for (;itr != planes.end(); ++itr)
             {
                 const Plane<T>& plane = *itr;
@@ -68,17 +69,17 @@ namespace TLunaEngine
         @return std::pair of hit (TBOOL) and distance
         @remarks May return TFALSE positives but will never miss an intersection.
         */
-        inline std::pair<TBOOL, TF32> intersects(const Vector3<T>& point, const Vector3<T>& dir)
+        inline Pair<TBOOL, TF32> intersects(const Vector3<T>& point, const Vector3<T>& dir)
         {
             //list<Plane>::type::const_iterator planeit, planeitend;
 			//planeitend = planes.end();
 			TBOOL allInside = TTRUE;
-			std::pair<TBOOL, TF32> ret;
-			std::pair<TBOOL, TF32> end;
-			ret.first = TFALSE;
-			ret.second = 0.0f;
-			end.first = TFALSE;
-			end.second = 0;
+			Pair<TBOOL, TF32> ret;
+			Pair<TBOOL, TF32> end;
+			ret.key() = TFALSE;
+			ret.value() = 0.0f;
+			end.key() = TFALSE;
+			end.value() = 0;
 
 
 			// derive side
@@ -86,7 +87,7 @@ namespace TLunaEngine
 			// interface, which results in recursive includes since Math is so fundamental
 			//Plane::Side outside = normalIsOutside ? Plane::POSITIVE_SIDE : Plane::NEGATIVE_SIDE;
 
-			std::vector<Plane<T>>::iterator itr = planes.begin();
+			List<Plane<T>>::Iterator itr = planes.begin();
 			for (;itr != planes.end(); ++itr)
             {
                 const Plane<T>& plane = *itr;
@@ -96,35 +97,37 @@ namespace TLunaEngine
 					allInside = TFALSE;
 					// Test single plane
 					Vector3<T> intersection;
-					TBOOL bInter = plane.getIntersectionWithLine(point,dir,intersection);
+					TF32 intersectTValue;
+					TBOOL bInter = plane.getIntersectionWithLine(point,dir,intersection, intersectTValue);
 					if (bInter)
 					{
 						// Ok, we intersected
-						ret.first = TTRUE;
+						ret.key() = TTRUE;
 						// Use the most distant result since convex volume
-						ret.second = std::max(ret.second, intersection);
+						ret.value() = max_(ret.value(), intersectTValue);
 					}
 					else
 					{
-						ret.first =TFALSE;
-						ret.second=0.0f;
+						ret.key() = TFALSE;
+						ret.value() = 0.0f;
 						return ret;
 					}
 				}
 				else
 				{
 					Vector3<T> intersection;
-					TBOOL bInter = plane.getIntersectionWithLine(point,dir,intersection);
+					TF32 intersectTValue;
+					TBOOL bInter = plane.getIntersectionWithLine(point,dir,intersection, intersectTValue);
 					if (bInter)
 					{
-						if( !end.first )
+						if( !end.key() )
 						{
-							end.first = TTRUE;
-							end.second = intersection;
+							end.key() = TTRUE;
+							end.value() = intersectTValue;
 						}
 						else
 						{
-							end.second = std::min( intersection, end.second );
+							end.value() = min_(intersectTValue, end.value() );
 						}
 
 					}
@@ -135,16 +138,16 @@ namespace TLunaEngine
 			if (allInside)
 			{
 				// Intersecting at 0 distance since inside the volume!
-				ret.first = TTRUE;
-				ret.second = 0.0f;
+				ret.key() = TTRUE;
+				ret.value() = 0.0f;
 				return ret;
 			}
 
-			if( end.first )
+			if( end.key() )
 			{
-				if( end.second < ret.second )
+				if( end.value() < ret.value() )
 				{
-					ret.first = TFALSE;
+					ret.key() = TFALSE;
 					return ret;
 				}
 			}

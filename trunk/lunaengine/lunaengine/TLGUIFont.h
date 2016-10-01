@@ -3,8 +3,8 @@
 
 #include <ft2build.h>
 #include <freetype/freetype.h>
-#include <vector>
 #include "TLCommonTypeDef.h"
+#include "TLList.h"
 
 namespace TLunaEngine{
 	class RenderDeviceUsedSRV;
@@ -84,8 +84,8 @@ namespace TLunaEngine{
 
 		TU32 mPageCount;
 		TU32 mPageSize;
-		std::vector<TU32*> mPageBufferList;
-		std::vector<RenderDeviceUsedSRV*> mSRVList;
+		List<TU32*> mPageBufferList;
+		List<RenderDeviceUsedSRV*> mSRVList;
 	};
 
 }

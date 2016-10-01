@@ -3,7 +3,9 @@
 #include "TLPolygon.h"
 #include "TLPlane.h"
 #include <assert.h>
-#include <vector>
+#include "TLList.h"
+#include "TLMathUtils.h"
+#include "TLMap.h"
 
 namespace TLunaEngine
 {
@@ -15,12 +17,12 @@ namespace TLunaEngine
 	class ConvexBody
 	{
 	protected:
-		std::vector<Polygon<T>> mPolygons;
+		List<Polygon<T>*> mPolygons;
 
 	public:
 		ConvexBody()
 		{
-			mPolygons.reserve(8);
+			//mPolygons.reserve(8);
 		}
 		~ConvexBody()
 		{
@@ -304,7 +306,7 @@ namespace TLunaEngine
 			assert( current.getPolygonCount() != 0 );
 
 			// holds all intersection edges for the different polygons
-			std::map<Vector3<T>, Vector3<T>> intersectionEdges;
+			Map<Vector3<T>, Vector3<T>> intersectionEdges;
 
 			// clip all polygons by the intersection plane
 			// add only valid or intersected polygons to *this
@@ -373,17 +375,19 @@ namespace TLunaEngine
 						Vector3<T> vDirection = vCurrent - vNext;
 						vDirection.normalise();
 						Ray ray( vNext, vDirection );
-						std::pair< TBOOL, Real > intersect = ray.intersects( pl );
+						Vector3<T> outInterection;
+						TF32 outTValue;
+						TBOOL inter = intersects(pl, ray, outInterection, outTValue);
 
 						// store intersection
-						if ( intersect.first )
+						if ( inter )
 						{
 							// convert distance to vector
-							Vector3<T> vIntersect = ray.getPoint( intersect.second );	
+							//Vector3<T> vIntersect = ray.GetDest( outTValue );
 
 							// store intersection
-							pNew->insertVertex( vIntersect );
-							pIntersect->insertVertex( vIntersect );
+							pNew->insertVertex(outInterection);
+							pIntersect->insertVertex(outInterection);
 						}
 					}
 
@@ -399,7 +403,8 @@ namespace TLunaEngine
 						Vector3<T> vDirection = vNext - vCurrent;
 						vDirection.normalise();
 						Vector3<T> vIntersect;
-						TBOOL bIntersect = pl.getIntersectionWithLine(vCurrent,vDirection,vIntersect);
+						TF32 intersectTValue;
+						TBOOL bIntersect = pl.getIntersectionWithLine(vCurrent,vDirection,vIntersect, intersectTValue);
 
 						// store intersection
 						if ( bIntersect )
@@ -445,8 +450,7 @@ namespace TLunaEngine
 				// insert intersection polygon only, if there are two vertices present
 				if ( pIntersect->getVertexCount() == 2 )
 				{
-					intersectionEdges.insert( std::pair< Vector3<T>, Vector3<T>>( pIntersect->getVertex( 0 ),
-															  pIntersect->getVertex( 1 ) ) );
+					intersectionEdges.push_back( pIntersect->getVertex( 0 ),pIntersect->getVertex( 1 ) );
 				}
 
 				// delete intersection polygon
@@ -469,11 +473,11 @@ namespace TLunaEngine
 				// Each point is twice in the list because of the fact that we have a convex body
 				// with convex polygons. All we have to do is order the edges (an even-odd pair)
 				// in a ccw order. The plane normal shows us the direction.
-				std::map<Vector3<T>, Vector3<T>>::iterator it = intersectionEdges.begin();
+				Map<Vector3<T>, Vector3<T>>::Iterator it = intersectionEdges.begin();
 
 				// check the cross product of the first two edges
-				Vector3<T> vFirst  = it->first;
-				Vector3<T> vSecond = it->second;
+				Vector3<T> vFirst  = it->Key;
+				Vector3<T> vSecond = it->Value;
 
 				// remove inserted edge
 				intersectionEdges.erase( it );
@@ -573,7 +577,7 @@ namespace TLunaEngine
 			// Erase all polygons facing towards the point. For all edges that
 			// are not removed twice (once in AB and once BA direction) build a
 			// convex polygon (triangle) with the point.
-			std::map<Vector3<T>, Vector3<T>> edgeMap;
+			Map<Vector3<T>, Vector3<T>> edgeMap;
 
 			for (TU32 i = 0; i < getPolygonCount(); ++i )
 			{
@@ -604,9 +608,9 @@ namespace TLunaEngine
 
 			// remove the edges that are twice in the list (once from each side: AB,BA)
 
-			std::map<Vector3<T>, Vector3<T>>::iterator it;
+			Map<Vector3<T>, Vector3<T>>::Iterator it;
 			// iterate from first to the element before the last one
-			for (std::map<Vector3<T>, Vector3<T>>::iterator itStart = edgeMap.begin(); 
+			for (Map<Vector3<T>, Vector3<T>>::Iterator itStart = edgeMap.begin(); 
 				itStart != edgeMap.end(); )
 			{
 				// compare with iterator + 1 to end
@@ -618,12 +622,12 @@ namespace TLunaEngine
 				// iterate from itStart+1 to the element before the last one
 				for ( ; it != edgeMap.end(); ++it )
 				{	
-					if (itStart->first.equals(it->second) &&
-						 itStart->second.equals(it->first))
+					if (itStart->Key.equals(it->Value) &&
+						 itStart->Value.equals(it->Key))
 					{
 						edgeMap.erase(it);
 						// increment itStart before deletion (iterator invalidation)
-						std::map<Vector3<T>, Vector3<T>>::iterator delistart = itStart++;
+						Map<Vector3<T>, Vector3<T>>::Iterator delistart = itStart++;
 						edgeMap.erase(delistart);
 						erased = TTRUE;
 
@@ -641,13 +645,13 @@ namespace TLunaEngine
 			// to form a ccw polygon)
 			while ( !edgeMap.empty() )
 			{
-				std::map<Vector3<T>, Vector3<T>>::iterator mapIt = edgeMap.begin();
+				Map<Vector3<T>, Vector3<T>>::Iterator mapIt = edgeMap.begin();
 
 				// build polygon it.first, it.second, point
 				Polygon<T> *p = new Polygon<T>();
 
-				p->insertVertex(mapIt->first);
-				p->insertVertex(mapIt->second);
+				p->insertVertex(mapIt->Key);
+				p->insertVertex(mapIt->Value);
 
 				p->insertVertex( pt );
 				// attach polygon to body
@@ -663,7 +667,7 @@ namespace TLunaEngine
 		*/
 		TVOID reset( TVOID )
 		{
-			for (PolygonList::iterator it = mPolygons.begin(); 
+			for (List<Polygon<T>*>::Iterator it = mPolygons.begin(); 
 				it != mPolygons.end(); ++it)
 			{
 				delete *it;
@@ -723,7 +727,7 @@ namespace TLunaEngine
 		TBOOL hasClosedHull( TVOID ) const
 		{
 			// if this map is returned empty, the body is closed
-			std::map<Vector3<T>, Vector3<T>> edgeMap = getSingleEdges();
+			Map<Vector3<T>, Vector3<T>> edgeMap = getSingleEdges();
 
 			return edgeMap.empty();
 		}
@@ -938,10 +942,11 @@ namespace TLunaEngine
 			assert(poly <= getPolygonCount());
 			assert( pdata != TNULL );
 
-			std::vector<Polygon<T>>::iterator it = mPolygons.begin();
-			std::advance(it, poly);
+			List<Polygon<T>>::Iterator it = mPolygons.begin();
+			it.advance(poly);
+			//std::advance(it, poly);
 
-			mPolygons.insert( it, pdata );
+			mPolygons.insert_after( it, pdata );
 		}
 		/** Inserts a polygon at the end.
 		@note
@@ -983,8 +988,9 @@ namespace TLunaEngine
 		{
 			assert(poly < getPolygonCount() );
 
-			std::vector<Polygon<T>>::iterator it = mPolygons.begin();
-			std::advance(it, poly);
+			List<Polygon<T>>::Iterator it = mPolygons.begin();
+			it.advance(poly);
+			//std::advance(it, poly);
 		
 			delete *it;
 			mPolygons.erase(it);
@@ -998,8 +1004,9 @@ namespace TLunaEngine
 		{
 			assert( poly < getPolygonCount() );
 
-			std::vector<Polygon<T>>::iterator it = mPolygons.begin();
-			std::advance(it, poly);
+			List<Polygon<T>>::Iterator it = mPolygons.begin();
+			it.advance(poly);
+			//std::advance(it, poly);
 
 			// safe address
 			Polygon<T> *pRet = *it;
@@ -1017,7 +1024,9 @@ namespace TLunaEngine
 		*/
 		TVOID moveDataFromBody(ConvexBody<T>& body)
 		{
-			body.mPolygons.swap(this->mPolygons);
+			List<Polygon<T>*> tmpPolygons = body.mPolygons;
+			body.mPolygons.clone(this->mPolygons);
+			this->mPolygons.clone(tmpPolygons);
 		}
 
 		/** Deletes a specific vertex of a specific polygon.
@@ -1063,9 +1072,9 @@ namespace TLunaEngine
 		/** Returns the single edges in an EdgeMap (= edges where one side is a vertex and the
 			other is empty space (a hole in the body)).
 		*/
-		std::map<Vector3<T>, Vector3<T>> getSingleEdges() const
+		Map<Vector3<T>, Vector3<T>> getSingleEdges() const
 		{
-			std::map<Vector3<T>, Vector3<T>> edgeMap;
+			Map<Vector3<T>, Vector3<T>> edgeMap;
 
 			// put all edges of all polygons into a list every edge has to be
 			// walked in each direction once	
@@ -1078,14 +1087,14 @@ namespace TLunaEngine
 					const Vector3<T>& a = p.getVertex( j );
 					const Vector3<T>& b = p.getVertex( ( j + 1 ) % p.getVertexCount() );
 
-					edgeMap.insert( std::pair< Vector3<T>, Vector3<T>>( a, b ) );
+					edgeMap.insert( a, b );
 				}
 			}
 
 			// search corresponding parts
-			std::map<Vector3<T>, Vector3<T>>::iterator it;
-			std::map<Vector3<T>, Vector3<T>>::iterator itStart;
-			std::map<Vector3<T>, Vector3<T>>::const_iterator itEnd;
+			Map<Vector3<T>, Vector3<T>>::Iterator it;
+			Map<Vector3<T>, Vector3<T>>::Iterator itStart;
+			Map<Vector3<T>, Vector3<T>>::Iterator itEnd;
 			while( !edgeMap.empty() )
 			{
 				it = edgeMap.begin(); ++it;	// start one element after itStart
@@ -1096,8 +1105,8 @@ namespace TLunaEngine
 
 				for ( ; it != itEnd; ++it )
 				{
-					if (itStart->first.equals(it->second) &&
-						 itStart->second.equals(it->first))
+					if (itStart->Key.equals(it->Value) &&
+						 itStart->Value.equals(it->Key))
 					{
 						// erase itStart and it
 						edgeMap.erase( it );
@@ -1121,7 +1130,7 @@ namespace TLunaEngine
 
 		/** Stores the edges of a specific polygon in a passed in structure.
 		*/
-		TVOID storeEdgesOfPolygon(TU32 poly, std::map<Vector3<T>, Vector3<T>> *edgeMap) const
+		TVOID storeEdgesOfPolygon(TU32 poly, Map<Vector3<T>, Vector3<T>> *edgeMap) const
 		{
 			assert(poly <= getPolygonCount() );
 			assert( edgeMap != TNULL );
@@ -1161,23 +1170,23 @@ namespace TLunaEngine
 		@return True if a match was found
 		*/
 		TBOOL findAndEraseEdgePair(const Vector3<T>& vec, 
-			std::map<Vector3<T>, Vector3<T>>& intersectionEdges, Vector3<T>& vNext ) const
+			Map<Vector3<T>, Vector3<T>>& intersectionEdges, Vector3<T>& vNext ) const
 		{
-			for (std::map<Vector3<T>, Vector3<T>>::iterator it = intersectionEdges.begin(); 
+			for (Map<Vector3<T>, Vector3<T>>::Iterator it = intersectionEdges.begin(); 
 				it != intersectionEdges.end(); ++it)
 			{
-				if (it->first.equals(vec))
+				if (it->Key.equals(vec))
 				{
-					vNext = it->second;
+					vNext = it->Value;
 
 					// erase found edge
 					intersectionEdges.erase( it );
 
 					return TTRUE; // found!
 				}
-				else if (it->second.equals(vec))
+				else if (it->Value.equals(vec))
 				{
-					vNext = it->first;
+					vNext = it->Key;
 
 					// erase found edge
 					intersectionEdges.erase( it );

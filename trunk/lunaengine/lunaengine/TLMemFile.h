@@ -22,7 +22,7 @@ namespace TLunaEngine{
 		// 设置内容
 		TVOID SetContent(TUByte* pContent, TSIZE size);
 		// 得到内容
-		TS32 GetContent(TUByte** pContent);
+		TSIZE GetContent(TUByte** pContent);
 		// 设置全名
 		TVOID SetFullName(TCHAR* fullname);
 		// 得到全名

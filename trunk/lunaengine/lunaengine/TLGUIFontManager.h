@@ -4,7 +4,7 @@
 #include "TLGUIFont.h"
 #include "TLGUIDefine.h"
 #include "TLSingleton.h"
-#include <map>
+#include "TLMap.h"
 #include "TLVector4.h"
 
 namespace TLunaEngine{
@@ -41,7 +41,7 @@ namespace TLunaEngine{
 		RenderDeviceUsedInputLayout* mInputLayout;
 		GUIFont* m_pUseFont;	// 当前使用的字体
 		GUIFont* m_pDebugFont;	// 调试使用字体
-		std::map<TS32,GUIFont*> m_FontTable;	// 字体列表
+		Map<TS32,GUIFont*> m_FontTable;	// 字体列表
 		TU32 m_bufferWidth;	// 后缓冲宽
 		TU32 m_bufferHeight;// 后缓冲高
 		TWCHAR* m_pRenderText;	// 渲染时的内容
@@ -60,14 +60,14 @@ namespace TLunaEngine{
 				}
 			}
 			m_pUseFont = TNULL;
-			std::map<TS32,TLunaEngine::GUIFont*>::iterator itr = m_FontTable.find(id);
+			Map<TS32,TLunaEngine::GUIFont*>::Iterator itr = m_FontTable.find(id);
 			if(itr!=m_FontTable.end())
 			{
-				m_pUseFont = itr->second;
+				m_pUseFont = itr->Value;
 			}
 		}
 		// 添加新字体
-		TS32 AddFont(const TCHAR* filename,TU32 size,TU32 texPageSize,TS32 id);
+		TU32 AddFont(const TCHAR* filename,TU32 size,TU32 texPageSize,TS32 id);
 		// 从文件添加字体
 		TBOOL AddFontFromFile(const TCHAR* filename);
 		// 渲染文字

@@ -3,7 +3,7 @@
 #include "TLVector3.h"
 #include "TLMatrix4x4.h"
 #include "TLVector4.h"
-#include <vector>
+#include "TLList.h"
 #include <assert.h>
 
 namespace TLunaEngine
@@ -266,8 +266,8 @@ namespace TLunaEngine
 
     protected:
         TBOOL mAutoCalc;
-		std::vector<Vector3<T>> mPoints;
-        std::vector<Vector3<T>> mTangents;
+		List<Vector3<T>> mPoints;
+		List<Vector3<T>> mTangents;
         /// Matrix of coefficients 
         Matrix4x4<T> mCoeffs;
 	};

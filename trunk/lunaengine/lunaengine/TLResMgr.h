@@ -3,7 +3,7 @@
 
 #include "TLSingleton.h"
 #include "TLResObject.h"
-#include <list>
+#include "TLList.h"
 namespace TLunaEngine{
 
 	// 链表状态
@@ -26,13 +26,13 @@ namespace TLunaEngine{
 		~ResMgr(TVOID);
 	private:
 		// ------------- 成员 ---------------------
-		std::list<ResObject*> m_ResObjList;	// 链表
+		List<ResObject*> m_ResObjList;	// 链表
 		RES_LIST_STATE m_eListState;		// 当前状态
 	public:
 		// ------------- 调用方法 -----------------
 		// 添加到链表里面
 		// 这个List会在外部组装好
-		inline TBOOL SetList(std::list<ResObject*>& list)
+		inline TBOOL SetList(List<ResObject*>& list)
 		{
 			if(m_eListState!=RES_LIST_STATE_NONE)
 				return TFALSE;

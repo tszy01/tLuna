@@ -2,8 +2,8 @@
 #define _TLPOLYGON_H_
 #include "TLVector3.h"
 #include <assert.h>
-#include <vector>
-#include <map>
+#include "TLList.h"
+#include "TLMap.h"
 
 namespace TLunaEngine
 {
@@ -15,7 +15,7 @@ namespace TLunaEngine
 		//typedef std::pair< Vector3<T>, Vector3<T>>		Edge;
 
 	protected:
-		std::vector<Vector3<T>> mVertexList;
+		List<Vector3<T>> mVertexList;
 		mutable Vector3<T>	mNormal;
 		mutable TBOOL	mIsNormalSet;
 		/** Updates the normal.
@@ -74,10 +74,10 @@ namespace TLunaEngine
 			// TODO: optional: check planarity
 			assert(vertexIndex <= getVertexCount());
 
-			std::vector<Vector3<T>>::iterator it = mVertexList.begin();
-
-			std::advance(it, vertexIndex);
-			mVertexList.insert(it, vdata);
+			List<Vector3<T>>::Iterator it = mVertexList.begin();
+			it.advance(vertexIndex);
+			//std::advance(it, vertexIndex);
+			mVertexList.insert_after(it, vdata);
 		}
 		/** Inserts a vertex at the end of the polygon.
 		@note Vertices must be coplanar.
@@ -90,7 +90,7 @@ namespace TLunaEngine
 		// merge vertices from another one
 		TVOID mergeVertices(const Polygon<T>& rhs)
 		{
-			std::vector<Vector3<T>>::const_iterator it = rhs.mVertexList.begin();
+			List<Vector3<T>>::Iterator it = rhs.mVertexList.begin();
 			for (; it != rhs.mVertexList.end(); ++it)
 			{
 				insertVertex(*it);
@@ -157,8 +157,9 @@ namespace TLunaEngine
 		{
 			assert( vertex < getVertexCount() );
 
-			std::vector<Vector3<T>>::iterator it = mVertexList.begin();
-			std::advance(it, vertex);
+			List<Vector3<T>>::Iterator it = mVertexList.begin();
+			it.advance(vertex);
+			//std::advance(it, vertex);
 
 			mVertexList.erase( it );
 		}
@@ -205,7 +206,7 @@ namespace TLunaEngine
 			The vertices are copied so the user has to take the 
 			deletion into account.
 		*/
-		TVOID storeEdges(std::map<Vector3<T>, Vector3<T>> *edgeMap) const
+		TVOID storeEdges(Map<Vector3<T>, Vector3<T>> *edgeMap) const
 		{
 			assert( edgeMap != TNULL );
 
@@ -213,7 +214,7 @@ namespace TLunaEngine
 
 			for (TU32 i = 0; i < vertexCount; ++i )
 			{
-				edgeMap->insert( std::pair<Vector3<T>, Vector3<T>>( getVertex( i ), getVertex( ( i + 1 ) % vertexCount ) ) );
+				edgeMap->push_back( getVertex( i ), getVertex( ( i + 1 ) % vertexCount ) );
 			}
 		}
 
