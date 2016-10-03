@@ -113,7 +113,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\freetype-2.1.9\include;..\FreeImage\source;..\FreeImage\Source\ZLib;..\tinyxml;..\lua\include;..\LibDDSTextureLoader;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(WindowsSDK_IncludePath);..\freetype-2.1.9\include;..\FreeImage\source;..\FreeImage\Source\ZLib;..\tinyxml;..\lua\include;..\LibDDSTextureLoader;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -173,6 +173,9 @@
     </BuildLog>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="TLConsole.cpp" />
+    <ClCompile Include="TLConsoleInput.cpp" />
+    <ClCompile Include="TLConsoleOutput.cpp" />
     <ClCompile Include="TLGlobalFunc.cpp" />
     <ClCompile Include="TLBinaryFileProcessor.cpp" />
     <ClCompile Include="TLColorValue.cpp" />
@@ -230,6 +233,9 @@
     <ClInclude Include="TLColorValue.h" />
     <ClInclude Include="TLCommonFunc.h" />
     <ClInclude Include="TLConfigDef.h" />
+    <ClInclude Include="TLConsole.h" />
+    <ClInclude Include="TLConsoleInput.h" />
+    <ClInclude Include="TLConsoleOutput.h" />
     <ClInclude Include="TLConvexBody.h" />
     <ClInclude Include="TLDegree.h" />
     <ClInclude Include="TLDualQuaternion.h" />

@@ -385,6 +385,11 @@ namespace TLunaEngine{
 			push_back(key,value);
 			return m_Last->Value;
 		}
+		// pop front element
+		inline TVOID pop_front()
+		{
+			erase(begin());
+		}
 		// -------------------------------------------
 	};
 

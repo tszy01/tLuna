@@ -247,7 +247,7 @@ namespace TLunaEngine{
 			Iterator itr = begin();
 			for (;itr != end();++itr)
 			{
-				if ((*itr) == key)
+				if ((*itr) == value)
 				{
 					return itr;
 				}
@@ -305,6 +305,11 @@ namespace TLunaEngine{
 			T result;
 			get(iPos, result);
 			return result;
+		}
+		// pop front element
+		inline TVOID pop_front()
+		{
+			erase(begin());
 		}
 
 		// ----------------------------------------------

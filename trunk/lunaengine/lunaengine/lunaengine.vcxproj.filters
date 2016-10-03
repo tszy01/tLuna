@@ -192,6 +192,15 @@
     <ClCompile Include="TLResObject.cpp">
       <Filter>EngineCore</Filter>
     </ClCompile>
+    <ClCompile Include="TLConsoleInput.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="TLConsole.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="TLConsoleOutput.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TLGUIContainer.h">
@@ -525,6 +534,15 @@
       <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="TLPair.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="TLConsole.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="TLConsoleInput.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="TLConsoleOutput.h">
       <Filter>Common</Filter>
     </ClInclude>
   </ItemGroup>
