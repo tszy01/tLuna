@@ -16,6 +16,9 @@ public:
 	float m_controlFps;		// 控制帧速率
 	bool m_bShowDebugInfo;	// 是否显示Debug信息
 	bool m_bUseJoystick;	// 是否适用手柄
+	bool m_bOpenConsole;	// 是否打开控制台
+	unsigned int m_consoleHeight;	// 控制台高
+	unsigned int m_consoleWidth;	// 控制台宽
 	char m_szWindowText[256];	// 主窗口名称
 	char m_szResDir[256];	// 资源根目录
 public:

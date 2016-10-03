@@ -1,5 +1,6 @@
 #include "TLLog.h"
 #include "TLConfigFile.h"
+#include "TLConsole.h"
 #include <Windows.h>
 
 namespace TLunaEngine{
@@ -11,7 +12,9 @@ namespace TLunaEngine{
 	TBOOL Log::m_bOpen = TFALSE;
 	Log::LOG_LEVEL Log::m_minLevel = LOG_LEVEL_INFO;
 	/*HANDLE*/TVOID* Log::m_hConsole = 0;
-	TBOOL Log::m_bUseConsole = TFALSE;
+	TBOOL Log::m_bToSysConsole = TFALSE;
+	TBOOL Log::m_bToConsole = TFALSE;
+	TBOOL Log::m_bToFile = TFALSE;
 
 	Log::Log(TVOID)
 	{
@@ -57,17 +60,35 @@ namespace TLunaEngine{
 		strTmp = "";
 		ConfigFile.GetParameter("LogLevel",&strTmp);
 		m_minLevel = (LOG_LEVEL)atoi(strTmp.GetString());
-		// 是否打开输出窗口
+		// Output to file
 		strTmp = "";
-		ConfigFile.GetParameter("OutputConsole",&strTmp);
+		ConfigFile.GetParameter("ToFile", &strTmp);
+		boolean = atoi(strTmp.GetString());
+		if (boolean == 0)
+			m_bToFile = TFALSE;
+		else
+			m_bToFile = TTRUE;
+		// Output to system console
+		strTmp = "";
+		ConfigFile.GetParameter("ToSysConsole",&strTmp);
 		boolean = atoi(strTmp.GetString());
 		if(boolean==0)
-			m_bUseConsole=TFALSE;
+			m_bToSysConsole=TFALSE;
 		else
-			m_bUseConsole=TTRUE;
+			m_bToSysConsole=TTRUE;
+		// Output to engine console
+		strTmp = "";
+		ConfigFile.GetParameter("ToConsole", &strTmp);
+		boolean = atoi(strTmp.GetString());
+		if (boolean == 0)
+			m_bToConsole = TFALSE;
+		else
+			m_bToConsole = TTRUE;
+
 		ConfigFile.CloseFile();
+
 		// 初始化输出窗口相关
-		if (m_bUseConsole)
+		if (m_bToSysConsole)
 		{
 			::AllocConsole();
 			m_hConsole = ::GetStdHandle(STD_OUTPUT_HANDLE);
@@ -88,11 +109,11 @@ namespace TLunaEngine{
 			m_filterArray = 0;
 		}
 		m_filterCount = 0;
-		if(m_bUseConsole)
+		if(m_bToSysConsole)
 			::FreeConsole();
 	}
 
-	TVOID Log::WriteLine(LOG_LEVEL level,TBOOL bTrue, TCHAR* codeName, TS32 codeLine, TCHAR* content)
+	TVOID Log::WriteFile(LOG_LEVEL level,TBOOL bTrue, const TCHAR* content, const TCHAR* codeName, TS32 codeLine)
 	{
 		// 可以没有内容
 		// 但是必须有Path
@@ -108,11 +129,14 @@ namespace TLunaEngine{
 		if(!bTrue)
 			return;
 		// 过滤文件名中的路径
-		String strCode(codeName);
-		for(TS32 i=0;i<m_filterCount&&m_filterArray;i++)
+		if (codeName != TNULL)
 		{
-			if(strCode.Find(m_filterArray[i],0,TFALSE)!=-1)
-				return;
+			String strCode(codeName);
+			for (TS32 i = 0;i<m_filterCount&&m_filterArray;i++)
+			{
+				if (strCode.Find(m_filterArray[i], 0, TFALSE) != -1)
+					return;
+			}
 		}
 		// 得到现在时间的字符串
 		SYSTEMTIME sysTime;
@@ -122,13 +146,27 @@ namespace TLunaEngine{
 		// 最后写入的内容
 		// codeInfo date time content\n
 		String strWrite;
-		if(content)
+		if (codeName != TNULL)
 		{
-			strWrite.Format("%s(%d) %s %s\n",codeName,codeLine,strTime.GetString(),content);
+			if (content)
+			{
+				strWrite.Format("%s(%d) %s %s\n", codeName, codeLine, strTime.GetString(), content);
+			}
+			else
+			{
+				strWrite.Format("%s(%d) %s\n", codeName, codeLine, strTime.GetString());
+			}
 		}
 		else
 		{
-			strWrite.Format("%s(%d) %s\n",codeName,codeLine,strTime.GetString());
+			if (content)
+			{
+				strWrite.Format("%s %s\n", strTime.GetString(), content);
+			}
+			else
+			{
+				strWrite.Format("%s\n", strTime.GetString());
+			}
 		}
 		// 最后写入
 		// 合成文件名
@@ -148,9 +186,9 @@ namespace TLunaEngine{
 		fclose(stream);
 	}
 
-	TVOID Log::WriteTConsole(LOG_LEVEL level,TBOOL bTrue,TCHAR* content)
+	TVOID Log::WriteSysConsole(LOG_LEVEL level,TBOOL bTrue, const TCHAR* content)
 	{
-		if(!m_bUseConsole)
+		if(!m_bToSysConsole)
 			return;
 		// 可以没有内容
 		// 但是必须有Path
@@ -180,4 +218,37 @@ namespace TLunaEngine{
 		::WriteConsoleA(m_hConsole,strWrite.GetString(),strWrite.GetLength(),&writtenNum,0);
 	}
 
+	TVOID Log::WriteEngineConsole(LOG_LEVEL level, TBOOL bTrue, const TCHAR* content)
+	{
+		if (!m_bToConsole)
+			return;
+		// 如果没有开启
+		if (!m_bOpen)
+			return;
+		// 如果等级不够
+		if (level < m_minLevel)
+			return;
+		// 如果表达式不成立
+		if (!bTrue)
+			return;
+		// 最后写入的内容
+		// codeInfo date time content\n
+		String strWrite;
+		if (content)
+		{
+			strWrite.Format("%s\n", content);
+		}
+		else
+		{
+			strWrite.Format("Nothing\n");
+		}
+		Console::getSingletonPtr()->outputToConsole(strWrite);
+	}
+
+	TVOID Log::WriteLine(LOG_LEVEL level, TBOOL bTrue, const TCHAR* content, const TCHAR* codeName, TS32 codeLine)
+	{
+		WriteFile(level, bTrue, content, codeName, codeLine);
+		WriteSysConsole(level, bTrue, content);
+		WriteEngineConsole(level, bTrue, content);
+	}
 }

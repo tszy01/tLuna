@@ -8,7 +8,8 @@ m_bufferHeight(480),
 m_bufferWidth(852),
 m_bShowDebugInfo(false),
 m_controlFps(60.0f),
-m_bUseJoystick(false)
+m_bUseJoystick(false),
+m_bOpenConsole(false)
 {
 	m_szWindowText[0] = '\0';
 	m_szResDir[0] = '\0';
@@ -28,6 +29,9 @@ bool LuaInit::InitWindowScript(const char *scriptFile)
 void LuaInit::LoadParameters()
 {
 	// 得到结果
+	GetVariable("consoleWidth");
+	GetVariable("consoleHeight");
+	GetVariable("bOpenConsole");
 	GetVariable("bUseJoystick");
 	GetVariable("controlFps");
 	GetVariable("bShowDebugInfo");
@@ -50,6 +54,10 @@ void LuaInit::LoadParameters()
 	m_controlFps=(float)Lua_tonumber(-7);
 	b=Lua_toboolean(-8);
 	if(b!=0) m_bUseJoystick=true;
+	b = Lua_toboolean(-9);
+	if (b != 0) m_bOpenConsole = true;
+	m_consoleHeight = (unsigned int)Lua_tonumber(-10);
+	m_consoleWidth = (unsigned int)Lua_tonumber(-11);
 
-	Pop(8);
+	Pop(11);
 }

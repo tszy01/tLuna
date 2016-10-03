@@ -22,6 +22,10 @@ namespace TLunaEngine{
 
 	String::String(TVOID) : m_nLength(0)
 	{
+		m_szPtr = SharedPtr<TCHAR>(new TCHAR[0 + 1], TLunaEngine::SPFM_DELETE_T);
+		TCHAR* szMyContent = m_szPtr.getPointer();
+		szMyContent[0] = '\0';
+		m_nLength = 0;
 	}
 
 	String::~String(TVOID)

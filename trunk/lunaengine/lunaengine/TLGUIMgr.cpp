@@ -46,12 +46,12 @@ namespace TLunaEngine{
 		// 开始加载容器
 		if (m_pRootContainer)
 		{
-			Log::WriteLine(Log::LOG_LEVEL_ERROR,TTRUE,__FILE__,__LINE__,"Root Container is not null");
+			Log::WriteLine(Log::LOG_LEVEL_ERROR,TTRUE,"Root Container is not null",__FILE__,__LINE__);
 			return TFALSE;
 		}
 		if (!LoadContainer(stream,TNULL,&m_pRootContainer))
 		{
-			Log::WriteLine(Log::LOG_LEVEL_ERROR,TTRUE,__FILE__,__LINE__,"Load failed");
+			Log::WriteLine(Log::LOG_LEVEL_ERROR,TTRUE,"Load failed",__FILE__,__LINE__);
 			TxtFileReader::CloseTxtFile(stream);
 			return TFALSE;
 		}

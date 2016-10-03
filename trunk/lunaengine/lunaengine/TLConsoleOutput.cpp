@@ -2,32 +2,32 @@
 
 namespace TLunaEngine
 {
-	ConsoleOutput::ConsoleOutput() : _hWnd(NULL), _maxDisplayHeight(10), _displayStartLineNo(0), _maxLineCount(1000), _maxLineWidth(20)
+	ConsoleOutput::ConsoleOutput() : _assistant(TNULL), _maxDisplayHeight(10), _displayStartLineNo(0), _maxLineCount(1000), _maxLineWidth(20)
 	{
 
 	}
 
-	ConsoleOutput::ConsoleOutput(HWND hWnd, TU32 maxLineCount, TU32 maxLineWidth, TU32 maxDisplayHeight) :
-		_hWnd(hWnd), _maxDisplayHeight(maxDisplayHeight), _displayStartLineNo(0), _maxLineCount(maxLineCount), _maxLineWidth(maxLineWidth)
+	ConsoleOutput::ConsoleOutput(ConsoleOutputAssistant* assistant, TU32 maxLineCount, TU32 maxLineWidth, TU32 maxDisplayHeight) :
+		_assistant(assistant), _maxDisplayHeight(maxDisplayHeight), _displayStartLineNo(0), _maxLineCount(maxLineCount), _maxLineWidth(maxLineWidth)
 	{
 
 	}
 
 	ConsoleOutput::~ConsoleOutput()
 	{
+		clearListener();
 		clear();
 	}
 
 	TVOID ConsoleOutput::addText(const String& text)
 	{
-		if (text.GetLength() == 0 || _hWnd == NULL)
+		if (text.GetLength() == 0 || !_assistant)
 			return;
 
-		HDC hdc = ::GetDC(_hWnd);
-		SIZE strSize;
-		HDC memDc = CreateCompatibleDC(hdc);
+		_assistant->beginMeasureTextSize();
 
 		String tmpStr;
+		TU32 measureWidth, measureHeight;
 
 		// split to lines and add
 		for (TU32 i = 0; i < text.GetLength(); ++i)
@@ -36,31 +36,34 @@ namespace TLunaEngine
 			{
 				if (tmpStr.GetLength() > 0)
 				{
-					::GetTextExtentPointA(memDc, tmpStr.GetString(), tmpStr.GetLength(), &strSize);
-
-					addTextLine(tmpStr, strSize.cy);
+					_assistant->measureTextSize(tmpStr, measureWidth, measureHeight);
+					addTextLine(tmpStr, measureHeight);
 					tmpStr = "";
 				}
 			}
 			else
 			{
 				tmpStr += text[i];
+				_assistant->measureTextSize(tmpStr, measureWidth, measureHeight);
 
-				::GetTextExtentPointA(memDc, tmpStr.GetString(), tmpStr.GetLength(), &strSize);
-
-				if (strSize.cx >= (TS32)_maxLineWidth)
+				if (measureWidth >= _maxLineWidth)
 				{
-					addTextLine(tmpStr, strSize.cy);
+					addTextLine(tmpStr, measureHeight);
 					tmpStr = "";
 				}
 			}
 		}
 
-		::GetTextExtentPointA(memDc, tmpStr.GetString(), tmpStr.GetLength(), &strSize);
-		addTextLine(tmpStr, strSize.cy);
+		_assistant->measureTextSize(tmpStr, measureWidth, measureHeight);
+		addTextLine(tmpStr, measureHeight);
 
-		DeleteObject(memDc);
-		::DeleteDC(hdc);
+		_assistant->endMeasureTextSize();
+
+		List<ConsoleOutputListener*>::Iterator itrListener = _listenerList.begin();
+		for (; itrListener != _listenerList.end(); ++itrListener)
+		{
+			(*itrListener)->onAddTextEnd();
+		}
 	}
 
 	TVOID ConsoleOutput::addTextLine(const String& text, TU32 height)
@@ -181,5 +184,33 @@ namespace TLunaEngine
 			}
 		}
 		return result;
+	}
+
+	TVOID ConsoleOutput::addListener(ConsoleOutputListener* listener)
+	{
+		if (listener == 0)
+			return;
+		List<ConsoleOutputListener*>::Iterator itr = _listenerList.find(listener);
+		if (itr != _listenerList.end())
+		{
+			return;
+		}
+		_listenerList.push_back(listener);
+	}
+
+	TVOID ConsoleOutput::removeListener(ConsoleOutputListener* listener)
+	{
+		if (listener == 0)
+			return;
+		List<ConsoleOutputListener*>::Iterator itr = _listenerList.find(listener);
+		if (itr != _listenerList.end())
+		{
+			_listenerList.erase(itr);
+		}
+	}
+
+	TVOID ConsoleOutput::clearListener()
+	{
+		_listenerList.clear();
 	}
 }

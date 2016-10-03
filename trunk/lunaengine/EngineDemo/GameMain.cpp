@@ -15,6 +15,8 @@
 #include "TLGUIMgr.h"
 
 #include "TLString.h"
+#include "ConsoleWindow.h"
+#include "TLConsole.h"
 
 #include "ConfigDef.h"
 
@@ -47,6 +49,14 @@ bool InitGame(const _INITPARAM* pInitParam)
 {
 	if(!pInitParam)
 		return false;
+	// Build Console Window
+	if (LuaInit::getSingletonPtr()->m_bOpenConsole)
+	{
+		ConsoleWindow* consoleWnd = ConsoleWindow::getSingletonPtr();
+		if (consoleWnd->InitWindow(pInitParam->hInst, pInitParam->nCmdShow, LuaInit::getSingletonPtr()->m_consoleWidth, 
+			LuaInit::getSingletonPtr()->m_consoleHeight) != S_OK)
+			return false;
+	}
 	// 建立主窗口
 	// 配置结构体
 	_MAINWNDCONFIG wndConfig;
@@ -117,6 +127,12 @@ void DestroyGame()
 	// 销毁主窗口
 	MainWindow::getSingletonPtr()->DestroyWindow();
 	MainWindow::delSingletonPtr();
+	// Destory Console Window
+	if (LuaInit::getSingletonPtr()->m_bOpenConsole)
+	{
+		ConsoleWindow::getSingletonPtr()->DestroyWindow();
+		ConsoleWindow::delSingletonPtr();
+	}
 }
 
 bool GameLoop(TLunaEngine::UserLoop pLoop)
@@ -185,14 +201,42 @@ void OnCatchInputMsg(BYTE yType,void* param)
 }
 
 #ifdef BUILD_TEST
-int runTest()
+bool TestLoop()
 {
-	TLunaEngine::SharedPtr<int> a = TLunaEngine::SharedPtr<int>(new int);
+	//HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_WIN32PROJECT1));
+
+	MSG msg;
+
+	// Main message loop:
+	while (GetMessage(&msg, nullptr, 0, 0))
+	{
+		if (!TranslateAccelerator(msg.hwnd, NULL, &msg))
+		{
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+	}
+	return true;
+}
+
+int runTest(HINSTANCE hInstance, LPSTR lpCmLine, int nCmdShow)
+{
+	/*TLunaEngine::SharedPtr<int> a = TLunaEngine::SharedPtr<int>(new int);
 	TLunaEngine::SharedPtr<int> b = TLunaEngine::SharedPtr<int>(new int);
 	if (a < b)
 	{
 		printf("a < b\n");
-	}
+	}*/
+	ConsoleWindow* consoleWnd = ConsoleWindow::getSingletonPtr();
+	if (consoleWnd->InitWindow(hInstance, nCmdShow, 400, 400) != S_OK)
+		return 1;
+
+	consoleWnd->GetConsoleOutput()->addText("HIIIIII");
+
+	TestLoop();
+
+	ConsoleWindow::getSingletonPtr()->DestroyWindow();
+	ConsoleWindow::delSingletonPtr();
 	return 0;
 }
 #endif // BUILD_TEST
@@ -212,7 +256,6 @@ int PASCAL WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmLine,
 	TLunaEngine::String strCmd(lpCmLine);
 	TLunaEngine::TU32 nCmd = 1;
 	TLunaEngine::List<TLunaEngine::String> cmds = strCmd.Split(' ', &nCmd);
-	strCmd.~String();
 	for (int i = 0;i < (int)cmds.size();++i)
 	{
 		if (cmds[i] == "-editor")
@@ -232,7 +275,7 @@ int PASCAL WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmLine,
 #ifdef BUILD_TEST
 	if (bTest)
 	{
-		return runTest();
+		return runTest(hInstance, lpCmLine, nCmdShow);
 	}
 #endif // BUILD_TEST
 

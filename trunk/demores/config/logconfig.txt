@@ -1,4 +1,6 @@
 FilterCount=0
 OpenWriteLog=1
 LogLevel=2
-OutputConsole=0
+ToFile=1
+ToSysConsole=1
+ToConsole=1

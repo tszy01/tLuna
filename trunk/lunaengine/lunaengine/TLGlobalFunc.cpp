@@ -21,7 +21,7 @@ namespace TLunaEngine{
 		// 初始化日志
 		TLunaEngine::String strLogConfig = GlobleClass::getSingletonPtr()->m_strResDir + "config\\logconfig.txt";
 		TLunaEngine::String strLogDir = GlobleClass::getSingletonPtr()->m_strResDir + "log\\";
-		if(!TLunaEngine::Log::InitLogSystem(strLogConfig.GetString(),strLogDir.GetString()))
+		if (!TLunaEngine::Log::InitLogSystem(strLogConfig.GetString(), strLogDir.GetString()))
 			return TFALSE;
 		// 建立D3D设备
 		TLunaEngine::RenderDevice* device = TLunaEngine::RenderMgr::getSingletonPtr()->createRenderDevice(TLunaEngine::RenderMgr::DT_D3D11);
@@ -162,7 +162,7 @@ namespace TLunaEngine{
 		// 初始化日志
 		TLunaEngine::String strLogConfig = GlobleClass::getSingletonPtr()->m_strResDir + "config\\logconfig.txt";
 		TLunaEngine::String strLogDir = GlobleClass::getSingletonPtr()->m_strResDir + "log\\";
-		if(!TLunaEngine::Log::InitLogSystem(strLogConfig.GetString(),strLogDir.GetString()))
+		if (!TLunaEngine::Log::InitLogSystem(strLogConfig.GetString(), strLogDir.GetString()))
 			return TFALSE;
 		// 建立D3D设备
 		TLunaEngine::RenderDevice* device = TLunaEngine::RenderMgr::getSingletonPtr()->createRenderDevice(TLunaEngine::RenderMgr::DT_D3D11);

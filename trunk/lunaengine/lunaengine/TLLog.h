@@ -31,8 +31,12 @@ namespace TLunaEngine{
 		static LOG_LEVEL m_minLevel;
 		// 输出窗口句柄
 		static /*HANDLE*/TVOID* m_hConsole;
-		// 是否输出到窗口
-		static TBOOL m_bUseConsole;
+		// 是否输出到系统控制台
+		static TBOOL m_bToSysConsole;
+		// output to engine console
+		static TBOOL m_bToConsole;
+		// output to file
+		static TBOOL m_bToFile;
 	public:
 		// 初始化
 		// configFile:配置文件
@@ -40,15 +44,19 @@ namespace TLunaEngine{
 		static TBOOL InitLogSystem(const TCHAR* configFile, const TCHAR* logPath);
 		// 销毁日志系统
 		static TVOID DestroyLogSystem();
-		// 写日志
 		// 写成文件，日志文件名格式:YY_MM_DD.log，文本文件
+		static TVOID WriteFile(LOG_LEVEL level,TBOOL bTrue, const TCHAR* content, const TCHAR* codeName = TNULL,TS32 codeLine = 0);
+		// Output to system console
+		static TVOID WriteSysConsole(LOG_LEVEL level,TBOOL bTrue, const TCHAR* content);
+		// Output to Engine console
+		static TVOID WriteEngineConsole(LOG_LEVEL level, TBOOL bTrue, const TCHAR* content);
+		// 写日志
 		// level:本日志的等级
 		// bTrue:一个表达式，为真时写入
 		// codeName:一般传__FILE__，文件名
 		// condLine:一般传__LINE__，所在行数
 		// content:日志内容，日志结尾自动加\n形成一行
-		static TVOID WriteLine(LOG_LEVEL level,TBOOL bTrue,TCHAR* codeName,TS32 codeLine,TCHAR* content);
-		static TVOID WriteTConsole(LOG_LEVEL level,TBOOL bTrue,TCHAR* content);
+		static TVOID WriteLine(LOG_LEVEL level, TBOOL bTrue, const TCHAR* content, const TCHAR* codeName = TNULL, TS32 codeLine = 0);
 	};
 
 }

@@ -72,34 +72,34 @@ namespace TLunaEngine
 		switch (cmd)
 		{
 		case ConsoleInput::CMD_TYPE_LEFT:
-		{
-			leftInsertPos();
-		}
-		break;
+			{
+				leftInsertPos();
+			}
+			break;
 		case ConsoleInput::CMD_TYPE_RIGHT:
-		{
-			rightInsertPos();
-		}
-		break;
+			{
+				rightInsertPos();
+			}
+			break;
 		case ConsoleInput::CMD_TYPE_BACK:
-		{
-			if (_insertPos > 0 && _insertPos <= (TU32)_charList.size())
 			{
-				removeChar();
+				if (_insertPos > 0 && _insertPos <= (TU32)_charList.size())
+				{
+					removeChar();
+				}
 			}
-		}
-		break;
+			break;
 		case ConsoleInput::CMD_TYPE_RETURN:
-		{
-			String finalStr = getFinalStr();
-			List<ConsoleInputListener*>::Iterator itrListener = _listenerList.begin();
-			for (; itrListener != _listenerList.end(); ++itrListener)
 			{
-				(*itrListener)->onReturn(finalStr);
+				String finalStr = getFinalStr();
+				List<ConsoleInputListener*>::Iterator itrListener = _listenerList.begin();
+				for (; itrListener != _listenerList.end(); ++itrListener)
+				{
+					(*itrListener)->onReturn(finalStr);
+				}
+				clear();
 			}
-			clear();
-		}
-		break;
+			break;
 		default:
 			break;
 		}

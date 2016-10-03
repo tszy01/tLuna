@@ -3,6 +3,8 @@
 
 namespace TLunaEngine
 {
+	Console* Singleton<Console>::m_Ptr = 0;
+
 	Console::Console() : mInput(TNULL), mOutput(TNULL)
 	{
 

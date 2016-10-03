@@ -45,6 +45,9 @@
     <ClCompile Include="EditorMgr.cpp">
       <Filter>Editor</Filter>
     </ClCompile>
+    <ClCompile Include="ConsoleWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameInput.h">
@@ -78,6 +81,9 @@
       <Filter>Editor</Filter>
     </ClInclude>
     <ClInclude Include="ConfigDef.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ConsoleWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

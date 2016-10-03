@@ -1,0 +1,24 @@
+初始化脚本说明 initapp.lua
+
+如启动编辑器，则在wx中加载部分参数
+
+bWnd -- true:窗口模式，false:全屏模式
+bufferWidth -- 分辨率
+bufferHeight -- 分辨率
+controlFps -- FPS锁定，-1:不加锁，30:锁30帧每秒
+bShowDebugInfo -- 是否显示调试信息
+bUseJoystick -- 是否使用手柄控制
+mainWindowText -- 主窗口名称
+resDir -- 资源根目录
+bOpenConsole -- 是否打开控制台
+consoleWidth -- 控制台窗口宽
+consoleHeight -- 控制台窗口高
+
+日志脚本说明 logconfig.txt
+
+FilterCount -- 剔除列表个数
+OpenWriteLog -- 1:开启日志系统
+LogLevel -- 1:信息，2:警告，3:错误
+ToFile -- 1:写入文件
+ToSysConsole -- 1:写入系统控制台
+ToConsole -- 1:写入引擎控制台
