@@ -49,7 +49,6 @@ namespace TLunaEngine{
 			memcpy(szMyContent,szContent,n);
 			szMyContent[n]='\0';
 			m_nLength = n;
-			//printf(m_szContent);
 		}
 	}
 
@@ -67,11 +66,12 @@ namespace TLunaEngine{
 				szTmp++;
 			}
 			szTmp=0;
-			m_szPtr = SharedPtr<TCHAR>(new TCHAR[n+1],TLunaEngine::SPFM_DELETE_T);
+			TS32 num = ::WideCharToMultiByte(CP_ACP, 0, szContent, n, 0, 0, 0, 0);
+			m_szPtr = SharedPtr<TCHAR>(new TCHAR[num + 1], TLunaEngine::SPFM_DELETE_T);
 			TCHAR* szMyContent = m_szPtr.getPointer();
-			wcstombs(szMyContent,szContent,n);
-			szMyContent[n]='\0';
-			m_nLength = n;
+			::WideCharToMultiByte(CP_ACP, 0, szContent, n, szMyContent, num, 0, 0);
+			szMyContent[num]='\0';
+			m_nLength = num;
 			//printf(m_szContent);
 		}
 	}
@@ -95,13 +95,14 @@ namespace TLunaEngine{
 		m_szPtr.setNull();
 		m_nLength = 0;
 		TU32 n = 1;
-		m_szPtr = SharedPtr<TCHAR>(new TCHAR[n+1],TLunaEngine::SPFM_DELETE_T);
-		TCHAR* szMyContent = m_szPtr.getPointer();
 		TWCHAR szTmp[2] = {0};
 		szTmp[0] = cContent;
-		wcstombs(szMyContent,szTmp,n);
-		szMyContent[n]='\0';
-		m_nLength = n;
+		TS32 num = ::WideCharToMultiByte(CP_ACP, 0, szTmp, n, 0, 0, 0, 0);
+		m_szPtr = SharedPtr<TCHAR>(new TCHAR[num + 1], TLunaEngine::SPFM_DELETE_T);
+		TCHAR* szMyContent = m_szPtr.getPointer();
+		::WideCharToMultiByte(CP_ACP, 0, szTmp, n, szMyContent, num, 0, 0);
+		szMyContent[num]='\0';
+		m_nLength = num;
 	}
 
 	String::String(const String &strContent)
@@ -295,11 +296,12 @@ namespace TLunaEngine{
 				szTmp++;
 			}
 			szTmp=0;
-			m_szPtr = SharedPtr<TCHAR>(new TCHAR[n+1],TLunaEngine::SPFM_DELETE_T);
+			TS32 num = ::WideCharToMultiByte(CP_ACP, 0, szRight, n, 0, 0, 0, 0);
+			m_szPtr = SharedPtr<TCHAR>(new TCHAR[num+1],TLunaEngine::SPFM_DELETE_T);
 			TCHAR* szMyContent = m_szPtr.getPointer();
-			wcstombs(szMyContent,szRight,n);
-			szMyContent[n]='\0';
-			m_nLength = n;
+			::WideCharToMultiByte(CP_ACP, 0, szRight, n, szMyContent, num, 0, 0);
+			szMyContent[num]='\0';
+			m_nLength = num;
 			//printf(m_szContent);
 		}
 
@@ -1940,7 +1942,8 @@ namespace TLunaEngine{
 		if(m_szPtr.isNull() || m_nLength<=0)
 			return SharedPtr<TWCHAR>();
 		TWCHAR* newBuff = new TWCHAR[m_nLength+1];
-		mbstowcs(newBuff,m_szPtr.getPointer(),m_nLength);
+		//mbstowcs(newBuff,m_szPtr.getPointer(),m_nLength);
+		::MultiByteToWideChar(CP_ACP, 0, m_szPtr.getPointer(), m_nLength, newBuff, m_nLength);
 		newBuff[m_nLength] = L'\0';
 		return SharedPtr<TWCHAR>(newBuff,TLunaEngine::SPFM_DELETE_T);
 	}
@@ -1984,18 +1987,32 @@ namespace TLunaEngine{
 		return *this;
 	}
 
-	String& String::SetCharAt(TU32 pos,TWCHAR value)
+	String& String::ConvertToUTF8()
 	{
-		if(m_szPtr.isNull() || m_nLength==0)
+		if (m_szPtr.isNull() || m_nLength == 0)
 			return *this;
-		if(pos<0 || pos>=m_nLength)
-			return *this;
-		TCHAR* szNew = new TCHAR[m_nLength+1];
-		memcpy(szNew,m_szPtr.getPointer(),m_nLength);
-		wcstombs(&szNew[pos],&value,1);
-		szNew[m_nLength]='\0';
 		m_szPtr.setNull();
-		m_szPtr.bind(szNew,TLunaEngine::SPFM_DELETE_T);
+		m_nLength = 0;
+		SharedPtr<TWCHAR> wStr = GetWString();
+		TS32 num = ::WideCharToMultiByte(CP_UTF8, 0, wStr.getPointer(), -1, 0, 0, 0, 0);
+		m_szPtr = SharedPtr<TCHAR>(new TCHAR[num + 1], TLunaEngine::SPFM_DELETE_T);
+		TCHAR* szMyContent = m_szPtr.getPointer();
+		::WideCharToMultiByte(CP_ACP, 0, wStr.get(), -1, szMyContent, num, 0, 0);
+		szMyContent[num] = '\0';
+		m_nLength = num;
+		return *this;
+	}
+
+	String& String::ConvertToANSI()
+	{
+		if (m_szPtr.isNull() || m_nLength == 0)
+			return *this;
+		TS32 wcharNum = ::MultiByteToWideChar(CP_UTF8, 0, m_szPtr.getPointer(), m_nLength, 0, 0);
+		TWCHAR* wcharTmp = new TWCHAR[wcharNum + 1];
+		::MultiByteToWideChar(CP_UTF8, 0, m_szPtr.getPointer(), m_nLength, wcharTmp, wcharNum);
+		wcharTmp[wcharNum] = L'\0';
+		(*this) = wcharTmp;
+		delete[] wcharTmp;
 		return *this;
 	}
 }

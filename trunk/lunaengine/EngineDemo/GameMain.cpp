@@ -187,11 +187,53 @@ void OnCatchInputMsg(BYTE yType,void* param)
 #ifdef BUILD_TEST
 int runTest()
 {
-	TLunaEngine::SharedPtr<int> a = TLunaEngine::SharedPtr<int>(new int);
-	TLunaEngine::SharedPtr<int> b = TLunaEngine::SharedPtr<int>(new int);
-	if (a < b)
+	//char a[64] = { "こんにちは" };
+
+	//wchar_t* newBuff = new wchar_t[64];
+	////mbstowcs(newBuff,m_szPtr.getPointer(),m_nLength);
+	//int toNum = ::MultiByteToWideChar(CP_ACP, 0, a, -1, 0, 0);
+	//::MultiByteToWideChar(CP_ACP, 0, a, -1, newBuff, toNum);
+
+	//FILE* fp = NULL;
+	//if (fopen_s(&fp, "test2.txt", "w+b") == 0)
+	//{
+	//	/*char tmp[64] = { "こんにちは" };
+	//	toNum = ::WideCharToMultiByte(CP_UTF8, 0, newBuff, -1, 0, 0, 0, 0);
+	//	::WideCharToMultiByte(CP_UTF8, 0, newBuff, -1, tmp, toNum, 0, 0);*/
+
+	//	char tmp[64] = { "こんにちは" };
+	//	wchar_t tmpW[64] = { L"你好" };
+
+	//	//::MultiByteToWideChar(CP_ACP, 0, tmp, -1, tmpW, 64);
+	//	::WideCharToMultiByte(CP_ACP, 0, tmpW, -1, tmp, 64, 0, 0);
+
+	//	fwrite(tmp, 1, strlen(tmp), fp);
+
+	//	fclose(fp);
+	//}
+
+	TLunaEngine::String str("你好");
+	TLunaEngine::SharedPtr<TLunaEngine::TWCHAR> wstr = str.GetWString();
+	TLunaEngine::TWCHAR wsz[64] = { L"しあわせ" };
+	TLunaEngine::String sz(wsz);
+
+	FILE* fp = NULL;
+	/*if (fopen_s(&fp, "test2.txt", "wt") == 0)
 	{
-		printf("a < b\n");
+		fwrite(sz.GetString(), 1, sz.GetLength(), fp);
+		fclose(fp);
+	}*/
+
+	if (fopen_s(&fp, "test2.txt", "r+") == 0)
+	{
+		char tmp[64] = { 0 };
+		fread(tmp, 1, 64, fp);
+		fclose(fp);
+
+		TLunaEngine::String strA(tmp);
+		strA.ConvertToANSI();
+
+		int a = 5;
 	}
 	return 0;
 }

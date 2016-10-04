@@ -129,7 +129,10 @@ namespace TLunaEngine{
 		String& MakeLower();
 		// set TCHAR using index
 		String& SetCharAt(TU32 pos, TCHAR value);
-		String& SetCharAt(TU32 pos,TWCHAR value);
+		// convert to utf8
+		String& ConvertToUTF8();
+		// convert to ansi
+		String& ConvertToANSI();
 	public:
 		// -------------- 一些和字符串有关的全局方法 --------
 		static TVOID CutFilePath(TCHAR* fullname,TCHAR* filename=0,TCHAR* pathname=0);
