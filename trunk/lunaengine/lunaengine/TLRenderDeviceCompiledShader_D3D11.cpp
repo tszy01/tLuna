@@ -107,7 +107,8 @@ namespace TLunaEngine
 		ID3DBlob* pErrorBlob;
 		TU32 strCount = (TU32)strlen(szFile);
 		TWCHAR* wStr = new TWCHAR[strCount+1];
-		mbstowcs(wStr,szFile,strCount);
+		//mbstowcs(wStr,szFile,strCount);
+		::MultiByteToWideChar(CP_ACP, 0, szFile, strCount, wStr, strCount);
 		wStr[strCount] = L'\0';
 		hr = D3DCompileFromFile( wStr, TNULL, TNULL, szEntry, strShaderModel.GetString(), dwShaderFlags, 0, &mD3DBlob, &pErrorBlob );
 		if( FAILED(hr) )
