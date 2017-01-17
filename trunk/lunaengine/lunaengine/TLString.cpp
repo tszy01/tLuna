@@ -2019,4 +2019,14 @@ namespace TLunaEngine{
 		delete[] wcharTmp;
 		return *this;
 	}
+
+	String String::BuildStringFromUTF8WString(const TWCHAR* szContent)
+	{
+		TCHAR* szChar = 0;
+		TS32 num = ::WideCharToMultiByte(CP_UTF8, 0, szContent, -1, 0, 0, 0, 0);
+		szChar = new TCHAR[num + 1];
+		::WideCharToMultiByte(CP_UTF8, 0, szContent, -1, szChar, num, 0, 0);
+		String strResult(szChar);
+		return strResult;
+	}
 }

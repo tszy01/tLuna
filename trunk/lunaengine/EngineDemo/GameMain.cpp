@@ -278,6 +278,15 @@ int runTest(HINSTANCE hInstance, LPSTR lpCmLine, int nCmdShow)
 
 		TLunaEngine::String strA(tmp);
 		strA.ConvertToANSI();
+		consoleWnd->GetConsoleOutput()->addText(strA);
+
+		/*TLunaEngine::TWCHAR tmp[64] = { L"0" };
+		fread(tmp, sizeof(TLunaEngine::TWCHAR), 64, fp);
+		fclose(fp);
+
+		TLunaEngine::String strA = TLunaEngine::String::BuildStringFromUTF8WString(tmp);
+		strA.ConvertToANSI();
+		consoleWnd->GetConsoleOutput()->addText(strA);*/
 
 		int a = 5;
 	}

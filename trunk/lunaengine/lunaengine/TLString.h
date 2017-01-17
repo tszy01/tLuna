@@ -133,6 +133,8 @@ namespace TLunaEngine{
 		String& ConvertToUTF8();
 		// convert to ansi
 		String& ConvertToANSI();
+		// build from utf-8 wide string
+		static String BuildStringFromUTF8WString(const TWCHAR* szContent);
 	public:
 		// -------------- 一些和字符串有关的全局方法 --------
 		static TVOID CutFilePath(TCHAR* fullname,TCHAR* filename=0,TCHAR* pathname=0);
