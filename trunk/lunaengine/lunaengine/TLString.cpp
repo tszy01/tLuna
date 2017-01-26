@@ -2115,7 +2115,7 @@ namespace TLunaEngine{
 		TU32 n = (TU32)wcslen(szTmp);
 		m_szPtr = SharedPtr<TWCHAR>(new TWCHAR[n + 1], TLunaEngine::SPFM_DELETE_T);
 		TWCHAR* szMyContent = m_szPtr.getPointer();
-		memcpy(szMyContent, szTmp, n);
+		memcpy(szMyContent, szTmp, n * sizeof(TWCHAR));
 		szMyContent[n] = L'\0';
 		m_nLength = n;
 	}
@@ -2123,42 +2123,42 @@ namespace TLunaEngine{
 	{
 		m_szPtr.setNull();
 		m_nLength = 0;
-		TCHAR szTmp[64] = { 0 };
-		sprintf_s(szTmp, 64, "%f", fRight);
-		TU32 n = (TU32)strlen(szTmp);
-		m_szPtr = SharedPtr<TCHAR>(new TCHAR[n + 1], TLunaEngine::SPFM_DELETE_T);
-		TCHAR* szMyContent = m_szPtr.getPointer();
-		memcpy(szMyContent, szTmp, n);
-		szMyContent[n] = '\0';
+		TWCHAR szTmp[64] = { 0 };
+		swprintf_s(szTmp, 64, L"%f", fRight);
+		TU32 n = (TU32)wcslen(szTmp);
+		m_szPtr = SharedPtr<TWCHAR>(new TWCHAR[n + 1], TLunaEngine::SPFM_DELETE_T);
+		TWCHAR* szMyContent = m_szPtr.getPointer();
+		memcpy(szMyContent, szTmp, n * sizeof(TWCHAR));
+		szMyContent[n] = L'\0';
 		m_nLength = n;
 	}
 	WString::WString(const TF64 dRight)
 	{
 		m_szPtr.setNull();
 		m_nLength = 0;
-		TCHAR szTmp[64] = { 0 };
-		sprintf_s(szTmp, 64, "%lf", dRight);
-		TU32 n = (TU32)strlen(szTmp);
-		m_szPtr = SharedPtr<TCHAR>(new TCHAR[n + 1], TLunaEngine::SPFM_DELETE_T);
-		TCHAR* szMyContent = m_szPtr.getPointer();
-		memcpy(szMyContent, szTmp, n);
-		szMyContent[n] = '\0';
+		TWCHAR szTmp[64] = { 0 };
+		swprintf_s(szTmp, 64, L"%lf", dRight);
+		TU32 n = (TU32)wcslen(szTmp);
+		m_szPtr = SharedPtr<TWCHAR>(new TWCHAR[n + 1], TLunaEngine::SPFM_DELETE_T);
+		TWCHAR* szMyContent = m_szPtr.getPointer();
+		memcpy(szMyContent, szTmp, n * sizeof(TWCHAR));
+		szMyContent[n] = L'\0';
 		m_nLength = n;
 	}
 	WString::WString(const TBOOL bRight)
 	{
 		m_szPtr.setNull();
 		m_nLength = 0;
-		TCHAR szTmp[1] = { 0 };
+		TWCHAR szTmp[1] = { 0 };
 		if (bRight)
-			szTmp[0] = '1';
+			szTmp[0] = L'1';
 		else
-			szTmp[0] = '0';
+			szTmp[0] = L'0';
 		TU32 n = 1;
-		m_szPtr = SharedPtr<TCHAR>(new TCHAR[n + 1], TLunaEngine::SPFM_DELETE_T);
-		TCHAR* szMyContent = m_szPtr.getPointer();
-		memcpy(szMyContent, szTmp, n);
-		szMyContent[n] = '\0';
+		m_szPtr = SharedPtr<TWCHAR>(new TWCHAR[n + 1], TLunaEngine::SPFM_DELETE_T);
+		TWCHAR* szMyContent = m_szPtr.getPointer();
+		memcpy(szMyContent, szTmp, n * sizeof(TWCHAR));
+		szMyContent[n] = L'\0';
 		m_nLength = n;
 	}
 
@@ -2166,13 +2166,13 @@ namespace TLunaEngine{
 	{
 		m_szPtr.setNull();
 		m_nLength = 0;
-		TCHAR szTmp[64] = { 0 };
-		sprintf_s(szTmp, 64, "%hd", sRight);
-		TU32 n = (TU32)strlen(szTmp);
-		m_szPtr = SharedPtr<TCHAR>(new TCHAR[n + 1], TLunaEngine::SPFM_DELETE_T);
-		TCHAR* szMyContent = m_szPtr.getPointer();
-		memcpy(szMyContent, szTmp, n);
-		szMyContent[n] = '\0';
+		TWCHAR szTmp[64] = { 0 };
+		swprintf_s(szTmp, 64, L"%hd", sRight);
+		TU32 n = (TU32)wcslen(szTmp);
+		m_szPtr = SharedPtr<TWCHAR>(new TWCHAR[n + 1], TLunaEngine::SPFM_DELETE_T);
+		TWCHAR* szMyContent = m_szPtr.getPointer();
+		memcpy(szMyContent, szTmp, n * sizeof(TWCHAR));
+		szMyContent[n] = L'\0';
 		m_nLength = n;
 	}
 
@@ -2180,13 +2180,13 @@ namespace TLunaEngine{
 	{
 		m_szPtr.setNull();
 		m_nLength = 0;
-		TCHAR szTmp[64] = { 0 };
-		sprintf_s(szTmp, 64, "%hu", usRight);
-		TU32 n = (TU32)strlen(szTmp);
-		m_szPtr = SharedPtr<TCHAR>(new TCHAR[n + 1], TLunaEngine::SPFM_DELETE_T);
-		TCHAR* szMyContent = m_szPtr.getPointer();
-		memcpy(szMyContent, szTmp, n);
-		szMyContent[n] = '\0';
+		TWCHAR szTmp[64] = { 0 };
+		swprintf_s(szTmp, 64, L"%hu", usRight);
+		TU32 n = (TU32)wcslen(szTmp);
+		m_szPtr = SharedPtr<TWCHAR>(new TWCHAR[n + 1], TLunaEngine::SPFM_DELETE_T);
+		TWCHAR* szMyContent = m_szPtr.getPointer();
+		memcpy(szMyContent, szTmp, n * sizeof(TWCHAR));
+		szMyContent[n] = L'\0';
 		m_nLength = n;
 	}
 
@@ -2194,13 +2194,13 @@ namespace TLunaEngine{
 	{
 		m_szPtr.setNull();
 		m_nLength = 0;
-		TCHAR szTmp[64] = { 0 };
-		sprintf_s(szTmp, 64, "%lld", llRight);
-		TU32 n = (TU32)strlen(szTmp);
-		m_szPtr = SharedPtr<TCHAR>(new TCHAR[n + 1], TLunaEngine::SPFM_DELETE_T);
-		TCHAR* szMyContent = m_szPtr.getPointer();
-		memcpy(szMyContent, szTmp, n);
-		szMyContent[n] = '\0';
+		TWCHAR szTmp[64] = { 0 };
+		swprintf_s(szTmp, 64, L"%lld", llRight);
+		TU32 n = (TU32)wcslen(szTmp);
+		m_szPtr = SharedPtr<TWCHAR>(new TWCHAR[n + 1], TLunaEngine::SPFM_DELETE_T);
+		TWCHAR* szMyContent = m_szPtr.getPointer();
+		memcpy(szMyContent, szTmp, n * sizeof(TWCHAR));
+		szMyContent[n] = L'\0';
 		m_nLength = n;
 	}
 
@@ -2208,13 +2208,13 @@ namespace TLunaEngine{
 	{
 		m_szPtr.setNull();
 		m_nLength = 0;
-		TCHAR szTmp[64] = { 0 };
-		sprintf_s(szTmp, 64, "%llu", ullRight);
-		TU32 n = (TU32)strlen(szTmp);
-		m_szPtr = SharedPtr<TCHAR>(new TCHAR[n + 1], TLunaEngine::SPFM_DELETE_T);
-		TCHAR* szMyContent = m_szPtr.getPointer();
-		memcpy(szMyContent, szTmp, n);
-		szMyContent[n] = '\0';
+		TWCHAR szTmp[64] = { 0 };
+		swprintf_s(szTmp, 64, L"%llu", ullRight);
+		TU32 n = (TU32)wcslen(szTmp);
+		m_szPtr = SharedPtr<TWCHAR>(new TWCHAR[n + 1], TLunaEngine::SPFM_DELETE_T);
+		TWCHAR* szMyContent = m_szPtr.getPointer();
+		memcpy(szMyContent, szTmp, n * sizeof(TWCHAR));
+		szMyContent[n] = L'\0';
 		m_nLength = n;
 	}
 
