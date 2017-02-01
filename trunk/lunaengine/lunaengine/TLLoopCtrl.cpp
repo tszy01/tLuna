@@ -19,8 +19,8 @@ namespace TLunaEngine{
 	mTimer(0),
 	mCalcPeriod(1000)
 	{
-		m_szFPS[0] = '\0';
-		sprintf(m_szFPS,"fps:0123456789\0");
+		m_szFPS[0] = L'\0';
+		swprintf(m_szFPS,L"fps:0123456789\0");
 	}
 
 	LoopCtrl::~LoopCtrl(TVOID)
@@ -113,7 +113,7 @@ namespace TLunaEngine{
 		if ( m_curTime - m_lastUpdate  >=  mCalcPeriod )
 		{
 			m_fps  =  (TF32)m_numFrames / (TF32)(m_curTime - m_lastUpdate) * 1000.0f;
-			sprintf_s(m_szFPS,"fps:%.0f",m_fps);
+			swprintf_s(m_szFPS,L"fps:%.0f",m_fps);
 
 			m_lastUpdate = m_curTime;
 			m_numFrames = 0;

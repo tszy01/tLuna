@@ -62,55 +62,55 @@ namespace TLunaEngine{
 		{
 			String strTmp;
 			GetParameter(paraName, &strTmp);
-			return strTmp.GetStringAsShort();
+			return strTmp.ToShort();
 		}
 		inline TU16 GetParameterAsUShort(const TCHAR* paraName)
 		{
 			String strTmp;
 			GetParameter(paraName, &strTmp);
-			return strTmp.GetStringAsUShort();
+			return strTmp.ToUShort();
 		}
 		inline TS32 GetParameterAsInt(const TCHAR* paraName)
 		{
 			String strTmp;
 			GetParameter(paraName,&strTmp);
-			return strTmp.GetStringAsInt();
+			return strTmp.ToInt();
 		}
 		inline TU32 GetParameterAsUInt(const TCHAR* paraName)
 		{
 			String strTmp;
 			GetParameter(paraName,&strTmp);
-			return strTmp.GetStringAsUInt();
+			return strTmp.ToUInt();
 		}
 		inline TS64 GetParameterAsLongLong(const TCHAR* paraName)
 		{
 			String strTmp;
 			GetParameter(paraName,&strTmp);
-			return strTmp.GetStringAsLongLong();
+			return strTmp.ToLongLong();
 		}
 		inline TU64 GetParameterAsULongLong(const TCHAR* paraName)
 		{
 			String strTmp;
 			GetParameter(paraName,&strTmp);
-			return strTmp.GetStringAsULongLong();
+			return strTmp.ToULongLong();
 		}
 		inline TF32 GetParameterAsFloat(const TCHAR* paraName)
 		{
 			String strTmp;
 			GetParameter(paraName,&strTmp);
-			return strTmp.GetStringAsFloat();
+			return strTmp.ToFloat();
 		}
 		inline TF64 GetParameterAsDouble(const TCHAR* paraName)
 		{
 			String strTmp;
 			GetParameter(paraName,&strTmp);
-			return strTmp.GetStringAsDouble();
+			return strTmp.ToDouble();
 		}
 		inline TBOOL GetParameterAsBool(const TCHAR* paraName)
 		{
 			String strTmp;
 			GetParameter(paraName,&strTmp);
-			return strTmp.GetStringAsBool();
+			return strTmp.ToBool();
 		}
 		// 在内存中修改某个值
 		TVOID ChangeParameter(const TCHAR* paraName, const String* pBuf);

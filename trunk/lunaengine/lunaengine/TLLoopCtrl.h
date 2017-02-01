@@ -29,7 +29,7 @@ namespace TLunaEngine{
 		TF32	    m_fSecsPerFrame;	// 每帧的控制时间
 		TBOOL	    m_bRender;			// 是否可以渲染了
 		TBOOL		m_bTimeControl;		// 是否采用时间控制
-		TCHAR		m_szFPS[16];		// 转成字符串的FPS值
+		TWCHAR		m_szFPS[16];		// 转成字符串的FPS值
 		Timer*		mTimer;
 		TF32		mCalcPeriod;		// 计算周期
 	public:
@@ -48,7 +48,7 @@ namespace TLunaEngine{
 
 		TBOOL  IsStopped()        {  return   m_bStop;    }
 		TF32 GetFPS()               {  return   m_fps;         }
-		TCHAR* GetFPSString()		{ return m_szFPS; }
+		TWCHAR* GetFPSString()		{ return m_szFPS; }
 		TS32 GetFPSStringLen()	{return 16;}
 		TU32 GetRunTime()        {  return   m_runTime;  }
 		TU32 GetElapsedTime()  {  return   m_bStop ? 0 : m_timeElapsed; }

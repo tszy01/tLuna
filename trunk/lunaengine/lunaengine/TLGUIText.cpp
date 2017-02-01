@@ -5,7 +5,7 @@ namespace TLunaEngine{
 	GUIText::GUIText(TVOID) : GUICtrl(),
 	m_iFontID(-1),
 	m_color(),
-	m_strText("")
+	m_strText(L"")
 	{
 	}
 
@@ -46,7 +46,7 @@ namespace TLunaEngine{
 		}
 		GUIFontManager* pFontMgr = GUIFontManager::getSingletonPtr();
 		pFontMgr->UseFont(m_iFontID);
-		pFontMgr->Render(m_strText.GetString(),m_strText.GetLength()+1,m_posXFinal,m_posYFinal,m_color);
+		pFontMgr->Render(m_strText.GetWString(),m_strText.GetLength()+1,m_posXFinal,m_posYFinal,m_color);
 		return TTRUE;
 	}
 

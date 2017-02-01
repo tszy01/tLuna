@@ -258,38 +258,38 @@ int runTest(HINSTANCE hInstance, LPSTR lpCmLine, int nCmdShow)
 	//	fclose(fp);
 	//}
 
-	TLunaEngine::String str("你好");
-	TLunaEngine::SharedPtr<TLunaEngine::TWCHAR> wstr = str.GetWString();
-	TLunaEngine::TWCHAR wsz[64] = { L"しあわせ" };
-	TLunaEngine::String sz(wsz);
+	//TLunaEngine::String str("你好");
+	//TLunaEngine::SharedPtr<TLunaEngine::TWCHAR> wstr = str.GetWString();
+	//TLunaEngine::TWCHAR wsz[64] = { L"しあわせ" };
+	//TLunaEngine::String sz(wsz);
 
-	FILE* fp = NULL;
+	//FILE* fp = NULL;
 	/*if (fopen_s(&fp, "test2.txt", "wt") == 0)
 	{
 		fwrite(sz.GetString(), 1, sz.GetLength(), fp);
 		fclose(fp);
 	}*/
 
-	if (fopen_s(&fp, "test2.txt", "r+") == 0)
-	{
-		char tmp[64] = { 0 };
-		fread(tmp, 1, 64, fp);
-		fclose(fp);
+	//if (fopen_s(&fp, "test2.txt", "r+") == 0)
+	//{
+	//	char tmp[64] = { 0 };
+	//	fread(tmp, 1, 64, fp);
+	//	fclose(fp);
 
-		TLunaEngine::String strA(tmp);
-		strA.ConvertToANSI();
-		consoleWnd->GetConsoleOutput()->addText(strA);
+	//	TLunaEngine::String strA(tmp);
+	//	strA.ConvertToANSI();
+	//	consoleWnd->GetConsoleOutput()->addText(strA);
 
-		/*TLunaEngine::TWCHAR tmp[64] = { L"0" };
-		fread(tmp, sizeof(TLunaEngine::TWCHAR), 64, fp);
-		fclose(fp);
+	//	/*TLunaEngine::TWCHAR tmp[64] = { L"0" };
+	//	fread(tmp, sizeof(TLunaEngine::TWCHAR), 64, fp);
+	//	fclose(fp);
 
-		TLunaEngine::String strA = TLunaEngine::String::BuildStringFromUTF8WString(tmp);
-		strA.ConvertToANSI();
-		consoleWnd->GetConsoleOutput()->addText(strA);*/
+	//	TLunaEngine::String strA = TLunaEngine::String::BuildStringFromUTF8WString(tmp);
+	//	strA.ConvertToANSI();
+	//	consoleWnd->GetConsoleOutput()->addText(strA);*/
 
-		int a = 5;
-	}
+	//	int a = 5;
+	//}
 
 	TestLoop();
 

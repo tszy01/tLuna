@@ -196,7 +196,7 @@ namespace TLunaEngine{
 		return TTRUE;
 	}
 
-	TBOOL GUIFontManager::Render(const TCHAR* text,TU32 len, TS32 x, TS32 y, Vector4<TF32>& color)
+	TBOOL GUIFontManager::Render(const TWCHAR* text,TU32 len, TS32 x, TS32 y, Vector4<TF32>& color)
 	{
 		if(m_pUseFont==TNULL)
 			return TFALSE;
@@ -230,7 +230,8 @@ namespace TLunaEngine{
 			m_pRenderText = new TWCHAR[len];
 			m_nRenderTextLen = len;
 		}
-		::MultiByteToWideChar(CP_ACP,MB_PRECOMPOSED,text,(TS32)len,m_pRenderText,(TS32)m_nRenderTextLen);
+		//::MultiByteToWideChar(CP_ACP,MB_PRECOMPOSED,text,(TS32)len,m_pRenderText,(TS32)m_nRenderTextLen);
+		memcpy(m_pRenderText, text, len * sizeof(TWCHAR));
 		TWCHAR *wKeep = m_pRenderText;
 		TS32 X = x;
 		TS32 Y = y;
@@ -460,7 +461,7 @@ namespace TLunaEngine{
 		}
 	}
 
-	TBOOL GUIFontManager::RenderDebugFont(const TCHAR* text, TU32 len, TS32 x, TS32 y, Vector4<TF32>& color)
+	TBOOL GUIFontManager::RenderDebugFont(const TWCHAR* text, TU32 len, TS32 x, TS32 y, Vector4<TF32>& color)
 	{
 		if(!m_pDebugFont)
 		{
