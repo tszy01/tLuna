@@ -304,10 +304,10 @@ TLunaEngine::TVOID ConsoleWindow::beginMeasureTextSize()
 	m_memDc = ::CreateCompatibleDC(m_hdc);
 }
 
-TLunaEngine::TVOID ConsoleWindow::measureTextSize(const TLunaEngine::String& text, TLunaEngine::TU32& width, TLunaEngine::TU32& height)
+TLunaEngine::TVOID ConsoleWindow::measureTextSize(const TLunaEngine::WString& text, TLunaEngine::TU32& width, TLunaEngine::TU32& height)
 {
 	SIZE strSize;
-	::GetTextExtentPointA(m_memDc, text.GetString(), text.GetLength(), &strSize);
+	::GetTextExtentPointW(m_memDc, text.GetWString(), text.GetLength(), &strSize);
 	width = (TLunaEngine::TU32)strSize.cx;
 	height = (TLunaEngine::TU32)strSize.cy;
 }

@@ -1,4 +1,4 @@
-#ifdef DEMO_CHECK_MEM_LEAK
+﻿#ifdef DEMO_CHECK_MEM_LEAK
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
 #include <crtdbg.h>
@@ -23,6 +23,14 @@
 #ifdef BUILD_EDITOR
 #include "EditorMgr.h"
 #endif // BUILD_EDITOR
+
+#ifdef BUILD_TEST
+#include "TLTxtFileReader.h"
+#include "TLTxtFileWriter.h"
+#include "TLUTF8FileReader.h"
+#include "TLUTF8FileWriter.h"
+#include "TLBinaryFileProcessor.h"
+#endif // BUILD_TEST
 
 int MainExampleGame(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmLine, int nCmdShow)
 {
@@ -263,33 +271,56 @@ int runTest(HINSTANCE hInstance, LPSTR lpCmLine, int nCmdShow)
 	//TLunaEngine::TWCHAR wsz[64] = { L"しあわせ" };
 	//TLunaEngine::String sz(wsz);
 
-	//FILE* fp = NULL;
+	FILE* fp = NULL;
 	/*if (fopen_s(&fp, "test2.txt", "wt") == 0)
 	{
 		fwrite(sz.GetString(), 1, sz.GetLength(), fp);
 		fclose(fp);
 	}*/
 
-	//if (fopen_s(&fp, "test2.txt", "r+") == 0)
+	//if (fopen_s(&fp, "test2.txt", "r+, ccs=UTF-8") == 0)
 	//{
-	//	char tmp[64] = { 0 };
-	//	fread(tmp, 1, 64, fp);
-	//	fclose(fp);
+	//	//char tmp[64] = { 0 };
+	//	//fread(tmp, 1, 64, fp);
+	//	//fclose(fp);
 
-	//	TLunaEngine::String strA(tmp);
-	//	strA.ConvertToANSI();
-	//	consoleWnd->GetConsoleOutput()->addText(strA);
+	//	//TLunaEngine::String strA(tmp);
+	////	strA.ConvertToANSI();
+	////	consoleWnd->GetConsoleOutput()->addText(strA);
 
-	//	/*TLunaEngine::TWCHAR tmp[64] = { L"0" };
+	//	TLunaEngine::TWCHAR tmp[64] = { L"0" };
 	//	fread(tmp, sizeof(TLunaEngine::TWCHAR), 64, fp);
 	//	fclose(fp);
 
-	//	TLunaEngine::String strA = TLunaEngine::String::BuildStringFromUTF8WString(tmp);
-	//	strA.ConvertToANSI();
-	//	consoleWnd->GetConsoleOutput()->addText(strA);*/
-
-	//	int a = 5;
+	//	consoleWnd->GetConsoleOutput()->addText(/*TLunaEngine::WString(strA.ToWString().getPointer())*/tmp);
 	//}
+
+	/*TLunaEngine::UTF8FileReader::OpenTxtFile("test2.txt", &fp);
+
+	TLunaEngine::TWCHAR tmp[64] = { L"0" };
+	TLunaEngine::TS32 sTmp[5] = { 0 };
+	TLunaEngine::UTF8FileReader::ReadLineWString(tmp, fp, 0, 0, 64, 0);
+	TLunaEngine::UTF8FileReader::ReadLineInteger(sTmp, fp, 5, L' ');
+	consoleWnd->GetConsoleOutput()->addText(tmp);
+
+	TLunaEngine::UTF8FileReader::CloseTxtFile(fp);*/
+
+	TLunaEngine::UTF8FileReader::OpenTxtFile("test2.txt", &fp);
+
+	TLunaEngine::TWCHAR tmp[64] = { L"0" };
+	TLunaEngine::TBOOL re = TLunaEngine::TFALSE;
+	TLunaEngine::UTF8FileReader::ReadLineWString(tmp, fp, L"你好你是谁是啊", &re, 64, 0);
+	consoleWnd->GetConsoleOutput()->addText(tmp);
+
+	TLunaEngine::UTF8FileReader::CloseTxtFile(fp);
+
+	TLunaEngine::UTF8FileWriter::OpenTxtFile("test3.txt", &fp);
+
+	TLunaEngine::UTF8FileWriter::WriteLineWString(tmp, fp, (TLunaEngine::TU32)wcslen(tmp));
+	TLunaEngine::TS32 sTmp[5] = { 8,0,9,10,11 };
+	TLunaEngine::UTF8FileWriter::WriteLineInteger(sTmp, fp, 5, L';');
+
+	TLunaEngine::UTF8FileWriter::CloseTxtFile(fp);
 
 	TestLoop();
 

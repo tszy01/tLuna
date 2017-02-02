@@ -227,6 +227,8 @@
     <ClCompile Include="TLTimer.cpp" />
     <ClCompile Include="TLTxtFileReader.cpp" />
     <ClCompile Include="TLTxtFileWriter.cpp" />
+    <ClCompile Include="TLUTF8FileReader.cpp" />
+    <ClCompile Include="TLUTF8FileWriter.cpp" />
     <ClCompile Include="TLZip.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -340,6 +342,8 @@
     <ClInclude Include="TLTriangle.h" />
     <ClInclude Include="TLTxtFileReader.h" />
     <ClInclude Include="TLTxtFileWriter.h" />
+    <ClInclude Include="TLUTF8FileReader.h" />
+    <ClInclude Include="TLUTF8FileWriter.h" />
     <ClInclude Include="TLVector2.h" />
     <ClInclude Include="TLVector3.h" />
     <ClInclude Include="TLVector4.h" />

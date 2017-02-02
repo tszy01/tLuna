@@ -72,7 +72,7 @@ public:
 	// before mesure
 	TLunaEngine::TVOID beginMeasureTextSize();
 	// mesure
-	TLunaEngine::TVOID measureTextSize(const TLunaEngine::String& text, TLunaEngine::TU32& width, TLunaEngine::TU32& height);
+	TLunaEngine::TVOID measureTextSize(const TLunaEngine::WString& text, TLunaEngine::TU32& width, TLunaEngine::TU32& height);
 	// after mesure
 	TLunaEngine::TVOID endMeasureTextSize();
 };

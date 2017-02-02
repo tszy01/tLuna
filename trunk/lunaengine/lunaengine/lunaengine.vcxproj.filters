@@ -201,6 +201,12 @@
     <ClCompile Include="TLConsoleOutput.cpp">
       <Filter>Common</Filter>
     </ClCompile>
+    <ClCompile Include="TLUTF8FileReader.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="TLUTF8FileWriter.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TLGUIContainer.h">
@@ -543,6 +549,12 @@
       <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="TLConsoleOutput.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="TLUTF8FileReader.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="TLUTF8FileWriter.h">
       <Filter>Common</Filter>
     </ClInclude>
   </ItemGroup>

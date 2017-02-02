@@ -14,7 +14,7 @@ namespace TLunaEngine{
 	{
 	}
 
-	TBOOL TxtFileWriter::OpenTxtFile(const TCHAR* filename, FILE **ppStream)
+	TBOOL TxtFileWriter::OpenTxtFile(const TCHAR* filename, FILE **ppStream, TBOOL append)
 	{
 		if(!filename || !ppStream)
 		{
@@ -22,7 +22,8 @@ namespace TLunaEngine{
 			return TFALSE;
 		}
 		// 打开文件
-		TS32 re = fopen_s(ppStream,filename,"wt");
+		const TCHAR* mode = append ? "at" : "wt";
+		TS32 re = fopen_s(ppStream,filename,mode);
 		if(*ppStream==0 || re!=0)
 		{
 			assert(TFALSE);
