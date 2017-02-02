@@ -34,7 +34,7 @@ namespace TLunaEngine
 		mOutput = output;
 	}
 
-	TVOID Console::outputToConsole(const String& text)
+	TVOID Console::outputToConsole(const WString& text)
 	{
 		if (mOutput)
 		{

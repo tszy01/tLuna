@@ -32,6 +32,16 @@ namespace TLunaEngine{
 		// out pReadCount:返回实际读取的字符
 		static TBOOL ReadLineString(TCHAR* strResult,FILE* pStream,TCHAR* strCmp,TBOOL* bEqual, TU32 nCount, TU32* pReadCount);
 
+		// 读取一行字符串
+		// 返回：是否成功
+		// out strResult:返回的结果字符串
+		// in pStream:文件指针
+		// in strCmp:比较的字符串，如果不需要比较，传0
+		// out bEqual:是否和比较的字符段匹配，如果没有比较，传0
+		// in nCount:一共可以装几个字符
+		// out pReadCount:返回实际读取的字符
+		static TBOOL ReadLineWString(TWCHAR* strResult, FILE* pStream, TWCHAR* strCmp, TBOOL* bEqual, TU32 nCount, TU32* pReadCount);
+
 		// 读取一行整数
 		// 返回：是否成功
 		// out aiResult:返回的整形数组

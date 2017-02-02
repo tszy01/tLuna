@@ -127,6 +127,20 @@ namespace TLunaEngine{
 		return TTRUE;
 	}
 
+	TBOOL BinaryFileProcessor::writeWString(const TWCHAR* strWrite, FILE* pStream, TU32 nCount)
+	{
+		if (!strWrite || !pStream)
+			return TFALSE;
+		// 先写数量
+		TU32 charCount = nCount;
+		if (fwrite(&charCount, sizeof(TU32), 1, pStream) != 1)
+			return TFALSE;
+		// 写内容
+		if ((TU32)fwrite(strWrite, sizeof(TWCHAR), nCount, pStream) < nCount)
+			return TFALSE;
+		return TTRUE;
+	}
+
 	TBOOL BinaryFileProcessor::readBytes(TVOID* buffer,FILE* pStream, TU64 nCount)
 	{
 		if(!buffer || !pStream || nCount <=0)
@@ -292,6 +306,54 @@ namespace TLunaEngine{
 			}
 		}
 		delete [] szRead;
+		return TTRUE;
+	}
+
+	TBOOL BinaryFileProcessor::readWString(TWCHAR* strResult, FILE* pStream, const TWCHAR* strCmp, TBOOL* bEqual, TU32 nCount, TU32* pReadCount)
+	{
+		if (!strResult || !pStream || nCount <= 0)
+		{
+			assert(TFALSE);
+			return TFALSE;
+		}
+		memset(strResult, 0, nCount);
+		// 读取大小
+		TU32 strLen = 0;
+		if (fread(&strLen, sizeof(TU32), 1, pStream) != 1)
+			return TFALSE;
+		if (strLen <= 0)
+		{
+			if (pReadCount)
+				*pReadCount = strLen;
+			return TTRUE;
+		}
+		TWCHAR* szRead = new TWCHAR[strLen];
+		memset(szRead, 0, strLen * sizeof(TWCHAR));
+		if ((TU32)fread(szRead, sizeof(TWCHAR), strLen, pStream) != strLen)
+		{
+			delete[] szRead;
+			return TFALSE;
+		}
+		if (nCount < strLen)
+		{
+			delete[] szRead;
+			return TFALSE;
+		}
+		wcscpy(strResult, szRead);
+		if (pReadCount)
+			*pReadCount = strLen;
+		if (strLen>0 && strCmp && bEqual)
+		{
+			if (wcscmp(strResult, strCmp) == 0)
+			{
+				*bEqual = TTRUE;
+			}
+			else
+			{
+				*bEqual = TFALSE;
+			}
+		}
+		delete[] szRead;
 		return TTRUE;
 	}
 }

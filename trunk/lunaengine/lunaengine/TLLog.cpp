@@ -113,7 +113,7 @@ namespace TLunaEngine{
 			::FreeConsole();
 	}
 
-	TVOID Log::WriteFile(LOG_LEVEL level,TBOOL bTrue, const TCHAR* content, const TCHAR* codeName, TS32 codeLine)
+	TVOID Log::WriteFile(LOG_LEVEL level,TBOOL bTrue, const TWCHAR* content, const TCHAR* codeName, TS32 codeLine)
 	{
 		// 可以没有内容
 		// 但是必须有Path
@@ -145,27 +145,27 @@ namespace TLunaEngine{
 		strTime.Format("%d:%d:%d",sysTime.wHour,sysTime.wMinute,sysTime.wSecond);
 		// 最后写入的内容
 		// codeInfo date time content\n
-		String strWrite;
+		WString strWrite;
 		if (codeName != TNULL)
 		{
 			if (content)
 			{
-				strWrite.Format("%s(%d) %s %s\n", codeName, codeLine, strTime.GetString(), content);
+				strWrite.Format(L"%s(%d) %s %s\n", codeName, codeLine, strTime.GetString(), content);
 			}
 			else
 			{
-				strWrite.Format("%s(%d) %s\n", codeName, codeLine, strTime.GetString());
+				strWrite.Format(L"%s(%d) %s\n", codeName, codeLine, strTime.GetString());
 			}
 		}
 		else
 		{
 			if (content)
 			{
-				strWrite.Format("%s %s\n", strTime.GetString(), content);
+				strWrite.Format(L"%s %s\n", strTime.GetString(), content);
 			}
 			else
 			{
-				strWrite.Format("%s\n", strTime.GetString());
+				strWrite.Format(L"%s\n", strTime.GetString());
 			}
 		}
 		// 最后写入
@@ -177,7 +177,7 @@ namespace TLunaEngine{
 		{
 			return ;
 		}
-		TU32 numwrite = (TU32)fwrite(strWrite.GetString(),sizeof(TCHAR),strWrite.GetLength(),stream);
+		TU32 numwrite = (TU32)fwrite(strWrite.GetWString(),sizeof(TWCHAR),strWrite.GetLength(),stream);
 		if(ferror(stream))
 		{
 			fclose(stream);
@@ -186,7 +186,7 @@ namespace TLunaEngine{
 		fclose(stream);
 	}
 
-	TVOID Log::WriteSysConsole(LOG_LEVEL level,TBOOL bTrue, const TCHAR* content)
+	TVOID Log::WriteSysConsole(LOG_LEVEL level,TBOOL bTrue, const TWCHAR* content)
 	{
 		if(!m_bToSysConsole)
 			return;
@@ -205,20 +205,20 @@ namespace TLunaEngine{
 			return;
 		// 最后写入的内容
 		// codeInfo date time content\n
-		String strWrite;
+		WString strWrite;
 		if(content)
 		{
-			strWrite.Format("%s\n",content);
+			strWrite.Format(L"%s\n",content);
 		}
 		else
 		{
-			strWrite.Format("Nothing\n");
+			strWrite.Format(L"Nothing\n");
 		}
 		DWORD writtenNum = 0;
-		::WriteConsoleA(m_hConsole,strWrite.GetString(),strWrite.GetLength(),&writtenNum,0);
+		::WriteConsoleW(m_hConsole,strWrite.GetWString(),strWrite.GetLength(),&writtenNum,0);
 	}
 
-	TVOID Log::WriteEngineConsole(LOG_LEVEL level, TBOOL bTrue, const TCHAR* content)
+	TVOID Log::WriteEngineConsole(LOG_LEVEL level, TBOOL bTrue, const TWCHAR* content)
 	{
 		if (!m_bToConsole)
 			return;
@@ -233,19 +233,19 @@ namespace TLunaEngine{
 			return;
 		// 最后写入的内容
 		// codeInfo date time content\n
-		String strWrite;
+		WString strWrite;
 		if (content)
 		{
-			strWrite.Format("%s\n", content);
+			strWrite.Format(L"%s\n", content);
 		}
 		else
 		{
-			strWrite.Format("Nothing\n");
+			strWrite.Format(L"Nothing\n");
 		}
 		Console::getSingletonPtr()->outputToConsole(strWrite);
 	}
 
-	TVOID Log::WriteLine(LOG_LEVEL level, TBOOL bTrue, const TCHAR* content, const TCHAR* codeName, TS32 codeLine)
+	TVOID Log::WriteLine(LOG_LEVEL level, TBOOL bTrue, const TWCHAR* content, const TCHAR* codeName, TS32 codeLine)
 	{
 		WriteFile(level, bTrue, content, codeName, codeLine);
 		WriteSysConsole(level, bTrue, content);

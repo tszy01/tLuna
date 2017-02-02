@@ -84,6 +84,54 @@ namespace TLunaEngine{
 		return TTRUE;
 	}
 
+	TBOOL TxtFileReader::ReadLineWString(TWCHAR* strResult, FILE *pStream, TWCHAR* strCmp, TBOOL *bEqual, TU32 nCount, TU32 *pReadCount)
+	{
+		if (!strResult || !pStream || nCount <= 0)
+		{
+			assert(TFALSE);
+			return TFALSE;
+		}
+		memset(strResult, 0, nCount * sizeof(TWCHAR));
+
+		// 读取一行
+		TU32 count = 0;
+		TWCHAR c;
+		while (count<nCount)
+		{
+			TU32 numRead = (TU32)fread(&c, sizeof(TWCHAR), 1, pStream);
+			if (numRead != 1)
+			{
+				if (feof(pStream))
+				{
+					break;
+				}
+				assert(TFALSE);
+				return TFALSE;
+			}
+			if (c == '\n')
+			{
+				break;
+			}
+			strResult[count++] = c;
+		}
+		if (pReadCount)
+			*pReadCount = count;
+
+		// 比较
+		if (count>0 && strCmp && bEqual)
+		{
+			if (wcscmp(strResult, strCmp) == 0)
+			{
+				*bEqual = TTRUE;
+			}
+			else
+			{
+				*bEqual = TFALSE;
+			}
+		}
+		return TTRUE;
+	}
+
 	TBOOL TxtFileReader::ReadLineInteger(TS32 *aiResult, FILE *pStream, TU32 nCount, TCHAR splice)
 	{
 		if(!aiResult || !pStream || nCount<=0)

@@ -231,7 +231,7 @@ int runTest(HINSTANCE hInstance, LPSTR lpCmLine, int nCmdShow)
 	if (consoleWnd->InitWindow(hInstance, nCmdShow, 400, 400) != S_OK)
 		return 1;
 
-	consoleWnd->GetConsoleOutput()->addText("HIIIIII");
+	consoleWnd->GetConsoleOutput()->addText(L"HIIIIII");
 	
 	//char a[64] = { "こんにちは" };
 

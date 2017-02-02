@@ -47,6 +47,17 @@ namespace TLunaEngine{
 		return TTRUE;
 	}
 
+	TBOOL TxtFileWriter::WriteLineWString(const TWCHAR* strWrite, FILE* pStream, TU32 count)
+	{
+		if (!strWrite || !pStream)
+			return TFALSE;
+		if ((TU32)fwrite(strWrite, sizeof(TWCHAR), count, pStream) < count)
+			return TFALSE;
+		const TWCHAR* szTmp = L"\n";
+		fwrite(szTmp, sizeof(TWCHAR), 1, pStream);
+		return TTRUE;
+	}
+
 	TBOOL TxtFileWriter::WriteLineInteger(const TS32* aiWrite,FILE* pStream, TU32 nCount,TCHAR splice)
 	{
 		if(!aiWrite || !pStream || nCount<=0)

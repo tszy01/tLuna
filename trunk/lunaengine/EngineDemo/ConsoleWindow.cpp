@@ -40,10 +40,10 @@ LRESULT FAR PASCAL WindowProc2(HWND hWnd, UINT message,WPARAM wParam, LPARAM lPa
 
 				// draw output text
 				ps.rcPaint.top = 0;
-				TLunaEngine::String strOutput = consoleOutput->getDisplayStr();
+				TLunaEngine::WString strOutput = consoleOutput->getDisplayStr();
 				if (strOutput.GetLength() > 0)
 				{
-					DrawTextA(ps.hdc, strOutput.GetString(), -1, &(ps.rcPaint), DT_LEFT);
+					DrawTextW(ps.hdc, strOutput.GetWString(), -1, &(ps.rcPaint), DT_LEFT);
 				}
 
 				// draw input text

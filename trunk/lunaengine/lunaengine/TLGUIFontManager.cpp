@@ -302,7 +302,7 @@ namespace TLunaEngine{
 				xPlus += ((TF32)(texw+offx))/m_bufferWidth * 2.0f;
 			} else {
 				X += m_pUseFont->GetWidthFromCharacter(*wKeep);
-				TLunaEngine::Log::WriteLine(TLunaEngine::Log::LOG_LEVEL_ERROR,TTRUE,"Can not find character in font tex!",__FILE__,__LINE__);
+				TLunaEngine::Log::WriteLine(TLunaEngine::Log::LOG_LEVEL_ERROR,TTRUE,L"Can not find character in font tex!",__FILE__,__LINE__);
 			}
 
 			++wKeep;

@@ -19,26 +19,26 @@ namespace TLunaEngine
 		clear();
 	}
 
-	TVOID ConsoleOutput::addText(const String& text)
+	TVOID ConsoleOutput::addText(const WString& text)
 	{
 		if (text.GetLength() == 0 || !_assistant)
 			return;
 
 		_assistant->beginMeasureTextSize();
 
-		String tmpStr;
+		WString tmpStr;
 		TU32 measureWidth, measureHeight;
 
 		// split to lines and add
 		for (TU32 i = 0; i < text.GetLength(); ++i)
 		{
-			if (text[i] == '\n')
+			if (text[i] == L'\n')
 			{
 				if (tmpStr.GetLength() > 0)
 				{
 					_assistant->measureTextSize(tmpStr, measureWidth, measureHeight);
 					addTextLine(tmpStr, measureHeight);
-					tmpStr = "";
+					tmpStr = L"";
 				}
 			}
 			else
@@ -49,7 +49,7 @@ namespace TLunaEngine
 				if (measureWidth >= _maxLineWidth)
 				{
 					addTextLine(tmpStr, measureHeight);
-					tmpStr = "";
+					tmpStr = L"";
 				}
 			}
 		}
@@ -66,7 +66,7 @@ namespace TLunaEngine
 		}
 	}
 
-	TVOID ConsoleOutput::addTextLine(const String& text, TU32 height)
+	TVOID ConsoleOutput::addTextLine(const WString& text, TU32 height)
 	{
 		if (text.GetLength() == 0)
 			return;
@@ -131,9 +131,9 @@ namespace TLunaEngine
 		_displayStartLineNo = 0;
 	}
 
-	String ConsoleOutput::getDisplayStr()
+	WString ConsoleOutput::getDisplayStr()
 	{
-		String result;
+		WString result;
 		TU32 index = 0;
 		TU32 totalHeight = 0;
 
@@ -143,7 +143,7 @@ namespace TLunaEngine
 			if (index >= _displayStartLineNo)
 			{
 				result += itr->_text;
-				result += '\n';
+				result += L'\n';
 				totalHeight += itr->_height;
 
 				if (totalHeight >= _maxDisplayHeight)

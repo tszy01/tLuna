@@ -29,6 +29,13 @@ namespace TLunaEngine{
 		// in nCount:写入字符个数
 		static TBOOL WriteLineString(const TCHAR* strWrite,FILE* pStream,TU32 nCount);
 
+		// 写入一行字符串
+		// 返回：是否成功
+		// in strWrite:返回的结果字符串
+		// in pStream:文件指针
+		// in nCount:写入字符个数
+		static TBOOL WriteLineWString(const TWCHAR* strWrite, FILE* pStream, TU32 nCount);
+
 		// 写入一行整数
 		// 返回：是否成功
 		// in aiResult:整形数组

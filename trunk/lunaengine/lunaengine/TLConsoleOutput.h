@@ -27,7 +27,7 @@ namespace TLunaEngine
 		// before mesure
 		virtual TVOID beginMeasureTextSize() {};
 		// mesure
-		virtual TVOID measureTextSize(const String& text, TU32& width, TU32& height) {};
+		virtual TVOID measureTextSize(const WString& text, TU32& width, TU32& height) {};
 		// after mesure
 		virtual TVOID endMeasureTextSize() {};
 	};
@@ -44,7 +44,7 @@ namespace TLunaEngine
 			// line height
 			TU32 _height;
 			// text
-			String _text;
+			WString _text;
 		};
 	public:
 		ConsoleOutput();
@@ -101,15 +101,15 @@ namespace TLunaEngine
 
 	public:
 		// add text
-		TVOID addText(const String& text);
+		TVOID addText(const WString& text);
 		// add text line
-		TVOID addTextLine(const String& text, TU32 height);
+		TVOID addTextLine(const WString& text, TU32 height);
 		// refresh pos y
 		TVOID refreshPosY();
 		// clear all content
 		TVOID clear();
 		// return display string
-		String getDisplayStr();
+		WString getDisplayStr();
 		// turn display start line down
 		TVOID downDisplayStartLine();
 		// turn display start line up
