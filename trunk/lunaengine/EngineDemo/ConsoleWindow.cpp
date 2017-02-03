@@ -38,6 +38,9 @@ LRESULT FAR PASCAL WindowProc2(HWND hWnd, UINT message,WPARAM wParam, LPARAM lPa
 				// TODO: Add any drawing code that uses hdc here...
 				SetTextColor(ps.hdc, RGB(10, 0, 255));
 
+				HFONT hfont = CreateFont(0, 0, 0, 0, FW_NORMAL, 0, 0, 0, GB2312_CHARSET, 0, 0, 0, 0, L"Arial");
+				HFONT old_hfont = (HFONT)SelectObject(hdc, hfont);
+
 				// draw output text
 				ps.rcPaint.top = 0;
 				TLunaEngine::WString strOutput = consoleOutput->getDisplayStr();
@@ -45,6 +48,9 @@ LRESULT FAR PASCAL WindowProc2(HWND hWnd, UINT message,WPARAM wParam, LPARAM lPa
 				{
 					DrawTextW(ps.hdc, strOutput.GetWString(), -1, &(ps.rcPaint), DT_LEFT);
 				}
+
+				SelectObject(hdc, old_hfont);
+				DeleteObject(hfont);
 
 				// draw input text
 				LONG inputStartPosY = ConsoleWindow::getSingletonPtr()->GetClientHeight() - 16 - 4;

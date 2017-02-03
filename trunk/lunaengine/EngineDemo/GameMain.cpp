@@ -239,7 +239,7 @@ int runTest(HINSTANCE hInstance, LPSTR lpCmLine, int nCmdShow)
 	if (consoleWnd->InitWindow(hInstance, nCmdShow, 400, 400) != S_OK)
 		return 1;
 
-	consoleWnd->GetConsoleOutput()->addText(L"HIIIIII");
+	consoleWnd->GetConsoleOutput()->addText(L"支払い");
 	
 	//char a[64] = { "こんにちは" };
 
@@ -314,13 +314,13 @@ int runTest(HINSTANCE hInstance, LPSTR lpCmLine, int nCmdShow)
 
 	TLunaEngine::UTF8FileReader::CloseTxtFile(fp);
 
-	TLunaEngine::UTF8FileWriter::OpenTxtFile("test3.txt", &fp);
+	/*TLunaEngine::UTF8FileWriter::OpenTxtFile("test3.txt", &fp);
 
 	TLunaEngine::UTF8FileWriter::WriteLineWString(tmp, fp, (TLunaEngine::TU32)wcslen(tmp));
 	TLunaEngine::TS32 sTmp[5] = { 8,0,9,10,11 };
 	TLunaEngine::UTF8FileWriter::WriteLineInteger(sTmp, fp, 5, L';');
 
-	TLunaEngine::UTF8FileWriter::CloseTxtFile(fp);
+	TLunaEngine::UTF8FileWriter::CloseTxtFile(fp);*/
 
 	TestLoop();
 
