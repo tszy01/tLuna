@@ -150,22 +150,24 @@ namespace TLunaEngine{
 		{
 			if (content)
 			{
-				strWrite.Format(L"%s(%d) %s %s\n", codeName, codeLine, strTime.GetString(), content);
+				strWrite.Format(L"%s(%d) %s %s\n", String(codeName).ToWString().getPointer(), 
+					String(codeLine).ToWString().getPointer(), strTime.ToWString().getPointer(), content);
 			}
 			else
 			{
-				strWrite.Format(L"%s(%d) %s\n", codeName, codeLine, strTime.GetString());
+				strWrite.Format(L"%s(%d) %s\n", String(codeName).ToWString().getPointer(), 
+					String(codeLine).ToWString().getPointer(), strTime.ToWString().getPointer());
 			}
 		}
 		else
 		{
 			if (content)
 			{
-				strWrite.Format(L"%s %s\n", strTime.GetString(), content);
+				strWrite.Format(L"%s %s\n", strTime.ToWString().getPointer(), content);
 			}
 			else
 			{
-				strWrite.Format(L"%s\n", strTime.GetString());
+				strWrite.Format(L"%s\n", strTime.ToWString().getPointer());
 			}
 		}
 		// 最后写入
@@ -173,7 +175,7 @@ namespace TLunaEngine{
 		String strLogFile;
 		strLogFile.Format("%s%d_%d_%d.log",m_logPath,sysTime.wYear,sysTime.wMonth,sysTime.wDay);
 		FILE* stream;
-		if( fopen_s(&stream, strLogFile.GetString(), "a+" )!=0 )
+		if( fopen_s(&stream, strLogFile.GetString(), "a+, ccs=UTF-8" )!=0 )
 		{
 			return ;
 		}

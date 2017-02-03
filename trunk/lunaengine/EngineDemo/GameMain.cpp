@@ -30,6 +30,7 @@
 #include "TLUTF8FileReader.h"
 #include "TLUTF8FileWriter.h"
 #include "TLBinaryFileProcessor.h"
+#include "TLLog.h"
 #endif // BUILD_TEST
 
 int MainExampleGame(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmLine, int nCmdShow)
@@ -322,7 +323,16 @@ int runTest(HINSTANCE hInstance, LPSTR lpCmLine, int nCmdShow)
 
 	TLunaEngine::UTF8FileWriter::CloseTxtFile(fp);*/
 
+	TLunaEngine::String strLogConfig = "../../../demores/config\\logconfig.txt";
+	TLunaEngine::String strLogDir = "../../../demores/log\\";
+	if (!TLunaEngine::Log::InitLogSystem(strLogConfig.GetString(), strLogDir.GetString()))
+		return 0;
+
+	TLunaEngine::Log::WriteLine(TLunaEngine::Log::LOG_LEVEL_ERROR, TLunaEngine::TTRUE, L"你好你是谁是啊");
+
 	TestLoop();
+
+	TLunaEngine::Log::DestroyLogSystem();
 
 	ConsoleWindow::getSingletonPtr()->DestroyWindow();
 	ConsoleWindow::delSingletonPtr();
