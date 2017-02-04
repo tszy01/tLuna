@@ -81,7 +81,7 @@ bool InitGame(const _INITPARAM* pInitParam)
 	// 初始化Engine
 	if(!TLunaEngine::Init(mainWnd->GetHwnd(),pInitParam->hInst,LuaInit::getSingletonPtr()->m_bWnd,
 		LuaInit::getSingletonPtr()->m_bufferWidth,LuaInit::getSingletonPtr()->m_bufferHeight,1.0f/LuaInit::getSingletonPtr()->m_controlFps,
-		LuaInit::getSingletonPtr()->m_szResDir,LuaInit::getSingletonPtr()->m_bShowDebugInfo))
+		LuaInit::getSingletonPtr()->m_szResDir, LuaInit::getSingletonPtr()->m_szSysLangDict,LuaInit::getSingletonPtr()->m_bShowDebugInfo))
 		return false;
 	// GUI场景管理
 	GUISceneMgr* pGUISceneMgr = GUISceneMgr::getSingletonPtr();
@@ -306,14 +306,14 @@ int runTest(HINSTANCE hInstance, LPSTR lpCmLine, int nCmdShow)
 
 	TLunaEngine::UTF8FileReader::CloseTxtFile(fp);*/
 
-	TLunaEngine::UTF8FileReader::OpenTxtFile("test2.txt", &fp);
+	/*TLunaEngine::UTF8FileReader::OpenTxtFile("test2.txt", &fp);
 
 	TLunaEngine::TWCHAR tmp[64] = { L"0" };
 	TLunaEngine::TBOOL re = TLunaEngine::TFALSE;
 	TLunaEngine::UTF8FileReader::ReadLineWString(tmp, fp, L"你好你是谁是啊", &re, 64, 0);
 	consoleWnd->GetConsoleOutput()->addText(tmp);
 
-	TLunaEngine::UTF8FileReader::CloseTxtFile(fp);
+	TLunaEngine::UTF8FileReader::CloseTxtFile(fp);*/
 
 	/*TLunaEngine::UTF8FileWriter::OpenTxtFile("test3.txt", &fp);
 

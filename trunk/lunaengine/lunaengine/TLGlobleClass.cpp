@@ -3,11 +3,13 @@
 #include "TLString.h"
 #include "TLLoopCtrl.h"
 #include "TLGUIFontManager.h"
+#include "TLLangDict.h"
 
 namespace TLunaEngine{
 	GlobleClass* Singleton<GlobleClass>::m_Ptr = 0;
 
-	GlobleClass::GlobleClass(TVOID) : m_pTri(0), m_strResDir(""), /*m_pDebugFont(0), */m_bShowDebugInfo(TFALSE), m_bEditor(TFALSE), mLoopCtrl(0)
+	GlobleClass::GlobleClass(TVOID) : m_pTri(0), m_strResDir(""), /*m_pDebugFont(0), */m_bShowDebugInfo(TFALSE), 
+		m_bEditor(TFALSE), mLoopCtrl(0), mLangDict(0), mLangDictFile("")
 	{
 	}
 
@@ -17,6 +19,19 @@ namespace TLunaEngine{
 
 	TBOOL GlobleClass::InitGlobleClass()
 	{
+		// init language dictionary
+		if (mLangDictFile == "")
+		{
+			mLangDictFile = "sys_en.txt";
+		}
+		String strLangDictFullFile = m_strResDir + String("lang_dict\\") + mLangDictFile;
+		mLangDict = new LangDict();
+		if (!mLangDict->loadFromFile(strLangDictFullFile.GetString()))
+		{
+			delete mLangDict;
+			mLangDict = 0;
+			return TFALSE;
+		}
 		// Triangle
 		m_pTri = new TestTriangle();
 		if(!m_pTri->InitTriangle())
@@ -51,6 +66,12 @@ namespace TLunaEngine{
 		{
 			delete m_pTri;
 			m_pTri = 0;
+		}
+		// destroy language dictionary
+		if (mLangDict)
+		{
+			delete mLangDict;
+			mLangDict = 0;
 		}
 	}
 

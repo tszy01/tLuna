@@ -193,6 +193,7 @@
     <ClCompile Include="TLGUIText.cpp" />
     <ClCompile Include="TLGUITextureMgr.cpp" />
     <ClCompile Include="TLImage.cpp" />
+    <ClCompile Include="TLLangDict.cpp" />
     <ClCompile Include="TLResObject.cpp" />
     <ClCompile Include="TLLoopCtrl.cpp" />
     <ClCompile Include="TLLog.cpp" />
@@ -241,6 +242,7 @@
     <ClInclude Include="TLConvexBody.h" />
     <ClInclude Include="TLDegree.h" />
     <ClInclude Include="TLDualQuaternion.h" />
+    <ClInclude Include="TLLangDict.h" />
     <ClInclude Include="TLMathUtils.h" />
     <ClInclude Include="TLGlobalFunc.h" />
     <ClInclude Include="TLAABBox.h" />

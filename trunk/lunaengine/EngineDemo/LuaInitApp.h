@@ -21,6 +21,7 @@ public:
 	unsigned int m_consoleWidth;	// 控制台宽
 	char m_szWindowText[256];	// 主窗口名称
 	char m_szResDir[256];	// 资源根目录
+	char m_szSysLangDict[256]; // Engine Language Dictionary File
 public:
 	bool InitWindowScript(const char *scriptFile);
 	void LoadParameters();

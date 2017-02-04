@@ -10,6 +10,7 @@ namespace TLunaEngine{
 	// 类声明
 	class TestTriangle;
 	class LoopCtrl;
+	class LangDict;
 	/*
 	 *	本类存储全局静态变量，静态方法
 	 */
@@ -32,6 +33,10 @@ namespace TLunaEngine{
 		TBOOL m_bEditor;
 		// loop control
 		LoopCtrl* mLoopCtrl;
+		// language dictionary
+		LangDict* mLangDict;
+		// language dictionary file
+		String mLangDictFile;
 	public:
 		// ----- 方法 -------------------
 		// 初始化
