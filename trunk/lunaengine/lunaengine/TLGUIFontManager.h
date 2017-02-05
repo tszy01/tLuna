@@ -71,7 +71,7 @@ namespace TLunaEngine{
 		// 从文件添加字体
 		TBOOL AddFontFromFile(const TCHAR* filename);
 		// 渲染文字
-		TBOOL Render(const TCHAR* text,TU32 len, TS32 x,TS32 y, Vector4<TF32>& color);
+		TBOOL Render(const TWCHAR* text,TU32 len, TS32 x,TS32 y, Vector4<TF32>& color);
 		// 初始化
 		TBOOL Init(const TCHAR* effectFile,TU32 bufferWidth,TU32 bufferHeight);
 		// 销毁所有
@@ -81,7 +81,7 @@ namespace TLunaEngine{
 		// 销毁调试字体
 		TVOID deleteDebugFont();
 		// 渲染调试字体
-		TBOOL RenderDebugFont(const TCHAR* text, TU32 len, TS32 x, TS32 y, Vector4<TF32>& color);
+		TBOOL RenderDebugFont(const TWCHAR* text, TU32 len, TS32 x, TS32 y, Vector4<TF32>& color);
 	private:
 		// 读取文件加载字库
 		TBOOL LoadFont(FILE* stream);

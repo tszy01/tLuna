@@ -1,4 +1,4 @@
-#ifdef DEMO_CHECK_MEM_LEAK
+﻿#ifdef DEMO_CHECK_MEM_LEAK
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
 #include <crtdbg.h>
@@ -23,6 +23,15 @@
 #ifdef BUILD_EDITOR
 #include "EditorMgr.h"
 #endif // BUILD_EDITOR
+
+#ifdef BUILD_TEST
+#include "TLTxtFileReader.h"
+#include "TLTxtFileWriter.h"
+#include "TLUTF8FileReader.h"
+#include "TLUTF8FileWriter.h"
+#include "TLBinaryFileProcessor.h"
+#include "TLLog.h"
+#endif // BUILD_TEST
 
 int MainExampleGame(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmLine, int nCmdShow)
 {
@@ -72,7 +81,7 @@ bool InitGame(const _INITPARAM* pInitParam)
 	// 初始化Engine
 	if(!TLunaEngine::Init(mainWnd->GetHwnd(),pInitParam->hInst,LuaInit::getSingletonPtr()->m_bWnd,
 		LuaInit::getSingletonPtr()->m_bufferWidth,LuaInit::getSingletonPtr()->m_bufferHeight,1.0f/LuaInit::getSingletonPtr()->m_controlFps,
-		LuaInit::getSingletonPtr()->m_szResDir,LuaInit::getSingletonPtr()->m_bShowDebugInfo))
+		LuaInit::getSingletonPtr()->m_szResDir, LuaInit::getSingletonPtr()->m_szSysLangDict,LuaInit::getSingletonPtr()->m_bShowDebugInfo))
 		return false;
 	// GUI场景管理
 	GUISceneMgr* pGUISceneMgr = GUISceneMgr::getSingletonPtr();
@@ -231,7 +240,7 @@ int runTest(HINSTANCE hInstance, LPSTR lpCmLine, int nCmdShow)
 	if (consoleWnd->InitWindow(hInstance, nCmdShow, 400, 400) != S_OK)
 		return 1;
 
-	consoleWnd->GetConsoleOutput()->addText("HIIIIII");
+	consoleWnd->GetConsoleOutput()->addText(L"支払い");
 	
 	//char a[64] = { "こんにちは" };
 
@@ -258,10 +267,10 @@ int runTest(HINSTANCE hInstance, LPSTR lpCmLine, int nCmdShow)
 	//	fclose(fp);
 	//}
 
-	TLunaEngine::String str("你好");
-	TLunaEngine::SharedPtr<TLunaEngine::TWCHAR> wstr = str.GetWString();
-	TLunaEngine::TWCHAR wsz[64] = { L"しあわせ" };
-	TLunaEngine::String sz(wsz);
+	//TLunaEngine::String str("你好");
+	//TLunaEngine::SharedPtr<TLunaEngine::TWCHAR> wstr = str.GetWString();
+	//TLunaEngine::TWCHAR wsz[64] = { L"しあわせ" };
+	//TLunaEngine::String sz(wsz);
 
 	FILE* fp = NULL;
 	/*if (fopen_s(&fp, "test2.txt", "wt") == 0)
@@ -270,19 +279,60 @@ int runTest(HINSTANCE hInstance, LPSTR lpCmLine, int nCmdShow)
 		fclose(fp);
 	}*/
 
-	if (fopen_s(&fp, "test2.txt", "r+") == 0)
-	{
-		char tmp[64] = { 0 };
-		fread(tmp, 1, 64, fp);
-		fclose(fp);
+	//if (fopen_s(&fp, "test2.txt", "r+, ccs=UTF-8") == 0)
+	//{
+	//	//char tmp[64] = { 0 };
+	//	//fread(tmp, 1, 64, fp);
+	//	//fclose(fp);
 
-		TLunaEngine::String strA(tmp);
-		strA.ConvertToANSI();
+	//	//TLunaEngine::String strA(tmp);
+	////	strA.ConvertToANSI();
+	////	consoleWnd->GetConsoleOutput()->addText(strA);
 
-		int a = 5;
-	}
+	//	TLunaEngine::TWCHAR tmp[64] = { L"0" };
+	//	fread(tmp, sizeof(TLunaEngine::TWCHAR), 64, fp);
+	//	fclose(fp);
+
+	//	consoleWnd->GetConsoleOutput()->addText(/*TLunaEngine::WString(strA.ToWString().getPointer())*/tmp);
+	//}
+
+	/*TLunaEngine::UTF8FileReader::OpenTxtFile("test2.txt", &fp);
+
+	TLunaEngine::TWCHAR tmp[64] = { L"0" };
+	TLunaEngine::TS32 sTmp[5] = { 0 };
+	TLunaEngine::UTF8FileReader::ReadLineWString(tmp, fp, 0, 0, 64, 0);
+	TLunaEngine::UTF8FileReader::ReadLineInteger(sTmp, fp, 5, L' ');
+	consoleWnd->GetConsoleOutput()->addText(tmp);
+
+	TLunaEngine::UTF8FileReader::CloseTxtFile(fp);*/
+
+	/*TLunaEngine::UTF8FileReader::OpenTxtFile("test2.txt", &fp);
+
+	TLunaEngine::TWCHAR tmp[64] = { L"0" };
+	TLunaEngine::TBOOL re = TLunaEngine::TFALSE;
+	TLunaEngine::UTF8FileReader::ReadLineWString(tmp, fp, L"你好你是谁是啊", &re, 64, 0);
+	consoleWnd->GetConsoleOutput()->addText(tmp);
+
+	TLunaEngine::UTF8FileReader::CloseTxtFile(fp);*/
+
+	/*TLunaEngine::UTF8FileWriter::OpenTxtFile("test3.txt", &fp);
+
+	TLunaEngine::UTF8FileWriter::WriteLineWString(tmp, fp, (TLunaEngine::TU32)wcslen(tmp));
+	TLunaEngine::TS32 sTmp[5] = { 8,0,9,10,11 };
+	TLunaEngine::UTF8FileWriter::WriteLineInteger(sTmp, fp, 5, L';');
+
+	TLunaEngine::UTF8FileWriter::CloseTxtFile(fp);*/
+
+	TLunaEngine::String strLogConfig = "../../../demores/config\\logconfig.txt";
+	TLunaEngine::String strLogDir = "../../../demores/log\\";
+	if (!TLunaEngine::Log::InitLogSystem(strLogConfig.GetString(), strLogDir.GetString()))
+		return 0;
+
+	TLunaEngine::Log::WriteLine(TLunaEngine::Log::LOG_LEVEL_ERROR, TLunaEngine::TTRUE, L"你好你是谁是啊");
 
 	TestLoop();
+
+	TLunaEngine::Log::DestroyLogSystem();
 
 	ConsoleWindow::getSingletonPtr()->DestroyWindow();
 	ConsoleWindow::delSingletonPtr();

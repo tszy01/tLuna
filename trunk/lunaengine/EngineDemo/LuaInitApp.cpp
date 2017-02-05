@@ -13,6 +13,7 @@ m_bOpenConsole(false)
 {
 	m_szWindowText[0] = '\0';
 	m_szResDir[0] = '\0';
+	m_szSysLangDict[0] = '\0';
 }
 
 LuaInit::~LuaInit(void)
@@ -40,24 +41,27 @@ void LuaInit::LoadParameters()
 	GetVariable("bufferHeight");
 	GetVariable("mainWindowText");
 	GetVariable("resDir");
+	GetVariable("sysLangDict");
 
-	const char* szResDir = Lua_tostring(-1);
+	const char* szSysLangDict = Lua_tostring(-1);
+	memcpy_s(m_szSysLangDict, sizeof(char) * 256, szSysLangDict, sizeof(char) * 256);
+	const char* szResDir = Lua_tostring(-2);
 	memcpy_s(m_szResDir,sizeof(char)*256,szResDir,sizeof(char)*256);
-	const char* szTmp=Lua_tostring(-2);
+	const char* szTmp=Lua_tostring(-3);
 	memcpy_s(m_szWindowText,sizeof(char)*256,szTmp,sizeof(char)*256);
-	m_bufferHeight = (unsigned int)Lua_tonumber(-3);
-	m_bufferWidth = (unsigned int)Lua_tonumber(-4);
-	int b=Lua_toboolean(-5);
+	m_bufferHeight = (unsigned int)Lua_tonumber(-4);
+	m_bufferWidth = (unsigned int)Lua_tonumber(-5);
+	int b=Lua_toboolean(-6);
 	if(b!=0) m_bWnd=true;
-	b=Lua_toboolean(-6);
+	b=Lua_toboolean(-7);
 	if(b!=0) m_bShowDebugInfo=true;
-	m_controlFps=(float)Lua_tonumber(-7);
-	b=Lua_toboolean(-8);
+	m_controlFps=(float)Lua_tonumber(-8);
+	b=Lua_toboolean(-9);
 	if(b!=0) m_bUseJoystick=true;
-	b = Lua_toboolean(-9);
+	b = Lua_toboolean(-10);
 	if (b != 0) m_bOpenConsole = true;
-	m_consoleHeight = (unsigned int)Lua_tonumber(-10);
-	m_consoleWidth = (unsigned int)Lua_tonumber(-11);
+	m_consoleHeight = (unsigned int)Lua_tonumber(-11);
+	m_consoleWidth = (unsigned int)Lua_tonumber(-12);
 
-	Pop(11);
+	Pop(12);
 }

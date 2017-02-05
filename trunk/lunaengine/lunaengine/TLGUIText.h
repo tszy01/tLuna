@@ -19,7 +19,8 @@ namespace TLunaEngine{
 	protected:
 		TS32 m_iFontID;	// 使用的字体的ID
 		Vector4<TF32> m_color;	// 文字渲染的颜色
-		String m_strText;		// 文字内容
+		WString m_strText;		// 文字内容
+		TU64 m_textID;	// text id in system language dictionary
 	public:
 		// ------- 以下是重写父类方法 ------------
 		// 销毁
@@ -31,11 +32,11 @@ namespace TLunaEngine{
 	public:
 		// ------ 以下是本类方法 ----------------
 		// 初始化
-		TBOOL InitGUIText(TS32 iIndex,GUIContainer* pContainer,TS32 x,TS32 y,TS32 width,TS32 height,TS32 iFontID,Vector4<TF32>& color);
+		TBOOL InitGUIText(TS32 iIndex,GUIContainer* pContainer,TS32 x,TS32 y,TS32 width,TS32 height,TS32 iFontID,Vector4<TF32>& color,TU64 textID);
 		// 设置文字内容
-		inline TVOID SetText(const TCHAR* pText)
+		inline TVOID SetText(const TWCHAR* pText)
 		{
-			m_strText = String(pText);
+			m_strText = WString(pText);
 		}
 		// 设置文字颜色
 		inline TVOID SetColor(Vector4<TF32>& color)

@@ -33,6 +33,8 @@ namespace TLunaEngine{
 		static TBOOL writeDouble(const TF64* adWrite,FILE* pStream, TU32 nCount);
 		// write string
 		static TBOOL writeString(const TCHAR* strWrite,FILE* pStream, TU32 nCount);
+		// write wstring
+		static TBOOL writeWString(const TWCHAR* strWrite, FILE* pStream, TU32 nCount);
 		// read byte
 		static TBOOL readBytes(TVOID* buffer,FILE* pStream, TU64 nCount);
 		// read boolean
@@ -55,6 +57,8 @@ namespace TLunaEngine{
 		static TBOOL readDouble(TF64* adResult,FILE* pStream, TU32 nCount);
 		// read string
 		static TBOOL readString(TCHAR* strResult,FILE* pStream,const TCHAR* strCmp,TBOOL* bEqual, TU32 nCount, TU32* pReadCount);
+		// read wstring
+		static TBOOL readWString(TWCHAR* strResult, FILE* pStream, const TWCHAR* strCmp, TBOOL* bEqual, TU32 nCount, TU32* pReadCount);
 	};
 }
 

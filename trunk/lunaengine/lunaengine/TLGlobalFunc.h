@@ -20,7 +20,8 @@ namespace TLunaEngine{
 	// szResDir:资源根目录
 	// bShowDebugInfo:是否显示Debug信息
 	TBOOL Init(HWND hWnd,HINSTANCE hInst,TBOOL bWnd,TS32 lWidth,TS32 lHeight,
-							 TF32 fSecsPerFrame,const TCHAR* szResDir,TBOOL bShowDebugInfo);
+		TF32 fSecsPerFrame,const TCHAR* szResDir,const TCHAR* szSysLangDictFile,
+		TBOOL bShowDebugInfo);
 
 	// 引擎循环
 	TBOOL OnLoopCtrlUpdate(TF32* pTimeElapsed);

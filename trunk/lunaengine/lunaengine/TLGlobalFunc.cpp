@@ -14,10 +14,12 @@ namespace TLunaEngine{
 
 	// Initialize Engine
 	TBOOL Init(HWND hWnd,HINSTANCE hInst,TBOOL bWnd,TS32 lWidth,TS32 lHeight,
-							 TF32 fSecsPerFrame,const TCHAR* szResDir,TBOOL bShowDebugInfo)
+		TF32 fSecsPerFrame,const TCHAR* szResDir, const TCHAR* szSysLangDictFile, 
+		TBOOL bShowDebugInfo)
 	{
 		// 记录资源根目录
 		GlobleClass::getSingletonPtr()->m_strResDir = TLunaEngine::String(szResDir);
+		GlobleClass::getSingletonPtr()->mLangDictFile = TLunaEngine::String(szSysLangDictFile);
 		// 初始化日志
 		TLunaEngine::String strLogConfig = GlobleClass::getSingletonPtr()->m_strResDir + "config\\logconfig.txt";
 		TLunaEngine::String strLogDir = GlobleClass::getSingletonPtr()->m_strResDir + "log\\";

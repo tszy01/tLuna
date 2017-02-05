@@ -196,7 +196,7 @@ namespace TLunaEngine{
 		return TTRUE;
 	}
 
-	TBOOL GUIFontManager::Render(const TCHAR* text,TU32 len, TS32 x, TS32 y, Vector4<TF32>& color)
+	TBOOL GUIFontManager::Render(const TWCHAR* text,TU32 len, TS32 x, TS32 y, Vector4<TF32>& color)
 	{
 		if(m_pUseFont==TNULL)
 			return TFALSE;
@@ -230,80 +230,103 @@ namespace TLunaEngine{
 			m_pRenderText = new TWCHAR[len];
 			m_nRenderTextLen = len;
 		}
-		::MultiByteToWideChar(CP_ACP,MB_PRECOMPOSED,text,(TS32)len,m_pRenderText,(TS32)m_nRenderTextLen);
+		//::MultiByteToWideChar(CP_ACP,MB_PRECOMPOSED,text,(TS32)len,m_pRenderText,(TS32)m_nRenderTextLen);
+		memcpy(m_pRenderText, text, len * sizeof(TWCHAR));
 		TWCHAR *wKeep = m_pRenderText;
 		TS32 X = x;
 		TS32 Y = y;
 		TF32 xPlus = 0;
+		TF32 yPlus = 0;
 		TU32 n;
 		TU32 nowPageIndex=0;
 
 		while(*wKeep)
 		{
-			TBOOL catched = TFALSE;
-			n = m_pUseFont->GetGlyphByChar(*wKeep,catched);
-			if ( n > 0){
-				TS32 imgw=0;
-				TS32 imgh=0;
-				TS32 texw=0;
-				TS32 texh=0;
-				TS32 offx=0;
-				TS32 offy=0;
-				TF32 texStartU=0;
-				TF32 texEndU=0;
-				TF32 texStartV=0;
-				TF32 texEndV=0;
-				TU32 pageIndex;
-				m_pUseFont->PreDraw(n,&imgw,&imgh,&texw,&texh,&offx,&offy,&texStartU,&texEndU,&texStartV,&texEndV,&pageIndex);
-
-				TF32 xFinal = -1.0f + ((TF32)(x+offx))/m_bufferWidth * 2.0f + xPlus;
-				TF32 yFinal = (-1.0f + ((TF32)(y+offy))/m_bufferHeight * 2.0f) * -1.0f;
-				TF32 xLen = ((TF32)(imgw-1))/m_bufferWidth * 2.0f;
-				TF32 yLen = ((TF32)(imgh-1))/m_bufferHeight * 2.0f;
-
-				// vbSet
-				GUI_VERTEX_DEF* pVertex;
-				TLRenderDeviceMappedSubresource mappedRes;
-				if(pDevice->mapResource(mVBSet,0,RENDER_DEVICE_MAP_READ_WRITE,&mappedRes))
-				{
-					pVertex = (GUI_VERTEX_DEF*)mappedRes.pData;
-					pVertex[0].Pos = TLunaEngine::Vector3<TF32>(xFinal,yFinal,0);
-					pVertex[0].Tex = TLunaEngine::Vector2<TF32>(texStartU,texStartV);
-					pVertex[0].Color = color;
-					pVertex[1].Pos = TLunaEngine::Vector3<TF32>(xFinal+xLen,yFinal-yLen,0);
-					pVertex[1].Tex = TLunaEngine::Vector2<TF32>(texEndU,texEndV);
-					pVertex[1].Color = color;
-					pVertex[2].Pos = TLunaEngine::Vector3<TF32>(xFinal,yFinal-yLen,0);
-					pVertex[2].Tex = TLunaEngine::Vector2<TF32>(texStartU,texEndV);
-					pVertex[2].Color = color;
-					pVertex[3].Pos = TLunaEngine::Vector3<TF32>(xFinal,yFinal,0);
-					pVertex[3].Tex = TLunaEngine::Vector2<TF32>(texStartU,texStartV);
-					pVertex[3].Color = color;
-					pVertex[4].Pos = TLunaEngine::Vector3<TF32>(xFinal+xLen,yFinal,0);
-					pVertex[4].Tex = TLunaEngine::Vector2<TF32>(texEndU,texStartV);
-					pVertex[4].Color = color;
-					pVertex[5].Pos = TLunaEngine::Vector3<TF32>(xFinal+xLen,yFinal-yLen,0);
-					pVertex[5].Tex = TLunaEngine::Vector2<TF32>(texEndU,texEndV);
-					pVertex[5].Color = color;
-					pDevice->unmapResource(mVBSet,0);
-					pDevice->copyResource(mVB,mVBSet);
-				}
-				// render
-				if(catched || nowPageIndex!=pageIndex)
-				{
-					pSRV = m_pUseFont->getSRV(pageIndex);
-					pDevice->setShaderResourceView(RENDER_DEVICE_SHADER_USE_PS,0,pSRV);
-					nowPageIndex = pageIndex;
-				}
-				pDevice->draw(6,0);
-
-				X += m_pUseFont->GetWidthFromCharacter(*wKeep);
-				xPlus += ((TF32)(texw+offx))/m_bufferWidth * 2.0f;
-			} else {
-				X += m_pUseFont->GetWidthFromCharacter(*wKeep);
-				TLunaEngine::Log::WriteLine(TLunaEngine::Log::LOG_LEVEL_ERROR,TTRUE,"Can not find character in font tex!",__FILE__,__LINE__);
+			if ((*wKeep) == L' ')
+			{
+				TU32 left=0, top=0, right=0, bottom=0;
+				TWCHAR c[2] = { (*wKeep),0 };
+				m_pUseFont->GetDimension(c, left, right, top, bottom);
+				xPlus += ((TF32)(right - left)) / m_bufferWidth * 2.0f;
+				X += right - left;
 			}
+			else if ((*wKeep) == L'\n')
+			{
+				TU32 left = 0, top = 0, right = 0, bottom = 0;
+				TWCHAR c[2] = { (*wKeep),0 };
+				m_pUseFont->GetDimension(c, left, right, top, bottom);
+				yPlus += ((TF32)(bottom - top)) / m_bufferHeight * 2.0f;
+				Y += bottom - top;
+				xPlus = 0;
+				X = 0;
+			}
+			else
+			{
+				TBOOL catched = TFALSE;
+				n = m_pUseFont->GetGlyphByChar(*wKeep, catched);
+				if (n > 0) {
+					TS32 imgw = 0;
+					TS32 imgh = 0;
+					TS32 texw = 0;
+					TS32 texh = 0;
+					TS32 offx = 0;
+					TS32 offy = 0;
+					TF32 texStartU = 0;
+					TF32 texEndU = 0;
+					TF32 texStartV = 0;
+					TF32 texEndV = 0;
+					TU32 pageIndex;
+					m_pUseFont->PreDraw(n, &imgw, &imgh, &texw, &texh, &offx, &offy, &texStartU, &texEndU, &texStartV, &texEndV, &pageIndex);
 
+					TF32 xFinal = -1.0f + ((TF32)(x + offx)) / m_bufferWidth * 2.0f + xPlus;
+					TF32 yFinal = (-1.0f + ((TF32)(y + offy)) / m_bufferHeight * 2.0f) * -1.0f - yPlus;
+					TF32 xLen = ((TF32)(imgw - 1)) / m_bufferWidth * 2.0f;
+					TF32 yLen = ((TF32)(imgh - 1)) / m_bufferHeight * 2.0f;
+
+					// vbSet
+					GUI_VERTEX_DEF* pVertex;
+					TLRenderDeviceMappedSubresource mappedRes;
+					if (pDevice->mapResource(mVBSet, 0, RENDER_DEVICE_MAP_READ_WRITE, &mappedRes))
+					{
+						pVertex = (GUI_VERTEX_DEF*)mappedRes.pData;
+						pVertex[0].Pos = TLunaEngine::Vector3<TF32>(xFinal, yFinal, 0);
+						pVertex[0].Tex = TLunaEngine::Vector2<TF32>(texStartU, texStartV);
+						pVertex[0].Color = color;
+						pVertex[1].Pos = TLunaEngine::Vector3<TF32>(xFinal + xLen, yFinal - yLen, 0);
+						pVertex[1].Tex = TLunaEngine::Vector2<TF32>(texEndU, texEndV);
+						pVertex[1].Color = color;
+						pVertex[2].Pos = TLunaEngine::Vector3<TF32>(xFinal, yFinal - yLen, 0);
+						pVertex[2].Tex = TLunaEngine::Vector2<TF32>(texStartU, texEndV);
+						pVertex[2].Color = color;
+						pVertex[3].Pos = TLunaEngine::Vector3<TF32>(xFinal, yFinal, 0);
+						pVertex[3].Tex = TLunaEngine::Vector2<TF32>(texStartU, texStartV);
+						pVertex[3].Color = color;
+						pVertex[4].Pos = TLunaEngine::Vector3<TF32>(xFinal + xLen, yFinal, 0);
+						pVertex[4].Tex = TLunaEngine::Vector2<TF32>(texEndU, texStartV);
+						pVertex[4].Color = color;
+						pVertex[5].Pos = TLunaEngine::Vector3<TF32>(xFinal + xLen, yFinal - yLen, 0);
+						pVertex[5].Tex = TLunaEngine::Vector2<TF32>(texEndU, texEndV);
+						pVertex[5].Color = color;
+						pDevice->unmapResource(mVBSet, 0);
+						pDevice->copyResource(mVB, mVBSet);
+					}
+					// render
+					if (catched || nowPageIndex != pageIndex)
+					{
+						pSRV = m_pUseFont->getSRV(pageIndex);
+						pDevice->setShaderResourceView(RENDER_DEVICE_SHADER_USE_PS, 0, pSRV);
+						nowPageIndex = pageIndex;
+					}
+					pDevice->draw(6, 0);
+
+					X += m_pUseFont->GetWidthFromCharacter(*wKeep);
+					xPlus += ((TF32)(texw + offx)) / m_bufferWidth * 2.0f;
+				}
+				else {
+					X += m_pUseFont->GetWidthFromCharacter(*wKeep);
+					TLunaEngine::Log::WriteLine(TLunaEngine::Log::LOG_LEVEL_ERROR, TTRUE, L"Can not find character in font tex!", __FILE__, __LINE__);
+				}
+			}
 			++wKeep;
 		}
 		wKeep = TNULL;
@@ -460,7 +483,7 @@ namespace TLunaEngine{
 		}
 	}
 
-	TBOOL GUIFontManager::RenderDebugFont(const TCHAR* text, TU32 len, TS32 x, TS32 y, Vector4<TF32>& color)
+	TBOOL GUIFontManager::RenderDebugFont(const TWCHAR* text, TU32 len, TS32 x, TS32 y, Vector4<TF32>& color)
 	{
 		if(!m_pDebugFont)
 		{

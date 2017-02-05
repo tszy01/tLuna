@@ -1911,7 +1911,7 @@ namespace TLunaEngine {
 			String strFile(file);
 			ID3D11Texture2D* d3dTex = TNULL;
 			ID3D11ShaderResourceView* d3dSRV = TNULL;
-			HRESULT hr = CreateDDSTextureFromFile( m_pd3dDevice, strFile.GetWString().get(), (ID3D11Resource**)&d3dTex, &d3dSRV );
+			HRESULT hr = CreateDDSTextureFromFile( m_pd3dDevice, strFile.ToWString().get(), (ID3D11Resource**)&d3dTex, &d3dSRV );
 			if( FAILED( hr ) )
 				return TFALSE;
 			if(ppTex2D)

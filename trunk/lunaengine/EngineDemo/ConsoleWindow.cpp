@@ -38,13 +38,19 @@ LRESULT FAR PASCAL WindowProc2(HWND hWnd, UINT message,WPARAM wParam, LPARAM lPa
 				// TODO: Add any drawing code that uses hdc here...
 				SetTextColor(ps.hdc, RGB(10, 0, 255));
 
+				HFONT hfont = CreateFont(0, 0, 0, 0, FW_NORMAL, 0, 0, 0, GB2312_CHARSET, 0, 0, 0, 0, L"Arial");
+				HFONT old_hfont = (HFONT)SelectObject(hdc, hfont);
+
 				// draw output text
 				ps.rcPaint.top = 0;
-				TLunaEngine::String strOutput = consoleOutput->getDisplayStr();
+				TLunaEngine::WString strOutput = consoleOutput->getDisplayStr();
 				if (strOutput.GetLength() > 0)
 				{
-					DrawTextA(ps.hdc, strOutput.GetString(), -1, &(ps.rcPaint), DT_LEFT);
+					DrawTextW(ps.hdc, strOutput.GetWString(), -1, &(ps.rcPaint), DT_LEFT);
 				}
+
+				SelectObject(hdc, old_hfont);
+				DeleteObject(hfont);
 
 				// draw input text
 				LONG inputStartPosY = ConsoleWindow::getSingletonPtr()->GetClientHeight() - 16 - 4;
@@ -304,10 +310,10 @@ TLunaEngine::TVOID ConsoleWindow::beginMeasureTextSize()
 	m_memDc = ::CreateCompatibleDC(m_hdc);
 }
 
-TLunaEngine::TVOID ConsoleWindow::measureTextSize(const TLunaEngine::String& text, TLunaEngine::TU32& width, TLunaEngine::TU32& height)
+TLunaEngine::TVOID ConsoleWindow::measureTextSize(const TLunaEngine::WString& text, TLunaEngine::TU32& width, TLunaEngine::TU32& height)
 {
 	SIZE strSize;
-	::GetTextExtentPointA(m_memDc, text.GetString(), text.GetLength(), &strSize);
+	::GetTextExtentPointW(m_memDc, text.GetWString(), text.GetLength(), &strSize);
 	width = (TLunaEngine::TU32)strSize.cx;
 	height = (TLunaEngine::TU32)strSize.cy;
 }

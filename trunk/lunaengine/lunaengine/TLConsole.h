@@ -29,7 +29,7 @@ namespace TLunaEngine
 		// set input and output ref
 		TVOID setInputAndOutput(ConsoleInput* input, ConsoleOutput* output);
 		// output to console
-		TVOID outputToConsole(const String& text);
+		TVOID outputToConsole(const WString& text);
 	};
 }
 

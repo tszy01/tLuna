@@ -40,7 +40,7 @@ namespace TLunaEngine{
 				{
 					if(!pObj->InitResObject())
 					{
-						TLunaEngine::Log::WriteLine(TLunaEngine::Log::LOG_LEVEL_ERROR,TTRUE,"InitResObject Error!",__FILE__,__LINE__);
+						TLunaEngine::Log::WriteLine(TLunaEngine::Log::LOG_LEVEL_ERROR,TTRUE,L"InitResObject Error!",__FILE__,__LINE__);
 						_ASSERT(0);
 					}
 				}

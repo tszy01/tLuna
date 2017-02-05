@@ -9,3 +9,4 @@ consoleWidth=800
 consoleHeight=600
 mainWindowText="LUNA Demo"
 resDir="../../../demores/"
+sysLangDict="sys_en.txt"

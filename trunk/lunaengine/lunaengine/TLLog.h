@@ -45,18 +45,18 @@ namespace TLunaEngine{
 		// 销毁日志系统
 		static TVOID DestroyLogSystem();
 		// 写成文件，日志文件名格式:YY_MM_DD.log，文本文件
-		static TVOID WriteFile(LOG_LEVEL level,TBOOL bTrue, const TCHAR* content, const TCHAR* codeName = TNULL,TS32 codeLine = 0);
+		static TVOID WriteFile(LOG_LEVEL level,TBOOL bTrue, const TWCHAR* content, const TCHAR* codeName = TNULL,TS32 codeLine = 0);
 		// Output to system console
-		static TVOID WriteSysConsole(LOG_LEVEL level,TBOOL bTrue, const TCHAR* content);
+		static TVOID WriteSysConsole(LOG_LEVEL level,TBOOL bTrue, const TWCHAR* content);
 		// Output to Engine console
-		static TVOID WriteEngineConsole(LOG_LEVEL level, TBOOL bTrue, const TCHAR* content);
+		static TVOID WriteEngineConsole(LOG_LEVEL level, TBOOL bTrue, const TWCHAR* content);
 		// 写日志
 		// level:本日志的等级
 		// bTrue:一个表达式，为真时写入
 		// codeName:一般传__FILE__，文件名
 		// condLine:一般传__LINE__，所在行数
 		// content:日志内容，日志结尾自动加\n形成一行
-		static TVOID WriteLine(LOG_LEVEL level, TBOOL bTrue, const TCHAR* content, const TCHAR* codeName = TNULL, TS32 codeLine = 0);
+		static TVOID WriteLine(LOG_LEVEL level, TBOOL bTrue, const TWCHAR* content, const TCHAR* codeName = TNULL, TS32 codeLine = 0);
 	};
 
 }

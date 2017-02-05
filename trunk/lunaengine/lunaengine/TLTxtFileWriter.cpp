@@ -14,7 +14,7 @@ namespace TLunaEngine{
 	{
 	}
 
-	TBOOL TxtFileWriter::OpenTxtFile(const TCHAR* filename, FILE **ppStream)
+	TBOOL TxtFileWriter::OpenTxtFile(const TCHAR* filename, FILE **ppStream, TBOOL append)
 	{
 		if(!filename || !ppStream)
 		{
@@ -22,7 +22,8 @@ namespace TLunaEngine{
 			return TFALSE;
 		}
 		// 打开文件
-		TS32 re = fopen_s(ppStream,filename,"wt");
+		const TCHAR* mode = append ? "at" : "wt";
+		TS32 re = fopen_s(ppStream,filename,mode);
 		if(*ppStream==0 || re!=0)
 		{
 			assert(TFALSE);
@@ -44,6 +45,17 @@ namespace TLunaEngine{
 			return TFALSE;
 		const TCHAR* szTmp = "\n";
 		fwrite(szTmp,sizeof(TCHAR),1,pStream);
+		return TTRUE;
+	}
+
+	TBOOL TxtFileWriter::WriteLineWString(const TWCHAR* strWrite, FILE* pStream, TU32 count)
+	{
+		if (!strWrite || !pStream)
+			return TFALSE;
+		if ((TU32)fwrite(strWrite, sizeof(TWCHAR), count, pStream) < count)
+			return TFALSE;
+		const TWCHAR* szTmp = L"\n";
+		fwrite(szTmp, sizeof(TWCHAR), 1, pStream);
 		return TTRUE;
 	}
 
