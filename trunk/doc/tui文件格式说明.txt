@@ -25,9 +25,10 @@ if(Type==1){
 TexId
 TexRect	// 在纹理上的坐标
 }
-else{
+elseif(Type==2){
 FontId
 FontColor // 文本内容先默认是一行
+TextId // 对应字典里的一个ID
 }
 Ctrl_End
 

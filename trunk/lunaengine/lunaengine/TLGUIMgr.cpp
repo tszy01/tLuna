@@ -94,15 +94,16 @@ namespace TLunaEngine{
 		// 生成Container
 		GUIContainer* pNewContainer = new GUIContainer();
 		(*ppContainer) = pNewContainer;
+		if (!pNewContainer->InitContainer(containerID,pParentContainer,(TS32)rc[0],(TS32)rc[1],(TS32)rc[2],(TS32)rc[3],(TUByte)iAnimeType,this))
+		{
+			delete pNewContainer;
+			return TFALSE;
+		}
 		// 生成一个加一个
 		// 如果失败，统一销毁，防止内存泄漏
 		if (pParentContainer)
 		{
 			pParentContainer->AddContainer(pNewContainer);
-		}
-		if (!pNewContainer->InitContainer(containerID,pParentContainer,(TS32)rc[0],(TS32)rc[1],(TS32)rc[2],(TS32)rc[3],(TUByte)iAnimeType,this))
-		{
-			return TFALSE;
 		}
 		// SubCtrl
 		TxtFileReader::ReadLineInteger(&ctrlNum,stream,1,' ');
@@ -223,7 +224,6 @@ namespace TLunaEngine{
 		{
 			GUICtrl* pNewCtrl = new GUIPicture();
 			(*ppCtrl) = pNewCtrl;
-			pParentContainer->AddCtrl(pNewCtrl);
 			TS32 texID = -1;
 			TF32 texRC[4] = {0};
 			// 注意这里没有判断TEXID的合法性
@@ -233,25 +233,30 @@ namespace TLunaEngine{
 			if (!pPicture->InitGUIPicture(index,pParentContainer,(TS32)rc[0],
 				(TS32)rc[1],(TS32)rc[2],(TS32)rc[3],texID,texRC[0],texRC[1],texRC[2],texRC[3]))
 			{
+				delete pNewCtrl;
 				return TFALSE;
 			}
+			pParentContainer->AddCtrl(pNewCtrl);
 		}
 		else if(type == GUI_CTRL_TEXT)
 		{
 			GUICtrl* pNewCtrl = new GUIText();
 			(*ppCtrl) = pNewCtrl;
-			pParentContainer->AddCtrl(pNewCtrl);
 			TS32 fontID = -1;
 			TF32 fontColor[4] = {0};
+			TU64 textID = 0;
 			// 注意这里没有判断fontID的合法性
 			TxtFileReader::ReadLineInteger(&fontID,stream,1,' ');
 			TxtFileReader::ReadLineFloat(fontColor,stream,4,',');
+			TxtFileReader::ReadLineULongLong(&textID, stream, 1, ' ');
 			GUIText* pText = (GUIText*)pNewCtrl;
 			if (!pText->InitGUIText(index,pParentContainer,(TS32)rc[0],(TS32)rc[1],(TS32)rc[2],
-				(TS32)rc[3],fontID,TLunaEngine::Vector4<TF32>(fontColor[0],fontColor[1],fontColor[2],fontColor[3])))
+				(TS32)rc[3],fontID,TLunaEngine::Vector4<TF32>(fontColor[0],fontColor[1],fontColor[2],fontColor[3]), textID))
 			{
+				delete pNewCtrl;
 				return TFALSE;
 			}
+			pParentContainer->AddCtrl(pNewCtrl);
 		}
 		else
 		{
