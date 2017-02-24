@@ -1,4 +1,4 @@
-TLuna项目：
+﻿TLuna项目：
 Version 0.6.0
 
 ====================== Release Note =================================================
@@ -116,14 +116,15 @@ Version 0.6.0
 
 // -------------------------------------------- 开发环境 ---------------------------------------------------
 
-开发IDE: Microsoft Visual Studio 2012
-开发操作系统: Microsoft Windows 8
+开发IDE: Microsoft Visual Studio 2015
+开发操作系统: Microsoft Windows 10
 
 依赖外部库：
+tSun -- Tangsoft Sun Foundation Class Library
 FreeImage -- 图片资源库 3.15.1
 FreeType -- 文字渲染库 2.1.9
 lua -- lua script
-xerces -- xml library
+tinyxml -- xml library
 zlib -- zlib library
 3DMax 2013 SDK -- 3DMAX开发包
 LibDDSTextureLoader -- DX示例的代码，读取DDS
@@ -137,85 +138,6 @@ compileFx项目：
 HLSL代码编译工具
 
 LunaEngine项目：
-数学部分
-TLFPU.h:全局处理函数
-TLMathUtils.h:全局函数
-Vector4<T>:4d向量
-Vector3<T>:3d向量
-Vector2<T>:2d向量
-Matrix3x3<T>:3X3矩阵
-Matrix4x4<T>:4X4矩阵
-Ray<T>:射线类
-Radian<T>:弧度
-Degree<T>:角度
-Line<T>:线段类
-Triangle<T>:三角形
-Plane<T>:平面
-PlaneBoundedVolume<T>:平面围成的体积
-Polygon<T>:多边形
-AABBbox<T>:AABB包围盒
-Sphere<T>:包围球
-Quaternion<T>:四元数类
-DualQuaternion<T>:双四元数
-RotationalSpline<T>:旋转样条曲线
-SimpleSpline<T>:样条曲线
-ConvexBody<T>:凸面体
-注:
-1、所有TMath涉及到的坐标系,均以左手坐标系为准(X向右,Y向上,Z向里)
-2、所有向量为横向量,3D向量点W=1,射线W=0
-4、角度均以逆时针为正,默认范围0-360度,沿坐标轴正方向为0度
-5、所有对外接口的角度必须使用角度,在内部转成弧度
-6、没有向量*矩阵的直接重载,需要调用转换函数才能转换向量
-7、矩阵对向量的转换在TMatrix4x4<T>中
-8、其它图元的转换均放在自己的类里实现
-
-内存部分
-Map<T>:一个<Key,Value>对的链表
-List<T>:一个双向链表
-注意:今后在设计到以上内存数据结构的时候,尽量使用这些结构,或者STL的结构,不要自己再另外做处理了
-
-其它基本处理
-ConfigFile:简单的值对文件操作类
-MemFile:内存文件映射
-Log:日志系统
-TxtFileReader:用于读取TXT文本文件的数据
-TxtFileWritter:用于写入TXT文本文件的数据
-DateTime:日期时间操作
-AutoPtr<T>:智能指针
-String:字符串类
-Singleton<T>:单例模式,需要子类继承使用
-TLCommonTypeDef.h -- 定义一些基本
-TLConfigDef.h -- 全局配置定义
-TLCommonFunc.h -- 全局函数
-SharePtr<T>：引用计数智能指针
-Mutex：互斥信号
-Lock：互斥锁
-BinaryFileProcessor -- 二进制文件读写处理
-Console -- 控制台系统
-ConsoleInput -- 处理控制台输入
-ConsoleOutput -- 处理控制台输出
-
-关于压缩
-Dependence:zlib,1.2.3
-Dependence:tbase
-TZip:压缩和解压缩相关操作
-TZip压缩后文件格式:
-OrigSize<int> 压缩之前的文件总大小,用于制造缓冲区
--->FileNum<int> 文件总数
-{
--->NameSize<int> 文件名长度
--->Name<char[]> 文件名(不包括原始路径)
--->ContentSize<int> 内容大小(字节)
--->Content<byte[]> 文件内容
-}
-注:-->表示是压缩之后的数据,<>表示空间大小
-
-lua脚本部分
-Dependence:lua,5.1
-LuaBase:Lua脚本解析基础类
-
-XML部分
-请直接使用tinyxml处理xml文档
 
 引擎逻辑部分
 TLGlobleFunc.h -- 提供全局对外接口
@@ -234,7 +156,6 @@ GUIPicture -- 图片类控件
 GUIText -- 文字类控件
 GlobleClass -- 存储全局变量和方法
 GUIListener -- 消息传递接口，只提供函数定义
-Timer -- 时间计算
 Image -- 处理纹理类
 
 渲染部分
@@ -255,6 +176,7 @@ LuaInitApp -- 初始化脚本接口
 MainWindow -- 主窗口
 GUISceneMgr -- GUI场景管理
 InputMsgMgr -- 统一处理输入消息
+ConsoleWindow -- 控制台窗体
 
 ====================== 目录说明 =====================================================
 文件索引：
@@ -273,11 +195,14 @@ shader：HLSL EFFECT文件
 texture：纹理文件
 model：模型文件
 map：地图文件
+log：日志文件
+lang_dict：字典文件
 
 ====================== 运行示例程序 =================================================
 EngineDemo运行参数
 -editor执行编辑器
 -initfile [filename]指定初始化脚本文件，默认为运行目录中的initApp.lua
+-test 执行测试分支
 
 ====================== 测试数据 =====================================================
 pentium D 2.0GHz  7300GT  最高尽200fps		潘

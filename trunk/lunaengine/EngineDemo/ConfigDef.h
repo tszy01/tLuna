@@ -2,7 +2,7 @@
 #define _CONFIGDEF_H_
 
 // build editor contents
-#define BUILD_EDITOR
+//#define BUILD_EDITOR
 
 // build test code
 #define BUILD_TEST
