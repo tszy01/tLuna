@@ -14,36 +14,36 @@ namespace TLunaEngine
 		virtual ~RenderDevice_D3D11();
 	public:
 		// 初始化设备
-		virtual TBOOL InitDevice(HWND hWnd,TBOOL bWnd,TS32 width,TS32 height);
+		virtual TSun::TBOOL InitDevice(HWND hWnd,TSun::TBOOL bWnd,TSun::TS32 width,TSun::TS32 height);
 		// 销毁设备
-		virtual TVOID DestroyDevice();
+		virtual TSun::TVOID DestroyDevice();
 		// 开始渲染
-		virtual TBOOL BeginRender();
+		virtual TSun::TBOOL BeginRender();
 		// 结束渲染
-		virtual TVOID EndRender();
+		virtual TSun::TVOID EndRender();
 		// 使用默认的渲染目标
-		virtual TVOID UseDefaultRenderTarget();
+		virtual TSun::TVOID UseDefaultRenderTarget();
 		// 使用默认视口
-		virtual TVOID UseDefaultViewPort();
+		virtual TSun::TVOID UseDefaultViewPort();
 		// 得到后缓冲高度
-		virtual TU32 GetBufferHeight();
+		virtual TSun::TU32 GetBufferHeight();
 		// 得到后缓冲宽度
-		virtual TU32 GetBufferWidth();
+		virtual TSun::TU32 GetBufferWidth();
 		// resize buffer
 		// note: resize buffer will change to default rt and vp
-		virtual TBOOL resizeBuffer(TU32 width,TU32 height);
+		virtual TSun::TBOOL resizeBuffer(TSun::TU32 width,TSun::TU32 height);
 		// draw
-		virtual TVOID draw(TU32 vertexCount,TU32 startVertexLocation);
+		virtual TSun::TVOID draw(TSun::TU32 vertexCount,TSun::TU32 startVertexLocation);
 		// draw indexed
-		virtual TVOID drawIndexed(TU32 indexCount,TU32 startIndexLocation,TU32 baseVertexLocation);
+		virtual TSun::TVOID drawIndexed(TSun::TU32 indexCount,TSun::TU32 startIndexLocation,TSun::TU32 baseVertexLocation);
 		// get d3d driver type
 		// this is for d3d
-		virtual TVOID getD3DDriverType(RENDER_DEVICE_D3D_DRIVER_TYPE* pDriverType);
+		virtual TSun::TVOID getD3DDriverType(RENDER_DEVICE_D3D_DRIVER_TYPE* pDriverType);
 		// get d3d feature level
 		// this is for d3d
-		virtual TVOID getD3DFeatureLevel(RENDER_DEVICE_D3D_FEATURE_LEVEL* pFeatureLevel);
+		virtual TSun::TVOID getD3DFeatureLevel(RENDER_DEVICE_D3D_FEATURE_LEVEL* pFeatureLevel);
 		// get shader profile
-		virtual const TCHAR* getShaderProfileVersion();
+		virtual const TSun::TCHAR* getShaderProfileVersion();
 	public:
 		//---------------------- 构造硬件资源 -------------------------------
 		// create buffer
@@ -80,7 +80,7 @@ namespace TLunaEngine
 		virtual RenderDeviceCompiledShader* createCompiledShader();
 		// create input layout
 		virtual RenderDeviceUsedInputLayout* createInputLayout(const TLRenderDeviceInputElementDesc* pElementDescs, 
-			TU32 numElements, RenderDeviceCompiledShader* pBlob);
+			TSun::TU32 numElements, RenderDeviceCompiledShader* pBlob);
 		// create vertex shader
 		virtual RenderDeviceUsedVS* createVertexShader(RenderDeviceCompiledShader* pCompiledShader);
 		// create hull shader
@@ -91,77 +91,77 @@ namespace TLunaEngine
 		virtual RenderDeviceUsedGS* createGeometryShader(RenderDeviceCompiledShader* pCompiledShader);
 		// create geometry shader with stream output
 		virtual RenderDeviceUsedGS* createGeometryShaderWithStreamOutput(RenderDeviceCompiledShader* pCompiledShader, 
-			const TLRenderDeviceSODeclarationEntry* pSODeclaration, TU32 numEntries);
+			const TLRenderDeviceSODeclarationEntry* pSODeclaration, TSun::TU32 numEntries);
 		// create pixel shader
 		virtual RenderDeviceUsedPS* createPixelShader(RenderDeviceCompiledShader* pCompiledShader);
 		// create compute shader
 		virtual RenderDeviceUsedCS* createComputeShader(RenderDeviceCompiledShader* pCompiledShader);
 		// create texture2d and texture2d srv from dds file
-		virtual TBOOL createTex2DFromDDSFile(const TCHAR* file,RenderDeviceUsedTex2D** ppTex2D,RenderDeviceUsedSRV** ppSRV);
+		virtual TSun::TBOOL createTex2DFromDDSFile(const TSun::TCHAR* file,RenderDeviceUsedTex2D** ppTex2D,RenderDeviceUsedSRV** ppSRV);
 	public:
 		//---------------------- 使用硬件资源 -------------------------------
 		// use viewport
-		virtual TBOOL useViewport(const TLRenderDeviceViewport* aVp,TU32 numVp);
+		virtual TSun::TBOOL useViewport(const TLRenderDeviceViewport* aVp,TSun::TU32 numVp);
 		// set Primitive Topology
-		virtual TVOID setPrimitiveTopology(RENDER_DEVICE_PRIMITIVE_TOPOLOGY pt);
+		virtual TSun::TVOID setPrimitiveTopology(RENDER_DEVICE_PRIMITIVE_TOPOLOGY pt);
 		// set input layout
-		virtual TVOID setInputLayout(RenderDeviceUsedInputLayout* pInputLayout);
+		virtual TSun::TVOID setInputLayout(RenderDeviceUsedInputLayout* pInputLayout);
 		// map resource
-		virtual TBOOL mapResource(RenderDeviceUsedResource* pResource,TU32 subResource,
+		virtual TSun::TBOOL mapResource(RenderDeviceUsedResource* pResource,TSun::TU32 subResource,
 			RENDER_DEVICE_MAP mapType,TLRenderDeviceMappedSubresource* mappedSubresource);
 		// unmap resource
-		virtual TVOID unmapResource(RenderDeviceUsedResource* pResource,TU32 subResource);
+		virtual TSun::TVOID unmapResource(RenderDeviceUsedResource* pResource,TSun::TU32 subResource);
 		// copy subresource region
-		virtual TVOID copySubresourceRegion(RenderDeviceUsedResource* pDstResource,TU32 dstSubresource,
-			TU32 dstX,TU32 dstY,TU32 dstZ,RenderDeviceUsedResource* pSrcResource,TU32 srcSubresource,
+		virtual TSun::TVOID copySubresourceRegion(RenderDeviceUsedResource* pDstResource,TSun::TU32 dstSubresource,
+			TSun::TU32 dstX,TSun::TU32 dstY,TSun::TU32 dstZ,RenderDeviceUsedResource* pSrcResource,TSun::TU32 srcSubresource,
 			const TLRenderDeviceBox* pSrcBox);
 		// copy resource
-		virtual TVOID copyResource(RenderDeviceUsedResource* pDstResource,RenderDeviceUsedResource* pSrcResource);
+		virtual TSun::TVOID copyResource(RenderDeviceUsedResource* pDstResource,RenderDeviceUsedResource* pSrcResource);
 		// update subresource
-		virtual TVOID updateSubresource(RenderDeviceUsedResource* pDstResource,TU32 dstSubresource,
-			const TLRenderDeviceBox* pDstBox,const TVOID* pSrcData,TU32 srcRowPitch,TU32 srcDepthPitch);
+		virtual TSun::TVOID updateSubresource(RenderDeviceUsedResource* pDstResource,TSun::TU32 dstSubresource,
+			const TLRenderDeviceBox* pDstBox,const TSun::TVOID* pSrcData,TSun::TU32 srcRowPitch,TSun::TU32 srcDepthPitch);
 		// set vertex buffer
-		virtual TVOID setVertexBuffer(TU32 startSlot,RenderDeviceUsedBuffer* pBuffer, const TU32* pStride,const TU32* pOffset);
+		virtual TSun::TVOID setVertexBuffer(TSun::TU32 startSlot,RenderDeviceUsedBuffer* pBuffer, const TSun::TU32* pStride,const TSun::TU32* pOffset);
 		// set index buffer
-		virtual TVOID setIndexBuffer(RenderDeviceUsedBuffer* pBuffer,RENDER_DEVICE_FORMAT format,TU32 offset);
+		virtual TSun::TVOID setIndexBuffer(RenderDeviceUsedBuffer* pBuffer,RENDER_DEVICE_FORMAT format,TSun::TU32 offset);
 		// set stream output target
-		virtual TVOID setSOTarget(RenderDeviceUsedBuffer* pBuffer,const TU32* pOffset);
+		virtual TSun::TVOID setSOTarget(RenderDeviceUsedBuffer* pBuffer,const TSun::TU32* pOffset);
 		// clear render target view
-		virtual TVOID clearRenderTargetView(RenderDeviceUsedRTV* pRenderTargetView, const TF32 colorRGBA[4]);
+		virtual TSun::TVOID clearRenderTargetView(RenderDeviceUsedRTV* pRenderTargetView, const TSun::TF32 colorRGBA[4]);
 		// clear depth stencil view
-		virtual TVOID clearDepthStencilView(RenderDeviceUsedDSV* pDepthStencilView, TF32 depth);
+		virtual TSun::TVOID clearDepthStencilView(RenderDeviceUsedDSV* pDepthStencilView, TSun::TF32 depth);
 		// set render target
-		virtual TVOID setRenderTarget(RenderDeviceUsedRTV* pRTV, RenderDeviceUsedDSV* pDSV);
+		virtual TSun::TVOID setRenderTarget(RenderDeviceUsedRTV* pRTV, RenderDeviceUsedDSV* pDSV);
 		// set rasterizer state
-		virtual TVOID setRasterizerState(RenderDeviceUsedRasterizerState* pRasterizerState);
+		virtual TSun::TVOID setRasterizerState(RenderDeviceUsedRasterizerState* pRasterizerState);
 		// set depth stencil state
-		virtual TVOID setDepthStencilState(RenderDeviceUsedDepthStencilState* pDepthStencilState);
+		virtual TSun::TVOID setDepthStencilState(RenderDeviceUsedDepthStencilState* pDepthStencilState);
 		// set blend state
-		virtual TVOID setBlendState(RenderDeviceUsedBlendState* pBlendState,const TF32 blendFactor[4],TU32 sampleMask);
+		virtual TSun::TVOID setBlendState(RenderDeviceUsedBlendState* pBlendState,const TSun::TF32 blendFactor[4],TSun::TU32 sampleMask);
 		// set constant buffer
-		virtual TVOID setConstantBuffer(RENDER_DEVICE_SHADER_USE_TYPE shaderType, TU32 startSlot, RenderDeviceUsedBuffer* pBuffer);
+		virtual TSun::TVOID setConstantBuffer(RENDER_DEVICE_SHADER_USE_TYPE shaderType, TSun::TU32 startSlot, RenderDeviceUsedBuffer* pBuffer);
 		// set sampler state
-		virtual TVOID setSamplerState(RENDER_DEVICE_SHADER_USE_TYPE shaderType, TU32 startSlot, RenderDeviceUsedSamplerState* pSampler);
+		virtual TSun::TVOID setSamplerState(RENDER_DEVICE_SHADER_USE_TYPE shaderType, TSun::TU32 startSlot, RenderDeviceUsedSamplerState* pSampler);
 		// set shader resource view
-		virtual TVOID setShaderResourceView(RENDER_DEVICE_SHADER_USE_TYPE shaderType, TU32 startSlot, RenderDeviceUsedSRV* pSRV);
+		virtual TSun::TVOID setShaderResourceView(RENDER_DEVICE_SHADER_USE_TYPE shaderType, TSun::TU32 startSlot, RenderDeviceUsedSRV* pSRV);
 		// set vertex shader
-		virtual TVOID setVertexShader(RenderDeviceUsedVS* pVertexShader);
+		virtual TSun::TVOID setVertexShader(RenderDeviceUsedVS* pVertexShader);
 		// set hull shader
-		virtual TVOID setHullShader(RenderDeviceUsedHS* pHullShader);
+		virtual TSun::TVOID setHullShader(RenderDeviceUsedHS* pHullShader);
 		// set domain shader
-		virtual TVOID setDomainShader(RenderDeviceUsedDS* pDomainShader);
+		virtual TSun::TVOID setDomainShader(RenderDeviceUsedDS* pDomainShader);
 		// set geometry shader
-		virtual TVOID setGeometryShader(RenderDeviceUsedGS* pGeometryShader);
+		virtual TSun::TVOID setGeometryShader(RenderDeviceUsedGS* pGeometryShader);
 		// set pixel shader
-		virtual TVOID setPixelShader(RenderDeviceUsedPS* pPixelShader);
+		virtual TSun::TVOID setPixelShader(RenderDeviceUsedPS* pPixelShader);
 		// set compute shader
-		virtual TVOID setComputeShader(RenderDeviceUsedCS* pComputeShader);
+		virtual TSun::TVOID setComputeShader(RenderDeviceUsedCS* pComputeShader);
 	public:
 		//----------------------utils functions ----------------------------
 		// calculate subresource
-		virtual TU32 calcSubresource(TU32 mipSlice,TU32 arraySlice,TU32 mipLevels);
+		virtual TSun::TU32 calcSubresource(TSun::TU32 mipSlice,TSun::TU32 arraySlice,TSun::TU32 mipLevels);
 		// generate mips
-		virtual TVOID generateMips(RenderDeviceUsedSRV* pSRV);
+		virtual TSun::TVOID generateMips(RenderDeviceUsedSRV* pSRV);
 	private:
 		ID3D11Device* m_pd3dDevice;
 		ID3D11DeviceContext* m_pImmediateContext;
@@ -171,7 +171,7 @@ namespace TLunaEngine
 		ID3D11DepthStencilView* m_pDepthStencilView;		// 深度视图
 		D3D11_VIEWPORT m_ViewPort;					// 保存视口
 		TLRenderDeviceViewport mDefaultVp;
-		TBOOL m_loaded;
+		TSun::TBOOL m_loaded;
 		D3D_DRIVER_TYPE m_DriverType;
 		D3D_FEATURE_LEVEL m_FeatureLevel;
 	public:

@@ -1,7 +1,7 @@
 #ifndef _TLGUIMGR_H_
 #define _TLGUIMGR_H_
 
-#include "TLSingleton.h"
+#include "TSSingleton.h"
 #include <map>
 #include "TLGUIContainer.h"
 #include "TLGUIPicture.h"
@@ -13,12 +13,12 @@ namespace TLunaEngine{
 	/*
 	 *	UI管理类
 	 */
-	class GUIMgr : public Singleton<GUIMgr>, public GUIListener
+	class GUIMgr : public TSun::Singleton<GUIMgr>, public GUIListener
 	{
-		friend class Singleton<GUIMgr>;
+		friend class TSun::Singleton<GUIMgr>;
 	protected:
-		GUIMgr(TVOID);
-		~GUIMgr(TVOID);
+		GUIMgr(TSun::TVOID);
+		~GUIMgr(TSun::TVOID);
 	private:
 		GUIContainer* m_pRootContainer;	// 跟容器，里面不要放控件
 		GUIListener* m_pSceneListener;	// 上层接收器的指针
@@ -28,21 +28,21 @@ namespace TLunaEngine{
 		{
 			return m_pRootContainer;
 		}
-		inline TVOID SetRootContainer(GUIContainer* pContainer)
+		inline TSun::TVOID SetRootContainer(GUIContainer* pContainer)
 		{
 			m_pRootContainer = pContainer;
 		}
 		// 根据ID找到容器
-		inline GUIContainer* FindContainer(TS32 iID)
+		inline GUIContainer* FindContainer(TSun::TS32 iID)
 		{
 			if (m_pRootContainer)
 			{
 				return m_pRootContainer->FindContainer(iID);
 			}
-			return TNULL;
+			return TSun::TNULL;
 		}
 		// 销毁
-		inline TVOID DestroyRootContainer()
+		inline TSun::TVOID DestroyRootContainer()
 		{
 			if (m_pRootContainer)
 			{
@@ -51,7 +51,7 @@ namespace TLunaEngine{
 			}
 		}
 		// 帧更新
-		inline TVOID Update(TF32 fTimeElapsed)
+		inline TSun::TVOID Update(TSun::TF32 fTimeElapsed)
 		{
 			if (m_pRootContainer)
 			{
@@ -59,7 +59,7 @@ namespace TLunaEngine{
 			}
 		}
 		// 帧渲染
-		inline TVOID Render(TF32 fTimeElapsed)
+		inline TSun::TVOID Render(TSun::TF32 fTimeElapsed)
 		{
 			if (m_pRootContainer)
 			{
@@ -67,24 +67,24 @@ namespace TLunaEngine{
 			}
 		}
 		// 从文件加载
-		TBOOL LoadFromFile(const TCHAR* file);
+		TSun::TBOOL LoadFromFile(const TSun::TCHAR* file);
 		// 设置上层接收器
-		inline TVOID SetSceneListener(GUIListener* pListener)
+		inline TSun::TVOID SetSceneListener(GUIListener* pListener)
 		{
 			m_pSceneListener = pListener;
 		}
 	private:
 		// 加载方法
 		// 加载Container
-		TBOOL LoadContainer(FILE* stream,GUIContainer* pParentContainer,GUIContainer** ppContainer);
+		TSun::TBOOL LoadContainer(FILE* stream,GUIContainer* pParentContainer,GUIContainer** ppContainer);
 		// 加载Ctrl
-		TBOOL LoadCtrl(FILE* stream,GUIContainer* pParentContainer,GUICtrl** ppCtrl);
+		TSun::TBOOL LoadCtrl(FILE* stream,GUIContainer* pParentContainer,GUICtrl** ppCtrl);
 		// 加载动画
-		TBOOL LoadAnime(FILE* stream,GUIContainer* pNewContainer,TUByte yAnimeType);
+		TSun::TBOOL LoadAnime(FILE* stream,GUIContainer* pNewContainer,TSun::TUByte yAnimeType);
 	public:
 		// ------------- 以下重写GUIListener -------------------
 		// 动画播放完毕发送
-		virtual TVOID OnAnimePlayedOver(TS32 iContainerID,TUByte yAnimeType)
+		virtual TSun::TVOID OnAnimePlayedOver(TSun::TS32 iContainerID,TSun::TUByte yAnimeType)
 		{
 			if (m_pSceneListener)
 			{

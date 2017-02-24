@@ -1,6 +1,6 @@
 #include "LuaInitApp.h"
 
-LuaInit* TLunaEngine::Singleton<LuaInit>::m_Ptr = 0;
+LuaInit* TSun::Singleton<LuaInit>::m_Ptr = 0;
 
 LuaInit::LuaInit(void) :
 m_bWnd(false),

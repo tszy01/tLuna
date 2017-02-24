@@ -14,9 +14,9 @@
 #include "TLGlobleClass.h"
 #include "TLGUIMgr.h"
 
-#include "TLString.h"
+#include "TSString.h"
 #include "ConsoleWindow.h"
-#include "TLConsole.h"
+#include "TSConsole.h"
 
 #include "ConfigDef.h"
 
@@ -25,12 +25,12 @@
 #endif // BUILD_EDITOR
 
 #ifdef BUILD_TEST
-#include "TLTxtFileReader.h"
-#include "TLTxtFileWriter.h"
-#include "TLUTF8FileReader.h"
-#include "TLUTF8FileWriter.h"
-#include "TLBinaryFileProcessor.h"
-#include "TLLog.h"
+#include "TSTxtFileReader.h"
+#include "TSTxtFileWriter.h"
+#include "TSUTF8FileReader.h"
+#include "TSUTF8FileWriter.h"
+#include "TSBinaryFileProcessor.h"
+#include "TSLog.h"
 #endif // BUILD_TEST
 
 int MainExampleGame(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmLine, int nCmdShow)
@@ -93,17 +93,17 @@ bool InitGame(const _INITPARAM* pInitParam)
 		return false;
 	InputMsgMgr::m_CalledFuncList.push_back(&OnCatchInputMsg);
 	// 建立入口GUI
-	TLunaEngine::String strFile = TLunaEngine::String(LuaInit::getSingletonPtr()->m_szResDir) + "gui\\startscene\\guifont.txt";
+	TSun::String strFile = TSun::String(LuaInit::getSingletonPtr()->m_szResDir) + "gui\\startscene\\guifont.txt";
 	if (!pGUISceneMgr->AddFont(strFile.GetString()))
 	{
 		return false;
 	}
-	strFile = TLunaEngine::String(LuaInit::getSingletonPtr()->m_szResDir) + "gui\\startscene\\guitex.txt";
+	strFile = TSun::String(LuaInit::getSingletonPtr()->m_szResDir) + "gui\\startscene\\guitex.txt";
 	if (!pGUISceneMgr->InitGUIRender(strFile.GetString()))
 	{
 		return false;
 	}
-	strFile = TLunaEngine::String(LuaInit::getSingletonPtr()->m_szResDir) + "gui\\startscene\\guictrl.txt";
+	strFile = TSun::String(LuaInit::getSingletonPtr()->m_szResDir) + "gui\\startscene\\guictrl.txt";
 	if (!pGUISceneMgr->InitGUI(strFile.GetString()))
 	{
 		return false;
@@ -267,10 +267,10 @@ int runTest(HINSTANCE hInstance, LPSTR lpCmLine, int nCmdShow)
 	//	fclose(fp);
 	//}
 
-	//TLunaEngine::String str("你好");
-	//TLunaEngine::SharedPtr<TLunaEngine::TWCHAR> wstr = str.GetWString();
-	//TLunaEngine::TWCHAR wsz[64] = { L"しあわせ" };
-	//TLunaEngine::String sz(wsz);
+	//TSun::String str("你好");
+	//TLunaEngine::SharedPtr<TSun::TWCHAR> wstr = str.GetWString();
+	//TSun::TWCHAR wsz[64] = { L"しあわせ" };
+	//TSun::String sz(wsz);
 
 	FILE* fp = NULL;
 	/*if (fopen_s(&fp, "test2.txt", "wt") == 0)
@@ -285,21 +285,21 @@ int runTest(HINSTANCE hInstance, LPSTR lpCmLine, int nCmdShow)
 	//	//fread(tmp, 1, 64, fp);
 	//	//fclose(fp);
 
-	//	//TLunaEngine::String strA(tmp);
+	//	//TSun::String strA(tmp);
 	////	strA.ConvertToANSI();
 	////	consoleWnd->GetConsoleOutput()->addText(strA);
 
-	//	TLunaEngine::TWCHAR tmp[64] = { L"0" };
-	//	fread(tmp, sizeof(TLunaEngine::TWCHAR), 64, fp);
+	//	TSun::TWCHAR tmp[64] = { L"0" };
+	//	fread(tmp, sizeof(TSun::TWCHAR), 64, fp);
 	//	fclose(fp);
 
-	//	consoleWnd->GetConsoleOutput()->addText(/*TLunaEngine::WString(strA.ToWString().getPointer())*/tmp);
+	//	consoleWnd->GetConsoleOutput()->addText(/*TSun::WString(strA.ToWString().getPointer())*/tmp);
 	//}
 
 	/*TLunaEngine::UTF8FileReader::OpenTxtFile("test2.txt", &fp);
 
-	TLunaEngine::TWCHAR tmp[64] = { L"0" };
-	TLunaEngine::TS32 sTmp[5] = { 0 };
+	TSun::TWCHAR tmp[64] = { L"0" };
+	TSun::TS32 sTmp[5] = { 0 };
 	TLunaEngine::UTF8FileReader::ReadLineWString(tmp, fp, 0, 0, 64, 0);
 	TLunaEngine::UTF8FileReader::ReadLineInteger(sTmp, fp, 5, L' ');
 	consoleWnd->GetConsoleOutput()->addText(tmp);
@@ -308,8 +308,8 @@ int runTest(HINSTANCE hInstance, LPSTR lpCmLine, int nCmdShow)
 
 	/*TLunaEngine::UTF8FileReader::OpenTxtFile("test2.txt", &fp);
 
-	TLunaEngine::TWCHAR tmp[64] = { L"0" };
-	TLunaEngine::TBOOL re = TLunaEngine::TFALSE;
+	TSun::TWCHAR tmp[64] = { L"0" };
+	TSun::TBOOL re = TSun::TFALSE;
 	TLunaEngine::UTF8FileReader::ReadLineWString(tmp, fp, L"你好你是谁是啊", &re, 64, 0);
 	consoleWnd->GetConsoleOutput()->addText(tmp);
 
@@ -317,22 +317,22 @@ int runTest(HINSTANCE hInstance, LPSTR lpCmLine, int nCmdShow)
 
 	/*TLunaEngine::UTF8FileWriter::OpenTxtFile("test3.txt", &fp);
 
-	TLunaEngine::UTF8FileWriter::WriteLineWString(tmp, fp, (TLunaEngine::TU32)wcslen(tmp));
-	TLunaEngine::TS32 sTmp[5] = { 8,0,9,10,11 };
+	TLunaEngine::UTF8FileWriter::WriteLineWString(tmp, fp, (TSun::TU32)wcslen(tmp));
+	TSun::TS32 sTmp[5] = { 8,0,9,10,11 };
 	TLunaEngine::UTF8FileWriter::WriteLineInteger(sTmp, fp, 5, L';');
 
 	TLunaEngine::UTF8FileWriter::CloseTxtFile(fp);*/
 
-	TLunaEngine::String strLogConfig = "../../../demores/config\\logconfig.txt";
-	TLunaEngine::String strLogDir = "../../../demores/log\\";
-	if (!TLunaEngine::Log::InitLogSystem(strLogConfig.GetString(), strLogDir.GetString()))
+	TSun::String strLogConfig = "../../../demores/config\\logconfig.txt";
+	TSun::String strLogDir = "../../../demores/log\\";
+	if (!TSun::Log::InitLogSystem(strLogConfig.GetString(), strLogDir.GetString()))
 		return 0;
 
-	TLunaEngine::Log::WriteLine(TLunaEngine::Log::LOG_LEVEL_ERROR, TLunaEngine::TTRUE, L"你好你是谁是啊");
+	TSun::Log::WriteLine(TSun::Log::LOG_LEVEL_ERROR, TSun::TTRUE, L"你好你是谁是啊");
 
 	TestLoop();
 
-	TLunaEngine::Log::DestroyLogSystem();
+	TSun::Log::DestroyLogSystem();
 
 	ConsoleWindow::getSingletonPtr()->DestroyWindow();
 	ConsoleWindow::delSingletonPtr();
@@ -347,14 +347,14 @@ int PASCAL WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmLine,
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif // DEMO_CHECK_MEM_LEAK
 	// init variables
-	TLunaEngine::String initScriptFile("initapp.lua");
+	TSun::String initScriptFile("initapp.lua");
 	bool bEditor = false;
 	bool bTest = false;
 
 	// read command
-	TLunaEngine::String strCmd(lpCmLine);
-	TLunaEngine::TU32 nCmd = 1;
-	TLunaEngine::List<TLunaEngine::String> cmds = strCmd.Split(' ', &nCmd);
+	TSun::String strCmd(lpCmLine);
+	TSun::TU32 nCmd = 1;
+	TSun::List<TSun::String> cmds = strCmd.Split(' ', &nCmd);
 	for (int i = 0;i < (int)cmds.size();++i)
 	{
 		if (cmds[i] == "-editor")

@@ -5,7 +5,7 @@
 #include "TLGlobalFunc.h"
 #include "EditorApp.h"
 
-EditorMgr* TLunaEngine::Singleton<EditorMgr>::m_Ptr = 0;
+EditorMgr* TSun::Singleton<EditorMgr>::m_Ptr = 0;
 	
 EditorMgr::EditorMgr():mInst(NULL),mWidth(1280),mHeight(800),mResDir("")
 {

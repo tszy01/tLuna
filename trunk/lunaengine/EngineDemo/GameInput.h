@@ -3,11 +3,11 @@
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
 #include "KeyCodeDef.h"
-#include "TLSingleton.h"
+#include "TSSingleton.h"
 
-class GameInput : public TLunaEngine::Singleton<GameInput>
+class GameInput : public TSun::Singleton<GameInput>
 {
-	friend class TLunaEngine::Singleton<GameInput>;
+	friend class TSun::Singleton<GameInput>;
 private:
 	//INPUT设备指针
 	LPDIRECTINPUT8			m_pDInput;

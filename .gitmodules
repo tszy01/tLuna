@@ -1,0 +1,3 @@
+[submodule "trunk/tSun"]
+	path = trunk/tSun
+	url = https://github.com/tszy01/tSun.git

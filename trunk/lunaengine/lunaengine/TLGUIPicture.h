@@ -9,27 +9,27 @@ namespace TLunaEngine{
 	class GUIPicture : public GUICtrl
 	{
 	public:
-		GUIPicture(TVOID);
-		virtual ~GUIPicture(TVOID);
+		GUIPicture(TSun::TVOID);
+		virtual ~GUIPicture(TSun::TVOID);
 	protected:
-		TS32 m_iTexID;	// 使用的纹理的ID
+		TSun::TS32 m_iTexID;	// 使用的纹理的ID
 		// ------------ 以下是纹理映射部分 -------
-		TF32 m_texX;
-		TF32 m_texY;
-		TF32 m_texR;
-		TF32 m_texB;
+		TSun::TF32 m_texX;
+		TSun::TF32 m_texY;
+		TSun::TF32 m_texR;
+		TSun::TF32 m_texB;
 	public:
 		// ------- 以下是重写父类方法 ------------
 		// 销毁
-		virtual TVOID DestroyCtrl();
+		virtual TSun::TVOID DestroyCtrl();
 		// 更新
-		virtual TBOOL Update(TF32 fTimeElapsed);
+		virtual TSun::TBOOL Update(TSun::TF32 fTimeElapsed);
 		// 渲染
-		virtual TBOOL Render(TF32 fTimeElapsed);
+		virtual TSun::TBOOL Render(TSun::TF32 fTimeElapsed);
 	public:
 		// ------ 以下是本类方法 ----------------
 		// 初始化
-		TBOOL InitGUIPicture(TS32 iIndex,GUIContainer* pContainer,TS32 x,TS32 y,TS32 width,TS32 height,TS32 iTexID,TF32 texX,TF32 texY,TF32 texR,TF32 texB);
+		TSun::TBOOL InitGUIPicture(TSun::TS32 iIndex,GUIContainer* pContainer,TSun::TS32 x,TSun::TS32 y,TSun::TS32 width,TSun::TS32 height,TSun::TS32 iTexID,TSun::TF32 texX,TSun::TF32 texY,TSun::TF32 texR,TSun::TF32 texB);
 	};
 
 }

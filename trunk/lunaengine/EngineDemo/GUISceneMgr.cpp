@@ -4,7 +4,7 @@
 #include "TLGUIFontManager.h"
 #include "KeyCodeDef.h"
 
-GUISceneMgr* TLunaEngine::Singleton<GUISceneMgr>::m_Ptr = 0;
+GUISceneMgr* TSun::Singleton<GUISceneMgr>::m_Ptr = 0;
 
 GUISceneMgr::GUISceneMgr(void)
 {
@@ -75,7 +75,7 @@ bool GUISceneMgr::InitGUI(const char* guiFile)
 
 void GUISceneMgr::CatchInputMsg(unsigned char yType, void* param)
 {
-	if (yType == (TLunaEngine::TUByte)MSG_TYPE_KEY)
+	if (yType == (TSun::TUByte)MSG_TYPE_KEY)
 	{
 		_MSG_KEY_INFO* keyInfo = (_MSG_KEY_INFO*)param;
 		// 如果在起始UI中按下回车，就跳转到游戏UI
@@ -83,16 +83,16 @@ void GUISceneMgr::CatchInputMsg(unsigned char yType, void* param)
 		{
 		}
 	}
-	else if (yType == (TLunaEngine::TUByte)MSG_TYPE_MOUSE)
+	else if (yType == (TSun::TUByte)MSG_TYPE_MOUSE)
 	{
 		_MSG_MOUSE_INFO* mouseInfo = (_MSG_MOUSE_INFO*)param;
 	}
-	else if (yType == (TLunaEngine::TUByte)MSG_TYPE_JOYS)
+	else if (yType == (TSun::TUByte)MSG_TYPE_JOYS)
 	{
 		_MSG_JOYS_INFO* joysInfo = (_MSG_JOYS_INFO*)param;
 	}
 }
 
-void GUISceneMgr::OnAnimePlayedOver(int iContainerID, TLunaEngine::TUByte yAnimeType)
+void GUISceneMgr::OnAnimePlayedOver(int iContainerID, TSun::TUByte yAnimeType)
 {
 }

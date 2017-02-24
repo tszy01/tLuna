@@ -1,10 +1,9 @@
 #include "TLRenderMgr.h"
 #include "TLRenderDevice_D3D11.h"
 
+TLunaEngine::RenderMgr* TSun::Singleton<TLunaEngine::RenderMgr>::m_Ptr = 0;
 namespace TLunaEngine
 {
-	RenderMgr* Singleton<RenderMgr>::m_Ptr = 0;
-
 	RenderMgr::RenderMgr():mDevice(0),mDeviceType(DT_NONE)
 	{
 	}
@@ -13,7 +12,7 @@ namespace TLunaEngine
 	{
 	}
 
-	RenderDevice* RenderMgr::createRenderDevice(TU32 deviceType)
+	RenderDevice* RenderMgr::createRenderDevice(TSun::TU32 deviceType)
 	{
 		if(mDevice!=0)
 		{
@@ -27,27 +26,27 @@ namespace TLunaEngine
 		}
 		else
 		{
-			return TNULL;
+			return TSun::TNULL;
 		}
-		return TNULL;
+		return TSun::TNULL;
 	}
 
-	TVOID RenderMgr::destroyRenderDevice()
+	TSun::TVOID RenderMgr::destroyRenderDevice()
 	{
 		if(mDevice)
 		{
 			delete mDevice;
-			mDevice = TNULL;
+			mDevice = TSun::TNULL;
 		}
 	}
 
-	TBOOL RenderMgr::resizeDeviceBuffer(TU32 width,TU32 height)
+	TSun::TBOOL RenderMgr::resizeDeviceBuffer(TSun::TU32 width,TSun::TU32 height)
 	{
 		if(mDevice)
 		{
 			if(!mDevice->resizeBuffer(width,height))
-				return TFALSE;
+				return TSun::TFALSE;
 		}
-		return TTRUE;
+		return TSun::TTRUE;
 	}
 }

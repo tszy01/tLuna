@@ -1,14 +1,14 @@
 #ifndef _GUISCENEMGR_H_
 #define _GUISCENEMGR_H_
-#include "TLSingleton.h"
+#include "TSSingleton.h"
 #include "TLGUIListener.h"
 
 /*
  *	游戏部分，GUI场景管理器
  */
-class GUISceneMgr : public TLunaEngine::Singleton<GUISceneMgr>, public TLunaEngine::GUIListener
+class GUISceneMgr : public TSun::Singleton<GUISceneMgr>, public TLunaEngine::GUIListener
 {
-	friend class  TLunaEngine::Singleton<GUISceneMgr>;
+	friend class  TSun::Singleton<GUISceneMgr>;
 protected:
 	GUISceneMgr(void);
 	~GUISceneMgr(void);
@@ -34,7 +34,7 @@ public:
 public:
 	// --------- 以下重写TLIGUIListener -------------------
 	// 动画播放完毕发送
-	virtual void OnAnimePlayedOver(int iContainerID, TLunaEngine::TUByte yAnimeType);
+	virtual void OnAnimePlayedOver(int iContainerID, TSun::TUByte yAnimeType);
 };
 
 #endif

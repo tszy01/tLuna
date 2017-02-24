@@ -3,14 +3,14 @@
 
 #include "TLGUIFont.h"
 #include "TLGUIDefine.h"
-#include "TLSingleton.h"
-#include "TLMap.h"
-#include "TLVector4.h"
+#include "TSSingleton.h"
+#include "TSMap.h"
+#include "TSVector4.h"
 
 namespace TLunaEngine{
 
 	// 声明模板
-	template class Vector4<TF32>;
+	template class TSun::Vector4<TSun::TF32>;
 	class RenderDeviceUsedBuffer;
 	class RenderDeviceUsedSRV;
 	class RenderDeviceUsedVS;
@@ -24,12 +24,12 @@ namespace TLunaEngine{
 	/*
 	 *	负责维护所有的字体，并处理统一渲染
 	 */
-	class GUIFontManager : public Singleton<GUIFontManager>
+	class GUIFontManager : public TSun::Singleton<GUIFontManager>
 	{
-		friend class Singleton<GUIFontManager>;
+		friend class TSun::Singleton<GUIFontManager>;
 	protected:
-		GUIFontManager(TVOID);
-		~GUIFontManager(TVOID);
+		GUIFontManager(TSun::TVOID);
+		~GUIFontManager(TSun::TVOID);
 	private:
 		RenderDeviceUsedBuffer* mVB;
 		RenderDeviceUsedBuffer* mVBSet;
@@ -41,15 +41,15 @@ namespace TLunaEngine{
 		RenderDeviceUsedInputLayout* mInputLayout;
 		GUIFont* m_pUseFont;	// 当前使用的字体
 		GUIFont* m_pDebugFont;	// 调试使用字体
-		Map<TS32,GUIFont*> m_FontTable;	// 字体列表
-		TU32 m_bufferWidth;	// 后缓冲宽
-		TU32 m_bufferHeight;// 后缓冲高
-		TWCHAR* m_pRenderText;	// 渲染时的内容
-		TU32 m_nRenderTextLen;	// 渲染时的内容的长度
+		TSun::Map<TSun::TS32,GUIFont*> m_FontTable;	// 字体列表
+		TSun::TU32 m_bufferWidth;	// 后缓冲宽
+		TSun::TU32 m_bufferHeight;// 后缓冲高
+		TSun::TWCHAR* m_pRenderText;	// 渲染时的内容
+		TSun::TU32 m_nRenderTextLen;	// 渲染时的内容的长度
 		FT_Library	library;
 	public:
 		// 设置当前使用字体
-		inline TVOID UseFont(TS32 id)
+		inline TSun::TVOID UseFont(TSun::TS32 id)
 		{
 			// 如果现在使用的就是当前字体就不再设置了
 			if (m_pUseFont)
@@ -59,32 +59,32 @@ namespace TLunaEngine{
 					return;
 				}
 			}
-			m_pUseFont = TNULL;
-			Map<TS32,TLunaEngine::GUIFont*>::Iterator itr = m_FontTable.find(id);
+			m_pUseFont = TSun::TNULL;
+			TSun::Map<TSun::TS32,TLunaEngine::GUIFont*>::Iterator itr = m_FontTable.find(id);
 			if(itr!=m_FontTable.end())
 			{
 				m_pUseFont = itr->Value;
 			}
 		}
 		// 添加新字体
-		TU32 AddFont(const TCHAR* filename,TU32 size,TU32 texPageSize,TS32 id);
+		TSun::TU32 AddFont(const TSun::TCHAR* filename,TSun::TU32 size,TSun::TU32 texPageSize,TSun::TS32 id);
 		// 从文件添加字体
-		TBOOL AddFontFromFile(const TCHAR* filename);
+		TSun::TBOOL AddFontFromFile(const TSun::TCHAR* filename);
 		// 渲染文字
-		TBOOL Render(const TWCHAR* text,TU32 len, TS32 x,TS32 y, Vector4<TF32>& color);
+		TSun::TBOOL Render(const TSun::TWCHAR* text,TSun::TU32 len, TSun::TS32 x,TSun::TS32 y, TSun::Vector4<TSun::TF32>& color);
 		// 初始化
-		TBOOL Init(const TCHAR* effectFile,TU32 bufferWidth,TU32 bufferHeight);
+		TSun::TBOOL Init(const TSun::TCHAR* effectFile,TSun::TU32 bufferWidth,TSun::TU32 bufferHeight);
 		// 销毁所有
-		TVOID DestroyAllFont();
+		TSun::TVOID DestroyAllFont();
 		// 初始化调试字体
-		TBOOL initDebugFont(const TCHAR* filename, TU32 size, TU32 texPageSize);
+		TSun::TBOOL initDebugFont(const TSun::TCHAR* filename, TSun::TU32 size, TSun::TU32 texPageSize);
 		// 销毁调试字体
-		TVOID deleteDebugFont();
+		TSun::TVOID deleteDebugFont();
 		// 渲染调试字体
-		TBOOL RenderDebugFont(const TWCHAR* text, TU32 len, TS32 x, TS32 y, Vector4<TF32>& color);
+		TSun::TBOOL RenderDebugFont(const TSun::TWCHAR* text, TSun::TU32 len, TSun::TS32 x, TSun::TS32 y, TSun::Vector4<TSun::TF32>& color);
 	private:
 		// 读取文件加载字库
-		TBOOL LoadFont(FILE* stream);
+		TSun::TBOOL LoadFont(FILE* stream);
 	};
 
 }

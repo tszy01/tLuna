@@ -16,13 +16,13 @@ namespace TLunaEngine
 		}
 	}
 
-	TBOOL RenderDeviceUsedUAV_D3D11::initWithD3DUAV(ID3D11UnorderedAccessView* d3dView)
+	TSun::TBOOL RenderDeviceUsedUAV_D3D11::initWithD3DUAV(ID3D11UnorderedAccessView* d3dView)
 	{
 		if(mD3DUAV)
-			return TFALSE;
+			return TSun::TFALSE;
 		if(!d3dView)
-			return TFALSE;
+			return TSun::TFALSE;
 		mD3DUAV = d3dView;
-		return TTRUE;
+		return TSun::TTRUE;
 	}
 }

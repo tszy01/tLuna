@@ -1,7 +1,7 @@
 #ifndef _TLRENDERDEVICEUSEDCS_D3D11_H_
 #define _TLRENDERDEVICEUSEDCS_D3D11_H_
 
-#include "TLCommonTypeDef.h"
+#include "TSCommonTypeDef.h"
 #include "TLRenderDeviceUsedCS.h"
 #include <d3d11.h>
 
@@ -21,7 +21,7 @@ namespace TLunaEngine
 			return mD3DCS;
 		}
 		// init with d3d cs
-		TBOOL initWithD3DCS(ID3D11ComputeShader* d3dShader);
+		TSun::TBOOL initWithD3DCS(ID3D11ComputeShader* d3dShader);
 	};
 }
 

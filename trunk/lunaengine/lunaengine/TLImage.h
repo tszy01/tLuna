@@ -1,7 +1,7 @@
 #ifndef _TLIMAGE_H_
 #define _TLIMAGE_H_
 
-#include "TLCommonTypeDef.h"
+#include "TSCommonTypeDef.h"
 
 namespace TLunaEngine
 {
@@ -19,54 +19,54 @@ namespace TLunaEngine
 	public:
 		// constructor will alloc memory for pixel
 		// use create functions for usual
-		Image(TU32 width, TU32 height, PIXEL_FORMAT format);
+		Image(TSun::TU32 width, TSun::TU32 height, PIXEL_FORMAT format);
 		Image(const Image& right);
 		~Image();
 	public:
 		// create from file
-		static Image* createFromFile(const TCHAR* file);
+		static Image* createFromFile(const TSun::TCHAR* file);
 		// write to file
-		TBOOL writeToFile(const TCHAR* file);
+		TSun::TBOOL writeToFile(const TSun::TCHAR* file);
 		// get rgba
 		// different formats using different parameters
-		TBOOL getRGBA(TU32 pixelIndex, TUByte* pR, TUByte* pG, TUByte* pB, TUByte* pA);
+		TSun::TBOOL getRGBA(TSun::TU32 pixelIndex, TSun::TUByte* pR, TSun::TUByte* pG, TSun::TUByte* pB, TSun::TUByte* pA);
 		// set rgba
 		// different formats using different parameters
-		TBOOL setRGBA(TU32 pixelIndex, TUByte r, TUByte g, TUByte b, TUByte a);
+		TSun::TBOOL setRGBA(TSun::TU32 pixelIndex, TSun::TUByte r, TSun::TUByte g, TSun::TUByte b, TSun::TUByte a);
 		// get pixel format
 		PIXEL_FORMAT getPixelFormat();
 		// get image size
-		TU32 getImageSize(TU32* pWidth,TU32* pHeight);
+		TSun::TU32 getImageSize(TSun::TU32* pWidth,TSun::TU32* pHeight);
 		// get pixel size
-		TU32 getPixelSize();
+		TSun::TU32 getPixelSize();
 		// clone
 		// this will alloc memory
 		Image* clone();
 		// copy to memory
-		TBOOL copyToMemory(TUByte** ppBuffer);
+		TSun::TBOOL copyToMemory(TSun::TUByte** ppBuffer);
 		// create from memory
-		static Image* createFromMemory(const TUByte* pBuffer, TU32 width, TU32 height, PIXEL_FORMAT format); 
+		static Image* createFromMemory(const TSun::TUByte* pBuffer, TSun::TU32 width, TSun::TU32 height, PIXEL_FORMAT format); 
 		// get buffer
-		const TUByte* getBuffer()
+		const TSun::TUByte* getBuffer()
 		{
 			return mPixelBuffer;
 		}
 	private:
 		// create buffer
-		TBOOL createBuffer(TU32 width, TU32 height, PIXEL_FORMAT format);
+		TSun::TBOOL createBuffer(TSun::TU32 width, TSun::TU32 height, PIXEL_FORMAT format);
 		// copy from buffer
-		TBOOL copyFromBuffer(const TUByte* pBuffer);
+		TSun::TBOOL copyFromBuffer(const TSun::TUByte* pBuffer);
 		// get buffer pointer
-		TUByte* getBufferPointer(TU32 pixelIndex);
+		TSun::TUByte* getBufferPointer(TSun::TU32 pixelIndex);
 	private:
 		// pixel format
 		PIXEL_FORMAT mPixelFormat;
 		// width
-		TU32 mWidth;
+		TSun::TU32 mWidth;
 		// height
-		TU32 mHeight;
+		TSun::TU32 mHeight;
 		// pixel buffer
-		TUByte* mPixelBuffer;
+		TSun::TUByte* mPixelBuffer;
 	};
 }
 

@@ -1,6 +1,6 @@
 #include "TLGUITextureMgr.h"
-#include "TLString.h"
-#include "TLTxtFileReader.h"
+#include "TSString.h"
+#include "TSTxtFileReader.h"
 #include "TLGlobleClass.h"
 #include "TLRenderMgr.h"
 #include "TLRenderDevice.h"
@@ -17,15 +17,15 @@
 #include "TLRenderDeviceCompiledShader.h"
 #include "TLImage.h"
 
-namespace TLunaEngine{
-	GUITextureMgr* Singleton<GUITextureMgr>::m_Ptr = 0;
+TLunaEngine::GUITextureMgr* TSun::Singleton<TLunaEngine::GUITextureMgr>::m_Ptr = 0;
 
-	GUITextureMgr::GUITextureMgr(TVOID) : m_bufferHeight(0),m_bufferWidth(0),mVB(TNULL),mVBSet(TNULL),
-		mVS(TNULL),mPS(TNULL),mInputLayout(TNULL),mDepthStencilState(TNULL),mBlendState(TNULL),mSamplerState(TNULL)
+namespace TLunaEngine{
+	GUITextureMgr::GUITextureMgr(TSun::TVOID) : m_bufferHeight(0),m_bufferWidth(0),mVB(TSun::TNULL),mVBSet(TSun::TNULL),
+		mVS(TSun::TNULL),mPS(TSun::TNULL),mInputLayout(TSun::TNULL),mDepthStencilState(TSun::TNULL),mBlendState(TSun::TNULL),mSamplerState(TSun::TNULL)
 	{
 	}
 
-	GUITextureMgr::~GUITextureMgr(TVOID)
+	GUITextureMgr::~GUITextureMgr(TSun::TVOID)
 	{
 		m_bufferHeight = 0;
 		m_bufferWidth = 0;
@@ -69,7 +69,7 @@ namespace TLunaEngine{
 			delete mBlendState;
 			mBlendState = 0;
 		}
-		Map<TS32,RenderDeviceUsedSRV*>::Iterator itr = mSRVList.begin();
+		TSun::Map<TSun::TS32,RenderDeviceUsedSRV*>::Iterator itr = mSRVList.begin();
 		for(;itr!=mSRVList.end();++itr)
 		{
 			RenderDeviceUsedSRV* pSRV = itr->Value;
@@ -78,25 +78,25 @@ namespace TLunaEngine{
 				delete pSRV;
 				pSRV = 0;
 			}
-			itr->Value = TNULL;
+			itr->Value = TSun::TNULL;
 		}
 		mSRVList.clear();
 	}
 
-	TBOOL GUITextureMgr::Init(TU32 bufferWidth, TU32 bufferHeight, const TCHAR* effectFile)
+	TSun::TBOOL GUITextureMgr::Init(TSun::TU32 bufferWidth, TSun::TU32 bufferHeight, const TSun::TCHAR* effectFile)
 	{
 		m_bufferHeight = bufferHeight;
 		m_bufferWidth = bufferWidth;
 		if (!InitD3DObj(effectFile))
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
-		return TTRUE;
+		return TSun::TTRUE;
 	}
 
-	TVOID GUITextureMgr::DestroyAllTex()
+	TSun::TVOID GUITextureMgr::DestroyAllTex()
 	{
-		Map<TS32,RenderDeviceUsedSRV*>::Iterator itr = mSRVList.begin();
+		TSun::Map<TSun::TS32,RenderDeviceUsedSRV*>::Iterator itr = mSRVList.begin();
 		for(;itr!=mSRVList.end();++itr)
 		{
 			RenderDeviceUsedSRV* pSRV = itr->Value;
@@ -105,24 +105,24 @@ namespace TLunaEngine{
 				delete pSRV;
 				pSRV = 0;
 			}
-			itr->Value = TNULL;
+			itr->Value = TSun::TNULL;
 		}
 		mSRVList.clear();
 	}
 
-	TBOOL GUITextureMgr::LoadTexArray(FILE* stream)
+	TSun::TBOOL GUITextureMgr::LoadTexArray(FILE* stream)
 	{
-		TS32 texID = -1;
-		TxtFileReader::ReadLineInteger(&texID,stream,1,' ');
-		TCHAR strResult[1024] = {0};
-		TS32 nCount = 1024;
-		TxtFileReader::ReadLineString(strResult,stream,TNULL,TNULL,1024,TNULL);
+		TSun::TS32 texID = -1;
+		TSun::TxtFileReader::ReadLineInteger(&texID,stream,1,' ');
+		TSun::TCHAR strResult[1024] = {0};
+		TSun::TS32 nCount = 1024;
+		TSun::TxtFileReader::ReadLineString(strResult,stream,TSun::TNULL,TSun::TNULL,1024,TSun::TNULL);
 		RenderDevice* pDevice = RenderMgr::getSingletonPtr()->getDevice();
-		String fullFile = GlobleClass::getSingletonPtr()->m_strResDir + strResult;
+		TSun::String fullFile = GlobleClass::getSingletonPtr()->m_strResDir + strResult;
 		Image* image = Image::createFromFile(fullFile.GetString());
 		if(!image)
-			return TFALSE;
-		TU32 imgw,imgh;
+			return TSun::TFALSE;
+		TSun::TU32 imgw,imgh;
 		image->getImageSize(&imgw,&imgh);
 		RENDER_DEVICE_FORMAT imgFormat = RENDER_DEVICE_FORMAT_R8G8B8A8_UNORM;
 		if(image->getPixelFormat() == Image::PIXEL_FORMAT_R8)
@@ -133,10 +133,10 @@ namespace TLunaEngine{
 		TLRenderDeviceTex2DDesc texDesc;
 		texDesc.ArraySize = 1;
 		texDesc.BindFlags = RENDER_DEVICE_BIND_FLAG_SHADER_RESOURCE;
-		texDesc.CPUAccessFlags = TFALSE;
-		texDesc.Cube = TFALSE;
+		texDesc.CPUAccessFlags = TSun::TFALSE;
+		texDesc.Cube = TSun::TFALSE;
 		texDesc.Format = imgFormat;
-		texDesc.GenerateMips = TFALSE;
+		texDesc.GenerateMips = TSun::TFALSE;
 		texDesc.Height = imgh;
 		texDesc.MipLevels = 1;
 		texDesc.SampleCount = 1;
@@ -149,7 +149,7 @@ namespace TLunaEngine{
 		if(!pTex)
 		{
 			delete image;
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		TLRenderDeviceSRVDesc srvDesc;
 		srvDesc.Format = RENDER_DEVICE_FORMAT_R8G8B8A8_UNORM;
@@ -161,56 +161,56 @@ namespace TLunaEngine{
 		{
 			delete image;
 			delete pTex;
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		delete image;
 		delete pTex;
 		mSRVList.push_back(texID,pSRV);
-		return TTRUE;
+		return TSun::TTRUE;
 	}
 
-	TBOOL GUITextureMgr::LoadTexFromFile(const TCHAR* file)
+	TSun::TBOOL GUITextureMgr::LoadTexFromFile(const TSun::TCHAR* file)
 	{
 		// 先检测，清空原来的
 		DestroyAllTex();
 		// 读取文件
-		FILE* stream = TNULL;
-		String strFile(file);
-		if (!TxtFileReader::OpenTxtFile(strFile.GetString(),&stream))
+		FILE* stream = TSun::TNULL;
+		TSun::String strFile(file);
+		if (!TSun::TxtFileReader::OpenTxtFile(strFile.GetString(),&stream))
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		// 匹配第一行字符
-		TBOOL bEqual = TFALSE;
-		TCHAR strResult[1024] = {0};
-		TS32 nCount = 1024;
-		if(!TxtFileReader::ReadLineString(strResult,stream,"TUI_TEX_100",&bEqual,nCount,TNULL))
+		TSun::TBOOL bEqual = TSun::TFALSE;
+		TSun::TCHAR strResult[1024] = {0};
+		TSun::TS32 nCount = 1024;
+		if(!TSun::TxtFileReader::ReadLineString(strResult,stream,"TUI_TEX_100",&bEqual,nCount,TSun::TNULL))
 		{
-			TxtFileReader::CloseTxtFile(stream);
-			return TFALSE;
+			TSun::TxtFileReader::CloseTxtFile(stream);
+			return TSun::TFALSE;
 		}
 		if(!bEqual)
 		{
-			TxtFileReader::CloseTxtFile(stream);
-			return TFALSE;
+			TSun::TxtFileReader::CloseTxtFile(stream);
+			return TSun::TFALSE;
 		}
 		// 读取数量
-		TS32 texCount = 0;
-		TxtFileReader::ReadLineInteger(&texCount,stream,1,' ');
+		TSun::TS32 texCount = 0;
+		TSun::TxtFileReader::ReadLineInteger(&texCount,stream,1,' ');
 		// 循环读取
-		for (TS32 i=0;i<texCount;i++)
+		for (TSun::TS32 i=0;i<texCount;i++)
 		{
 			if(!LoadTexArray(stream))
 			{
-				TxtFileReader::CloseTxtFile(stream);
-				return TFALSE;
+				TSun::TxtFileReader::CloseTxtFile(stream);
+				return TSun::TFALSE;
 			}
 		}
-		TxtFileReader::CloseTxtFile(stream);
-		return TTRUE;
+		TSun::TxtFileReader::CloseTxtFile(stream);
+		return TSun::TTRUE;
 	}
 
-	TBOOL GUITextureMgr::InitD3DObj(const TCHAR* effectFile)
+	TSun::TBOOL GUITextureMgr::InitD3DObj(const TSun::TCHAR* effectFile)
 	{
 		// Init D3DObj
 		RenderDevice* pDevice = RenderMgr::getSingletonPtr()->getDevice();
@@ -220,36 +220,36 @@ namespace TLunaEngine{
 		if(!pCompiledVS->compileShader(effectFile,"VS","vs"))
 		{
 			delete pCompiledVS;
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		mVS = pDevice->createVertexShader(pCompiledVS);
 		if(!mVS)
 		{
 			delete pCompiledVS;
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		// input layout
 		TLRenderDeviceInputElementDesc renderLI[3];
 		renderLI[0].AlignedByteOffset = 0;
 		renderLI[0].Format = RENDER_DEVICE_FORMAT_R32G32B32_FLOAT;
 		renderLI[0].SemanticIndex = 0;
-		renderLI[0].SemanticName = String("POSITION");
+		renderLI[0].SemanticName = TSun::String("POSITION");
 		renderLI[0].InputSlot = 0;
 		renderLI[1].AlignedByteOffset = 12;
 		renderLI[1].Format = RENDER_DEVICE_FORMAT_R32G32_FLOAT;
 		renderLI[1].SemanticIndex = 0;
-		renderLI[1].SemanticName = String("TEXCOORD");
+		renderLI[1].SemanticName = TSun::String("TEXCOORD");
 		renderLI[1].InputSlot = 0;
 		renderLI[2].AlignedByteOffset = 20;
 		renderLI[2].Format = RENDER_DEVICE_FORMAT_R32G32B32A32_FLOAT;
 		renderLI[2].SemanticIndex = 0;
-		renderLI[2].SemanticName = String("COLOR");
+		renderLI[2].SemanticName = TSun::String("COLOR");
 		renderLI[2].InputSlot = 0;
 		mInputLayout = pDevice->createInputLayout(renderLI,3,pCompiledVS);
 		if(!mInputLayout)
 		{
 			delete pCompiledVS;
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		delete pCompiledVS;
 		// PS
@@ -257,43 +257,43 @@ namespace TLunaEngine{
 		if(!pCompiledPS->compileShader(effectFile,"PS","ps"))
 		{
 			delete pCompiledPS;
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		mPS = pDevice->createPixelShader(pCompiledPS);
 		if(!mPS)
 		{
 			delete pCompiledPS;
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		delete pCompiledPS;
 		// VB
 		GUI_VERTEX_DEF vertices[] =
 		{
-			{ TLunaEngine::Vector3<TF32>( -1.0f, 1.0f, 0.0f ), TLunaEngine::Vector2<TF32>( 0.0f, 0.0f ), TLunaEngine::Vector4<TF32>(1.0f,1.0f,1.0f,1.0f) },
-			{ TLunaEngine::Vector3<TF32>( 1.0f, -1.0f, 0.0f ), TLunaEngine::Vector2<TF32>( 1.0f,1.0f ), TLunaEngine::Vector4<TF32>(1.0f,1.0f,1.0f,1.0f) },
-			{ TLunaEngine::Vector3<TF32>( -1.0f, -1.0f, 0.0f ), TLunaEngine::Vector2<TF32>( 0.0f, 1.0f ), TLunaEngine::Vector4<TF32>(1.0f,1.0f,1.0f,1.0f) },
-			{ TLunaEngine::Vector3<TF32>( -1.0f, 1.0f, 0.0f ), TLunaEngine::Vector2<TF32>( 0.0f, 0.0f ), TLunaEngine::Vector4<TF32>(1.0f,1.0f,1.0f,1.0f) },
-			{ TLunaEngine::Vector3<TF32>( 1.0f, 1.0f, 0.0f ), TLunaEngine::Vector2<TF32>( 1.0f, 0.0f ), TLunaEngine::Vector4<TF32>(1.0f,1.0f,1.0f,1.0f) },
-			{ TLunaEngine::Vector3<TF32>( 1.0f, -1.0f, 0.0f ), TLunaEngine::Vector2<TF32>( 1.0f, 1.0f ), TLunaEngine::Vector4<TF32>(1.0f,1.0f,1.0f,1.0f) },
+			{ TSun::Vector3<TSun::TF32>( -1.0f, 1.0f, 0.0f ), TSun::Vector2<TSun::TF32>( 0.0f, 0.0f ), TSun::Vector4<TSun::TF32>(1.0f,1.0f,1.0f,1.0f) },
+			{ TSun::Vector3<TSun::TF32>( 1.0f, -1.0f, 0.0f ), TSun::Vector2<TSun::TF32>( 1.0f,1.0f ), TSun::Vector4<TSun::TF32>(1.0f,1.0f,1.0f,1.0f) },
+			{ TSun::Vector3<TSun::TF32>( -1.0f, -1.0f, 0.0f ), TSun::Vector2<TSun::TF32>( 0.0f, 1.0f ), TSun::Vector4<TSun::TF32>(1.0f,1.0f,1.0f,1.0f) },
+			{ TSun::Vector3<TSun::TF32>( -1.0f, 1.0f, 0.0f ), TSun::Vector2<TSun::TF32>( 0.0f, 0.0f ), TSun::Vector4<TSun::TF32>(1.0f,1.0f,1.0f,1.0f) },
+			{ TSun::Vector3<TSun::TF32>( 1.0f, 1.0f, 0.0f ), TSun::Vector2<TSun::TF32>( 1.0f, 0.0f ), TSun::Vector4<TSun::TF32>(1.0f,1.0f,1.0f,1.0f) },
+			{ TSun::Vector3<TSun::TF32>( 1.0f, -1.0f, 0.0f ), TSun::Vector2<TSun::TF32>( 1.0f, 1.0f ), TSun::Vector4<TSun::TF32>(1.0f,1.0f,1.0f,1.0f) },
 		};
 		TLRenderDeviceBufferDesc vbDesc;
 		vbDesc.BindFlags = RENDER_DEVICE_BIND_FLAG_VERTEX_BUFFER;
 		vbDesc.ByteWidth = sizeof(GUI_VERTEX_DEF) * 6;
-		vbDesc.CPUAccessFlags = TFALSE;
+		vbDesc.CPUAccessFlags = TSun::TFALSE;
 		TLRenderDeviceSubresourceData initData;
 		initData.pSysMem = vertices;
 		mVB = pDevice->createBuffer(&vbDesc,&initData);
 		if(!mVB)
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		// VBSet
 		vbDesc.BindFlags = 0;
-		vbDesc.CPUAccessFlags = TTRUE;
-		mVBSet = pDevice->createBuffer(&vbDesc,TNULL);
+		vbDesc.CPUAccessFlags = TSun::TTRUE;
+		mVBSet = pDevice->createBuffer(&vbDesc,TSun::TNULL);
 		// blend state
 		TLRenderDeviceBlendDesc blendDesc;
-		blendDesc.RenderTarget[0].BlendEnable = TTRUE;
+		blendDesc.RenderTarget[0].BlendEnable = TSun::TTRUE;
 		blendDesc.RenderTarget[0].SrcBlend = RENDER_DEVICE_BLEND_SRC_ALPHA;
 		blendDesc.RenderTarget[0].DestBlend = RENDER_DEVICE_BLEND_INV_SRC_ALPHA;
 		blendDesc.RenderTarget[0].BlendOp = RENDER_DEVICE_BLEND_OP_ADD;
@@ -303,16 +303,16 @@ namespace TLunaEngine{
 		mBlendState = pDevice->createBlendState(&blendDesc);
 		if(!mBlendState)
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		// depth stencil state
 		TLRenderDeviceDepthStencilDesc depthDesc;
-		depthDesc.DepthEnable = TFALSE;
+		depthDesc.DepthEnable = TSun::TFALSE;
 		depthDesc.DepthWriteMask = RENDER_DEVICE_DEPTH_WRITE_MASK_ZERO;
 		mDepthStencilState = pDevice->createDepthStencilState(&depthDesc);
 		if(!mDepthStencilState)
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		// sampler state
 		TLRenderDeviceSamplerDesc samplerDesc;
@@ -322,53 +322,53 @@ namespace TLunaEngine{
 		mSamplerState = pDevice->createSamplerState(&samplerDesc);
 		if(!mSamplerState)
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
-		return TTRUE;
+		return TSun::TTRUE;
 	}
 
-	TBOOL GUITextureMgr::DrawGUICtrl(TS32 x, TS32 y, TS32 width, TS32 height, TF32 texX, TF32 texY, TF32 texR, TF32 texB, TS32 texId,TF32 alpha)
+	TSun::TBOOL GUITextureMgr::DrawGUICtrl(TSun::TS32 x, TSun::TS32 y, TSun::TS32 width, TSun::TS32 height, TSun::TF32 texX, TSun::TF32 texY, TSun::TF32 texR, TSun::TF32 texB, TSun::TS32 texId,TSun::TF32 alpha)
 	{
-		RenderDeviceUsedSRV* pSRV = TNULL;
-		Map<TS32,RenderDeviceUsedSRV*>::Iterator itr = mSRVList.find(texId);
+		RenderDeviceUsedSRV* pSRV = TSun::TNULL;
+		TSun::Map<TSun::TS32,RenderDeviceUsedSRV*>::Iterator itr = mSRVList.find(texId);
 		if(itr!=mSRVList.end())
 		{
 			pSRV = itr->Value;
 		}
-		if (pSRV == TNULL)
+		if (pSRV == TSun::TNULL)
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		RenderDevice* pDevice = RenderMgr::getSingletonPtr()->getDevice();
-		TLunaEngine::Vector4<TF32> color(1.0f,1.0f,1.0f,alpha);
+		TSun::Vector4<TSun::TF32> color(1.0f,1.0f,1.0f,alpha);
 		// 计算
-		TF32 xFinal = -1.0f + ((TF32)(x))/m_bufferWidth * 2.0f;
-		TF32 yFinal = (-1.0f + ((TF32)(y))/m_bufferHeight * 2.0f) * -1.0f;
-		TF32 xLen = ((TF32)(width))/m_bufferWidth * 2.0f;
-		TF32 yLen = ((TF32)(height))/m_bufferHeight * 2.0f;
+		TSun::TF32 xFinal = -1.0f + ((TSun::TF32)(x))/m_bufferWidth * 2.0f;
+		TSun::TF32 yFinal = (-1.0f + ((TSun::TF32)(y))/m_bufferHeight * 2.0f) * -1.0f;
+		TSun::TF32 xLen = ((TSun::TF32)(width))/m_bufferWidth * 2.0f;
+		TSun::TF32 yLen = ((TSun::TF32)(height))/m_bufferHeight * 2.0f;
 		// vbSet
 		GUI_VERTEX_DEF* pVertex;
 		TLRenderDeviceMappedSubresource mappedRes;
 		if(pDevice->mapResource(mVBSet,0,RENDER_DEVICE_MAP_READ_WRITE,&mappedRes))
 		{
 			pVertex = (GUI_VERTEX_DEF*)mappedRes.pData;
-			pVertex[0].Pos = TLunaEngine::Vector3<TF32>(xFinal,yFinal,0);
-			pVertex[0].Tex = TLunaEngine::Vector2<TF32>(texX,texY);
+			pVertex[0].Pos = TSun::Vector3<TSun::TF32>(xFinal,yFinal,0);
+			pVertex[0].Tex = TSun::Vector2<TSun::TF32>(texX,texY);
 			pVertex[0].Color = color;
-			pVertex[1].Pos = TLunaEngine::Vector3<TF32>(xFinal+xLen,yFinal-yLen,0);
-			pVertex[1].Tex = TLunaEngine::Vector2<TF32>(texR,texB);
+			pVertex[1].Pos = TSun::Vector3<TSun::TF32>(xFinal+xLen,yFinal-yLen,0);
+			pVertex[1].Tex = TSun::Vector2<TSun::TF32>(texR,texB);
 			pVertex[1].Color = color;
-			pVertex[2].Pos = TLunaEngine::Vector3<TF32>(xFinal,yFinal-yLen,0);
-			pVertex[2].Tex = TLunaEngine::Vector2<TF32>(texX,texB);
+			pVertex[2].Pos = TSun::Vector3<TSun::TF32>(xFinal,yFinal-yLen,0);
+			pVertex[2].Tex = TSun::Vector2<TSun::TF32>(texX,texB);
 			pVertex[2].Color = color;
-			pVertex[3].Pos = TLunaEngine::Vector3<TF32>(xFinal,yFinal,0);
-			pVertex[3].Tex = TLunaEngine::Vector2<TF32>(texX,texY);
+			pVertex[3].Pos = TSun::Vector3<TSun::TF32>(xFinal,yFinal,0);
+			pVertex[3].Tex = TSun::Vector2<TSun::TF32>(texX,texY);
 			pVertex[3].Color = color;
-			pVertex[4].Pos = TLunaEngine::Vector3<TF32>(xFinal+xLen,yFinal,0);
-			pVertex[4].Tex = TLunaEngine::Vector2<TF32>(texR,texY);
+			pVertex[4].Pos = TSun::Vector3<TSun::TF32>(xFinal+xLen,yFinal,0);
+			pVertex[4].Tex = TSun::Vector2<TSun::TF32>(texR,texY);
 			pVertex[4].Color = color;
-			pVertex[5].Pos = TLunaEngine::Vector3<TF32>(xFinal+xLen,yFinal-yLen,0);
-			pVertex[5].Tex = TLunaEngine::Vector2<TF32>(texR,texB);
+			pVertex[5].Pos = TSun::Vector3<TSun::TF32>(xFinal+xLen,yFinal-yLen,0);
+			pVertex[5].Tex = TSun::Vector2<TSun::TF32>(texR,texB);
 			pVertex[5].Color = color;
 			pDevice->unmapResource(mVBSet,0);
 			pDevice->copyResource(mVB,mVBSet);
@@ -377,18 +377,18 @@ namespace TLunaEngine{
 		// render
 		pDevice->setPrimitiveTopology(RENDER_DEVICE_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 		pDevice->setInputLayout(mInputLayout);
-		TU32 stride = sizeof(GUI_VERTEX_DEF);
-		TU32 offset = 0;
+		TSun::TU32 stride = sizeof(GUI_VERTEX_DEF);
+		TSun::TU32 offset = 0;
 		pDevice->setVertexBuffer(0,mVB,&stride,&offset);
 		pDevice->setVertexShader(mVS);
 		pDevice->setPixelShader(mPS);
 		pDevice->setShaderResourceView(RENDER_DEVICE_SHADER_USE_PS,0,pSRV);
 		pDevice->setSamplerState(RENDER_DEVICE_SHADER_USE_PS,0,mSamplerState);
-		TF32 blendFactor[4] = {0,0,0,0};
+		TSun::TF32 blendFactor[4] = {0,0,0,0};
 		pDevice->setBlendState(mBlendState,blendFactor,0xffffffff);
 		pDevice->setDepthStencilState(mDepthStencilState);
 		pDevice->draw(6,0);
-		return TTRUE;
+		return TSun::TTRUE;
 	}
 
 }

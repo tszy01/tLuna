@@ -3,8 +3,8 @@
 
 #include <ft2build.h>
 #include <freetype/freetype.h>
-#include "TLCommonTypeDef.h"
-#include "TLList.h"
+#include "TSCommonTypeDef.h"
+#include "TSList.h"
 
 namespace TLunaEngine{
 	class RenderDeviceUsedSRV;
@@ -12,25 +12,25 @@ namespace TLunaEngine{
 	class FontGlyph
 	{
 	public:
-		TBOOL cached;
+		TSun::TBOOL cached;
 		FontGlyph();
 		~FontGlyph();
-		TVOID cache(TU32 idx,TU32 size);
+		TSun::TVOID cache(TSun::TU32 idx,TSun::TU32 size);
 		FT_Face *face;
-		//TU32 size;
-		TU32 top;
-		TU32 left;
-		TU32 texw;
-		TU32 texh;
-		TU32 imgw;
-		TU32 imgh;
-		TS32 offset;
-		TU32* texd;
-		TF32 texStartU;
-		TF32 texEndU;
-		TF32 texStartV;
-		TF32 texEndV;
-		TU32 pageIndex;
+		//TSun::TU32 size;
+		TSun::TU32 top;
+		TSun::TU32 left;
+		TSun::TU32 texw;
+		TSun::TU32 texh;
+		TSun::TU32 imgw;
+		TSun::TU32 imgh;
+		TSun::TS32 offset;
+		TSun::TU32* texd;
+		TSun::TF32 texStartU;
+		TSun::TF32 texEndU;
+		TSun::TF32 texStartV;
+		TSun::TF32 texEndV;
+		TSun::TU32 pageIndex;
 	};
 
 	/*
@@ -47,45 +47,45 @@ namespace TLunaEngine{
 		~GUIFont();
 
 		//! loads a truetype font file
-		TBOOL InitFont(const TCHAR* filename,TU32 size,TU32 texPageSize,TS32 id,FT_Library lib);
+		TSun::TBOOL InitFont(const TSun::TCHAR* filename,TSun::TU32 size,TSun::TU32 texPageSize,TSun::TS32 id,FT_Library lib);
 
 		//! draws an text and clips it to the specified rectangle if wanted
-		TVOID PreDraw(TS32 n,TS32* imgw,TS32* imgh,TS32* texw,TS32* texh,TS32* offx,TS32* offy,
-			TF32* texStartU,TF32* texEndU,TF32* texStartV,TF32* texEndV,TU32* pageIndex);
+		TSun::TVOID PreDraw(TSun::TS32 n,TSun::TS32* imgw,TSun::TS32* imgh,TSun::TS32* texw,TSun::TS32* texh,TSun::TS32* offx,TSun::TS32* offy,
+			TSun::TF32* texStartU,TSun::TF32* texEndU,TSun::TF32* texStartV,TSun::TF32* texEndV,TSun::TU32* pageIndex);
 
 		//! returns the dimension of a text
-		TVOID GetDimension(const TWCHAR* text, TU32& left, TU32& right, TU32& top, TU32& bottom);
+		TSun::TVOID GetDimension(const TSun::TWCHAR* text, TSun::TU32& left, TSun::TU32& right, TSun::TU32& top, TSun::TU32& bottom);
 
 		//! Calculates the index of the character in the text which is on a specific position.
-		TS32 GetCharacterFromPos(const TWCHAR* text, TS32 pixel_x);
+		TSun::TS32 GetCharacterFromPos(const TSun::TWCHAR* text, TSun::TS32 pixel_x);
 
-		TS32 GetWidthFromCharacter(TWCHAR c);
-		TU32 GetGlyphByChar(TWCHAR c,TBOOL& newFontCached);
+		TSun::TS32 GetWidthFromCharacter(TSun::TWCHAR c);
+		TSun::TU32 GetGlyphByChar(TSun::TWCHAR c,TSun::TBOOL& newFontCached);
 
 		// catch all font to one dsv
-		TBOOL catchAllFont();
+		TSun::TBOOL catchAllFont();
 
-		inline TS32 GetId()
+		inline TSun::TS32 GetId()
 		{
 			return m_Id;
 		}
 
-		RenderDeviceUsedSRV* getSRV(TU32 pageIndex);
+		RenderDeviceUsedSRV* getSRV(TSun::TU32 pageIndex);
 	private:
 		FontGlyph* m_Glyphs;
 		FT_Library	library;
 		FT_Face		face;
-		TS32			m_Id;	// 全局唯一ID
+		TSun::TS32			m_Id;	// 全局唯一ID
 		//RenderDeviceUsedSRV* mSRV;
-		//TU32 mTotalWidth;
-		//TU32 mTotalHeight;
-		//TU32* mPixelBuffer;
-		TU32 mFontSize;
+		//TSun::TU32 mTotalWidth;
+		//TSun::TU32 mTotalHeight;
+		//TSun::TU32* mPixelBuffer;
+		TSun::TU32 mFontSize;
 
-		TU32 mPageCount;
-		TU32 mPageSize;
-		List<TU32*> mPageBufferList;
-		List<RenderDeviceUsedSRV*> mSRVList;
+		TSun::TU32 mPageCount;
+		TSun::TU32 mPageSize;
+		TSun::List<TSun::TU32*> mPageBufferList;
+		TSun::List<RenderDeviceUsedSRV*> mSRVList;
 	};
 
 }

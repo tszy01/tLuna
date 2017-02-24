@@ -3,8 +3,8 @@
 
 #include "TLGUIFont.h"
 #include "TLGUIDefine.h"
-#include "TLSingleton.h"
-#include "TLMap.h"
+#include "TSSingleton.h"
+#include "TSMap.h"
 
 namespace TLunaEngine{
 	class RenderDeviceUsedBuffer;
@@ -19,15 +19,15 @@ namespace TLunaEngine{
 	/*
 	 *	负责GUI的渲染，统一加载资源
 	 */
-	class GUITextureMgr : public Singleton<GUITextureMgr>
+	class GUITextureMgr : public TSun::Singleton<GUITextureMgr>
 	{
-		friend class Singleton<GUITextureMgr>;
+		friend class TSun::Singleton<GUITextureMgr>;
 	protected:
-		GUITextureMgr(TVOID);
-		~GUITextureMgr(TVOID);
+		GUITextureMgr(TSun::TVOID);
+		~GUITextureMgr(TSun::TVOID);
 	private:
-		TU32 m_bufferWidth;	// 后缓冲宽
-		TU32 m_bufferHeight;// 后缓冲高
+		TSun::TU32 m_bufferWidth;	// 后缓冲宽
+		TSun::TU32 m_bufferHeight;// 后缓冲高
 		RenderDeviceUsedBuffer* mVB;
 		RenderDeviceUsedBuffer* mVBSet;
 		RenderDeviceUsedVS* mVS;
@@ -36,22 +36,22 @@ namespace TLunaEngine{
 		RenderDeviceUsedBlendState* mBlendState;
 		RenderDeviceUsedSamplerState* mSamplerState;
 		RenderDeviceUsedInputLayout* mInputLayout;
-		Map<TS32,RenderDeviceUsedSRV*> mSRVList;
+		TSun::Map<TSun::TS32,RenderDeviceUsedSRV*> mSRVList;
 	public:
 		// 初始化
-		TBOOL Init(TU32 bufferWidth,TU32 bufferHeight,const TCHAR* effectFile);
+		TSun::TBOOL Init(TSun::TU32 bufferWidth,TSun::TU32 bufferHeight,const TSun::TCHAR* effectFile);
 		// 加载纹理
-		TBOOL LoadTexFromFile(const TCHAR* file);
+		TSun::TBOOL LoadTexFromFile(const TSun::TCHAR* file);
 		// 销毁
-		TVOID DestroyAllTex();
+		TSun::TVOID DestroyAllTex();
 		// 渲染
 		// 这里绘画区域传相对于屏幕的，纹理坐标传真正的纹理映射值（0-1）
-		TBOOL DrawGUICtrl(TS32 x,TS32 y,TS32 width,TS32 height,TF32 texX,TF32 texY,TF32 texR,TF32 texB,TS32 texId,TF32 alpha);
+		TSun::TBOOL DrawGUICtrl(TSun::TS32 x,TSun::TS32 y,TSun::TS32 width,TSun::TS32 height,TSun::TF32 texX,TSun::TF32 texY,TSun::TF32 texR,TSun::TF32 texB,TSun::TS32 texId,TSun::TF32 alpha);
 	private:
 		// 其它D3D资源
-		TBOOL InitD3DObj(const TCHAR* effectFile);
+		TSun::TBOOL InitD3DObj(const TSun::TCHAR* effectFile);
 		// 读取纹理ID，文件名
-		TBOOL LoadTexArray(FILE* stream);
+		TSun::TBOOL LoadTexArray(FILE* stream);
 	};
 
 }

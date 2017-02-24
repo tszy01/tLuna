@@ -13,12 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
     </Filter>
-    <Filter Include="Common">
-      <UniqueIdentifier>{d4188c56-0e32-4aa2-b7b3-6afc27ff1a5b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Math">
-      <UniqueIdentifier>{ca33710a-1706-4741-a14c-1f608b3b27eb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GUI">
       <UniqueIdentifier>{64cf8131-a06b-4e09-8dea-4eb328ea7ee7}</UniqueIdentifier>
     </Filter>
@@ -138,77 +132,14 @@
     <ClCompile Include="TLGlobalFunc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TLConvexBody.cpp">
-      <Filter>Math</Filter>
-    </ClCompile>
-    <ClCompile Include="TLDegree.cpp">
-      <Filter>Math</Filter>
-    </ClCompile>
     <ClCompile Include="TLTestTriangle.cpp">
       <Filter>EngineCore</Filter>
-    </ClCompile>
-    <ClCompile Include="TLRadian.cpp">
-      <Filter>Math</Filter>
-    </ClCompile>
-    <ClCompile Include="TLLoopCtrl.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="TLBinaryFileProcessor.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="TLColorValue.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="TLConfigFile.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="TLDateTime.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="TLLog.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="TLLuaBase.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="TLMemFile.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="TLString.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="TLTimer.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="TLTxtFileReader.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="TLTxtFileWriter.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="TLZip.cpp">
-      <Filter>Common</Filter>
     </ClCompile>
     <ClCompile Include="TLResObject.cpp">
       <Filter>EngineCore</Filter>
     </ClCompile>
-    <ClCompile Include="TLConsoleInput.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="TLConsole.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="TLConsoleOutput.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="TLUTF8FileReader.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="TLUTF8FileWriter.cpp">
-      <Filter>Common</Filter>
-    </ClCompile>
-    <ClCompile Include="TLLangDict.cpp">
-      <Filter>EngineCore</Filter>
+    <ClCompile Include="TLLoopCtrl.cpp">
+      <Filter>EngineUtils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -320,134 +251,8 @@
     <ClInclude Include="TLGlobalFunc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TLAABBox.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="TLConvexBody.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="TLDegree.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="TLDualQuaternion.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="TLFPU.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="TLLine.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="TLMathUtils.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="TLMatrix3x3.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="TLMatrix4x4.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="TLPlane.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="TLPlaneBoundedVolume.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="TLPolygon.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="TLQuaternion.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="TLRadian.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="TLRay.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="TLSimpleSpline.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="TLSphere.h">
-      <Filter>Math</Filter>
-    </ClInclude>
     <ClInclude Include="TLTestTriangle.h">
       <Filter>EngineCore</Filter>
-    </ClInclude>
-    <ClInclude Include="TLTriangle.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="TLVector2.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="TLVector3.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="TLVector4.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="TLRotationalSpline.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="TLLoopCtrl.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="TLAutoPtr.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="TLBinaryFileProcessor.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="TLColorValue.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="TLCommonTypeDef.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="TLConfigFile.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="TLDateTime.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="TLList.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="TLLock.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="TLLog.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="TLLuaBase.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="TLMemFile.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="TLMutex.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="TLSharedPtr.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="TLString.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="TLTimer.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="TLTxtFileReader.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="TLTxtFileWriter.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="TLZip.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="TLSingleton.h">
-      <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="TLResObject.h">
       <Filter>EngineCore</Filter>
@@ -533,35 +338,8 @@
     <ClInclude Include="TLRenderDeviceUsedView_D3D11.h">
       <Filter>Render\Render_D3D11</Filter>
     </ClInclude>
-    <ClInclude Include="TLConfigDef.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="TLMap.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="TLCommonFunc.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="TLPair.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="TLConsole.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="TLConsoleInput.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="TLConsoleOutput.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="TLUTF8FileReader.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="TLUTF8FileWriter.h">
-      <Filter>Common</Filter>
-    </ClInclude>
-    <ClInclude Include="TLLangDict.h">
-      <Filter>EngineCore</Filter>
+    <ClInclude Include="TLLoopCtrl.h">
+      <Filter>EngineUtils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

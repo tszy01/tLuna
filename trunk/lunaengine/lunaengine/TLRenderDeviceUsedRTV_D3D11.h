@@ -1,7 +1,7 @@
 #ifndef _TLRENDERDEVICEUSEDRTV_D3D11_H_
 #define _TLRENDERDEVICEUSEDRTV_D3D11_H_
 
-#include "TLCommonTypeDef.h"
+#include "TSCommonTypeDef.h"
 #include "TLRenderDeviceUsedRTV.h"
 #include "TLRenderDeviceUsedView_D3D11.h"
 #include <d3d11.h>
@@ -28,7 +28,7 @@ namespace TLunaEngine
 			return mD3DRTV;
 		}
 		// init with d3d rtv
-		TBOOL initWithD3DRTV(ID3D11RenderTargetView* d3dView);
+		TSun::TBOOL initWithD3DRTV(ID3D11RenderTargetView* d3dView);
 	};
 }
 

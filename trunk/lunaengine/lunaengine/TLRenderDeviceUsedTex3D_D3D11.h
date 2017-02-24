@@ -28,7 +28,7 @@ namespace TLunaEngine
 			return mD3DTex3D;
 		}
 		// init with d3d tex
-		TBOOL initWithD3DTex3D(ID3D11Texture3D* d3dTex);
+		TSun::TBOOL initWithD3DTex3D(ID3D11Texture3D* d3dTex);
 	};
 }
 

@@ -1,60 +1,65 @@
 #ifndef _TLGLOBLECLASS_H_
 #define _TLGLOBLECLASS_H_
 
-#include "TLString.h"
+#include "TSString.h"
 //#include "TD3DFont.h"
-#include "TLSingleton.h"
+#include "TSSingleton.h"
+
+namespace TSun
+{
+	class LangDict;
+};
 
 namespace TLunaEngine{
 
 	// 类声明
 	class TestTriangle;
 	class LoopCtrl;
-	class LangDict;
+	
 	/*
 	 *	本类存储全局静态变量，静态方法
 	 */
-	class GlobleClass : public Singleton<GlobleClass>
+	class GlobleClass : public TSun::Singleton<GlobleClass>
 	{
-		friend class Singleton<GlobleClass>;
+		friend class TSun::Singleton<GlobleClass>;
 	protected:
-		GlobleClass(TVOID);
-		~GlobleClass(TVOID);
+		GlobleClass(TSun::TVOID);
+		~GlobleClass(TSun::TVOID);
 	public:
 		// 临时用 -----------------------
 		TestTriangle* m_pTri;
 		// 保存资源跟路径
-		TLunaEngine::String m_strResDir;
+		TSun::String m_strResDir;
 		// DEBUG信息使用字体
 		//TLunaEngine::TD3DFont* m_pDebugFont;
 		// 是否显示DEBUG信息
-		TBOOL m_bShowDebugInfo;
+		TSun::TBOOL m_bShowDebugInfo;
 		// 是否为编辑器
-		TBOOL m_bEditor;
+		TSun::TBOOL m_bEditor;
 		// loop control
 		LoopCtrl* mLoopCtrl;
 		// language dictionary
-		LangDict* mLangDict;
+		TSun::LangDict* mLangDict;
 		// language dictionary file
-		String mLangDictFile;
+		TSun::String mLangDictFile;
 	public:
 		// ----- 方法 -------------------
 		// 初始化
-		TBOOL InitGlobleClass();
+		TSun::TBOOL InitGlobleClass();
 		// 销毁
-		TVOID DestroyGlobleClass();
+		TSun::TVOID DestroyGlobleClass();
 		// 帧更新
-		TBOOL OnUpdate(TF32 fTimeElapsed);
+		TSun::TBOOL OnUpdate(TSun::TF32 fTimeElapsed);
 		// 帧渲染
-		TBOOL OnRender(TF32 fTimeElapsed);
+		TSun::TBOOL OnRender(TSun::TF32 fTimeElapsed);
 		// update loop control
-		TVOID updateLoopCtrl();
+		TSun::TVOID updateLoopCtrl();
 		// get loop control renderable
-		TBOOL getLoopCtrlCanRender();
+		TSun::TBOOL getLoopCtrlCanRender();
 		// calc fps
-		TVOID calcFPS();
+		TSun::TVOID calcFPS();
 		// get elapsed time
-		TF32 getElapsedTime();
+		TSun::TF32 getElapsedTime();
 	};
 
 }

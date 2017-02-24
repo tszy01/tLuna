@@ -1,7 +1,7 @@
 #ifndef _MAINWINDOW_H_
 #define _MAINWINDOW_H_
 #include <Windows.h>
-#include "TLSingleton.h"
+#include "TSSingleton.h"
 
 // 初始化窗口用结构体
 struct _MAINWNDCONFIG
@@ -17,9 +17,9 @@ struct _MAINWNDCONFIG
 	}
 };
 
-class MainWindow : public TLunaEngine::Singleton<MainWindow>
+class MainWindow : public TSun::Singleton<MainWindow>
 {
-	friend class TLunaEngine::Singleton<MainWindow>;
+	friend class TSun::Singleton<MainWindow>;
 protected:
 	MainWindow(void);
 	~MainWindow(void);

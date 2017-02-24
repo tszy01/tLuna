@@ -1,16 +1,16 @@
 #ifndef TL_RENDER_MGR_H
 #define TL_RENDER_MGR_H
 
-#include "TLCommonTypeDef.h"
-#include "TLSingleton.h"
+#include "TSCommonTypeDef.h"
+#include "TSSingleton.h"
 
 namespace TLunaEngine
 {
 	class RenderDevice;
 
-	class RenderMgr : public Singleton<RenderMgr>
+	class RenderMgr : public TSun::Singleton<RenderMgr>
 	{
-		friend class Singleton<RenderMgr>;
+		friend class TSun::Singleton<RenderMgr>;
 	public:
 		enum DEVEICE_TYPE
 		{
@@ -28,17 +28,17 @@ namespace TLunaEngine
 	public:
 		// create render device
 		// only new device, please call init after this
-		RenderDevice* createRenderDevice(TU32 deviceType);
+		RenderDevice* createRenderDevice(TSun::TU32 deviceType);
 		// destroy render device
 		// only delete device, please call destroy before this
-		TVOID destroyRenderDevice();
+		TSun::TVOID destroyRenderDevice();
 		// get the device
 		RenderDevice* getDevice()
 		{
 			return mDevice;
 		};
 		// resize device buffer
-		TBOOL resizeDeviceBuffer(TU32 width,TU32 height);
+		TSun::TBOOL resizeDeviceBuffer(TSun::TU32 width,TSun::TU32 height);
 		// get device type
 		DEVEICE_TYPE getDeviceType()
 		{

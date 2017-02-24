@@ -1,23 +1,23 @@
 #include "TLGUIText.h"
 #include "TLGUIFontManager.h"
 #include "TLGlobleClass.h"
-#include "TLLangDict.h"
+#include "TSLangDict.h"
 
 namespace TLunaEngine{
-	GUIText::GUIText(TVOID) : GUICtrl(),m_iFontID(-1),m_color(),m_strText(L""),m_textID(0)
+	GUIText::GUIText(TSun::TVOID) : GUICtrl(),m_iFontID(-1),m_color(),m_strText(L""),m_textID(0)
 	{
 	}
 
-	GUIText::~GUIText(TVOID)
+	GUIText::~GUIText(TSun::TVOID)
 	{
 	}
 
-	TBOOL GUIText::InitGUIText(TS32 iIndex, TLunaEngine::GUIContainer *pContainer, TS32 x, 
-		TS32 y, TS32 width, TS32 height, TS32 iFontID, Vector4<TF32>& color, TU64 textID)
+	TSun::TBOOL GUIText::InitGUIText(TSun::TS32 iIndex, TLunaEngine::GUIContainer *pContainer, TSun::TS32 x, 
+		TSun::TS32 y, TSun::TS32 width, TSun::TS32 height, TSun::TS32 iFontID, TSun::Vector4<TSun::TF32>& color, TSun::TU64 textID)
 	{
 		if (!GUICtrl::InitCtrlBase(iIndex,pContainer,x,y,width,height))
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		m_eCtrlType = GUI_CTRL_TEXT;
 		m_iFontID = iFontID;
@@ -28,10 +28,10 @@ namespace TLunaEngine{
 		{
 			GlobleClass::getSingletonPtr()->mLangDict->findByKey(m_textID, m_strText);
 		}
-		return TTRUE;
+		return TSun::TTRUE;
 	}
 
-	TVOID GUIText::DestroyCtrl()
+	TSun::TVOID GUIText::DestroyCtrl()
 	{
 		m_eCtrlType = GUI_CTRL_NONE;
 		m_iFontID = -1;
@@ -40,21 +40,21 @@ namespace TLunaEngine{
 		GUICtrl::DestroyCtrl();
 	}
 
-	TBOOL GUIText::Update(TF32 fTimeElapsed)
+	TSun::TBOOL GUIText::Update(TSun::TF32 fTimeElapsed)
 	{
 		return GUICtrl::Update(fTimeElapsed);
 	}
 
-	TBOOL GUIText::Render(TF32 fTimeElapsed)
+	TSun::TBOOL GUIText::Render(TSun::TF32 fTimeElapsed)
 	{
 		if (!GUICtrl::Render(fTimeElapsed))
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		GUIFontManager* pFontMgr = GUIFontManager::getSingletonPtr();
 		pFontMgr->UseFont(m_iFontID);
 		pFontMgr->Render(m_strText.GetWString(),m_strText.GetLength()+1,m_posXFinal,m_posYFinal,m_color);
-		return TTRUE;
+		return TSun::TTRUE;
 	}
 
 }

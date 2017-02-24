@@ -1,12 +1,12 @@
 #include "TLRenderDeviceCompiledShader_D3D11.h"
-#include "TLTxtFileReader.h"
+#include "TSTxtFileReader.h"
 #include "TLRenderMgr.h"
 #include "TLRenderDevice.h"
 #include <d3dcompiler.h>
 
 namespace TLunaEngine
 {
-	RenderDeviceCompiledShader_D3D11::RenderDeviceCompiledShader_D3D11():RenderDeviceCompiledShader(),mD3DBlob(TNULL)
+	RenderDeviceCompiledShader_D3D11::RenderDeviceCompiledShader_D3D11():RenderDeviceCompiledShader(),mD3DBlob(TSun::TNULL)
 	{
 	}
 
@@ -15,20 +15,20 @@ namespace TLunaEngine
 		if(mD3DBlob)
 		{
 			mD3DBlob->Release();
-			mD3DBlob = TNULL;
+			mD3DBlob = TSun::TNULL;
 		}
 	}
 
-	TVOID* RenderDeviceCompiledShader_D3D11::getBufferPointer()
+	TSun::TVOID* RenderDeviceCompiledShader_D3D11::getBufferPointer()
 	{
 		if(mD3DBlob)
 		{
 			return mD3DBlob->GetBufferPointer();
 		}
-		return TNULL;
+		return TSun::TNULL;
 	}
 
-	TSIZE RenderDeviceCompiledShader_D3D11::getBufferSize()
+	TSun::TSIZE RenderDeviceCompiledShader_D3D11::getBufferSize()
 	{
 		if(mD3DBlob)
 		{
@@ -37,65 +37,65 @@ namespace TLunaEngine
 		return 0;
 	}
 
-	TBOOL RenderDeviceCompiledShader_D3D11::readFromFile(const TCHAR* file)
+	TSun::TBOOL RenderDeviceCompiledShader_D3D11::readFromFile(const TSun::TCHAR* file)
 	{
 		if(!file)
-			return TFALSE;
+			return TSun::TFALSE;
 		if(mD3DBlob)
-			return TFALSE;
-		TVOID* buffer = 0;
-		TU64 readSize = 0;
-		if(!TxtFileReader::ReadAllFile(file,"rb",&buffer,&readSize))
-			return TFALSE;
+			return TSun::TFALSE;
+		TSun::TVOID* buffer = 0;
+		TSun::TU64 readSize = 0;
+		if(!TSun::TxtFileReader::ReadAllFile(file,"rb",&buffer,&readSize))
+			return TSun::TFALSE;
 		if(!buffer || readSize<=0)
-			return TFALSE;
-		if(FAILED(D3DCreateBlob((TSIZE)readSize,&mD3DBlob)))
+			return TSun::TFALSE;
+		if(FAILED(D3DCreateBlob((TSun::TSIZE)readSize,&mD3DBlob)))
 		{
 			free(buffer);
-			return TFALSE;
+			return TSun::TFALSE;
 		}
-		memcpy(mD3DBlob->GetBufferPointer(),buffer,(TSIZE)readSize);
+		memcpy(mD3DBlob->GetBufferPointer(),buffer,(TSun::TSIZE)readSize);
 		free(buffer);
-		return TTRUE;
+		return TSun::TTRUE;
 	}
 
-	TBOOL RenderDeviceCompiledShader_D3D11::writeToFile(const TCHAR* file)
+	TSun::TBOOL RenderDeviceCompiledShader_D3D11::writeToFile(const TSun::TCHAR* file)
 	{
 		if(!file)
-			return TFALSE;
+			return TSun::TFALSE;
 		if(!mD3DBlob)
-			return TFALSE;
+			return TSun::TFALSE;
 		if(mD3DBlob->GetBufferSize() == 0)
-			return TFALSE;
+			return TSun::TFALSE;
 		FILE* stream = 0;
-		TS32 re = fopen_s(&stream,file,"wb");
+		TSun::TS32 re = fopen_s(&stream,file,"wb");
 		if(re!=0)
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
-		TSIZE writeSize = (TSIZE)fwrite(mD3DBlob->GetBufferPointer(),1,mD3DBlob->GetBufferSize(),stream);
-		if(writeSize!=(TSIZE)mD3DBlob->GetBufferSize())
+		TSun::TSIZE writeSize = (TSun::TSIZE)fwrite(mD3DBlob->GetBufferPointer(),1,mD3DBlob->GetBufferSize(),stream);
+		if(writeSize!=(TSun::TSIZE)mD3DBlob->GetBufferSize())
 		{
 			fclose(stream);
-			return TFALSE;
+			return TSun::TFALSE;
 		}
-		return TTRUE;
+		return TSun::TTRUE;
 	}
 
-	TBOOL RenderDeviceCompiledShader_D3D11::compileShader(const TCHAR* szFile, const TCHAR* szEntry, const TCHAR* szShaderType)
+	TSun::TBOOL RenderDeviceCompiledShader_D3D11::compileShader(const TSun::TCHAR* szFile, const TSun::TCHAR* szEntry, const TSun::TCHAR* szShaderType)
 	{
 		if(!szFile || !szEntry || !szShaderType)
-			return TFALSE;
+			return TSun::TFALSE;
 		RenderDevice* pDevice = RenderMgr::getSingletonPtr()->getDevice();
 		if(!pDevice)
-			return TFALSE;
-		String strModelVersion = pDevice->getShaderProfileVersion();
+			return TSun::TFALSE;
+		TSun::String strModelVersion = pDevice->getShaderProfileVersion();
 		if(strModelVersion=="")
-			return TFALSE;
-		String strShaderModel = String(szShaderType) + String("_") + strModelVersion;
+			return TSun::TFALSE;
+		TSun::String strShaderModel = TSun::String(szShaderType) + TSun::String("_") + strModelVersion;
 
 		HRESULT hr = S_OK;
-		TU32 dwShaderFlags = D3DCOMPILE_ENABLE_STRICTNESS;
+		TSun::TU32 dwShaderFlags = D3DCOMPILE_ENABLE_STRICTNESS;
 #if defined( DEBUG ) || defined( _DEBUG )
 		// Set the D3DCOMPILE_DEBUG flag to embed debug information in the shaders.
 		// Setting this flag improves the shader debugging experience, but still allows 
@@ -105,22 +105,22 @@ namespace TLunaEngine
 #endif
 
 		ID3DBlob* pErrorBlob;
-		TU32 strCount = (TU32)strlen(szFile);
-		TWCHAR* wStr = new TWCHAR[strCount+1];
+		TSun::TU32 strCount = (TSun::TU32)strlen(szFile);
+		TSun::TWCHAR* wStr = new TSun::TWCHAR[strCount+1];
 		//mbstowcs(wStr,szFile,strCount);
 		::MultiByteToWideChar(CP_ACP, 0, szFile, strCount, wStr, strCount);
 		wStr[strCount] = L'\0';
-		hr = D3DCompileFromFile( wStr, TNULL, TNULL, szEntry, strShaderModel.GetString(), dwShaderFlags, 0, &mD3DBlob, &pErrorBlob );
+		hr = D3DCompileFromFile( wStr, TSun::TNULL, TSun::TNULL, szEntry, strShaderModel.GetString(), dwShaderFlags, 0, &mD3DBlob, &pErrorBlob );
 		if( FAILED(hr) )
 		{
-			if( pErrorBlob != TNULL )
-				OutputDebugStringA( (TCHAR*)pErrorBlob->GetBufferPointer() );
+			if( pErrorBlob != TSun::TNULL )
+				OutputDebugStringA( (TSun::TCHAR*)pErrorBlob->GetBufferPointer() );
 			if( pErrorBlob ) pErrorBlob->Release();
 			delete [] wStr;
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		if( pErrorBlob ) pErrorBlob->Release();
 		delete [] wStr;
-		return TTRUE;
+		return TSun::TTRUE;
 	}
 }

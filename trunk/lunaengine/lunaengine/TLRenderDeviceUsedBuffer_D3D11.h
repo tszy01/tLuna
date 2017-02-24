@@ -28,7 +28,7 @@ namespace TLunaEngine
 			return mD3DBuffer;
 		}
 		// init with d3d buffer
-		TBOOL initWithD3DBuffer(ID3D11Buffer* d3dBuffer);
+		TSun::TBOOL initWithD3DBuffer(ID3D11Buffer* d3dBuffer);
 	};
 }
 

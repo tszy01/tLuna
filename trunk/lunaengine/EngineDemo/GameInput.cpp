@@ -1,6 +1,6 @@
 #include "GameInput.h"
 
-GameInput* TLunaEngine::Singleton<GameInput>::m_Ptr = 0;
+GameInput* TSun::Singleton<GameInput>::m_Ptr = 0;
 
 BOOL CALLBACK EnumJoysticksCallback(const DIDEVICEINSTANCE* pdidInstance, VOID* pContext)
 {

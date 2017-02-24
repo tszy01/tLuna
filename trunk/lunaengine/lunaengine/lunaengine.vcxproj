@@ -113,8 +113,8 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(WindowsSDK_IncludePath);..\freetype-2.1.9\include;..\FreeImage\source;..\FreeImage\Source\ZLib;..\tinyxml;..\lua\include;..\LibDDSTextureLoader;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\freetype-2.1.9\include;..\FreeImage\source;$(SolutionDir)\..\tSun\trunk\src\ZLib;$(SolutionDir)\..\tSun\trunk\src\lua\include;..\LibDDSTextureLoader;$(SolutionDir)\..\tSun\trunk\src\SunBase;$(SolutionDir)\..\tSun\trunk\src\SunMath;$(SolutionDir)\..\tSun\trunk\src\SunUtils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_SWPRINTFS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -155,8 +155,8 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>..\freetype-2.1.9\include;..\FreeImage\source;..\FreeImage\Source\ZLib;..\tinyxml;..\lua\include;..\LibDDSTextureLoader;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\freetype-2.1.9\include;..\FreeImage\source;$(SolutionDir)\..\tSun\trunk\src\ZLib;$(SolutionDir)\..\tSun\trunk\src\lua\include;..\LibDDSTextureLoader;$(SolutionDir)\..\tSun\trunk\src\SunBase;$(SolutionDir)\..\tSun\trunk\src\SunMath;$(SolutionDir)\..\tSun\trunk\src\SunUtils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_SWPRINTFS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
@@ -173,16 +173,7 @@
     </BuildLog>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="TLConsole.cpp" />
-    <ClCompile Include="TLConsoleInput.cpp" />
-    <ClCompile Include="TLConsoleOutput.cpp" />
     <ClCompile Include="TLGlobalFunc.cpp" />
-    <ClCompile Include="TLBinaryFileProcessor.cpp" />
-    <ClCompile Include="TLColorValue.cpp" />
-    <ClCompile Include="TLConfigFile.cpp" />
-    <ClCompile Include="TLConvexBody.cpp" />
-    <ClCompile Include="TLDateTime.cpp" />
-    <ClCompile Include="TLDegree.cpp" />
     <ClCompile Include="TLGlobleClass.cpp" />
     <ClCompile Include="TLGUIContainer.cpp" />
     <ClCompile Include="TLGUICtrl.cpp" />
@@ -193,10 +184,8 @@
     <ClCompile Include="TLGUIText.cpp" />
     <ClCompile Include="TLGUITextureMgr.cpp" />
     <ClCompile Include="TLImage.cpp" />
-    <ClCompile Include="TLLangDict.cpp" />
     <ClCompile Include="TLResObject.cpp" />
     <ClCompile Include="TLLoopCtrl.cpp" />
-    <ClCompile Include="TLLog.cpp" />
     <ClCompile Include="TLRenderDeviceCompiledShader_D3D11.cpp" />
     <ClCompile Include="TLRenderDeviceUsedBlendState_D3D11.cpp" />
     <ClCompile Include="TLRenderDeviceUsedBuffer_D3D11.cpp" />
@@ -221,38 +210,9 @@
     <ClCompile Include="TLRenderMgr.cpp" />
     <ClCompile Include="TLResMgr.cpp" />
     <ClCompile Include="TLTestTriangle.cpp" />
-    <ClCompile Include="TLLuaBase.cpp" />
-    <ClCompile Include="TLMemFile.cpp" />
-    <ClCompile Include="TLRadian.cpp" />
-    <ClCompile Include="TLString.cpp" />
-    <ClCompile Include="TLTimer.cpp" />
-    <ClCompile Include="TLTxtFileReader.cpp" />
-    <ClCompile Include="TLTxtFileWriter.cpp" />
-    <ClCompile Include="TLUTF8FileReader.cpp" />
-    <ClCompile Include="TLUTF8FileWriter.cpp" />
-    <ClCompile Include="TLZip.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TLColorValue.h" />
-    <ClInclude Include="TLCommonFunc.h" />
-    <ClInclude Include="TLConfigDef.h" />
-    <ClInclude Include="TLConsole.h" />
-    <ClInclude Include="TLConsoleInput.h" />
-    <ClInclude Include="TLConsoleOutput.h" />
-    <ClInclude Include="TLConvexBody.h" />
-    <ClInclude Include="TLDegree.h" />
-    <ClInclude Include="TLDualQuaternion.h" />
-    <ClInclude Include="TLLangDict.h" />
-    <ClInclude Include="TLMathUtils.h" />
     <ClInclude Include="TLGlobalFunc.h" />
-    <ClInclude Include="TLAABBox.h" />
-    <ClInclude Include="TLAutoPtr.h" />
-    <ClInclude Include="TLBinaryFileProcessor.h" />
-    <ClInclude Include="TLCommonTypeDef.h" />
-    <ClInclude Include="TLConfigFile.h" />
-    <ClInclude Include="TLDateTime.h" />
-    <ClInclude Include="TLFPU.h" />
-    <ClInclude Include="TLMap.h" />
     <ClInclude Include="TLGlobleClass.h" />
     <ClInclude Include="TLGUIContainer.h" />
     <ClInclude Include="TLGUICtrl.h" />
@@ -265,8 +225,6 @@
     <ClInclude Include="TLGUITextureMgr.h" />
     <ClInclude Include="TLGUIListener.h" />
     <ClInclude Include="TLImage.h" />
-    <ClInclude Include="TLLine.h" />
-    <ClInclude Include="TLPair.h" />
     <ClInclude Include="TLRenderDevice.h" />
     <ClInclude Include="TLRenderDeviceUsed.h" />
     <ClInclude Include="TLRenderDeviceUsedBlendState.h" />
@@ -293,10 +251,7 @@
     <ClInclude Include="TLRenderDeviceUsedView_D3D11.h" />
     <ClInclude Include="TLRenderDeviceUsedVS.h" />
     <ClInclude Include="TLResObject.h" />
-    <ClInclude Include="TLList.h" />
     <ClInclude Include="TLLoopCtrl.h" />
-    <ClInclude Include="TLLock.h" />
-    <ClInclude Include="TLLog.h" />
     <ClInclude Include="TLRenderDef.h" />
     <ClInclude Include="TLRenderDeviceCompiledShader_D3D11.h" />
     <ClInclude Include="TLRenderDeviceUsedBlendState_D3D11.h" />
@@ -323,33 +278,6 @@
     <ClInclude Include="TLRenderMgr.h" />
     <ClInclude Include="TLResMgr.h" />
     <ClInclude Include="TLTestTriangle.h" />
-    <ClInclude Include="TLLuaBase.h" />
-    <ClInclude Include="TLMatrix3x3.h" />
-    <ClInclude Include="TLMatrix4x4.h" />
-    <ClInclude Include="TLMemFile.h" />
-    <ClInclude Include="TLMutex.h" />
-    <ClInclude Include="TLPlane.h" />
-    <ClInclude Include="TLPlaneBoundedVolume.h" />
-    <ClInclude Include="TLPolygon.h" />
-    <ClInclude Include="TLQuaternion.h" />
-    <ClInclude Include="TLRadian.h" />
-    <ClInclude Include="TLRay.h" />
-    <ClInclude Include="TLRotationalSpline.h" />
-    <ClInclude Include="TLSharedPtr.h" />
-    <ClInclude Include="TLSimpleSpline.h" />
-    <ClInclude Include="TLSingleton.h" />
-    <ClInclude Include="TLSphere.h" />
-    <ClInclude Include="TLString.h" />
-    <ClInclude Include="TLTimer.h" />
-    <ClInclude Include="TLTriangle.h" />
-    <ClInclude Include="TLTxtFileReader.h" />
-    <ClInclude Include="TLTxtFileWriter.h" />
-    <ClInclude Include="TLUTF8FileReader.h" />
-    <ClInclude Include="TLUTF8FileWriter.h" />
-    <ClInclude Include="TLVector2.h" />
-    <ClInclude Include="TLVector3.h" />
-    <ClInclude Include="TLVector4.h" />
-    <ClInclude Include="TLZip.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
