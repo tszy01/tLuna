@@ -141,7 +141,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
-      <AdditionalIncludeDirectories>./;./IlmImf;./Imath;./Iex;./Half;./IlmThread;../ZLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;./IlmImf;./Imath;./Iex;./Half;./IlmThread;$(SolutionDir)\..\tSun\trunk\src\ZLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -213,7 +213,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>./;./IlmImf;./Imath;./Iex;./Half;./IlmThread;../ZLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./;./IlmImf;./Imath;./Iex;./Half;./IlmThread;$(SolutionDir)\..\tSun\trunk\src\ZLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -434,12 +434,6 @@
     <ClInclude Include="IlmThread\IlmThreadMutex.h" />
     <ClInclude Include="IlmThread\IlmThreadPool.h" />
     <ClInclude Include="IlmThread\IlmThreadSemaphore.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ZLib\ZLib.2008.vcxproj">
-      <Project>{33134f61-c1ad-4b6f-9cea-503a9f140c52}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
