@@ -1,7 +1,7 @@
 #ifndef _TLRESOBJECT_H_
 #define _TLRESOBJECT_H_
 
-#include "TLCommonTypeDef.h"
+#include "TSCommonTypeDef.h"
 namespace TLunaEngine{
 
 	/*
@@ -26,15 +26,15 @@ namespace TLunaEngine{
 	class ResObject
 	{
 	public:
-		ResObject(TVOID);
-		virtual ~ResObject(TVOID);
+		ResObject(TSun::TVOID);
+		virtual ~ResObject(TSun::TVOID);
 	public:
 		// --------------- 需要重写的方法 -------------------------
 
 		// 加载资源
-		virtual TBOOL InitResObject() = 0;
+		virtual TSun::TBOOL InitResObject() = 0;
 		// 释放资源
-		virtual TVOID DestroyResObject() = 0;
+		virtual TSun::TVOID DestroyResObject() = 0;
 
 	public:
 		// --------------- 外部可调用方法 -------------------------
@@ -43,7 +43,7 @@ namespace TLunaEngine{
 	protected:
 		// --------------- 子类调用方法 ---------------------------
 		// 设置当前状态
-		inline TVOID SetResState(RES_OBJ_STATE eResState){m_eResState = eResState;}
+		inline TSun::TVOID SetResState(RES_OBJ_STATE eResState){m_eResState = eResState;}
 	private:
 		// --------------- 成员 -----------------------------------
 		RES_OBJ_STATE m_eResState;	// 资源当前状态

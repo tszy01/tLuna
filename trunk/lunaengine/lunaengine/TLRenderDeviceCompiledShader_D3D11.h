@@ -13,15 +13,15 @@ namespace TLunaEngine
 		virtual ~RenderDeviceCompiledShader_D3D11();
 	public:
 		// get buffer pointer
-		virtual TVOID* getBufferPointer(); 
+		virtual TSun::TVOID* getBufferPointer(); 
 		// get buffer size
-		virtual TSIZE getBufferSize();
+		virtual TSun::TSIZE getBufferSize();
 		// read from file
-		virtual TBOOL readFromFile(const TCHAR* file);
+		virtual TSun::TBOOL readFromFile(const TSun::TCHAR* file);
 		// write to file
-		virtual TBOOL writeToFile(const TCHAR* file);
+		virtual TSun::TBOOL writeToFile(const TSun::TCHAR* file);
 		// compile shader
-		virtual TBOOL compileShader(const TCHAR* szFile, const TCHAR* szEntry, const TCHAR* szShaderType);
+		virtual TSun::TBOOL compileShader(const TSun::TCHAR* szFile, const TSun::TCHAR* szEntry, const TSun::TCHAR* szShaderType);
 	private:
 		ID3DBlob* mD3DBlob;
 	};

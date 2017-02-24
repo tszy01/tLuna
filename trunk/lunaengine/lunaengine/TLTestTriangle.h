@@ -1,10 +1,10 @@
 #ifndef _TLTESTTRIANGLE_H_
 #define _TLTESTTRIANGLE_H_
 
-#include "TLVector3.h"
-#include "TLVector2.h"
-#include "TLVector4.h"
-#include "TLMatrix4x4.h"
+#include "TSVector3.h"
+#include "TSVector2.h"
+#include "TSVector4.h"
+#include "TSMatrix4x4.h"
 
 namespace TLunaEngine{
 	class RenderDeviceUsedBuffer;
@@ -19,31 +19,31 @@ namespace TLunaEngine{
 
 	struct SimpleVertex
 	{
-		Vector3<TF32> Pos;
-		Vector2<TF32> Tex;
+		TSun::Vector3<TSun::TF32> Pos;
+		TSun::Vector2<TSun::TF32> Tex;
 	};
 
 	struct CBNeverChanges
 	{
-		Matrix4x4<TF32> mView;
+		TSun::Matrix4x4<TSun::TF32> mView;
 	};
 
 	struct CBChangeOnResize
 	{
-		Matrix4x4<TF32> mProjection;
+		TSun::Matrix4x4<TSun::TF32> mProjection;
 	};
 
 	struct CBChangesEveryFrame
 	{
-		Matrix4x4<TF32> mWorld;
-		Matrix4x4<TF32> transMat;
+		TSun::Matrix4x4<TSun::TF32> mWorld;
+		TSun::Matrix4x4<TSun::TF32> transMat;
 	};
 
 	class TestTriangle
 	{
 	public:
-		TestTriangle(TVOID);
-		~TestTriangle(TVOID);
+		TestTriangle(TSun::TVOID);
+		~TestTriangle(TSun::TVOID);
 	private:
 		RenderDeviceUsedBuffer* mVB;
 		RenderDeviceUsedBuffer* mRB;
@@ -61,11 +61,11 @@ namespace TLunaEngine{
 		RenderDeviceUsedInputLayout* mInputLayout2;
 	public:
 		// 初始化
-		TBOOL InitTriangle();
+		TSun::TBOOL InitTriangle();
 		// 绘画
-		TVOID OnRender();
+		TSun::TVOID OnRender();
 	public:
-		TF32 ta;
+		TSun::TF32 ta;
 	};
 
 }

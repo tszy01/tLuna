@@ -1,6 +1,6 @@
 #include "TLTestTriangle.h"
-#include "TLString.h"
-#include "TLMatrix4x4.h"
+#include "TSString.h"
+#include "TSMatrix4x4.h"
 #include "TLGlobleClass.h"
 #include "TLRenderMgr.h"
 #include "TLRenderDevice.h"
@@ -19,14 +19,14 @@
 
 namespace TLunaEngine{
 
-	TestTriangle::TestTriangle(TVOID) : ta(1000.0f),mVB(TNULL),mIB(TNULL),mRB(TNULL),mSRV(TNULL),
-		mVSAdd(TNULL),mGS(TNULL),mVS(TNULL),mPS(TNULL),mInputLayout(TNULL),mSamplerState(TNULL),
-		mInputLayout2(TNULL),mDepthStencilState(TNULL),mBlendState(TNULL)
+	TestTriangle::TestTriangle(TSun::TVOID) : ta(1000.0f),mVB(TSun::TNULL),mIB(TSun::TNULL),mRB(TSun::TNULL),mSRV(TSun::TNULL),
+		mVSAdd(TSun::TNULL),mGS(TSun::TNULL),mVS(TSun::TNULL),mPS(TSun::TNULL),mInputLayout(TSun::TNULL),mSamplerState(TSun::TNULL),
+		mInputLayout2(TSun::TNULL),mDepthStencilState(TSun::TNULL),mBlendState(TSun::TNULL)
 	{
-		mCB[0] = mCB[1] = mCB[2] = TNULL;
+		mCB[0] = mCB[1] = mCB[2] = TSun::TNULL;
 	}
 
-	TestTriangle::~TestTriangle(TVOID)
+	TestTriangle::~TestTriangle(TSun::TVOID)
 	{
 		if (mVB)
 		{
@@ -110,42 +110,42 @@ namespace TLunaEngine{
 		}
 	}
 
-	TBOOL TestTriangle::InitTriangle()
+	TSun::TBOOL TestTriangle::InitTriangle()
 	{
 		// Init D3DObj
 		RenderDevice* pDevice = RenderMgr::getSingletonPtr()->getDevice();
 		// Init Shader
-		String strShader = GlobleClass::getSingletonPtr()->m_strResDir + "shader\\Triangle0.fx";
+		TSun::String strShader = GlobleClass::getSingletonPtr()->m_strResDir + "shader\\Triangle0.fx";
 		// VS
 		RenderDeviceCompiledShader* pCompiledVS = pDevice->createCompiledShader();
 		if(!pCompiledVS->compileShader(strShader.GetString(),"VS","vs"))
 		{
 			delete pCompiledVS;
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		mVS = pDevice->createVertexShader(pCompiledVS);
 		if(!mVS)
 		{
 			delete pCompiledVS;
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		// input layout
 		TLRenderDeviceInputElementDesc renderLI[2];
 		renderLI[0].AlignedByteOffset = 0;
 		renderLI[0].Format = RENDER_DEVICE_FORMAT_R32G32B32_FLOAT;
 		renderLI[0].SemanticIndex = 0;
-		renderLI[0].SemanticName = String("POSITION");
+		renderLI[0].SemanticName = TSun::String("POSITION");
 		renderLI[0].InputSlot = 0;
 		renderLI[1].AlignedByteOffset = 12;
 		renderLI[1].Format = RENDER_DEVICE_FORMAT_R32G32_FLOAT;
 		renderLI[1].SemanticIndex = 0;
-		renderLI[1].SemanticName = String("TEXCOORD");
+		renderLI[1].SemanticName = TSun::String("TEXCOORD");
 		renderLI[1].InputSlot = 0;
 		mInputLayout = pDevice->createInputLayout(renderLI,2,pCompiledVS);
 		if(!mInputLayout)
 		{
 			delete pCompiledVS;
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		delete pCompiledVS;
 		// PS
@@ -153,13 +153,13 @@ namespace TLunaEngine{
 		if(!pCompiledPS->compileShader(strShader.GetString(),"PS","ps"))
 		{
 			delete pCompiledPS;
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		mPS = pDevice->createPixelShader(pCompiledPS);
 		if(!mPS)
 		{
 			delete pCompiledPS;
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		delete pCompiledPS;
 		// VSAdd
@@ -167,91 +167,91 @@ namespace TLunaEngine{
 		if(!pCompiledVSAdd->compileShader(strShader.GetString(),"AddVS","vs"))
 		{
 			delete pCompiledVSAdd;
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		mVSAdd = pDevice->createVertexShader(pCompiledVSAdd);
 		if(!mVSAdd)
 		{
 			delete pCompiledVSAdd;
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		// input layout
 		mInputLayout2 = pDevice->createInputLayout(renderLI,2,pCompiledVSAdd);
 		if(!mInputLayout2)
 		{
 			delete pCompiledVSAdd;
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		// GS
 		TLRenderDeviceSODeclarationEntry entry[2];
 		entry[0].ComponentCount = 3;
 		entry[0].SemanticIndex = 0;
-		entry[0].SemanticName = String("POSITION");
+		entry[0].SemanticName = TSun::String("POSITION");
 		entry[0].StartComponent = 0;
 		entry[1].ComponentCount = 2;
 		entry[1].SemanticIndex = 0;
-		entry[1].SemanticName = String("TEXCOORD");
+		entry[1].SemanticName = TSun::String("TEXCOORD");
 		entry[1].StartComponent = 0;
 		mGS = pDevice->createGeometryShaderWithStreamOutput(pCompiledVSAdd,entry,2);
 		if(!mGS)
 		{
 			delete pCompiledVSAdd;
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		delete pCompiledVSAdd;
 		// VB
 		SimpleVertex vertices[] =
 		{
-			{ Vector3Float( -1.0f, 1.0f, -1.0f ), Vector2Float( 0.0f, 0.0f ) },
-			{ Vector3Float( 1.0f, 1.0f, -1.0f ), Vector2Float( 1.0f, 0.0f ) },
-			{ Vector3Float( 1.0f, 1.0f, 1.0f ), Vector2Float( 1.0f, 1.0f ) },
-			{ Vector3Float( -1.0f, 1.0f, 1.0f ), Vector2Float( 0.0f, 1.0f ) },
+			{ TSun::Vector3Float( -1.0f, 1.0f, -1.0f ), TSun::Vector2Float( 0.0f, 0.0f ) },
+			{ TSun::Vector3Float( 1.0f, 1.0f, -1.0f ), TSun::Vector2Float( 1.0f, 0.0f ) },
+			{ TSun::Vector3Float( 1.0f, 1.0f, 1.0f ), TSun::Vector2Float( 1.0f, 1.0f ) },
+			{ TSun::Vector3Float( -1.0f, 1.0f, 1.0f ), TSun::Vector2Float( 0.0f, 1.0f ) },
 
-			{ Vector3Float( -1.0f, -1.0f, -1.0f ), Vector2Float( 0.0f, 0.0f ) },
-			{ Vector3Float( 1.0f, -1.0f, -1.0f ), Vector2Float( 1.0f, 0.0f ) },
-			{ Vector3Float( 1.0f, -1.0f, 1.0f ), Vector2Float( 1.0f, 1.0f ) },
-			{ Vector3Float( -1.0f, -1.0f, 1.0f ), Vector2Float( 0.0f, 1.0f ) },
+			{ TSun::Vector3Float( -1.0f, -1.0f, -1.0f ), TSun::Vector2Float( 0.0f, 0.0f ) },
+			{ TSun::Vector3Float( 1.0f, -1.0f, -1.0f ), TSun::Vector2Float( 1.0f, 0.0f ) },
+			{ TSun::Vector3Float( 1.0f, -1.0f, 1.0f ), TSun::Vector2Float( 1.0f, 1.0f ) },
+			{ TSun::Vector3Float( -1.0f, -1.0f, 1.0f ), TSun::Vector2Float( 0.0f, 1.0f ) },
 
-			{ Vector3Float( -1.0f, -1.0f, 1.0f ), Vector2Float( 0.0f, 0.0f ) },
-			{ Vector3Float( -1.0f, -1.0f, -1.0f ), Vector2Float( 1.0f, 0.0f ) },
-			{ Vector3Float( -1.0f, 1.0f, -1.0f ), Vector2Float( 1.0f, 1.0f ) },
-			{ Vector3Float( -1.0f, 1.0f, 1.0f ), Vector2Float( 0.0f, 1.0f ) },
+			{ TSun::Vector3Float( -1.0f, -1.0f, 1.0f ), TSun::Vector2Float( 0.0f, 0.0f ) },
+			{ TSun::Vector3Float( -1.0f, -1.0f, -1.0f ), TSun::Vector2Float( 1.0f, 0.0f ) },
+			{ TSun::Vector3Float( -1.0f, 1.0f, -1.0f ), TSun::Vector2Float( 1.0f, 1.0f ) },
+			{ TSun::Vector3Float( -1.0f, 1.0f, 1.0f ), TSun::Vector2Float( 0.0f, 1.0f ) },
 
-			{ Vector3Float( 1.0f, -1.0f, 1.0f ), Vector2Float( 0.0f, 0.0f ) },
-			{ Vector3Float( 1.0f, -1.0f, -1.0f ), Vector2Float( 1.0f, 0.0f ) },
-			{ Vector3Float( 1.0f, 1.0f, -1.0f ), Vector2Float( 1.0f, 1.0f ) },
-			{ Vector3Float( 1.0f, 1.0f, 1.0f ), Vector2Float( 0.0f, 1.0f ) },
+			{ TSun::Vector3Float( 1.0f, -1.0f, 1.0f ), TSun::Vector2Float( 0.0f, 0.0f ) },
+			{ TSun::Vector3Float( 1.0f, -1.0f, -1.0f ), TSun::Vector2Float( 1.0f, 0.0f ) },
+			{ TSun::Vector3Float( 1.0f, 1.0f, -1.0f ), TSun::Vector2Float( 1.0f, 1.0f ) },
+			{ TSun::Vector3Float( 1.0f, 1.0f, 1.0f ), TSun::Vector2Float( 0.0f, 1.0f ) },
 
-			{ Vector3Float( -1.0f, -1.0f, -1.0f ), Vector2Float( 0.0f, 0.0f ) },
-			{ Vector3Float( 1.0f, -1.0f, -1.0f ), Vector2Float( 1.0f, 0.0f ) },
-			{ Vector3Float( 1.0f, 1.0f, -1.0f ), Vector2Float( 1.0f, 1.0f ) },
-			{ Vector3Float( -1.0f, 1.0f, -1.0f ), Vector2Float( 0.0f, 1.0f ) },
+			{ TSun::Vector3Float( -1.0f, -1.0f, -1.0f ), TSun::Vector2Float( 0.0f, 0.0f ) },
+			{ TSun::Vector3Float( 1.0f, -1.0f, -1.0f ), TSun::Vector2Float( 1.0f, 0.0f ) },
+			{ TSun::Vector3Float( 1.0f, 1.0f, -1.0f ), TSun::Vector2Float( 1.0f, 1.0f ) },
+			{ TSun::Vector3Float( -1.0f, 1.0f, -1.0f ), TSun::Vector2Float( 0.0f, 1.0f ) },
 
-			{ Vector3Float( -1.0f, -1.0f, 1.0f ), Vector2Float( 0.0f, 0.0f ) },
-			{ Vector3Float( 1.0f, -1.0f, 1.0f ), Vector2Float( 1.0f, 0.0f ) },
-			{ Vector3Float( 1.0f, 1.0f, 1.0f ), Vector2Float( 1.0f, 1.0f ) },
-			{ Vector3Float( -1.0f, 1.0f, 1.0f ), Vector2Float( 0.0f, 1.0f ) },
+			{ TSun::Vector3Float( -1.0f, -1.0f, 1.0f ), TSun::Vector2Float( 0.0f, 0.0f ) },
+			{ TSun::Vector3Float( 1.0f, -1.0f, 1.0f ), TSun::Vector2Float( 1.0f, 0.0f ) },
+			{ TSun::Vector3Float( 1.0f, 1.0f, 1.0f ), TSun::Vector2Float( 1.0f, 1.0f ) },
+			{ TSun::Vector3Float( -1.0f, 1.0f, 1.0f ), TSun::Vector2Float( 0.0f, 1.0f ) },
 		};
 		TLRenderDeviceBufferDesc vbDesc;
 		vbDesc.BindFlags = RENDER_DEVICE_BIND_FLAG_VERTEX_BUFFER;
 		vbDesc.ByteWidth = sizeof(SimpleVertex) * 24;
-		vbDesc.CPUAccessFlags = TFALSE;
+		vbDesc.CPUAccessFlags = TSun::TFALSE;
 		TLRenderDeviceSubresourceData initData;
 		initData.pSysMem = vertices;
 		mVB = pDevice->createBuffer(&vbDesc,&initData);
 		if(!mVB)
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		// RB
 		vbDesc.BindFlags = RENDER_DEVICE_BIND_FLAG_VERTEX_BUFFER | RENDER_DEVICE_BIND_FLAG_STREAM_OUTPUT;
-		mRB = pDevice->createBuffer(&vbDesc,TNULL);
+		mRB = pDevice->createBuffer(&vbDesc,TSun::TNULL);
 		if(!mRB)
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		// IB
-		TU32 indices[] =
+		TSun::TU32 indices[] =
 		{
 			3,1,0,
 			2,1,3,
@@ -272,43 +272,43 @@ namespace TLunaEngine{
 			23,20,22
 		};
 		vbDesc.BindFlags = RENDER_DEVICE_BIND_FLAG_INDEX_BUFFER;
-		vbDesc.ByteWidth = sizeof(TU32)*36;
+		vbDesc.ByteWidth = sizeof(TSun::TU32)*36;
 		initData.pSysMem = indices;
 		mIB = pDevice->createBuffer(&vbDesc,&initData);
 		if(!mIB)
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		// CB0
 		vbDesc.BindFlags = RENDER_DEVICE_BIND_FLAG_CONSTANT_BUFFER;
 		vbDesc.ByteWidth = sizeof(CBNeverChanges);
-		mCB[0] = pDevice->createBuffer(&vbDesc,TNULL);
+		mCB[0] = pDevice->createBuffer(&vbDesc,TSun::TNULL);
 		if(!mCB[0])
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		// CB1
 		vbDesc.BindFlags = RENDER_DEVICE_BIND_FLAG_CONSTANT_BUFFER;
 		vbDesc.ByteWidth = sizeof(CBChangeOnResize);
-		mCB[1] = pDevice->createBuffer(&vbDesc,TNULL);
+		mCB[1] = pDevice->createBuffer(&vbDesc,TSun::TNULL);
 		if(!mCB[1])
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		// CB2
 		vbDesc.BindFlags = RENDER_DEVICE_BIND_FLAG_CONSTANT_BUFFER;
 		vbDesc.ByteWidth = sizeof(CBChangesEveryFrame);
-		mCB[2] = pDevice->createBuffer(&vbDesc,TNULL);
+		mCB[2] = pDevice->createBuffer(&vbDesc,TSun::TNULL);
 		if(!mCB[2])
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		// Shader Resource
-		String strTex = GlobleClass::getSingletonPtr()->m_strResDir + "texture\\seafloor.dds";
+		TSun::String strTex = GlobleClass::getSingletonPtr()->m_strResDir + "texture\\seafloor.dds";
 		/*Image* image = Image::createFromFile(strTex.GetString());
 		if(!image)
-			return TFALSE;
-		TU32 imgw,imgh;
+			return TSun::TFALSE;
+		TSun::TU32 imgw,imgh;
 		image->getImageSize(&imgw,&imgh);
 		RENDER_DEVICE_FORMAT imgFormat = RENDER_DEVICE_FORMAT_R8G8B8A8_UNORM;
 		if(image->getPixelFormat() == Image::PIXEL_FORMAT_R8)
@@ -318,10 +318,10 @@ namespace TLunaEngine{
 		TLRenderDeviceTex2DDesc texDesc;
 		texDesc.ArraySize = 1;
 		texDesc.BindFlags = RENDER_DEVICE_BIND_FLAG_SHADER_RESOURCE;
-		texDesc.CPUAccessFlags = TFALSE;
-		texDesc.Cube = TFALSE;
+		texDesc.CPUAccessFlags = TSun::TFALSE;
+		texDesc.Cube = TSun::TFALSE;
 		texDesc.Format = imgFormat;
-		texDesc.GenerateMips = TFALSE;
+		texDesc.GenerateMips = TSun::TFALSE;
 		texDesc.Height = imgh;
 		texDesc.MipLevels = 1;
 		texDesc.SampleCount = 1;
@@ -333,7 +333,7 @@ namespace TLunaEngine{
 		if(!pTex)
 		{
 			delete image;
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		TLRenderDeviceSRVDesc srvDesc;
 		srvDesc.Format = RENDER_DEVICE_FORMAT_R8G8B8A8_UNORM;
@@ -345,28 +345,28 @@ namespace TLunaEngine{
 		{
 			delete image;
 			delete pTex;
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		delete image;
 		delete pTex;*/
-		if(!pDevice->createTex2DFromDDSFile(strTex.GetString(),TNULL,&mSRV))
-			return TFALSE;
+		if(!pDevice->createTex2DFromDDSFile(strTex.GetString(),TSun::TNULL,&mSRV))
+			return TSun::TFALSE;
 		// sampler state
 		TLRenderDeviceSamplerDesc samplerDesc;
 		samplerDesc.AddressU = RENDER_DEVICE_TEXTURE_ADDRESS_WRAP;
 		samplerDesc.AddressV = RENDER_DEVICE_TEXTURE_ADDRESS_WRAP;
 		samplerDesc.AddressW = RENDER_DEVICE_TEXTURE_ADDRESS_WRAP;
-		samplerDesc.MaxLOD = (TF32)T_FLT_MAX;
+		samplerDesc.MaxLOD = (TSun::TF32)TSun::T_FLT_MAX;
 		samplerDesc.MinLOD = 0;
 		samplerDesc.Filter = RENDER_DEVICE_FILTER_MIN_MAG_MIP_LINEAR;
 		mSamplerState = pDevice->createSamplerState(&samplerDesc);
 		if(!mSamplerState)
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		// blend state
 		TLRenderDeviceBlendDesc blendDesc;
-		blendDesc.RenderTarget[0].BlendEnable = TFALSE;
+		blendDesc.RenderTarget[0].BlendEnable = TSun::TFALSE;
 		blendDesc.RenderTarget[0].SrcBlend = RENDER_DEVICE_BLEND_SRC_ALPHA;
 		blendDesc.RenderTarget[0].DestBlend = RENDER_DEVICE_BLEND_INV_SRC_ALPHA;
 		blendDesc.RenderTarget[0].BlendOp = RENDER_DEVICE_BLEND_OP_ADD;
@@ -376,77 +376,77 @@ namespace TLunaEngine{
 		mBlendState = pDevice->createBlendState(&blendDesc);
 		if(!mBlendState)
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		// depth stencil state
 		TLRenderDeviceDepthStencilDesc depthDesc;
-		depthDesc.DepthEnable = TTRUE;
+		depthDesc.DepthEnable = TSun::TTRUE;
 		depthDesc.DepthWriteMask = RENDER_DEVICE_DEPTH_WRITE_MASK_ALL;
 		depthDesc.DepthFunc = RENDER_DEVICE_COMPARISON_LESS;
 		mDepthStencilState = pDevice->createDepthStencilState(&depthDesc);
 		if(!mDepthStencilState)
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
-		return TTRUE;
+		return TSun::TTRUE;
 	}
 
-	TVOID TestTriangle::OnRender()
+	TSun::TVOID TestTriangle::OnRender()
 	{
 		RenderDevice* pDevice = RenderMgr::getSingletonPtr()->getDevice();
 		// Update our time
-		static TF32 t = 0.0f;
-		static TU32 dwTimeStart = 0;
-		TU32 dwTimeCur = GetTickCount();
+		static TSun::TF32 t = 0.0f;
+		static TSun::TU32 dwTimeStart = 0;
+		TSun::TU32 dwTimeCur = GetTickCount();
 		if( dwTimeStart == 0 )
 			dwTimeStart = dwTimeCur;
 		t = ( dwTimeCur - dwTimeStart ) / ta;
 		// Rotate cube around the origin
-		TLunaEngine::Matrix4x4<TF32> transMatrix = TLunaEngine::Matrix4x4<TF32>();
-		transMatrix.SetRotY(t*TLunaEngine::RADTODEG);
+		TSun::Matrix4x4<TSun::TF32> transMatrix = TSun::Matrix4x4<TSun::TF32>();
+		transMatrix.SetRotY(t*TSun::RADTODEG);
 		transMatrix.Transpose();
 		// World
-		TLunaEngine::Matrix4x4<TF32> worldMatrix = TLunaEngine::Matrix4x4<TF32>();
+		TSun::Matrix4x4<TSun::TF32> worldMatrix = TSun::Matrix4x4<TSun::TF32>();
 		worldMatrix.Identity();
 		worldMatrix.Transpose();
 		// view
-		TLunaEngine::Vector3<TF32> Eye( 0.0f, 3.0f, -6.0f );
-		TLunaEngine::Vector3<TF32> At( 0.0f, 1.0f, 0.0f );
-		TLunaEngine::Vector3<TF32> Up( 0.0f, 1.0f, 0.0f );
-		TLunaEngine::Matrix4x4<TF32> cameraLookAt = TLunaEngine::Matrix4x4<TF32>();
+		TSun::Vector3<TSun::TF32> Eye( 0.0f, 3.0f, -6.0f );
+		TSun::Vector3<TSun::TF32> At( 0.0f, 1.0f, 0.0f );
+		TSun::Vector3<TSun::TF32> Up( 0.0f, 1.0f, 0.0f );
+		TSun::Matrix4x4<TSun::TF32> cameraLookAt = TSun::Matrix4x4<TSun::TF32>();
 		cameraLookAt.BuildCameraLookAtMatrixLH(Eye,At,Up);
 		cameraLookAt.Transpose();
 		// projection
-		TLunaEngine::Matrix4x4<TF32> projMatrix = TLunaEngine::Matrix4x4<TF32>();
-		projMatrix.BuildProjectionMatrixPerspectiveFovLH( TLunaEngine::PI * 0.25f,1280.0f / 720.0f,0.1f,100.0f);
+		TSun::Matrix4x4<TSun::TF32> projMatrix = TSun::Matrix4x4<TSun::TF32>();
+		projMatrix.BuildProjectionMatrixPerspectiveFovLH( TSun::PI * 0.25f,1280.0f / 720.0f,0.1f,100.0f);
 		projMatrix.Transpose();
 		// update resources
 		CBNeverChanges cbNeverChanges;
 		cbNeverChanges.mView = cameraLookAt;
-		pDevice->updateSubresource(mCB[0],0,TNULL,&cbNeverChanges,0,0);
+		pDevice->updateSubresource(mCB[0],0,TSun::TNULL,&cbNeverChanges,0,0);
 		CBChangeOnResize cbChangesOnResize;
 		cbChangesOnResize.mProjection = projMatrix;
-		pDevice->updateSubresource(mCB[1],0,TNULL,&cbChangesOnResize,0,0);
+		pDevice->updateSubresource(mCB[1],0,TSun::TNULL,&cbChangesOnResize,0,0);
 		CBChangesEveryFrame cb;
 		cb.mWorld = worldMatrix;
 		cb.transMat = transMatrix;
-		pDevice->updateSubresource(mCB[2],0,TNULL,&cb,0,0);
+		pDevice->updateSubresource(mCB[2],0,TSun::TNULL,&cb,0,0);
 
 		pDevice->setPrimitiveTopology(RENDER_DEVICE_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 		pDevice->setInputLayout(mInputLayout2);
 		// Cal
-		TU32 offset = 0;
-		TU32 stride = sizeof(SimpleVertex);
-		pDevice->setVertexBuffer(0,TNULL,TNULL,TNULL);
+		TSun::TU32 offset = 0;
+		TSun::TU32 stride = sizeof(SimpleVertex);
+		pDevice->setVertexBuffer(0,TSun::TNULL,TSun::TNULL,TSun::TNULL);
 		pDevice->setSOTarget(mRB,&offset);
 		pDevice->setVertexBuffer(0,mVB,&stride,&offset);
 		pDevice->setIndexBuffer(mIB,RENDER_DEVICE_FORMAT_R32_UINT,0);
 		pDevice->setVertexShader(mVSAdd);
 		pDevice->setConstantBuffer(RENDER_DEVICE_SHADER_USE_VS,2,mCB[2]);
 		pDevice->setGeometryShader(mGS);
-		pDevice->setPixelShader(TNULL);
+		pDevice->setPixelShader(TSun::TNULL);
 		pDevice->draw(24,0);
-		pDevice->setSOTarget(TNULL,TNULL);
+		pDevice->setSOTarget(TSun::TNULL,TSun::TNULL);
 
 		// Render
 		pDevice->setInputLayout(mInputLayout);
@@ -456,11 +456,11 @@ namespace TLunaEngine{
 		pDevice->setConstantBuffer(RENDER_DEVICE_SHADER_USE_VS,0,mCB[0]);
 		pDevice->setConstantBuffer(RENDER_DEVICE_SHADER_USE_VS,1,mCB[1]);
 		pDevice->setConstantBuffer(RENDER_DEVICE_SHADER_USE_VS,2,mCB[2]);
-		pDevice->setGeometryShader(TNULL);
+		pDevice->setGeometryShader(TSun::TNULL);
 		pDevice->setPixelShader(mPS);
 		pDevice->setShaderResourceView(RENDER_DEVICE_SHADER_USE_PS,0,mSRV);
 		pDevice->setSamplerState(RENDER_DEVICE_SHADER_USE_PS,0,mSamplerState);
-		TF32 blendFactor[4] = {0,0,0,0};
+		TSun::TF32 blendFactor[4] = {0,0,0,0};
 		pDevice->setBlendState(mBlendState,blendFactor,0xffffffff);
 		pDevice->setDepthStencilState(mDepthStencilState);
 		pDevice->drawIndexed(36,0,0);

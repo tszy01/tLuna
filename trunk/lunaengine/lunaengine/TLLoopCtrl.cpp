@@ -1,9 +1,9 @@
 #include "TLLoopCtrl.h"
-#include "TLTimer.h"
+#include "TSTimer.h"
 #include <stdio.h>
 
 namespace TLunaEngine{
-	LoopCtrl::LoopCtrl(TVOID) : 
+	LoopCtrl::LoopCtrl(TSun::TVOID) : 
 	m_curTime(0),
 	m_lastTime(0),
 	m_lastUpdate(0),
@@ -11,11 +11,11 @@ namespace TLunaEngine{
 	m_runTime(0),
 	m_timeElapsed(0),
 	m_fps(0),
-	m_bStop(TTRUE),
+	m_bStop(TSun::TTRUE),
 	m_fSecsPerFrame(0.01f),
 	m_controlTime(0),
-	m_bRender(TTRUE),
-	m_bTimeControl(TFALSE),
+	m_bRender(TSun::TTRUE),
+	m_bTimeControl(TSun::TFALSE),
 	mTimer(0),
 	mCalcPeriod(1000)
 	{
@@ -23,7 +23,7 @@ namespace TLunaEngine{
 		swprintf(m_szFPS,L"fps:0123456789\0");
 	}
 
-	LoopCtrl::~LoopCtrl(TVOID)
+	LoopCtrl::~LoopCtrl(TSun::TVOID)
 	{
 		if(mTimer)
 		{
@@ -32,33 +32,33 @@ namespace TLunaEngine{
 		}
 	}
 
-	TBOOL LoopCtrl::Init()
+	TSun::TBOOL LoopCtrl::Init()
 	{
-		mTimer = new Timer();
-		return TTRUE;
+		mTimer = new TSun::Timer();
+		return TSun::TTRUE;
 	}
 
-	TVOID LoopCtrl::StartTime()
+	TSun::TVOID LoopCtrl::StartTime()
 	{
 		if ( !m_bStop )
 		{
 			return;
 		}
 		m_lastTime = mTimer->getMilliseconds();
-		m_bStop = TFALSE;
+		m_bStop = TSun::TFALSE;
 	}
-	TVOID LoopCtrl::StopTime()
+	TSun::TVOID LoopCtrl::StopTime()
 	{
 		if ( m_bStop )
 		{
 			return;
 		}
-		TU32 stopTime = mTimer->getMilliseconds();
+		TSun::TU32 stopTime = mTimer->getMilliseconds();
 		m_runTime += stopTime - m_lastTime;
-		m_bStop = TTRUE;
+		m_bStop = TSun::TTRUE;
 
 	}
-	TVOID LoopCtrl::UpdateTime()
+	TSun::TVOID LoopCtrl::UpdateTime()
 	{
 		if ( m_bStop )
 		{
@@ -69,7 +69,7 @@ namespace TLunaEngine{
 	    
 		if(m_bTimeControl)
 		{
-			TU32 thisElapsed = 0;
+			TSun::TU32 thisElapsed = 0;
 			thisElapsed = m_curTime - m_lastTime;
 			m_controlTime += thisElapsed;
 			m_runTime += thisElapsed;
@@ -77,42 +77,42 @@ namespace TLunaEngine{
 			{
 				m_timeElapsed = m_controlTime;
 				m_controlTime=0;
-				m_bRender=TTRUE;
+				m_bRender=TSun::TTRUE;
 			}
 			else
 			{
-				m_bRender=TFALSE;
+				m_bRender=TSun::TFALSE;
 			}
 		}
 		else
 		{
 			m_timeElapsed = m_curTime - m_lastTime;
 			m_runTime += m_timeElapsed;
-			m_bRender=TTRUE;
+			m_bRender=TSun::TTRUE;
 		}
 
 		m_lastTime = m_curTime;
 	}
 
-	TBOOL LoopCtrl::TimeControl()
+	TSun::TBOOL LoopCtrl::TimeControl()
 	{
-		if((TF32)m_controlTime<m_fSecsPerFrame*1000.0f)
+		if((TSun::TF32)m_controlTime<m_fSecsPerFrame*1000.0f)
 		{
-			return TTRUE;
+			return TSun::TTRUE;
 		}
 		else
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 	}
 
-	TVOID LoopCtrl::CalFPS()
+	TSun::TVOID LoopCtrl::CalFPS()
 	{
 		// Update FPS
 		m_numFrames++;
 		if ( m_curTime - m_lastUpdate  >=  mCalcPeriod )
 		{
-			m_fps  =  (TF32)m_numFrames / (TF32)(m_curTime - m_lastUpdate) * 1000.0f;
+			m_fps  =  (TSun::TF32)m_numFrames / (TSun::TF32)(m_curTime - m_lastUpdate) * 1000.0f;
 			swprintf_s(m_szFPS,L"fps:%.0f",m_fps);
 
 			m_lastUpdate = m_curTime;

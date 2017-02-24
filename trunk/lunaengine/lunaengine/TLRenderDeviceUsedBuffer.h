@@ -13,7 +13,7 @@ namespace TLunaEngine
 		virtual ~RenderDeviceUsedBuffer(){};
 	public:
 		// get resource type
-		virtual TVOID getResourceType(RENDER_DEVICE_RESOURCE_DIMENSION* pType)
+		virtual TSun::TVOID getResourceType(RENDER_DEVICE_RESOURCE_DIMENSION* pType)
 		{
 			if(pType)
 			{

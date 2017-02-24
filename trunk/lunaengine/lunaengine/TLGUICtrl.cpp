@@ -1,27 +1,27 @@
 #include "TLGUICtrl.h"
 namespace TLunaEngine{
 
-	GUICtrl::GUICtrl(TVOID) : 
+	GUICtrl::GUICtrl(TSun::TVOID) : 
 	m_eCtrlType(GUI_CTRL_NONE),
 	m_iIndex(-1),
-	m_pContainer(TNULL),
+	m_pContainer(TSun::TNULL),
 	m_posX(0),
 	m_posY(0),
 	m_width(0),
 	m_height(0),
 	m_posXFinal(0),
 	m_posYFinal(0),
-	m_bShow(TTRUE),
+	m_bShow(TSun::TTRUE),
 	m_fAlpha(1)
 	{
 	}
 
-	GUICtrl::~GUICtrl(TVOID)
+	GUICtrl::~GUICtrl(TSun::TVOID)
 	{
 		DestroyCtrl();
 	}
 
-	TBOOL GUICtrl::InitCtrlBase(TS32 iIndex, TLunaEngine::GUIContainer *pContainer, TS32 x, TS32 y, TS32 width, TS32 height)
+	TSun::TBOOL GUICtrl::InitCtrlBase(TSun::TS32 iIndex, TLunaEngine::GUIContainer *pContainer, TSun::TS32 x, TSun::TS32 y, TSun::TS32 width, TSun::TS32 height)
 	{
 		m_iIndex = iIndex;
 		m_pContainer = pContainer;
@@ -31,13 +31,13 @@ namespace TLunaEngine{
 		m_height = height;
 		m_posXFinal = x;
 		m_posYFinal = y;
-		return TTRUE;
+		return TSun::TTRUE;
 	}
 
-	TVOID GUICtrl::DestroyCtrl()
+	TSun::TVOID GUICtrl::DestroyCtrl()
 	{
 		m_iIndex = -1;
-		m_pContainer = TNULL;
+		m_pContainer = TSun::TNULL;
 		m_posX = 0;
 		m_posY = 0;
 		m_width = 0;
@@ -46,7 +46,7 @@ namespace TLunaEngine{
 		m_posYFinal = 0;
 	}
 
-	TVOID GUICtrl::ReCalSubRect(TS32 containerFinalX,TS32 containerFinalY)
+	TSun::TVOID GUICtrl::ReCalSubRect(TSun::TS32 containerFinalX,TSun::TS32 containerFinalY)
 	{
 		if (m_pContainer)
 		{
@@ -60,22 +60,22 @@ namespace TLunaEngine{
 		}
 	}
 
-	TBOOL GUICtrl::Update(TF32 fTimeElapsed)
+	TSun::TBOOL GUICtrl::Update(TSun::TF32 fTimeElapsed)
 	{
 		if (!m_bShow)
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
-		return TTRUE;
+		return TSun::TTRUE;
 	}
 
-	TBOOL GUICtrl::Render(TF32 fTimeElapsed)
+	TSun::TBOOL GUICtrl::Render(TSun::TF32 fTimeElapsed)
 	{
 		if (!m_bShow)
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
-		return TTRUE;
+		return TSun::TTRUE;
 	}
 
 }

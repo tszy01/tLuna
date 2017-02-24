@@ -4,12 +4,12 @@
 
 namespace TLunaEngine
 {
-	Image::Image(TU32 width, TU32 height, PIXEL_FORMAT format) : mPixelBuffer(TNULL),mWidth(0),mHeight(0)
+	Image::Image(TSun::TU32 width, TSun::TU32 height, PIXEL_FORMAT format) : mPixelBuffer(TSun::TNULL),mWidth(0),mHeight(0)
 	{
 		createBuffer(width,height,format);
 	}
 
-	Image::Image(const Image& right) : mPixelBuffer(TNULL),mWidth(0),mHeight(0)
+	Image::Image(const Image& right) : mPixelBuffer(TSun::TNULL),mWidth(0),mHeight(0)
 	{
 		createBuffer(right.mWidth,right.mHeight,right.mPixelFormat);
 		copyFromBuffer(right.mPixelBuffer);
@@ -20,170 +20,170 @@ namespace TLunaEngine
 		if(mPixelBuffer)
 		{
 			delete [] mPixelBuffer;
-			mPixelBuffer = TNULL;
+			mPixelBuffer = TSun::TNULL;
 		}
 	}
 
-	TBOOL Image::createBuffer(TU32 width, TU32 height, PIXEL_FORMAT format)
+	TSun::TBOOL Image::createBuffer(TSun::TU32 width, TSun::TU32 height, PIXEL_FORMAT format)
 	{
 		if(mPixelBuffer)
-			return TFALSE;
+			return TSun::TFALSE;
 		if(width==0 || height==0)
-			return TFALSE;
+			return TSun::TFALSE;
 		switch(format)
 		{
 		case PIXEL_FORMAT_R8:
 			{
-				mPixelBuffer = new TUByte[width*height];
-				memset(mPixelBuffer,0,sizeof(TUByte)*width*height);
+				mPixelBuffer = new TSun::TUByte[width*height];
+				memset(mPixelBuffer,0,sizeof(TSun::TUByte)*width*height);
 			}
 			break;
 		case PIXEL_FORMAT_R8G8B8:
 			{
-				mPixelBuffer = new TUByte[width*height*3];
-				memset(mPixelBuffer,0,sizeof(TUByte)*width*height*3);
+				mPixelBuffer = new TSun::TUByte[width*height*3];
+				memset(mPixelBuffer,0,sizeof(TSun::TUByte)*width*height*3);
 			}
 			break;
 		case PIXEL_FORMAT_R8G8B8A8:
 			{
-				mPixelBuffer = new TUByte[width*height*4];
-				memset(mPixelBuffer,0,sizeof(TUByte)*width*height*4);
+				mPixelBuffer = new TSun::TUByte[width*height*4];
+				memset(mPixelBuffer,0,sizeof(TSun::TUByte)*width*height*4);
 			}
 			break;
 		default:
 			{
-				return TFALSE;
+				return TSun::TFALSE;
 			}
 			break;
 		}
 		mPixelFormat = format;
 		mWidth = width;
 		mHeight = height;
-		return TTRUE;
+		return TSun::TTRUE;
 	}
 
-	TBOOL Image::copyFromBuffer(const TUByte* pBuffer)
+	TSun::TBOOL Image::copyFromBuffer(const TSun::TUByte* pBuffer)
 	{
 		if(!pBuffer || !mPixelBuffer)
-			return TFALSE;
+			return TSun::TFALSE;
 		switch(mPixelFormat)
 		{
 		case PIXEL_FORMAT_R8:
 			{
-				memcpy(mPixelBuffer,pBuffer,sizeof(TUByte)*mWidth*mHeight);
+				memcpy(mPixelBuffer,pBuffer,sizeof(TSun::TUByte)*mWidth*mHeight);
 			}
 			break;
 		case PIXEL_FORMAT_R8G8B8:
 			{
-				memcpy(mPixelBuffer,pBuffer,sizeof(TUByte)*mWidth*mHeight*3);
+				memcpy(mPixelBuffer,pBuffer,sizeof(TSun::TUByte)*mWidth*mHeight*3);
 			}
 			break;
 		case PIXEL_FORMAT_R8G8B8A8:
 			{
-				memcpy(mPixelBuffer,pBuffer,sizeof(TUByte)*mWidth*mHeight*4);
+				memcpy(mPixelBuffer,pBuffer,sizeof(TSun::TUByte)*mWidth*mHeight*4);
 			}
 			break;
 		default:
 			{
-				return TFALSE;
+				return TSun::TFALSE;
 			}
 			break;
 		}
-		return TTRUE;
+		return TSun::TTRUE;
 	}
 
-	Image* Image::createFromMemory(const TUByte* pBuffer, TU32 width, TU32 height, Image::PIXEL_FORMAT format)
+	Image* Image::createFromMemory(const TSun::TUByte* pBuffer, TSun::TU32 width, TSun::TU32 height, Image::PIXEL_FORMAT format)
 	{
 		if(!pBuffer)
-			return TNULL;
+			return TSun::TNULL;
 		Image* pRet = new Image(width,height,format);
-		if(pRet->mPixelBuffer==TNULL)
+		if(pRet->mPixelBuffer==TSun::TNULL)
 		{
 			delete pRet;
-			return TNULL;
+			return TSun::TNULL;
 		}
 		if(!pRet->copyFromBuffer(pBuffer))
 		{
 			delete pRet;
-			return TNULL;
+			return TSun::TNULL;
 		}
 		return pRet;
 	}
 
-	TBOOL Image::copyToMemory(TUByte** ppBuffer)
+	TSun::TBOOL Image::copyToMemory(TSun::TUByte** ppBuffer)
 	{
 		if(!mPixelBuffer)
-			return TFALSE;
+			return TSun::TFALSE;
 		if(mWidth<=0 || mHeight<=0)
-			return TFALSE;
+			return TSun::TFALSE;
 		if(!ppBuffer)
-			return TFALSE;
+			return TSun::TFALSE;
 		switch(mPixelFormat)
 		{
 		case PIXEL_FORMAT_R8:
 			{
-				*ppBuffer = new TUByte[mWidth*mHeight];
-				memcpy(*ppBuffer,mPixelBuffer,sizeof(TUByte)*mWidth*mHeight);
+				*ppBuffer = new TSun::TUByte[mWidth*mHeight];
+				memcpy(*ppBuffer,mPixelBuffer,sizeof(TSun::TUByte)*mWidth*mHeight);
 			}
 			break;
 		case PIXEL_FORMAT_R8G8B8:
 			{
-				*ppBuffer = new TUByte[mWidth*mHeight*3];
-				memcpy(*ppBuffer,mPixelBuffer,sizeof(TUByte)*mWidth*mHeight*3);
+				*ppBuffer = new TSun::TUByte[mWidth*mHeight*3];
+				memcpy(*ppBuffer,mPixelBuffer,sizeof(TSun::TUByte)*mWidth*mHeight*3);
 			}
 			break;
 		case PIXEL_FORMAT_R8G8B8A8:
 			{
-				*ppBuffer = new TUByte[mWidth*mHeight*4];
-				memcpy(*ppBuffer,mPixelBuffer,sizeof(TUByte)*mWidth*mHeight*4);
+				*ppBuffer = new TSun::TUByte[mWidth*mHeight*4];
+				memcpy(*ppBuffer,mPixelBuffer,sizeof(TSun::TUByte)*mWidth*mHeight*4);
 			}
 			break;
 		default:
 			{
-				return TFALSE;
+				return TSun::TFALSE;
 			}
 			break;
 		}
-		return TTRUE;
+		return TSun::TTRUE;
 	}
 
 	Image* Image::clone()
 	{
 		if(!mPixelBuffer)
-			return TNULL;
+			return TSun::TNULL;
 		if(mWidth<=0 || mHeight<=0)
-			return TNULL;
+			return TSun::TNULL;
 		Image* pRet = new Image(mWidth,mHeight,mPixelFormat);
-		if(pRet->mPixelBuffer==TNULL)
+		if(pRet->mPixelBuffer==TSun::TNULL)
 		{
 			delete pRet;
-			return TNULL;
+			return TSun::TNULL;
 		}
 		if(!pRet->copyFromBuffer(mPixelBuffer))
 		{
 			delete pRet;
-			return TNULL;
+			return TSun::TNULL;
 		}
 		return pRet;
 	}
 
-	TU32 Image::getPixelSize()
+	TSun::TU32 Image::getPixelSize()
 	{
 		switch(mPixelFormat)
 		{
 		case PIXEL_FORMAT_R8:
 			{
-				return sizeof(TUByte)*1;
+				return sizeof(TSun::TUByte)*1;
 			}
 			break;
 		case PIXEL_FORMAT_R8G8B8:
 			{
-				return sizeof(TUByte)*3;
+				return sizeof(TSun::TUByte)*3;
 			}
 			break;
 		case PIXEL_FORMAT_R8G8B8A8:
 			{
-				return sizeof(TUByte)*4;
+				return sizeof(TSun::TUByte)*4;
 			}
 			break;
 		default:
@@ -195,7 +195,7 @@ namespace TLunaEngine
 		return 0;
 	}
 
-	TU32 Image::getImageSize(TU32* pWidth,TU32* pHeight)
+	TSun::TU32 Image::getImageSize(TSun::TU32* pWidth,TSun::TU32* pHeight)
 	{
 		if(pWidth)
 		{
@@ -236,53 +236,53 @@ namespace TLunaEngine
 		return mPixelFormat;
 	}
 
-	TUByte* Image::getBufferPointer(TU32 pixelIndex)
+	TSun::TUByte* Image::getBufferPointer(TSun::TU32 pixelIndex)
 	{
 		if(!mPixelBuffer)
-			return TNULL;
+			return TSun::TNULL;
 		if(mWidth==0 || mHeight==0)
-			return TNULL;
+			return TSun::TNULL;
 		switch(mPixelFormat)
 		{
 		case PIXEL_FORMAT_R8:
 			{
 				if(pixelIndex>=mWidth*mHeight)
-					return TNULL;
+					return TSun::TNULL;
 				return &mPixelBuffer[pixelIndex];
 			}
 			break;
 		case PIXEL_FORMAT_R8G8B8:
 			{
 				if(pixelIndex>=mWidth*mHeight*3)
-					return TNULL;
+					return TSun::TNULL;
 				return &mPixelBuffer[pixelIndex*3];
 			}
 			break;
 		case PIXEL_FORMAT_R8G8B8A8:
 			{
 				if(pixelIndex>=mWidth*mHeight*4)
-					return TNULL;
+					return TSun::TNULL;
 				return &mPixelBuffer[pixelIndex*4];
 			}
 			break;
 		default:
 			{
-				return TNULL;
+				return TSun::TNULL;
 			}
 			break;
 		}
-		return TNULL;
+		return TSun::TNULL;
 	}
 
-	TBOOL Image::setRGBA(TU32 pixelIndex, TUByte r, TUByte g, TUByte b, TUByte a)
+	TSun::TBOOL Image::setRGBA(TSun::TU32 pixelIndex, TSun::TUByte r, TSun::TUByte g, TSun::TUByte b, TSun::TUByte a)
 	{
 		if(!mPixelBuffer)
-			return TFALSE;
+			return TSun::TFALSE;
 		if(mWidth==0 || mHeight==0)
-			return TFALSE;
-		TUByte* pBuffer = getBufferPointer(pixelIndex);
+			return TSun::TFALSE;
+		TSun::TUByte* pBuffer = getBufferPointer(pixelIndex);
 		if(!pBuffer)
-			return TFALSE;
+			return TSun::TFALSE;
 		switch(mPixelFormat)
 		{
 		case PIXEL_FORMAT_R8:
@@ -312,22 +312,22 @@ namespace TLunaEngine
 			break;
 		default:
 			{
-				return TFALSE;
+				return TSun::TFALSE;
 			}
 			break;
 		}
-		return TTRUE;
+		return TSun::TTRUE;
 	}
 
-	TBOOL Image::getRGBA(TU32 pixelIndex, TUByte* pR, TUByte* pG, TUByte* pB, TUByte* pA)
+	TSun::TBOOL Image::getRGBA(TSun::TU32 pixelIndex, TSun::TUByte* pR, TSun::TUByte* pG, TSun::TUByte* pB, TSun::TUByte* pA)
 	{
 		if(!mPixelBuffer)
-			return TFALSE;
+			return TSun::TFALSE;
 		if(mWidth==0 || mHeight==0)
-			return TFALSE;
-		TUByte* pBuffer = getBufferPointer(pixelIndex);
+			return TSun::TFALSE;
+		TSun::TUByte* pBuffer = getBufferPointer(pixelIndex);
 		if(!pBuffer)
-			return TFALSE;
+			return TSun::TFALSE;
 		switch(mPixelFormat)
 		{
 		case PIXEL_FORMAT_R8:
@@ -366,64 +366,64 @@ namespace TLunaEngine
 			break;
 		default:
 			{
-				return TFALSE;
+				return TSun::TFALSE;
 			}
 			break;
 		}
-		return TTRUE;
+		return TSun::TTRUE;
 	}
 
-	TBOOL Image::writeToFile(const TCHAR* file)
+	TSun::TBOOL Image::writeToFile(const TSun::TCHAR* file)
 	{
 		if(!mPixelBuffer)
-			return TFALSE;
+			return TSun::TFALSE;
 		if(mWidth==0 || mHeight==0)
-			return TFALSE;
-		TU32 pixelSize = getPixelSize();
+			return TSun::TFALSE;
+		TSun::TU32 pixelSize = getPixelSize();
 		if(pixelSize==0)
-			return TFALSE;
+			return TSun::TFALSE;
 		// call free image
 		FREE_IMAGE_FORMAT fif = FIF_TARGA;
 		FIBITMAP* dib = FreeImage_Allocate(mWidth,mHeight,pixelSize*8);
 		if(!dib)
-			return TFALSE;
-		TUByte* bits = FreeImage_GetBits(dib);
+			return TSun::TFALSE;
+		TSun::TUByte* bits = FreeImage_GetBits(dib);
 		if(!bits)
 		{
 			FreeImage_Unload(dib);
-			return TFALSE;
+			return TSun::TFALSE;
 		}
-		TUByte* temp = bits;
-		for(TU32 i=0;i<mWidth*mHeight;++i)
+		TSun::TUByte* temp = bits;
+		for(TSun::TU32 i=0;i<mWidth*mHeight;++i)
 		{
 			getRGBA(i,&temp[FI_RGBA_RED],&temp[FI_RGBA_GREEN],&temp[FI_RGBA_BLUE],&temp[FI_RGBA_ALPHA]);
 			temp += pixelSize;
 		}
 		// 翻转
-		if(FreeImage_FlipVertical(dib)==TFALSE)
+		if(FreeImage_FlipVertical(dib)==TSun::TFALSE)
 		{
 			FreeImage_Unload(dib);
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		if(!FreeImage_Save(fif,dib,file))
 		{
 			FreeImage_Unload(dib);
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		FreeImage_Unload(dib);
-		return TTRUE;
+		return TSun::TTRUE;
 	}
 
-	Image* Image::createFromFile(const TCHAR* file)
+	Image* Image::createFromFile(const TSun::TCHAR* file)
 	{
 		//image format
 		FREE_IMAGE_FORMAT fif = FIF_UNKNOWN;
 		//pointer to the image, once loaded
 		FIBITMAP *dib(0);
 		//pointer to the image data
-		TUByte* bits(0);
+		TSun::TUByte* bits(0);
 		//image width and height
-		TU32 width(0), height(0);
+		TSun::TU32 width(0), height(0);
 		//check the file signature and deduce its format
 		fif = FreeImage_GetFileType(file, 0);
 		//if still unknown, try to guess the file format from the file extension
@@ -431,23 +431,23 @@ namespace TLunaEngine
 			fif = FreeImage_GetFIFFromFilename(file);
 		//if still unkown, return failure
 		if(fif == FIF_UNKNOWN)
-			return TNULL;
+			return TSun::TNULL;
 		//check that the plugin has reading capabilities and load the file
 		if(FreeImage_FIFSupportsReading(fif))
 			dib = FreeImage_Load(fif, file);
 		//if the image failed to load, return failure
 		if(!dib)
-			return TNULL;
+			return TSun::TNULL;
 		// 翻转
-		if(FreeImage_FlipVertical(dib)==TFALSE)
+		if(FreeImage_FlipVertical(dib)==TSun::TFALSE)
 		{
 			FreeImage_Unload(dib);
-			return TNULL;
+			return TSun::TNULL;
 		}
 		// 得到一个像素的大小，单位是位
-		TU32 pixelBits = FreeImage_GetBPP(dib);
+		TSun::TU32 pixelBits = FreeImage_GetBPP(dib);
 		// 得到一行的大小，单位是字节
-		TU32 rawSize = FreeImage_GetLine(dib);
+		TSun::TU32 rawSize = FreeImage_GetLine(dib);
 		// 得到Image类型
 		FREE_IMAGE_TYPE fit = FreeImage_GetImageType(dib);
 		//retrieve the image data
@@ -459,7 +459,7 @@ namespace TLunaEngine
 		if((bits == 0) || (width == 0) || (height == 0))
 		{
 			FreeImage_Unload(dib);
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		PIXEL_FORMAT format;
 		switch(fit)
@@ -486,7 +486,7 @@ namespace TLunaEngine
 				default:
 					{
 						FreeImage_Unload(dib);
-						return TFALSE;
+						return TSun::TFALSE;
 					}
 					break;
 				}
@@ -494,20 +494,20 @@ namespace TLunaEngine
 			break;
 		default:
 			{
-				return TFALSE;
+				return TSun::TFALSE;
 			}
 			break;
 		}
 		// 重新拷贝
-		TUByte* newBuff = new TUByte[rawSize*height];
+		TSun::TUByte* newBuff = new TSun::TUByte[rawSize*height];
 		if(pixelBits==32)
 		{
-			TS32 count = 0;
+			TSun::TS32 count = 0;
 			// Calculate the number of bytes per pixel (3 for 24-bit or 4 for 32-bit)
-			TS32 bytespp = rawSize / width;
-			for(TU32 y = 0; y < height; y++) {
-				TUByte *bits = FreeImage_GetScanLine(dib, y);
-				for(TU32 x = 0; x < width; x++) {
+			TSun::TS32 bytespp = rawSize / width;
+			for(TSun::TU32 y = 0; y < height; y++) {
+				TSun::TUByte *bits = FreeImage_GetScanLine(dib, y);
+				for(TSun::TU32 x = 0; x < width; x++) {
 					// Set pixel color to green with a transparency of 128
 					newBuff[count*4+0] = bits[FI_RGBA_RED];
 					newBuff[count*4+1] = bits[FI_RGBA_GREEN];
@@ -521,12 +521,12 @@ namespace TLunaEngine
 		}
 		else if(pixelBits==24)
 		{
-			TS32 count = 0;
+			TSun::TS32 count = 0;
 			// Calculate the number of bytes per pixel (3 for 24-bit or 4 for 32-bit)
-			TS32 bytespp = rawSize / width;
-			for(TU32 y = 0; y < height; y++) {
-				TUByte *bits = FreeImage_GetScanLine(dib, y);
-				for(TU32 x = 0; x < width; x++) {
+			TSun::TS32 bytespp = rawSize / width;
+			for(TSun::TU32 y = 0; y < height; y++) {
+				TSun::TUByte *bits = FreeImage_GetScanLine(dib, y);
+				for(TSun::TU32 x = 0; x < width; x++) {
 					// Set pixel color to green with a transparency of 128
 					newBuff[count*3+0] = bits[FI_RGBA_RED];
 					newBuff[count*3+1] = bits[FI_RGBA_GREEN];

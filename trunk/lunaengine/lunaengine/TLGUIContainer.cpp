@@ -2,30 +2,30 @@
 #include "TLGUIListener.h"
 
 namespace TLunaEngine{
-	GUIContainer::GUIContainer(TVOID) : 
+	GUIContainer::GUIContainer(TSun::TVOID) : 
 	m_iID(-1),
 	m_posX(0),
 	m_posY(0),
 	m_width(0),
 	m_height(0),
-	m_pParent(TNULL),
+	m_pParent(TSun::TNULL),
 	m_posXFinal(0),
 	m_posYFinal(0),
 	m_posXParent(0),
 	m_posYParent(0),
-	m_bReCal(TFALSE),
-	m_bShow(TTRUE),
+	m_bReCal(TSun::TFALSE),
+	m_bShow(TSun::TTRUE),
 	m_yAnimeType(0),
-	m_pListener(TNULL)
+	m_pListener(TSun::TNULL)
 	{
 	}
 
-	GUIContainer::~GUIContainer(TVOID)
+	GUIContainer::~GUIContainer(TSun::TVOID)
 	{
 		DestroyContainer();
 	}
 
-	TBOOL GUIContainer::InitContainer(TS32 ID, TLunaEngine::GUIContainer *pParent, TS32 x, TS32 y, TS32 width, TS32 height,TUByte yAnimeType,GUIListener* pListener)
+	TSun::TBOOL GUIContainer::InitContainer(TSun::TS32 ID, TLunaEngine::GUIContainer *pParent, TSun::TS32 x, TSun::TS32 y, TSun::TS32 width, TSun::TS32 height,TSun::TUByte yAnimeType,GUIListener* pListener)
 	{
 		m_iID = ID;
 		m_pParent = pParent;
@@ -43,15 +43,15 @@ namespace TLunaEngine{
 		ResetPicChangeAnime();
 		ResetPosChangeAnime();
 		// 使重新计算位置
-		m_bReCal = TTRUE;
-		return TTRUE;
+		m_bReCal = TSun::TTRUE;
+		return TSun::TTRUE;
 	}
 
-	TBOOL GUIContainer::InitFadeAnime(CONTAINER_FADE_TYPE eFadeType, TF32 fChangedPerSec,TS32 nTimes)
+	TSun::TBOOL GUIContainer::InitFadeAnime(CONTAINER_FADE_TYPE eFadeType, TSun::TF32 fChangedPerSec,TSun::TS32 nTimes)
 	{
 		if (nTimes==0 || fChangedPerSec<=0 || eFadeType == CFF_NONE)
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		m_eAnimeFadeType = eFadeType;
 		m_iNowFadeType = 0;
@@ -66,11 +66,11 @@ namespace TLunaEngine{
 		m_iNowAnimeTimes[CATE_FADE] = 0;
 		m_nAnimeChangedPerSec[CATE_FADE] = fChangedPerSec;
 		m_nAnimeChangedTimeCount[CATE_FADE] = 0;
-		m_bAnimePlayedOver[CATE_FADE] = TFALSE;
-		return TTRUE;
+		m_bAnimePlayedOver[CATE_FADE] = TSun::TFALSE;
+		return TSun::TTRUE;
 	}
 
-	TVOID GUIContainer::ResetFadeAnime()
+	TSun::TVOID GUIContainer::ResetFadeAnime()
 	{
 		m_eAnimeFadeType = CFF_NONE;
 		m_iNowFadeType = -1;
@@ -79,15 +79,15 @@ namespace TLunaEngine{
 		m_iNowAnimeTimes[CATE_FADE] = 0;
 		m_nAnimeChangedPerSec[CATE_FADE] = 0;
 		m_nAnimeChangedTimeCount[CATE_FADE] = 0;
-		m_bAnimePlayedOver[CATE_FADE] = TFALSE;
+		m_bAnimePlayedOver[CATE_FADE] = TSun::TFALSE;
 	}
 
-	TVOID GUIContainer::UpdateFadeAnime(TF32 fTimeElapsed)
+	TSun::TVOID GUIContainer::UpdateFadeAnime(TSun::TF32 fTimeElapsed)
 	{
 		if (m_iNowAnimeTimes[CATE_FADE] < m_nAnimeTimes[CATE_FADE] || m_nAnimeTimes[CATE_FADE] == -1)
 		{
 			// 计算当前帧需要增加多少值
-			TF32 fNeedPlusAlpha = m_nAnimeChangedPerSec[CATE_FADE] * fTimeElapsed;
+			TSun::TF32 fNeedPlusAlpha = m_nAnimeChangedPerSec[CATE_FADE] * fTimeElapsed;
 			// 如果当前播放的次数小于一共要播的，说明需要播放了
 			switch (m_eAnimeFadeType)
 			{
@@ -103,7 +103,7 @@ namespace TLunaEngine{
 						if (m_iNowAnimeTimes[CATE_FADE] >= m_nAnimeTimes[CATE_FADE] && m_nAnimeTimes[CATE_FADE] >= 0)
 						{
 							// 如果到达指定数量了
-							m_bAnimePlayedOver[CATE_FADE] = TTRUE;
+							m_bAnimePlayedOver[CATE_FADE] = TSun::TTRUE;
 							m_iNowFadeType = -1;
 							OnAnimePlayedOver();
 						}
@@ -129,7 +129,7 @@ namespace TLunaEngine{
 						if (m_iNowAnimeTimes[CATE_FADE] >= m_nAnimeTimes[CATE_FADE] && m_nAnimeTimes[CATE_FADE] >= 0)
 						{
 							// 如果到达指定数量了
-							m_bAnimePlayedOver[CATE_FADE] = TTRUE;
+							m_bAnimePlayedOver[CATE_FADE] = TSun::TTRUE;
 							m_iNowFadeType = -1;
 							OnAnimePlayedOver();
 						}
@@ -169,7 +169,7 @@ namespace TLunaEngine{
 							if (m_iNowAnimeTimes[CATE_FADE] >= m_nAnimeTimes[CATE_FADE] && m_nAnimeTimes[CATE_FADE] >= 0)
 							{
 								// 如果到达指定数量了
-								m_bAnimePlayedOver[CATE_FADE] = TTRUE;
+								m_bAnimePlayedOver[CATE_FADE] = TSun::TTRUE;
 								m_iNowFadeType = -1;
 								OnAnimePlayedOver();
 							}
@@ -189,26 +189,26 @@ namespace TLunaEngine{
 		}
 	}
 
-	TBOOL GUIContainer::InitPicChangeAnime(TS32 iStartIndex,TS32 iEndIndex, TF32 fChangedPerSec,TS32 nTimes)
+	TSun::TBOOL GUIContainer::InitPicChangeAnime(TSun::TS32 iStartIndex,TSun::TS32 iEndIndex, TSun::TF32 fChangedPerSec,TSun::TS32 nTimes)
 	{
 		if (nTimes==0 || fChangedPerSec<=0 || iStartIndex == -1 || iEndIndex == -1)
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		m_iPicChangeStartIndex = iStartIndex;
 		m_iPicChangeEndIndex = iEndIndex;
 		m_iNowPicChangeIndex = iStartIndex;
-		ShowContainer(TFALSE);
-		m_CtrlList[iStartIndex]->ShowCtrl(TTRUE);
+		ShowContainer(TSun::TFALSE);
+		m_CtrlList[iStartIndex]->ShowCtrl(TSun::TTRUE);
 		m_nAnimeTimes[CATE_PIC_CHANGE] = nTimes;
 		m_iNowAnimeTimes[CATE_PIC_CHANGE] = 0;
 		m_nAnimeChangedPerSec[CATE_PIC_CHANGE] = fChangedPerSec;
 		m_nAnimeChangedTimeCount[CATE_PIC_CHANGE] = 0;
-		m_bAnimePlayedOver[CATE_PIC_CHANGE] = TFALSE;
-		return TTRUE;
+		m_bAnimePlayedOver[CATE_PIC_CHANGE] = TSun::TFALSE;
+		return TSun::TTRUE;
 	}
 
-	TVOID GUIContainer::ResetPicChangeAnime()
+	TSun::TVOID GUIContainer::ResetPicChangeAnime()
 	{
 		m_iPicChangeStartIndex = -1;
 		m_iPicChangeEndIndex = -1;
@@ -217,10 +217,10 @@ namespace TLunaEngine{
 		m_iNowAnimeTimes[CATE_PIC_CHANGE] = 0;
 		m_nAnimeChangedPerSec[CATE_PIC_CHANGE] = 0;
 		m_nAnimeChangedTimeCount[CATE_PIC_CHANGE] = 0;
-		m_bAnimePlayedOver[CATE_PIC_CHANGE] = TFALSE;
+		m_bAnimePlayedOver[CATE_PIC_CHANGE] = TSun::TFALSE;
 	}
 
-	TVOID GUIContainer::UpdatePicChangeAnime(TF32 fTimeElapsed)
+	TSun::TVOID GUIContainer::UpdatePicChangeAnime(TSun::TF32 fTimeElapsed)
 	{
 		if (m_iNowAnimeTimes[CATE_PIC_CHANGE] < m_nAnimeTimes[CATE_PIC_CHANGE] || m_nAnimeTimes[CATE_PIC_CHANGE] == -1)
 		{
@@ -230,7 +230,7 @@ namespace TLunaEngine{
 			if (m_nAnimeChangedTimeCount[CATE_PIC_CHANGE] >= 1.0f / m_nAnimeChangedPerSec[CATE_PIC_CHANGE])
 			{
 				// 如果够换一张图片的了
-				m_CtrlList[m_iNowPicChangeIndex]->ShowCtrl(TFALSE);
+				m_CtrlList[m_iNowPicChangeIndex]->ShowCtrl(TSun::TFALSE);
 				m_iNowPicChangeIndex += 1;
 				if (m_iNowPicChangeIndex >= m_iPicChangeEndIndex)
 				{
@@ -240,7 +240,7 @@ namespace TLunaEngine{
 					if (m_iNowAnimeTimes[CATE_PIC_CHANGE] >= m_nAnimeTimes[CATE_PIC_CHANGE] && m_nAnimeTimes[CATE_PIC_CHANGE] >= 0)
 					{
 						// 如果达到播放数量
-						m_bAnimePlayedOver[CATE_PIC_CHANGE] = TTRUE;
+						m_bAnimePlayedOver[CATE_PIC_CHANGE] = TSun::TTRUE;
 						OnAnimePlayedOver();
 					}
 					else
@@ -250,13 +250,13 @@ namespace TLunaEngine{
 					}
 				}
 				// 设置显示的控件
-				m_CtrlList[m_iNowPicChangeIndex]->ShowCtrl(TTRUE);
+				m_CtrlList[m_iNowPicChangeIndex]->ShowCtrl(TSun::TTRUE);
 				m_nAnimeChangedTimeCount[CATE_PIC_CHANGE] = 0;
 			}
 		}
 	}
 
-	TBOOL GUIContainer::InitPosChangeAnime(TS32 startX,TS32 startY,TS32 endX,TS32 endY, TF32 fChangedPerSec,TS32 nTimes)
+	TSun::TBOOL GUIContainer::InitPosChangeAnime(TSun::TS32 startX,TSun::TS32 startY,TSun::TS32 endX,TSun::TS32 endY, TSun::TF32 fChangedPerSec,TSun::TS32 nTimes)
 	{
 		m_posChangeStartX = startX;
 		m_posChangeStartY = startY;
@@ -264,16 +264,16 @@ namespace TLunaEngine{
 		m_posChangeEndY = endY;
 		m_posX = startX;	// 这里要设置动画初值给容器
 		m_posY = startY;
-		MakeReCal(TTRUE);
+		MakeReCal(TSun::TTRUE);
 		m_nAnimeTimes[CATE_POS_CHANGE] = nTimes;
 		m_iNowAnimeTimes[CATE_POS_CHANGE] = 0;
 		m_nAnimeChangedPerSec[CATE_POS_CHANGE] = fChangedPerSec;
 		m_nAnimeChangedTimeCount[CATE_POS_CHANGE] = 0;
-		m_bAnimePlayedOver[CATE_POS_CHANGE] = TFALSE;
-		return TTRUE;
+		m_bAnimePlayedOver[CATE_POS_CHANGE] = TSun::TFALSE;
+		return TSun::TTRUE;
 	}
 
-	TVOID GUIContainer::ResetPosChangeAnime()
+	TSun::TVOID GUIContainer::ResetPosChangeAnime()
 	{
 		m_posChangeStartX = 0;
 		m_posChangeStartY = 0;
@@ -283,10 +283,10 @@ namespace TLunaEngine{
 		m_iNowAnimeTimes[CATE_POS_CHANGE] = 0;
 		m_nAnimeChangedPerSec[CATE_POS_CHANGE] = 0;
 		m_nAnimeChangedTimeCount[CATE_POS_CHANGE] = 0;
-		m_bAnimePlayedOver[CATE_POS_CHANGE] = TFALSE;
+		m_bAnimePlayedOver[CATE_POS_CHANGE] = TSun::TFALSE;
 	}
 
-	TVOID GUIContainer::UpdatePosChangeAnime(TF32 fTimeElapsed)
+	TSun::TVOID GUIContainer::UpdatePosChangeAnime(TSun::TF32 fTimeElapsed)
 	{
 		if (m_iNowAnimeTimes[CATE_POS_CHANGE] < m_nAnimeTimes[CATE_POS_CHANGE] || m_nAnimeTimes[CATE_POS_CHANGE] == -1)
 		{
@@ -296,8 +296,8 @@ namespace TLunaEngine{
 			if (m_nAnimeChangedTimeCount[CATE_POS_CHANGE] >= 1.0f / m_nAnimeChangedPerSec[CATE_POS_CHANGE])
 			{
 				// 如果够一个像素的差值了
-				TBOOL bOverX = TFALSE;
-				TBOOL bOverY = TFALSE;
+				TSun::TBOOL bOverX = TSun::TFALSE;
+				TSun::TBOOL bOverY = TSun::TFALSE;
 				// 算X
 				if (m_posChangeEndX > m_posChangeStartX)
 				{
@@ -305,7 +305,7 @@ namespace TLunaEngine{
 					if (m_posX >= m_posChangeEndX)
 					{
 						m_posX = m_posChangeEndX;
-						bOverX = TTRUE;
+						bOverX = TSun::TTRUE;
 					}
 				}
 				else
@@ -314,7 +314,7 @@ namespace TLunaEngine{
 					if (m_posX <= m_posChangeEndX)
 					{
 						m_posX = m_posChangeEndX;
-						bOverX = TTRUE;
+						bOverX = TSun::TTRUE;
 					}
 				}
 				// 算Y
@@ -324,7 +324,7 @@ namespace TLunaEngine{
 					if (m_posY >= m_posChangeEndY)
 					{
 						m_posY = m_posChangeEndY;
-						bOverY = TTRUE;
+						bOverY = TSun::TTRUE;
 					}
 				}
 				else
@@ -333,7 +333,7 @@ namespace TLunaEngine{
 					if (m_posY <= m_posChangeEndY)
 					{
 						m_posY = m_posChangeEndY;
-						bOverY = TTRUE;
+						bOverY = TSun::TTRUE;
 					}
 				}
 				if (bOverX && bOverY)
@@ -343,7 +343,7 @@ namespace TLunaEngine{
 					if (m_iNowAnimeTimes[CATE_POS_CHANGE] >= m_nAnimeTimes[CATE_POS_CHANGE] && m_nAnimeTimes[CATE_POS_CHANGE] >= 0)
 					{
 						// 如果达到播放数量
-						m_bAnimePlayedOver[CATE_POS_CHANGE] = TTRUE;
+						m_bAnimePlayedOver[CATE_POS_CHANGE] = TSun::TTRUE;
 						OnAnimePlayedOver();
 					}
 					else
@@ -354,13 +354,13 @@ namespace TLunaEngine{
 					}
 				}
 				// 这里要重新计算绝对位置的
-				MakeReCal(TTRUE);
+				MakeReCal(TSun::TTRUE);
 				m_nAnimeChangedTimeCount[CATE_POS_CHANGE] = 0;
 			}
 		}
 	}
 
-	TVOID GUIContainer::ReCalSubRect(TS32 parentFinalX,TS32 parentFinalY)
+	TSun::TVOID GUIContainer::ReCalSubRect(TSun::TS32 parentFinalX,TSun::TS32 parentFinalY)
 	{
 		if (m_bReCal)
 		{
@@ -378,56 +378,56 @@ namespace TLunaEngine{
 				m_posYFinal = m_posY;
 			}
 			// 计算子控件
-			List<GUICtrl*>::Iterator itr = m_CtrlList.begin();
+			TSun::List<GUICtrl*>::Iterator itr = m_CtrlList.begin();
 			for (;itr!=m_CtrlList.end();itr++)
 			{
 				GUICtrl* pCtrl = (*itr);
 				pCtrl->ReCalSubRect(m_posXFinal,m_posYFinal);
 			}
 			// 计算子容器
-			Map<TS32,GUIContainer*>::Iterator itrC = m_SubContainerTable.begin();
+			TSun::Map<TSun::TS32,GUIContainer*>::Iterator itrC = m_SubContainerTable.begin();
 			for (;itrC!=m_SubContainerTable.end();itrC++)
 			{
 				GUIContainer* pSubContainer = itrC->Value;
 				pSubContainer->ReCalSubRect(m_posXFinal,m_posYFinal);
 			}
-			m_bReCal = TFALSE;
+			m_bReCal = TSun::TFALSE;
 		}
 	}
 
-	TBOOL GUIContainer::AddContainer(GUIContainer* pContainer)
+	TSun::TBOOL GUIContainer::AddContainer(GUIContainer* pContainer)
 	{
 		if (!pContainer)
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		if (GetSubContainer(pContainer->GetID()))
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		m_SubContainerTable.push_back(pContainer->GetID(),pContainer);
-		return TTRUE;
+		return TSun::TTRUE;
 	}
 
-	TBOOL GUIContainer::AddCtrl(GUICtrl* pCtrl)
+	TSun::TBOOL GUIContainer::AddCtrl(GUICtrl* pCtrl)
 	{
 		if (!pCtrl)
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		if (GetCtrl(pCtrl->GetIndex()))
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		m_CtrlList.push_back(pCtrl);
-		return TTRUE;
+		return TSun::TTRUE;
 	}
 
-	TVOID GUIContainer::DestroyContainer()
+	TSun::TVOID GUIContainer::DestroyContainer()
 	{
 		m_iID = -1;
-		m_pParent = TNULL;
-		m_pListener = TNULL;
+		m_pParent = TSun::TNULL;
+		m_pListener = TSun::TNULL;
 		m_posX = 0;
 		m_posY = 0;
 		m_width = 0;
@@ -441,7 +441,7 @@ namespace TLunaEngine{
 		ClearSubContainers();
 	}
 
-	TVOID GUIContainer::RemoveSubContainer(TS32 ID)
+	TSun::TVOID GUIContainer::RemoveSubContainer(TSun::TS32 ID)
 	{
 		GUIContainer* pSubContainer = GetSubContainer(ID);
 		if (pSubContainer)
@@ -457,11 +457,11 @@ namespace TLunaEngine{
 		}
 	}
 
-	TBOOL GUIContainer::Update(TF32 fTimeElapsed)
+	TSun::TBOOL GUIContainer::Update(TSun::TF32 fTimeElapsed)
 	{
 		if (!m_bShow)
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		// 根据动画更新动画
 		if (m_yAnimeType != 0)
@@ -485,56 +485,56 @@ namespace TLunaEngine{
 			ReCalSubRect(m_posXParent,m_posYParent);
 		}
 		// 计算子控件
-		List<GUICtrl*>::Iterator itr = m_CtrlList.begin();
+		TSun::List<GUICtrl*>::Iterator itr = m_CtrlList.begin();
 		for (;itr!=m_CtrlList.end();itr++)
 		{
 			GUICtrl* pCtrl = (*itr);
 			pCtrl->Update(fTimeElapsed);
 		}
 		// 计算子容器
-		Map<TS32,GUIContainer*>::Iterator itrC = m_SubContainerTable.begin();
+		TSun::Map<TSun::TS32,GUIContainer*>::Iterator itrC = m_SubContainerTable.begin();
 		for (;itrC!=m_SubContainerTable.end();itrC++)
 		{
 			GUIContainer* pSubContainer = itrC->Value;
 			pSubContainer->Update(fTimeElapsed);
 		}
-		return TTRUE;
+		return TSun::TTRUE;
 	}
 
-	TBOOL GUIContainer::Render(TF32 fTimeElapsed)
+	TSun::TBOOL GUIContainer::Render(TSun::TF32 fTimeElapsed)
 	{
 		if (!m_bShow)
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		// 计算子控件
-		List<GUICtrl*>::Iterator itr = m_CtrlList.begin();
+		TSun::List<GUICtrl*>::Iterator itr = m_CtrlList.begin();
 		for (;itr!=m_CtrlList.end();itr++)
 		{
 			GUICtrl* pCtrl = (*itr);
 			pCtrl->Render(fTimeElapsed);
 		}
 		// 计算子容器
-		Map<TS32,GUIContainer*>::Iterator itrC = m_SubContainerTable.begin();
+		TSun::Map<TSun::TS32,GUIContainer*>::Iterator itrC = m_SubContainerTable.begin();
 		for (;itrC!=m_SubContainerTable.end();itrC++)
 		{
 			GUIContainer* pSubContainer = itrC->Value;
 			pSubContainer->Render(fTimeElapsed);
 		}
-		return TTRUE;
+		return TSun::TTRUE;
 	}
 
-	TVOID GUIContainer::SetCtrlAlpha(TF32 fAlpha)
+	TSun::TVOID GUIContainer::SetCtrlAlpha(TSun::TF32 fAlpha)
 	{
 		// 计算子控件
-		List<GUICtrl*>::Iterator itr = m_CtrlList.begin();
+		TSun::List<GUICtrl*>::Iterator itr = m_CtrlList.begin();
 		for (;itr!=m_CtrlList.end();itr++)
 		{
 			GUICtrl* pCtrl = (*itr);
 			pCtrl->SetAlpha(fAlpha);
 		}
 		// 计算子容器
-		Map<TS32,GUIContainer*>::Iterator itrC = m_SubContainerTable.begin();
+		TSun::Map<TSun::TS32,GUIContainer*>::Iterator itrC = m_SubContainerTable.begin();
 		for (;itrC!=m_SubContainerTable.end();itrC++)
 		{
 			GUIContainer* pSubContainer = itrC->Value;
@@ -542,18 +542,18 @@ namespace TLunaEngine{
 		}
 	}
 
-	TVOID GUIContainer::ShowContainer(TBOOL bShow /* = TTRUE */)
+	TSun::TVOID GUIContainer::ShowContainer(TSun::TBOOL bShow /* = TSun::TTRUE */)
 	{
 		m_bShow = bShow;
 		// 计算子控件
-		List<GUICtrl*>::Iterator itr = m_CtrlList.begin();
+		TSun::List<GUICtrl*>::Iterator itr = m_CtrlList.begin();
 		for (;itr!=m_CtrlList.end();itr++)
 		{
 			GUICtrl* pCtrl = (*itr);
 			pCtrl->ShowCtrl(bShow);
 		}
 		// 计算子容器
-		Map<TS32,GUIContainer*>::Iterator itrC = m_SubContainerTable.begin();
+		TSun::Map<TSun::TS32,GUIContainer*>::Iterator itrC = m_SubContainerTable.begin();
 		for (;itrC!=m_SubContainerTable.end();itrC++)
 		{
 			GUIContainer* pSubContainer = itrC->Value;
@@ -561,7 +561,7 @@ namespace TLunaEngine{
 		}
 	}
 
-	TVOID GUIContainer::OnAnimePlayedOver()
+	TSun::TVOID GUIContainer::OnAnimePlayedOver()
 	{
 		if (m_pListener)
 		{

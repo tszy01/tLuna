@@ -16,13 +16,13 @@ namespace TLunaEngine
 		}
 	}
 
-	TBOOL RenderDeviceUsedRasterizerState_D3D11::initWithD3DRasterizerState(ID3D11RasterizerState* d3dState)
+	TSun::TBOOL RenderDeviceUsedRasterizerState_D3D11::initWithD3DRasterizerState(ID3D11RasterizerState* d3dState)
 	{
 		if(mD3DRasterizerState)
-			return TFALSE;
+			return TSun::TFALSE;
 		if(!d3dState)
-			return TFALSE;
+			return TSun::TFALSE;
 		mD3DRasterizerState = d3dState;
-		return TTRUE;
+		return TSun::TTRUE;
 	}
 }

@@ -1,7 +1,10 @@
 TLuna项目：
-Version 0.5.1
+Version 0.6.0
 
 ====================== Release Note =================================================
+0.6.0
+1，去掉基础类，使用tSun作为基础类库，tSun对应0.1.0
+
 0.5.1
 1，添加WString处理款字节字符串
 2，添加UTF8FileReader和UTF8FileWriter处理utf8文本文件的读取和写入

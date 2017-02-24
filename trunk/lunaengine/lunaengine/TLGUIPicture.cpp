@@ -2,7 +2,7 @@
 #include "TLGUITextureMgr.h"
 
 namespace TLunaEngine{
-	GUIPicture::GUIPicture(TVOID) : GUICtrl(),
+	GUIPicture::GUIPicture(TSun::TVOID) : GUICtrl(),
 	m_iTexID(-1),
 	m_texX(0),
 	m_texY(0),
@@ -11,16 +11,16 @@ namespace TLunaEngine{
 	{
 	}
 
-	GUIPicture::~GUIPicture(TVOID)
+	GUIPicture::~GUIPicture(TSun::TVOID)
 	{
 	}
 
-	TBOOL GUIPicture::InitGUIPicture(TS32 iIndex,GUIContainer* pContainer,TS32 x,TS32 y,TS32 width,TS32 height,
-									  TS32 iTexID, TF32 texX, TF32 texY, TF32 texR, TF32 texB)
+	TSun::TBOOL GUIPicture::InitGUIPicture(TSun::TS32 iIndex,GUIContainer* pContainer,TSun::TS32 x,TSun::TS32 y,TSun::TS32 width,TSun::TS32 height,
+									  TSun::TS32 iTexID, TSun::TF32 texX, TSun::TF32 texY, TSun::TF32 texR, TSun::TF32 texB)
 	{
 		if (!GUICtrl::InitCtrlBase(iIndex,pContainer,x,y,width,height))
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		m_eCtrlType = GUI_CTRL_PICTURE;
 		m_iTexID = iTexID;
@@ -28,10 +28,10 @@ namespace TLunaEngine{
 		m_texY = texY;
 		m_texR = texR;
 		m_texB = texB;
-		return TTRUE;
+		return TSun::TTRUE;
 	}
 
-	TVOID GUIPicture::DestroyCtrl()
+	TSun::TVOID GUIPicture::DestroyCtrl()
 	{
 		m_eCtrlType = GUI_CTRL_NONE;
 		m_iTexID = -1;
@@ -42,19 +42,19 @@ namespace TLunaEngine{
 		GUICtrl::DestroyCtrl();
 	}
 
-	TBOOL GUIPicture::Update(TF32 fTimeElapsed)
+	TSun::TBOOL GUIPicture::Update(TSun::TF32 fTimeElapsed)
 	{
 		return GUICtrl::Update(fTimeElapsed);
 	}
 
-	TBOOL GUIPicture::Render(TF32 fTimeElapsed)
+	TSun::TBOOL GUIPicture::Render(TSun::TF32 fTimeElapsed)
 	{
 		if (!GUICtrl::Render(fTimeElapsed))
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		GUITextureMgr::getSingletonPtr()->DrawGUICtrl(m_posXFinal,m_posYFinal,m_width,m_height,m_texX,m_texY,m_texR,m_texB,m_iTexID,m_fAlpha);
-		return TTRUE;
+		return TSun::TTRUE;
 	}
 
 }

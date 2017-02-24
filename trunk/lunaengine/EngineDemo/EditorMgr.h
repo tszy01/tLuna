@@ -4,13 +4,13 @@
 #include "ConfigDef.h"
 
 #ifdef BUILD_EDITOR
-#include "TLSingleton.h"
-#include "TLString.h"
+#include "TSSingleton.h"
+#include "TSString.h"
 #include <Windows.h>
 
-class EditorMgr : public TLunaEngine::Singleton<EditorMgr>
+class EditorMgr : public TSun::Singleton<EditorMgr>
 {
-	friend class TLunaEngine::Singleton<EditorMgr>;
+	friend class TSun::Singleton<EditorMgr>;
 protected:
 	EditorMgr();
 	~EditorMgr();
@@ -25,7 +25,7 @@ private:
 	HINSTANCE mInst;
 	LONG mWidth;
 	LONG mHeight;
-	TLunaEngine::String mResDir;
+	TSun::String mResDir;
 public:
 	HINSTANCE GetInstance()
 	{
@@ -42,7 +42,7 @@ public:
 		return mHeight;
 	}
 
-	const TLunaEngine::String& GetResDir()
+	const TSun::String& GetResDir()
 	{
 		return mResDir;
 	}

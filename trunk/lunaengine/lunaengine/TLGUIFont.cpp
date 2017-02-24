@@ -3,12 +3,12 @@
 #include "TLRenderDevice.h"
 #include "TLRenderDeviceUsedTex2D.h"
 #include "TLRenderDeviceUsedSRV.h"
-#include "TLMap.h"
+#include "TSMap.h"
 
 namespace TLunaEngine{
 
 	// ------------------ FontGlyph ----------------------
-	FontGlyph::FontGlyph() : texd(TNULL),pageIndex(-1)
+	FontGlyph::FontGlyph() : texd(TSun::TNULL),pageIndex(-1)
 	{
 	}
 
@@ -17,11 +17,11 @@ namespace TLunaEngine{
 		if(texd)
 		{
 			delete [] texd;
-			texd = TNULL;
+			texd = TSun::TNULL;
 		}
 	}
 
-	TVOID FontGlyph::cache(TU32 idx,TU32 size)
+	TSun::TVOID FontGlyph::cache(TSun::TU32 idx,TSun::TU32 size)
 	{
 		if(cached || texd)
 			return;
@@ -32,7 +32,7 @@ namespace TLunaEngine{
 			if (glyph->format == ft_glyph_format_outline ){
 				if (!FT_Render_Glyph( glyph, FT_RENDER_MODE_NORMAL)){
 					bits = glyph->bitmap;
-					TUByte *pt = bits.buffer;
+					TSun::TUByte *pt = bits.buffer;
 					top = glyph->bitmap_top;
 					left = glyph->bitmap_left;
 					imgw = 1;
@@ -58,14 +58,14 @@ namespace TLunaEngine{
 					} else {
 						imgw = imgh;
 					}
-					texd = new TU32[imgw*imgh];
-					memset(texd,0,imgw*imgh*sizeof(TU32));
-					TU32 *texp = texd;
+					texd = new TSun::TU32[imgw*imgh];
+					memset(texd,0,imgw*imgh*sizeof(TSun::TU32));
+					TSun::TU32 *texp = texd;
 					offset = size - bits.rows;
-					TBOOL cflag = TFALSE;
-					for (TS32 i = 0;i < bits.rows;i++){
-						TU32 *rowp = texp;
-						for (TS32 j = 0;j < bits.width;j++){
+					TSun::TBOOL cflag = TSun::TFALSE;
+					for (TSun::TS32 i = 0;i < bits.rows;i++){
+						TSun::TU32 *rowp = texp;
+						for (TSun::TS32 j = 0;j < bits.width;j++){
 							if (*pt){
 								if (cflag){
 									*rowp = *pt;
@@ -82,17 +82,17 @@ namespace TLunaEngine{
 						}
 						texp += imgw;
 					}
-					cached = TTRUE;
+					cached = TSun::TTRUE;
 				}
 			}
 		}
 	}
 
 	// ------------------ GUIFont ------------------------
-	GUIFont::GUIFont(TVOID) : 
-	m_Glyphs(TNULL),
-	face(TNULL),
-	library(TNULL),
+	GUIFont::GUIFont(TSun::TVOID) : 
+	m_Glyphs(TSun::TNULL),
+	face(TSun::TNULL),
+	library(TSun::TNULL),
 	m_Id(-1),
 	mFontSize(0),
 	mPageCount(0),
@@ -100,12 +100,12 @@ namespace TLunaEngine{
 	{
 	}
 
-	GUIFont::~GUIFont(TVOID)
+	GUIFont::~GUIFont(TSun::TVOID)
 	{
-		List<TU32*>::Iterator itrBuffer = mPageBufferList.begin();
+		TSun::List<TSun::TU32*>::Iterator itrBuffer = mPageBufferList.begin();
 		for(;itrBuffer!=mPageBufferList.end();++itrBuffer)
 		{
-			TU32* del = *itrBuffer;
+			TSun::TU32* del = *itrBuffer;
 			if (del)
 			{
 				delete [] del;
@@ -113,7 +113,7 @@ namespace TLunaEngine{
 			}
 		}
 		mPageBufferList.clear();
-		List<RenderDeviceUsedSRV*>::Iterator itrSRV = mSRVList.begin();
+		TSun::List<RenderDeviceUsedSRV*>::Iterator itrSRV = mSRVList.begin();
 		for(;itrSRV!=mSRVList.end();++itrSRV)
 		{
 			RenderDeviceUsedSRV* del = *itrSRV;
@@ -128,58 +128,58 @@ namespace TLunaEngine{
 		if (m_Glyphs)
 		{
 			delete [] m_Glyphs;
-			m_Glyphs = TNULL;
+			m_Glyphs = TSun::TNULL;
 		}
 		FT_Done_Face(face);
-		face = TNULL;
-		library = TNULL;
+		face = TSun::TNULL;
+		library = TSun::TNULL;
 	}
 
-	TBOOL GUIFont::InitFont(const TCHAR* filename, TU32 size,TU32 texPageSize,TS32 id,FT_Library lib)
+	TSun::TBOOL GUIFont::InitFont(const TSun::TCHAR* filename, TSun::TU32 size,TSun::TU32 texPageSize,TSun::TS32 id,FT_Library lib)
 	{
-		if(filename==TNULL || lib==TNULL || texPageSize<=0 || size<=0)
+		if(filename==TSun::TNULL || lib==TSun::TNULL || texPageSize<=0 || size<=0)
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		// Load Freetype
 		library = lib;
 		if (FT_New_Face( library,filename,0,&face )){
-			return	TFALSE;
+			return	TSun::TFALSE;
 		}
 		// 创建文字个体
 		m_Glyphs = new FontGlyph[face->num_glyphs];
-		for (TS32 i = 0;i < face->num_glyphs;i++){
+		for (TSun::TS32 i = 0;i < face->num_glyphs;i++){
 			m_Glyphs[i].face = &face;
-			m_Glyphs[i].cached = TFALSE;
+			m_Glyphs[i].cached = TSun::TFALSE;
 		}
 		m_Id = id;
 		mFontSize = size;
 		mPageSize = texPageSize;
-		return TTRUE;
+		return TSun::TTRUE;
 	}
 
-	TU32 GUIFont::GetGlyphByChar(TWCHAR c,TBOOL& newFontCached){
-		newFontCached = TFALSE;
-		TU32 idx = FT_Get_Char_Index( face, c );
+	TSun::TU32 GUIFont::GetGlyphByChar(TSun::TWCHAR c,TSun::TBOOL& newFontCached){
+		newFontCached = TSun::TFALSE;
+		TSun::TU32 idx = FT_Get_Char_Index( face, c );
 		if (idx && !m_Glyphs[idx - 1].cached)
 		{
 			m_Glyphs[idx - 1].cache(idx,mFontSize);
 			catchAllFont();
-			newFontCached = TTRUE;
+			newFontCached = TSun::TTRUE;
 		}
 		return	idx;
 	}
 
-	TBOOL GUIFont::catchAllFont()
+	TSun::TBOOL GUIFont::catchAllFont()
 	{
 		if(mPageSize==0)
-			return TFALSE;
+			return TSun::TFALSE;
 		// 摆放规则
 		// 从大到小，先摆放大的，然后摆放小的，竖着摆，一列为一行
 		// 第一遍存放到map中
-		Map<TU32,List<TS32>> texHeightMap;
-		TU32 maxHeight=0,minHeight=0,count=0;
-		for (TS32 i = 0;i < face->num_glyphs;i++){
+		TSun::Map<TSun::TU32,TSun::List<TSun::TS32>> texHeightMap;
+		TSun::TU32 maxHeight=0,minHeight=0,count=0;
+		for (TSun::TS32 i = 0;i < face->num_glyphs;i++){
 			if(m_Glyphs[i].cached)
 			{
 				texHeightMap[m_Glyphs[i].imgh].push_back(i);
@@ -199,29 +199,29 @@ namespace TLunaEngine{
 			}
 		}
 		if(maxHeight==0 || minHeight==0 || count==0)
-			return TFALSE;
+			return TSun::TFALSE;
 		// 计算buffer的大小
-		TU32 totalHeight=0,nowHeight=maxHeight;
-		TU32 fontCountPerLine=0;
-		TU32 nextWidth = 0;
+		TSun::TU32 totalHeight=0,nowHeight=maxHeight;
+		TSun::TU32 fontCountPerLine=0;
+		TSun::TU32 nextWidth = 0;
 		while(nowHeight>=minHeight)
 		{
-			List<TS32> valueList;
-			if(texHeightMap.get(nowHeight, valueList) == TTRUE)
+			TSun::List<TSun::TS32> valueList;
+			if(texHeightMap.get(nowHeight, valueList) == TSun::TTRUE)
 			{
 				if(valueList.size()>0)
 				{
 					if(nowHeight==maxHeight)
 					{
-						TU32 maxCount = mPageSize / nowHeight;
-						totalHeight = nowHeight * ((TU32)valueList.size() / maxCount);
+						TSun::TU32 maxCount = mPageSize / nowHeight;
+						totalHeight = nowHeight * ((TSun::TU32)valueList.size() / maxCount);
 						nextWidth = valueList.size() % maxCount * nowHeight;
 						fontCountPerLine = 1;
 					}
 					else
 					{
-						TU32 lineCount = (TU32)valueList.size() / fontCountPerLine;
-						if((TU32)valueList.size() % fontCountPerLine > 0)
+						TSun::TU32 lineCount = (TSun::TU32)valueList.size() / fontCountPerLine;
+						if((TSun::TU32)valueList.size() % fontCountPerLine > 0)
 						{
 							lineCount++;
 						}
@@ -241,46 +241,46 @@ namespace TLunaEngine{
 		{
 			totalHeight += maxHeight;
 		}
-		TU32 pageCount = totalHeight / mPageSize;
+		TSun::TU32 pageCount = totalHeight / mPageSize;
 		if(totalHeight % mPageSize > 0)
 		{
 			pageCount++;
 		}
 		// 分配空间，拷贝纹理
-		for(TU32 iPage=0;iPage<pageCount-mPageCount;++iPage)
+		for(TSun::TU32 iPage=0;iPage<pageCount-mPageCount;++iPage)
 		{
-			TU32* newBuffer = new TU32[mPageSize*mPageSize];
-			memset(newBuffer,0,sizeof(TU32)*mPageSize*mPageSize);
+			TSun::TU32* newBuffer = new TSun::TU32[mPageSize*mPageSize];
+			memset(newBuffer,0,sizeof(TSun::TU32)*mPageSize*mPageSize);
 			mPageBufferList.push_back(newBuffer);
 		}
 		mPageCount = pageCount;
 		
-		TU32 *texp = TNULL;
+		TSun::TU32 *texp = TSun::TNULL;
 		nowHeight = maxHeight;
 		fontCountPerLine = 0;
-		TU32 widthStep = 0;
+		TSun::TU32 widthStep = 0;
 		nextWidth = 0;
-		TU32 copyPage = 0;
-		TU32 rowCount = 0;
-		TU32 maxRowPerPage = mPageSize / maxHeight;
+		TSun::TU32 copyPage = 0;
+		TSun::TU32 rowCount = 0;
+		TSun::TU32 maxRowPerPage = mPageSize / maxHeight;
 		while(nowHeight>=minHeight)
 		{
-			List<TS32> valueList;
-			if(texHeightMap.get(nowHeight, valueList) == TTRUE)
+			TSun::List<TSun::TS32> valueList;
+			if(texHeightMap.get(nowHeight, valueList) == TSun::TTRUE)
 			{
 				if(valueList.size()>0)
 				{
 					if(nowHeight==maxHeight)
 					{
 						fontCountPerLine = 1;
-						for(TU32 index=0;index<(TU32)valueList.size();++index)
+						for(TSun::TU32 index=0;index<(TSun::TU32)valueList.size();++index)
 						{
-							TS32 iFont = valueList.get(index);
+							TSun::TS32 iFont = valueList.get(index);
 							texp = mPageBufferList[copyPage] + widthStep + rowCount*maxHeight*mPageSize;
-							TU32* pt = m_Glyphs[iFont].texd;
-							for (TU32 i = 0;i < m_Glyphs[iFont].imgh;i++){
-								TU32 *rowp = texp;
-								for (TU32 j = 0;j < m_Glyphs[iFont].imgw;j++){
+							TSun::TU32* pt = m_Glyphs[iFont].texd;
+							for (TSun::TU32 i = 0;i < m_Glyphs[iFont].imgh;i++){
+								TSun::TU32 *rowp = texp;
+								for (TSun::TU32 j = 0;j < m_Glyphs[iFont].imgw;j++){
 									if (*pt){
 										*rowp = *pt;
 									} else {
@@ -292,10 +292,10 @@ namespace TLunaEngine{
 								texp += mPageSize;
 							}
 
-							m_Glyphs[iFont].texStartU = (TF32)widthStep / (TF32)mPageSize;
-							m_Glyphs[iFont].texEndU = m_Glyphs[iFont].texStartU + (TF32)m_Glyphs[iFont].imgw / (TF32)mPageSize;
-							m_Glyphs[iFont].texStartV = (TF32)(rowCount*maxHeight) / (TF32)mPageSize;
-							m_Glyphs[iFont].texEndV = m_Glyphs[iFont].texStartV + (TF32)m_Glyphs[iFont].imgh / (TF32)mPageSize;
+							m_Glyphs[iFont].texStartU = (TSun::TF32)widthStep / (TSun::TF32)mPageSize;
+							m_Glyphs[iFont].texEndU = m_Glyphs[iFont].texStartU + (TSun::TF32)m_Glyphs[iFont].imgw / (TSun::TF32)mPageSize;
+							m_Glyphs[iFont].texStartV = (TSun::TF32)(rowCount*maxHeight) / (TSun::TF32)mPageSize;
+							m_Glyphs[iFont].texEndV = m_Glyphs[iFont].texStartV + (TSun::TF32)m_Glyphs[iFont].imgh / (TSun::TF32)mPageSize;
 							m_Glyphs[iFont].pageIndex = copyPage;
 							widthStep += m_Glyphs[iFont].imgw;
 							if(widthStep >= mPageSize)
@@ -312,21 +312,21 @@ namespace TLunaEngine{
 					}
 					else
 					{
-						TU32 lineCount = (TU32)valueList.size() / fontCountPerLine;
-						if((TU32)valueList.size() % fontCountPerLine > 0)
+						TSun::TU32 lineCount = (TSun::TU32)valueList.size() / fontCountPerLine;
+						if((TSun::TU32)valueList.size() % fontCountPerLine > 0)
 						{
 							lineCount++;
 						}
-						TU32 countFontPerLine = 0;
-						TU32 countLine = 0;
-						for(TU32 index=0;index<(TU32)valueList.size();++index)
+						TSun::TU32 countFontPerLine = 0;
+						TSun::TU32 countLine = 0;
+						for(TSun::TU32 index=0;index<(TSun::TU32)valueList.size();++index)
 						{
-							TS32 iFont = valueList.get(index);
+							TSun::TS32 iFont = valueList.get(index);
 							texp = mPageBufferList[copyPage] + widthStep + rowCount*maxHeight*mPageSize + countFontPerLine*nowHeight*mPageSize;
-							TU32* pt = m_Glyphs[iFont].texd;
-							for (TU32 i = 0;i < m_Glyphs[iFont].imgh;i++){
-								TU32 *rowp = texp;
-								for (TU32 j = 0;j < m_Glyphs[iFont].imgw;j++){
+							TSun::TU32* pt = m_Glyphs[iFont].texd;
+							for (TSun::TU32 i = 0;i < m_Glyphs[iFont].imgh;i++){
+								TSun::TU32 *rowp = texp;
+								for (TSun::TU32 j = 0;j < m_Glyphs[iFont].imgw;j++){
 									if (*pt){
 										*rowp = *pt;
 									} else {
@@ -338,10 +338,10 @@ namespace TLunaEngine{
 								texp += mPageSize;
 							}
 
-							m_Glyphs[iFont].texStartU = (TF32)widthStep / (TF32)mPageSize;
-							m_Glyphs[iFont].texEndU = m_Glyphs[iFont].texStartU + (TF32)m_Glyphs[iFont].imgw / (TF32)mPageSize;
-							m_Glyphs[iFont].texStartV = (TF32)(rowCount*maxHeight + countFontPerLine*nowHeight) / (TF32)mPageSize;
-							m_Glyphs[iFont].texEndV = m_Glyphs[iFont].texStartV + (TF32)m_Glyphs[iFont].imgh / (TF32)mPageSize;
+							m_Glyphs[iFont].texStartU = (TSun::TF32)widthStep / (TSun::TF32)mPageSize;
+							m_Glyphs[iFont].texEndU = m_Glyphs[iFont].texStartU + (TSun::TF32)m_Glyphs[iFont].imgw / (TSun::TF32)mPageSize;
+							m_Glyphs[iFont].texStartV = (TSun::TF32)(rowCount*maxHeight + countFontPerLine*nowHeight) / (TSun::TF32)mPageSize;
+							m_Glyphs[iFont].texEndV = m_Glyphs[iFont].texStartV + (TSun::TF32)m_Glyphs[iFont].imgh / (TSun::TF32)mPageSize;
 							m_Glyphs[iFont].pageIndex = copyPage;
 							countFontPerLine++;
 							if(countFontPerLine >= fontCountPerLine)
@@ -382,7 +382,7 @@ namespace TLunaEngine{
 			fontCountPerLine <<= 1;
 		}
 		// 构建渲染组建
-		List<RenderDeviceUsedSRV*>::Iterator itrSRV = mSRVList.begin();
+		TSun::List<RenderDeviceUsedSRV*>::Iterator itrSRV = mSRVList.begin();
 		for(;itrSRV!=mSRVList.end();++itrSRV)
 		{
 			RenderDeviceUsedSRV* del = *itrSRV;
@@ -394,17 +394,17 @@ namespace TLunaEngine{
 		}
 		mSRVList.clear();
 		RenderDevice* pDevice = RenderMgr::getSingletonPtr()->getDevice();
-		for(TU32 iPage=0;iPage<mPageCount;++iPage)
+		for(TSun::TU32 iPage=0;iPage<mPageCount;++iPage)
 		{
-			TU32* theBuffer = mPageBufferList[iPage];
+			TSun::TU32* theBuffer = mPageBufferList[iPage];
 			// Create Shader Resource
 			TLRenderDeviceTex2DDesc texDesc;
 			texDesc.ArraySize = 1;
 			texDesc.BindFlags = RENDER_DEVICE_BIND_FLAG_SHADER_RESOURCE;
-			texDesc.CPUAccessFlags = TFALSE;
-			texDesc.Cube = TFALSE;
+			texDesc.CPUAccessFlags = TSun::TFALSE;
+			texDesc.Cube = TSun::TFALSE;
 			texDesc.Format = RENDER_DEVICE_FORMAT_R8G8B8A8_UNORM;
-			texDesc.GenerateMips = TFALSE;
+			texDesc.GenerateMips = TSun::TFALSE;
 			texDesc.Height = mPageSize;
 			texDesc.MipLevels = 1;
 			texDesc.SampleCount = 1;
@@ -412,11 +412,11 @@ namespace TLunaEngine{
 			texDesc.Width = mPageSize;
 			TLRenderDeviceSubresourceData initData;
 			initData.pSysMem = theBuffer;
-			initData.SysMemPitch = mPageSize*sizeof(TU32);
+			initData.SysMemPitch = mPageSize*sizeof(TSun::TU32);
 			RenderDeviceUsedTex2D* pTex = pDevice->createTex2D(&texDesc,&initData);
 			if(!pTex)
 			{
-				return TFALSE;
+				return TSun::TFALSE;
 			}
 			TLRenderDeviceSRVDesc srvDesc;
 			srvDesc.Format = RENDER_DEVICE_FORMAT_R8G8B8A8_UNORM;
@@ -427,23 +427,23 @@ namespace TLunaEngine{
 			if(!pSRV)
 			{
 				delete pTex;
-				return TFALSE;
+				return TSun::TFALSE;
 			}
 			delete pTex;
 			mSRVList.push_back(pSRV);
 		}
 		
-		return TTRUE;
+		return TSun::TTRUE;
 	}
 
 	//! returns the dimension of a text
-	TVOID GUIFont::GetDimension(const TWCHAR* text, TU32& left, TU32& right, TU32& top, TU32& bottom)
+	TSun::TVOID GUIFont::GetDimension(const TSun::TWCHAR* text, TSun::TU32& left, TSun::TU32& right, TSun::TU32& top, TSun::TU32& bottom)
 	{
 		top = left = 0;
 		right = 0;
 		bottom = mFontSize;
 
-		for(const TWCHAR* p = text; *p; ++p)
+		for(const TSun::TWCHAR* p = text; *p; ++p)
 		{
 			right += GetWidthFromCharacter(*p);
 		}
@@ -452,13 +452,13 @@ namespace TLunaEngine{
 	}
 
 
-	TS32 GUIFont::GetWidthFromCharacter(TWCHAR c)
+	TSun::TS32 GUIFont::GetWidthFromCharacter(TSun::TWCHAR c)
 	{
-		TBOOL catched = TFALSE;
-		TU32 n = GetGlyphByChar(c,catched);
+		TSun::TBOOL catched = TSun::TFALSE;
+		TSun::TU32 n = GetGlyphByChar(c,catched);
 		if ( n > 0){
-			TS32 w = m_Glyphs[n - 1].texw;
-			TS32 left = m_Glyphs[n - 1].left;
+			TSun::TS32 w = m_Glyphs[n - 1].texw;
+			TSun::TS32 left = m_Glyphs[n - 1].left;
 			if (w + left > 0) return w + left;
 		}
 		if (c >= 0x2000){
@@ -468,8 +468,8 @@ namespace TLunaEngine{
 		}
 	}
 
-	TVOID GUIFont::PreDraw(TS32 n,TS32* imgw,TS32* imgh,TS32* texw,TS32* texh,TS32* offx,TS32* offy,
-			TF32* texStartU,TF32* texEndU,TF32* texStartV,TF32* texEndV,TU32* pageIndex)
+	TSun::TVOID GUIFont::PreDraw(TSun::TS32 n,TSun::TS32* imgw,TSun::TS32* imgh,TSun::TS32* texw,TSun::TS32* texh,TSun::TS32* offx,TSun::TS32* offy,
+			TSun::TF32* texStartU,TSun::TF32* texEndU,TSun::TF32* texStartV,TSun::TF32* texEndV,TSun::TU32* pageIndex)
 	{
 		if (!imgw || !imgh || !texw || !texh || !offx || !offy || !texStartU || !texEndU || !texStartV || !texEndV || !pageIndex)
 		{
@@ -488,18 +488,18 @@ namespace TLunaEngine{
 		*pageIndex = m_Glyphs[n-1].pageIndex;
 	}
 
-	RenderDeviceUsedSRV* GUIFont::getSRV(TU32 pageIndex)
+	RenderDeviceUsedSRV* GUIFont::getSRV(TSun::TU32 pageIndex)
 	{
 		if(pageIndex>=mSRVList.size())
-			return TNULL;
+			return TSun::TNULL;
 		return mSRVList[pageIndex];
 	}
 
 	//! Calculates the index of the character in the text which is on a specific position.
-	TS32 GUIFont::GetCharacterFromPos(const TWCHAR* text, TS32 pixel_x)
+	TSun::TS32 GUIFont::GetCharacterFromPos(const TSun::TWCHAR* text, TSun::TS32 pixel_x)
 	{
-		TS32 x = 0;
-		TS32 idx = 0;
+		TSun::TS32 x = 0;
+		TSun::TS32 idx = 0;
 
 		while (text[idx])
 		{

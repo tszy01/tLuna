@@ -1,18 +1,19 @@
 #include "TLResMgr.h"
-#include "TLLog.h"
+#include "TSLog.h"
 #include <crtdbg.h>
 
-namespace TLunaEngine{
-	ResMgr* Singleton<ResMgr>::m_Ptr = 0;
+TLunaEngine::ResMgr* TSun::Singleton<TLunaEngine::ResMgr>::m_Ptr = 0;
 
-	ResMgr::ResMgr(TVOID) : m_eListState(RES_LIST_STATE_NONE)
+namespace TLunaEngine{
+
+	ResMgr::ResMgr(TSun::TVOID) : m_eListState(RES_LIST_STATE_NONE)
 	{
 	}
 
-	ResMgr::~ResMgr(TVOID)
+	ResMgr::~ResMgr(TSun::TVOID)
 	{
 		// 这个链表的资源要在外部删除
-		List<ResObject*>::Iterator itr = m_ResObjList.begin();
+		TSun::List<ResObject*>::Iterator itr = m_ResObjList.begin();
 		for(;itr!=m_ResObjList.end();itr++)
 		{
 			ResObject* pObj = (*itr);
@@ -21,7 +22,7 @@ namespace TLunaEngine{
 		m_ResObjList.clear();
 	}
 
-	TVOID ResMgr::OperateList()
+	TSun::TVOID ResMgr::OperateList()
 	{
 		if(m_eListState!=RES_LIST_STATE_NONE)
 			return ;
@@ -29,7 +30,7 @@ namespace TLunaEngine{
 			return ;
 		m_eListState = RES_LIST_STATE_OPERATING;
 		// 迭代操作
-		List<ResObject*>::Iterator itr = m_ResObjList.begin();
+		TSun::List<ResObject*>::Iterator itr = m_ResObjList.begin();
 		for(;itr!=m_ResObjList.end();itr++)
 		{
 			ResObject* pObj = (*itr);
@@ -40,7 +41,7 @@ namespace TLunaEngine{
 				{
 					if(!pObj->InitResObject())
 					{
-						TLunaEngine::Log::WriteLine(TLunaEngine::Log::LOG_LEVEL_ERROR,TTRUE,L"InitResObject Error!",__FILE__,__LINE__);
+						TSun::Log::WriteLine(TSun::Log::LOG_LEVEL_ERROR,TSun::TTRUE,L"InitResObject Error!",__FILE__,__LINE__);
 						_ASSERT(0);
 					}
 				}

@@ -16,13 +16,13 @@ namespace TLunaEngine
 		}
 	}
 
-	TBOOL RenderDeviceUsedDSV_D3D11::initWithD3DDSV(ID3D11DepthStencilView* d3dView)
+	TSun::TBOOL RenderDeviceUsedDSV_D3D11::initWithD3DDSV(ID3D11DepthStencilView* d3dView)
 	{
 		if(mD3DDSV)
-			return TFALSE;
+			return TSun::TFALSE;
 		if(!d3dView)
-			return TFALSE;
+			return TSun::TFALSE;
 		mD3DDSV = d3dView;
-		return TTRUE;
+		return TSun::TTRUE;
 	}
 }

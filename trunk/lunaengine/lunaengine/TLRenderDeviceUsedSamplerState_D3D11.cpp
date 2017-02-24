@@ -16,13 +16,13 @@ namespace TLunaEngine
 		}
 	}
 
-	TBOOL RenderDeviceUsedSamplerState_D3D11::initWithD3DSamplerState(ID3D11SamplerState* d3dState)
+	TSun::TBOOL RenderDeviceUsedSamplerState_D3D11::initWithD3DSamplerState(ID3D11SamplerState* d3dState)
 	{
 		if(mD3DSamplerState)
-			return TFALSE;
+			return TSun::TFALSE;
 		if(!d3dState)
-			return TFALSE;
+			return TSun::TFALSE;
 		mD3DSamplerState = d3dState;
-		return TTRUE;
+		return TSun::TTRUE;
 	}
 }

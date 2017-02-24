@@ -1,56 +1,56 @@
 #include "TLGlobleClass.h"
 #include "TLTestTriangle.h"
-#include "TLString.h"
+#include "TSString.h"
 #include "TLLoopCtrl.h"
 #include "TLGUIFontManager.h"
-#include "TLLangDict.h"
+#include "TSLangDict.h"
+
+TLunaEngine::GlobleClass* TSun::Singleton<TLunaEngine::GlobleClass>::m_Ptr = 0;
 
 namespace TLunaEngine{
-	GlobleClass* Singleton<GlobleClass>::m_Ptr = 0;
-
-	GlobleClass::GlobleClass(TVOID) : m_pTri(0), m_strResDir(""), /*m_pDebugFont(0), */m_bShowDebugInfo(TFALSE), 
-		m_bEditor(TFALSE), mLoopCtrl(0), mLangDict(0), mLangDictFile("")
+	GlobleClass::GlobleClass(TSun::TVOID) : m_pTri(0), m_strResDir(""), /*m_pDebugFont(0), */m_bShowDebugInfo(TSun::TFALSE), 
+		m_bEditor(TSun::TFALSE), mLoopCtrl(0), mLangDict(0), mLangDictFile("")
 	{
 	}
 
-	GlobleClass::~GlobleClass(TVOID)
+	GlobleClass::~GlobleClass(TSun::TVOID)
 	{
 	}
 
-	TBOOL GlobleClass::InitGlobleClass()
+	TSun::TBOOL GlobleClass::InitGlobleClass()
 	{
 		// init language dictionary
 		if (mLangDictFile == "")
 		{
 			mLangDictFile = "sys_en.txt";
 		}
-		String strLangDictFullFile = m_strResDir + String("lang_dict\\") + mLangDictFile;
-		mLangDict = new LangDict();
+		TSun::String strLangDictFullFile = m_strResDir + TSun::String("lang_dict\\") + mLangDictFile;
+		mLangDict = new TSun::LangDict();
 		if (!mLangDict->loadFromFile(strLangDictFullFile.GetString()))
 		{
 			delete mLangDict;
 			mLangDict = 0;
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		// Triangle
 		m_pTri = new TestTriangle();
 		if(!m_pTri->InitTriangle())
-			return TFALSE;
+			return TSun::TFALSE;
 		// Debug信息
-		String strAll = m_strResDir + "gui\\font\\simkai.ttf";
+		TSun::String strAll = m_strResDir + "gui\\font\\simkai.ttf";
 		if(!GUIFontManager::getSingletonPtr()->initDebugFont(strAll.GetString(),24,256))
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		// init loop control
 		mLoopCtrl = new LoopCtrl();
 		mLoopCtrl->Init();
 		mLoopCtrl->StartTime();
 
-		return TTRUE;
+		return TSun::TTRUE;
 	}
 
-	TVOID GlobleClass::DestroyGlobleClass()
+	TSun::TVOID GlobleClass::DestroyGlobleClass()
 	{
 		// destroy loop control
 		if (mLoopCtrl)
@@ -75,7 +75,7 @@ namespace TLunaEngine{
 		}
 	}
 
-	TVOID GlobleClass::updateLoopCtrl()
+	TSun::TVOID GlobleClass::updateLoopCtrl()
 	{
 		if (mLoopCtrl)
 		{
@@ -83,16 +83,16 @@ namespace TLunaEngine{
 		}
 	}
 
-	TBOOL GlobleClass::getLoopCtrlCanRender()
+	TSun::TBOOL GlobleClass::getLoopCtrlCanRender()
 	{
 		if (mLoopCtrl)
 		{
 			return mLoopCtrl->CanRender();
 		}
-		return TFALSE;
+		return TSun::TFALSE;
 	}
 
-	TVOID GlobleClass::calcFPS()
+	TSun::TVOID GlobleClass::calcFPS()
 	{
 		if (mLoopCtrl)
 		{
@@ -100,32 +100,32 @@ namespace TLunaEngine{
 		}
 	}
 
-	TF32 GlobleClass::getElapsedTime()
+	TSun::TF32 GlobleClass::getElapsedTime()
 	{
 		if (mLoopCtrl)
 		{
-			return (TF32)mLoopCtrl->GetElapsedTime();
+			return (TSun::TF32)mLoopCtrl->GetElapsedTime();
 		}
 		return 0.0f;
 	}
 
-	TBOOL GlobleClass::OnUpdate(TF32 fTimeElapsed)
+	TSun::TBOOL GlobleClass::OnUpdate(TSun::TF32 fTimeElapsed)
 	{
-		return TTRUE;
+		return TSun::TTRUE;
 	}
 
-	TBOOL GlobleClass::OnRender(TF32 fTimeElapsed)
+	TSun::TBOOL GlobleClass::OnRender(TSun::TF32 fTimeElapsed)
 	{
 		// Debug信息
 		if (m_bShowDebugInfo && mLoopCtrl)
 		{
 			//m_pDebugFont->FontPrint(LoopCtrl::getSingletonPtr()->GetFPSString(),0,0,D3DXCOLOR(0.0f,1.0f,0.0f,1.0f),100,32,TLunaEngine::FA_LEFT);
 			GUIFontManager::getSingletonPtr()->RenderDebugFont(mLoopCtrl->GetFPSString(),
-				mLoopCtrl->GetFPSStringLen(),0,0,Vector4<TF32>(0.0f,1.0f,0.0f,1.0f));
+				mLoopCtrl->GetFPSStringLen(),0,0,TSun::Vector4<TSun::TF32>(0.0f,1.0f,0.0f,1.0f));
 		}
 		// Triangle
 		m_pTri->OnRender();
-		return TTRUE;
+		return TSun::TTRUE;
 	}
 
 }

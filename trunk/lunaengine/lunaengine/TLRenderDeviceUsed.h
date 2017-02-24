@@ -11,7 +11,7 @@ namespace TLunaEngine
 		virtual ~RenderDeviceUsed(){};
 	public:
 		// destroy used resource
-		//virtual TVOID release() = 0;
+		//virtual TSun::TVOID release() = 0;
 	};
 }
 

@@ -1,7 +1,7 @@
 #ifndef _TLRENDERDEVICEUSEDVS_D3D11_H_
 #define _TLRENDERDEVICEUSEDVS_D3D11_H_
 
-#include "TLCommonTypeDef.h"
+#include "TSCommonTypeDef.h"
 #include "TLRenderDeviceUsedVS.h"
 #include <d3d11.h>
 
@@ -21,7 +21,7 @@ namespace TLunaEngine
 			return mD3DVS;
 		}
 		// init with d3d vs
-		TBOOL initWithD3DVS(ID3D11VertexShader* d3dShader);
+		TSun::TBOOL initWithD3DVS(ID3D11VertexShader* d3dShader);
 	};
 }
 

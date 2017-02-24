@@ -1,14 +1,14 @@
 #include "ConsoleWindow.h"
-#include "TLConsole.h"
-#include "TLLog.h"
+#include "TSConsole.h"
+#include "TSLog.h"
 
-ConsoleWindow* TLunaEngine::Singleton<ConsoleWindow>::m_Ptr = 0;
+ConsoleWindow* TSun::Singleton<ConsoleWindow>::m_Ptr = 0;
 
 // 消息处理函数
 LRESULT FAR PASCAL WindowProc2(HWND hWnd, UINT message,WPARAM wParam, LPARAM lParam)
 {
-	TLunaEngine::ConsoleInput* consoleInput = ConsoleWindow::getSingletonPtr()->GetConsoleInput();
-	TLunaEngine::ConsoleOutput* consoleOutput = ConsoleWindow::getSingletonPtr()->GetConsoleOutput();
+	TSun::ConsoleInput* consoleInput = ConsoleWindow::getSingletonPtr()->GetConsoleInput();
+	TSun::ConsoleOutput* consoleOutput = ConsoleWindow::getSingletonPtr()->GetConsoleOutput();
 	switch(message)
 	{
 	    case WM_DESTROY: // 销毁窗口
@@ -21,11 +21,11 @@ LRESULT FAR PASCAL WindowProc2(HWND hWnd, UINT message,WPARAM wParam, LPARAM lPa
 				ConsoleWindow::getSingletonPtr()->SetClientSize(clientRect.right, clientRect.bottom);
 
 				LONG inputStartPosY = clientRect.bottom - 16 - 4;
-				consoleInput->setMaxLineWidth((TLunaEngine::TU32)clientRect.right);
+				consoleInput->setMaxLineWidth((TSun::TU32)clientRect.right);
 
 				//gOutputHeight = gInputStartPosY;
-				consoleOutput->setMaxLineWidth((TLunaEngine::TU32)clientRect.right);
-				consoleOutput->setMaxDisplayHeight((TLunaEngine::TU32)inputStartPosY);
+				consoleOutput->setMaxLineWidth((TSun::TU32)clientRect.right);
+				consoleOutput->setMaxDisplayHeight((TSun::TU32)inputStartPosY);
 
 				SetScrollRange(hWnd, SB_VERT, 0, 100, FALSE);
 				SetScrollPos(hWnd, SB_VERT, 0, TRUE);
@@ -43,7 +43,7 @@ LRESULT FAR PASCAL WindowProc2(HWND hWnd, UINT message,WPARAM wParam, LPARAM lPa
 
 				// draw output text
 				ps.rcPaint.top = 0;
-				TLunaEngine::WString strOutput = consoleOutput->getDisplayStr();
+				TSun::WString strOutput = consoleOutput->getDisplayStr();
 				if (strOutput.GetLength() > 0)
 				{
 					DrawTextW(ps.hdc, strOutput.GetWString(), -1, &(ps.rcPaint), DT_LEFT);
@@ -55,7 +55,7 @@ LRESULT FAR PASCAL WindowProc2(HWND hWnd, UINT message,WPARAM wParam, LPARAM lPa
 				// draw input text
 				LONG inputStartPosY = ConsoleWindow::getSingletonPtr()->GetClientHeight() - 16 - 4;
 				ps.rcPaint.top = inputStartPosY;
-				TLunaEngine::String strInput = consoleInput->getDisplayStr();
+				TSun::String strInput = consoleInput->getDisplayStr();
 				if (strInput.GetLength() > 0)
 				{
 					DrawTextA(ps.hdc, strInput.GetString(), -1, &(ps.rcPaint), DT_LEFT);
@@ -81,17 +81,17 @@ LRESULT FAR PASCAL WindowProc2(HWND hWnd, UINT message,WPARAM wParam, LPARAM lPa
 				UINT keyCode = (UINT)wParam;
 				if (keyCode == VK_LEFT)
 				{
-					consoleInput->runCommand(TLunaEngine::ConsoleInput::CMD_TYPE_LEFT);
+					consoleInput->runCommand(TSun::ConsoleInput::CMD_TYPE_LEFT);
 					InvalidateRect(hWnd, NULL, TRUE);
 				}
 				if (keyCode == VK_RIGHT)
 				{
-					consoleInput->runCommand(TLunaEngine::ConsoleInput::CMD_TYPE_RIGHT);
+					consoleInput->runCommand(TSun::ConsoleInput::CMD_TYPE_RIGHT);
 					InvalidateRect(hWnd, NULL, TRUE);
 				}
 				if (keyCode == VK_BACK)
 				{
-					consoleInput->runCommand(TLunaEngine::ConsoleInput::CMD_TYPE_BACK);
+					consoleInput->runCommand(TSun::ConsoleInput::CMD_TYPE_BACK);
 					InvalidateRect(hWnd, NULL, TRUE);
 				}
 				if (keyCode == VK_UP)
@@ -111,7 +111,7 @@ LRESULT FAR PASCAL WindowProc2(HWND hWnd, UINT message,WPARAM wParam, LPARAM lPa
 				UINT keyCode = (UINT)wParam;
 				if (keyCode == VK_RETURN)
 				{
-					consoleInput->runCommand(TLunaEngine::ConsoleInput::CMD_TYPE_RETURN);
+					consoleInput->runCommand(TSun::ConsoleInput::CMD_TYPE_RETURN);
 
 					SetScrollRange(hWnd, SB_VERT, 0, (int)consoleOutput->getLineList().size(), TRUE);
 					InvalidateRect(hWnd, NULL, TRUE);
@@ -131,7 +131,7 @@ LRESULT FAR PASCAL WindowProc2(HWND hWnd, UINT message,WPARAM wParam, LPARAM lPa
 				DeleteObject(memDc);
 				::DeleteDC(hdc);
 
-				consoleInput->insertChar(ascii_code, (TLunaEngine::TU32)sz.cx);
+				consoleInput->insertChar(ascii_code, (TSun::TU32)sz.cx);
 				InvalidateRect(hWnd, NULL, TRUE);
 			}
 			break;
@@ -156,7 +156,7 @@ LRESULT FAR PASCAL WindowProc2(HWND hWnd, UINT message,WPARAM wParam, LPARAM lPa
 					}
 				}
 				SetScrollPos(hWnd, SB_VERT, pos, TRUE);
-				consoleOutput->setDisplayStartLineNo((TLunaEngine::TU32)pos);
+				consoleOutput->setDisplayStartLineNo((TSun::TU32)pos);
 				InvalidateRect(hWnd, NULL, TRUE);
 			}
 			break;
@@ -174,7 +174,7 @@ LRESULT FAR PASCAL WindowProc2(HWND hWnd, UINT message,WPARAM wParam, LPARAM lPa
 						}
 						SetScrollPos(hWnd, SB_VERT, pos, TRUE);
 
-						consoleOutput->setDisplayStartLineNo((TLunaEngine::TU32)pos);
+						consoleOutput->setDisplayStartLineNo((TSun::TU32)pos);
 						InvalidateRect(hWnd, NULL, TRUE);
 					}
 					break;
@@ -189,7 +189,7 @@ LRESULT FAR PASCAL WindowProc2(HWND hWnd, UINT message,WPARAM wParam, LPARAM lPa
 						}
 						SetScrollPos(hWnd, SB_VERT, pos, TRUE);
 
-						consoleOutput->setDisplayStartLineNo((TLunaEngine::TU32)pos);
+						consoleOutput->setDisplayStartLineNo((TSun::TU32)pos);
 						InvalidateRect(hWnd, NULL, TRUE);
 					}
 					break;
@@ -199,7 +199,7 @@ LRESULT FAR PASCAL WindowProc2(HWND hWnd, UINT message,WPARAM wParam, LPARAM lPa
 						int newPos = HIWORD(wParam);
 						SetScrollPos(hWnd, SB_VERT, newPos, TRUE);
 
-						consoleOutput->setDisplayStartLineNo((TLunaEngine::TU32)newPos);
+						consoleOutput->setDisplayStartLineNo((TSun::TU32)newPos);
 						InvalidateRect(hWnd, NULL, TRUE);
 					}
 					break;
@@ -260,11 +260,11 @@ HRESULT ConsoleWindow::InitWindow(HINSTANCE hInst, int nCmdShow, int width, int 
 	m_windowWidth = width;
 	m_windowHeight = height;
 
-	m_consoleInput = new TLunaEngine::ConsoleInput(0, 5);
-	m_consoleOutput = new TLunaEngine::ConsoleOutput(this, 1000, 0, 0);
+	m_consoleInput = new TSun::ConsoleInput(0, 5);
+	m_consoleOutput = new TSun::ConsoleOutput(this, 1000, 0, 0);
 	m_consoleInput->addListener(this);
 	m_consoleOutput->addListener(this);
-	TLunaEngine::Console::getSingletonPtr()->setInputAndOutput(m_consoleInput, m_consoleOutput);
+	TSun::Console::getSingletonPtr()->setInputAndOutput(m_consoleInput, m_consoleOutput);
 
 	// 初始化全局对象
 	ShowWindow(hWnd, nCmdShow); //显示窗口
@@ -274,7 +274,7 @@ HRESULT ConsoleWindow::InitWindow(HINSTANCE hInst, int nCmdShow, int width, int 
 
 void ConsoleWindow::DestroyWindow()
 {
-	TLunaEngine::Console::getSingletonPtr()->setInputAndOutput(0, 0);
+	TSun::Console::getSingletonPtr()->setInputAndOutput(0, 0);
 	if (m_consoleInput)
 	{
 		delete m_consoleInput;
@@ -285,40 +285,40 @@ void ConsoleWindow::DestroyWindow()
 		delete m_consoleOutput;
 		m_consoleOutput = NULL;
 	}
-	TLunaEngine::Console::delSingletonPtr();
+	TSun::Console::delSingletonPtr();
 	// 注销窗口
    UnregisterClass(L"TLunaConsole",m_hInst); 
 }
 
-TLunaEngine::TVOID ConsoleWindow::onReturn(const TLunaEngine::String& str)
+TSun::TVOID ConsoleWindow::onReturn(const TSun::String& str)
 {
 	//if (m_consoleOutput && m_consoleInput)
 	//{
 		//m_consoleOutput->addText(m_consoleInput->getFinalStr());
-		//TLunaEngine::Log::WriteLine(TLunaEngine::Log::LOG_LEVEL_ERROR, TLunaEngine::TTRUE, m_consoleInput->getFinalStr().GetString());
+		//TSun::Log::WriteLine(TSun::Log::LOG_LEVEL_ERROR, TSun::TTRUE, m_consoleInput->getFinalStr().GetString());
 	//}
 }
 
-TLunaEngine::TVOID ConsoleWindow::onAddTextEnd()
+TSun::TVOID ConsoleWindow::onAddTextEnd()
 {
 	InvalidateRect(m_hWnd, NULL, TRUE);
 }
 
-TLunaEngine::TVOID ConsoleWindow::beginMeasureTextSize()
+TSun::TVOID ConsoleWindow::beginMeasureTextSize()
 {
 	m_hdc = ::GetDC(m_hWnd);
 	m_memDc = ::CreateCompatibleDC(m_hdc);
 }
 
-TLunaEngine::TVOID ConsoleWindow::measureTextSize(const TLunaEngine::WString& text, TLunaEngine::TU32& width, TLunaEngine::TU32& height)
+TSun::TVOID ConsoleWindow::measureTextSize(const TSun::WString& text, TSun::TU32& width, TSun::TU32& height)
 {
 	SIZE strSize;
 	::GetTextExtentPointW(m_memDc, text.GetWString(), text.GetLength(), &strSize);
-	width = (TLunaEngine::TU32)strSize.cx;
-	height = (TLunaEngine::TU32)strSize.cy;
+	width = (TSun::TU32)strSize.cx;
+	height = (TSun::TU32)strSize.cy;
 }
 
-TLunaEngine::TVOID ConsoleWindow::endMeasureTextSize()
+TSun::TVOID ConsoleWindow::endMeasureTextSize()
 {
 	::DeleteObject(m_memDc);
 	::DeleteDC(m_hdc);

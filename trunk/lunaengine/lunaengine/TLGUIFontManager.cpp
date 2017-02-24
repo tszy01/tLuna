@@ -1,7 +1,7 @@
 #include "TLGUIFontManager.h"
-#include "TLString.h"
-#include "TLLog.h"
-#include "TLTxtFileReader.h"
+#include "TSString.h"
+#include "TSLog.h"
+#include "TSTxtFileReader.h"
 #include "TLGlobleClass.h"
 #include "TLRenderMgr.h"
 #include "TLRenderDevice.h"
@@ -17,37 +17,37 @@
 #include "TLRenderDeviceUsedInputLayout.h"
 #include "TLRenderDeviceCompiledShader.h"
 
-namespace TLunaEngine{
-	GUIFontManager* Singleton<GUIFontManager>::m_Ptr = 0;
+TLunaEngine::GUIFontManager* TSun::Singleton<TLunaEngine::GUIFontManager>::m_Ptr = 0;
 
-	GUIFontManager::GUIFontManager(TVOID) : 
-	m_pUseFont(TNULL),
-	mVB(TNULL),
-	mVBSet(TNULL),
-	mVS(TNULL),
-	mPS(TNULL),
-	mInputLayout(TNULL),
-	mDepthStencilState(TNULL),
-	mBlendState(TNULL),
-	mSamplerState(TNULL),
+namespace TLunaEngine{
+	GUIFontManager::GUIFontManager(TSun::TVOID) : 
+	m_pUseFont(TSun::TNULL),
+	mVB(TSun::TNULL),
+	mVBSet(TSun::TNULL),
+	mVS(TSun::TNULL),
+	mPS(TSun::TNULL),
+	mInputLayout(TSun::TNULL),
+	mDepthStencilState(TSun::TNULL),
+	mBlendState(TSun::TNULL),
+	mSamplerState(TSun::TNULL),
 	m_bufferWidth(0),
 	m_bufferHeight(0),
-	m_pRenderText(TNULL),
+	m_pRenderText(TSun::TNULL),
 	m_nRenderTextLen(0),
 	m_pDebugFont(0),
 	library(0)
 	{
 	}
 
-	GUIFontManager::~GUIFontManager(TVOID)
+	GUIFontManager::~GUIFontManager(TSun::TVOID)
 	{
 		if (m_pRenderText)
 		{
 			delete[] m_pRenderText;
 			m_pRenderText = 0;
 		}
-		m_pUseFont = TNULL;
-		Map<TS32,GUIFont*>::Iterator itr = m_FontTable.begin();
+		m_pUseFont = TSun::TNULL;
+		TSun::Map<TSun::TS32,GUIFont*>::Iterator itr = m_FontTable.begin();
 		for(;itr!=m_FontTable.end();itr++)
 		{
 			GUIFont* pObj = itr->Value;
@@ -56,12 +56,12 @@ namespace TLunaEngine{
 				delete pObj;
 				pObj = 0;
 			}
-			itr->Value = TNULL;
+			itr->Value = TSun::TNULL;
 		}
 		m_FontTable.clear();
 		deleteDebugFont();
 		FT_Done_FreeType(library);
-		library = TNULL;
+		library = TSun::TNULL;
 		if (mVB)
 		{
 			delete mVB;
@@ -104,10 +104,10 @@ namespace TLunaEngine{
 		}
 	}
 
-	TVOID GUIFontManager::DestroyAllFont()
+	TSun::TVOID GUIFontManager::DestroyAllFont()
 	{
-		m_pUseFont = TNULL;
-		Map<TS32,GUIFont*>::Iterator itr = m_FontTable.begin();
+		m_pUseFont = TSun::TNULL;
+		TSun::Map<TSun::TS32,GUIFont*>::Iterator itr = m_FontTable.begin();
 		for(;itr!=m_FontTable.end();itr++)
 		{
 			GUIFont* pObj = itr->Value;
@@ -116,12 +116,12 @@ namespace TLunaEngine{
 				delete pObj;
 				pObj = 0;
 			}
-			itr->Value = TNULL;
+			itr->Value = TSun::TNULL;
 		}
 		m_FontTable.clear();
 	}
 
-	TU32 GUIFontManager::AddFont(const TCHAR* filename,TU32 size,TU32 texPageSize,TS32 id)
+	TSun::TU32 GUIFontManager::AddFont(const TSun::TCHAR* filename,TSun::TU32 size,TSun::TU32 texPageSize,TSun::TS32 id)
 	{
 		GUIFont* font = new GUIFont();
 		if(!font->InitFont(filename,size,texPageSize,id,library))
@@ -130,93 +130,93 @@ namespace TLunaEngine{
 			return -1;
 		}
 		m_FontTable.push_back(id,font);
-		return (TU32)m_FontTable.size() - 1;
+		return (TSun::TU32)m_FontTable.size() - 1;
 	}
 
-	TBOOL GUIFontManager::AddFontFromFile(const TCHAR* filename)
+	TSun::TBOOL GUIFontManager::AddFontFromFile(const TSun::TCHAR* filename)
 	{
 		// 先检测，清空原来的
 		UseFont(-1);
 		DestroyAllFont();
 		// 读取文件
-		FILE* stream = TNULL;
-		String strFile(filename);
-		if (!TxtFileReader::OpenTxtFile(strFile.GetString(),&stream))
+		FILE* stream = TSun::TNULL;
+		TSun::String strFile(filename);
+		if (!TSun::TxtFileReader::OpenTxtFile(strFile.GetString(),&stream))
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		// 匹配第一行字符
-		TBOOL bEqual = TFALSE;
-		TCHAR strResult[1024] = {0};
-		TS32 nCount = 1024;
-		if(!TxtFileReader::ReadLineString(strResult,stream,"TUI_FONT_100",&bEqual,nCount,TNULL))
+		TSun::TBOOL bEqual = TSun::TFALSE;
+		TSun::TCHAR strResult[1024] = {0};
+		TSun::TS32 nCount = 1024;
+		if(!TSun::TxtFileReader::ReadLineString(strResult,stream,"TUI_FONT_100",&bEqual,nCount,TSun::TNULL))
 		{
-			TxtFileReader::CloseTxtFile(stream);
-			return TFALSE;
+			TSun::TxtFileReader::CloseTxtFile(stream);
+			return TSun::TFALSE;
 		}
 		if(!bEqual)
 		{
-			TxtFileReader::CloseTxtFile(stream);
-			return TFALSE;
+			TSun::TxtFileReader::CloseTxtFile(stream);
+			return TSun::TFALSE;
 		}
 		// 读取数量
-		TS32 fontCount = 0;
-		TxtFileReader::ReadLineInteger(&fontCount,stream,1,' ');
+		TSun::TS32 fontCount = 0;
+		TSun::TxtFileReader::ReadLineInteger(&fontCount,stream,1,' ');
 		// 循环读取
-		for (TS32 i=0;i<fontCount;i++)
+		for (TSun::TS32 i=0;i<fontCount;i++)
 		{
 			if(!LoadFont(stream))
 			{
-				TxtFileReader::CloseTxtFile(stream);
-				return TFALSE;
+				TSun::TxtFileReader::CloseTxtFile(stream);
+				return TSun::TFALSE;
 			}
 		}
-		TxtFileReader::CloseTxtFile(stream);
-		return TTRUE;
+		TSun::TxtFileReader::CloseTxtFile(stream);
+		return TSun::TTRUE;
 	}
 
-	TBOOL GUIFontManager::LoadFont(FILE* stream)
+	TSun::TBOOL GUIFontManager::LoadFont(FILE* stream)
 	{
 		// FontID
-		TS32 fontID = -1;
-		TxtFileReader::ReadLineInteger(&fontID,stream,1,' ');
+		TSun::TS32 fontID = -1;
+		TSun::TxtFileReader::ReadLineInteger(&fontID,stream,1,' ');
 		// FontSize
-		TU32 fontSize = 0;
-		TxtFileReader::ReadLineUInteger(&fontSize,stream,1,' ');
+		TSun::TU32 fontSize = 0;
+		TSun::TxtFileReader::ReadLineUInteger(&fontSize,stream,1,' ');
 		// texPageSize
-		TU32 texPageSize = 0;
-		TxtFileReader::ReadLineUInteger(&texPageSize,stream,1,' ');
+		TSun::TU32 texPageSize = 0;
+		TSun::TxtFileReader::ReadLineUInteger(&texPageSize,stream,1,' ');
 		// FontFile
-		TCHAR fontFile[1024] = {0};
-		TxtFileReader::ReadLineString(fontFile,stream,TNULL,TNULL,1024,TNULL);
+		TSun::TCHAR fontFile[1024] = {0};
+		TSun::TxtFileReader::ReadLineString(fontFile,stream,TSun::TNULL,TSun::TNULL,1024,TSun::TNULL);
 		// 加载
-		String fullFile = GlobleClass::getSingletonPtr()->m_strResDir + fontFile;
+		TSun::String fullFile = GlobleClass::getSingletonPtr()->m_strResDir + fontFile;
 		if(AddFont(fullFile.GetString(),fontSize,texPageSize,fontID)==-1)
-			return TFALSE;
-		return TTRUE;
+			return TSun::TFALSE;
+		return TSun::TTRUE;
 	}
 
-	TBOOL GUIFontManager::Render(const TWCHAR* text,TU32 len, TS32 x, TS32 y, Vector4<TF32>& color)
+	TSun::TBOOL GUIFontManager::Render(const TSun::TWCHAR* text,TSun::TU32 len, TSun::TS32 x, TSun::TS32 y, TSun::Vector4<TSun::TF32>& color)
 	{
-		if(m_pUseFont==TNULL)
-			return TFALSE;
-		if (text==TNULL || len<=0)
+		if(m_pUseFont==TSun::TNULL)
+			return TSun::TFALSE;
+		if (text==TSun::TNULL || len<=0)
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		RenderDeviceUsedSRV* pSRV = m_pUseFont->getSRV(0);
 		RenderDevice* pDevice = RenderMgr::getSingletonPtr()->getDevice();
 		// set device state
 		pDevice->setPrimitiveTopology(RENDER_DEVICE_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 		pDevice->setInputLayout(mInputLayout);
-		TU32 stride = sizeof(GUI_VERTEX_DEF);
-		TU32 offset = 0;
+		TSun::TU32 stride = sizeof(GUI_VERTEX_DEF);
+		TSun::TU32 offset = 0;
 		pDevice->setVertexBuffer(0,mVB,&stride,&offset);
 		pDevice->setVertexShader(mVS);
 		pDevice->setPixelShader(mPS);
 		pDevice->setShaderResourceView(RENDER_DEVICE_SHADER_USE_PS,0,pSRV);
 		pDevice->setSamplerState(RENDER_DEVICE_SHADER_USE_PS,0,mSamplerState);
-		TF32 blendFactor[4] = {0,0,0,0};
+		TSun::TF32 blendFactor[4] = {0,0,0,0};
 		pDevice->setBlendState(mBlendState,blendFactor,0xffffffff);
 		pDevice->setDepthStencilState(mDepthStencilState);
 		// 分配渲染文字空间
@@ -227,61 +227,61 @@ namespace TLunaEngine{
 				delete[] m_pRenderText;
 				m_pRenderText = 0;
 			}
-			m_pRenderText = new TWCHAR[len];
+			m_pRenderText = new TSun::TWCHAR[len];
 			m_nRenderTextLen = len;
 		}
-		//::MultiByteToWideChar(CP_ACP,MB_PRECOMPOSED,text,(TS32)len,m_pRenderText,(TS32)m_nRenderTextLen);
-		memcpy(m_pRenderText, text, len * sizeof(TWCHAR));
-		TWCHAR *wKeep = m_pRenderText;
-		TS32 X = x;
-		TS32 Y = y;
-		TF32 xPlus = 0;
-		TF32 yPlus = 0;
-		TU32 n;
-		TU32 nowPageIndex=0;
+		//::MultiByteToWideChar(CP_ACP,MB_PRECOMPOSED,text,(TSun::TS32)len,m_pRenderText,(TSun::TS32)m_nRenderTextLen);
+		memcpy(m_pRenderText, text, len * sizeof(TSun::TWCHAR));
+		TSun::TWCHAR *wKeep = m_pRenderText;
+		TSun::TS32 X = x;
+		TSun::TS32 Y = y;
+		TSun::TF32 xPlus = 0;
+		TSun::TF32 yPlus = 0;
+		TSun::TU32 n;
+		TSun::TU32 nowPageIndex=0;
 
 		while(*wKeep)
 		{
 			if ((*wKeep) == L' ')
 			{
-				TU32 left=0, top=0, right=0, bottom=0;
-				TWCHAR c[2] = { (*wKeep),0 };
+				TSun::TU32 left=0, top=0, right=0, bottom=0;
+				TSun::TWCHAR c[2] = { (*wKeep),0 };
 				m_pUseFont->GetDimension(c, left, right, top, bottom);
-				xPlus += ((TF32)(right - left)) / m_bufferWidth * 2.0f;
+				xPlus += ((TSun::TF32)(right - left)) / m_bufferWidth * 2.0f;
 				X += right - left;
 			}
 			else if ((*wKeep) == L'\n')
 			{
-				TU32 left = 0, top = 0, right = 0, bottom = 0;
-				TWCHAR c[2] = { (*wKeep),0 };
+				TSun::TU32 left = 0, top = 0, right = 0, bottom = 0;
+				TSun::TWCHAR c[2] = { (*wKeep),0 };
 				m_pUseFont->GetDimension(c, left, right, top, bottom);
-				yPlus += ((TF32)(bottom - top)) / m_bufferHeight * 2.0f;
+				yPlus += ((TSun::TF32)(bottom - top)) / m_bufferHeight * 2.0f;
 				Y += bottom - top;
 				xPlus = 0;
 				X = 0;
 			}
 			else
 			{
-				TBOOL catched = TFALSE;
+				TSun::TBOOL catched = TSun::TFALSE;
 				n = m_pUseFont->GetGlyphByChar(*wKeep, catched);
 				if (n > 0) {
-					TS32 imgw = 0;
-					TS32 imgh = 0;
-					TS32 texw = 0;
-					TS32 texh = 0;
-					TS32 offx = 0;
-					TS32 offy = 0;
-					TF32 texStartU = 0;
-					TF32 texEndU = 0;
-					TF32 texStartV = 0;
-					TF32 texEndV = 0;
-					TU32 pageIndex;
+					TSun::TS32 imgw = 0;
+					TSun::TS32 imgh = 0;
+					TSun::TS32 texw = 0;
+					TSun::TS32 texh = 0;
+					TSun::TS32 offx = 0;
+					TSun::TS32 offy = 0;
+					TSun::TF32 texStartU = 0;
+					TSun::TF32 texEndU = 0;
+					TSun::TF32 texStartV = 0;
+					TSun::TF32 texEndV = 0;
+					TSun::TU32 pageIndex;
 					m_pUseFont->PreDraw(n, &imgw, &imgh, &texw, &texh, &offx, &offy, &texStartU, &texEndU, &texStartV, &texEndV, &pageIndex);
 
-					TF32 xFinal = -1.0f + ((TF32)(x + offx)) / m_bufferWidth * 2.0f + xPlus;
-					TF32 yFinal = (-1.0f + ((TF32)(y + offy)) / m_bufferHeight * 2.0f) * -1.0f - yPlus;
-					TF32 xLen = ((TF32)(imgw - 1)) / m_bufferWidth * 2.0f;
-					TF32 yLen = ((TF32)(imgh - 1)) / m_bufferHeight * 2.0f;
+					TSun::TF32 xFinal = -1.0f + ((TSun::TF32)(x + offx)) / m_bufferWidth * 2.0f + xPlus;
+					TSun::TF32 yFinal = (-1.0f + ((TSun::TF32)(y + offy)) / m_bufferHeight * 2.0f) * -1.0f - yPlus;
+					TSun::TF32 xLen = ((TSun::TF32)(imgw - 1)) / m_bufferWidth * 2.0f;
+					TSun::TF32 yLen = ((TSun::TF32)(imgh - 1)) / m_bufferHeight * 2.0f;
 
 					// vbSet
 					GUI_VERTEX_DEF* pVertex;
@@ -289,23 +289,23 @@ namespace TLunaEngine{
 					if (pDevice->mapResource(mVBSet, 0, RENDER_DEVICE_MAP_READ_WRITE, &mappedRes))
 					{
 						pVertex = (GUI_VERTEX_DEF*)mappedRes.pData;
-						pVertex[0].Pos = TLunaEngine::Vector3<TF32>(xFinal, yFinal, 0);
-						pVertex[0].Tex = TLunaEngine::Vector2<TF32>(texStartU, texStartV);
+						pVertex[0].Pos = TSun::Vector3<TSun::TF32>(xFinal, yFinal, 0);
+						pVertex[0].Tex = TSun::Vector2<TSun::TF32>(texStartU, texStartV);
 						pVertex[0].Color = color;
-						pVertex[1].Pos = TLunaEngine::Vector3<TF32>(xFinal + xLen, yFinal - yLen, 0);
-						pVertex[1].Tex = TLunaEngine::Vector2<TF32>(texEndU, texEndV);
+						pVertex[1].Pos = TSun::Vector3<TSun::TF32>(xFinal + xLen, yFinal - yLen, 0);
+						pVertex[1].Tex = TSun::Vector2<TSun::TF32>(texEndU, texEndV);
 						pVertex[1].Color = color;
-						pVertex[2].Pos = TLunaEngine::Vector3<TF32>(xFinal, yFinal - yLen, 0);
-						pVertex[2].Tex = TLunaEngine::Vector2<TF32>(texStartU, texEndV);
+						pVertex[2].Pos = TSun::Vector3<TSun::TF32>(xFinal, yFinal - yLen, 0);
+						pVertex[2].Tex = TSun::Vector2<TSun::TF32>(texStartU, texEndV);
 						pVertex[2].Color = color;
-						pVertex[3].Pos = TLunaEngine::Vector3<TF32>(xFinal, yFinal, 0);
-						pVertex[3].Tex = TLunaEngine::Vector2<TF32>(texStartU, texStartV);
+						pVertex[3].Pos = TSun::Vector3<TSun::TF32>(xFinal, yFinal, 0);
+						pVertex[3].Tex = TSun::Vector2<TSun::TF32>(texStartU, texStartV);
 						pVertex[3].Color = color;
-						pVertex[4].Pos = TLunaEngine::Vector3<TF32>(xFinal + xLen, yFinal, 0);
-						pVertex[4].Tex = TLunaEngine::Vector2<TF32>(texEndU, texStartV);
+						pVertex[4].Pos = TSun::Vector3<TSun::TF32>(xFinal + xLen, yFinal, 0);
+						pVertex[4].Tex = TSun::Vector2<TSun::TF32>(texEndU, texStartV);
 						pVertex[4].Color = color;
-						pVertex[5].Pos = TLunaEngine::Vector3<TF32>(xFinal + xLen, yFinal - yLen, 0);
-						pVertex[5].Tex = TLunaEngine::Vector2<TF32>(texEndU, texEndV);
+						pVertex[5].Pos = TSun::Vector3<TSun::TF32>(xFinal + xLen, yFinal - yLen, 0);
+						pVertex[5].Tex = TSun::Vector2<TSun::TF32>(texEndU, texEndV);
 						pVertex[5].Color = color;
 						pDevice->unmapResource(mVBSet, 0);
 						pDevice->copyResource(mVB, mVBSet);
@@ -320,21 +320,21 @@ namespace TLunaEngine{
 					pDevice->draw(6, 0);
 
 					X += m_pUseFont->GetWidthFromCharacter(*wKeep);
-					xPlus += ((TF32)(texw + offx)) / m_bufferWidth * 2.0f;
+					xPlus += ((TSun::TF32)(texw + offx)) / m_bufferWidth * 2.0f;
 				}
 				else {
 					X += m_pUseFont->GetWidthFromCharacter(*wKeep);
-					TLunaEngine::Log::WriteLine(TLunaEngine::Log::LOG_LEVEL_ERROR, TTRUE, L"Can not find character in font tex!", __FILE__, __LINE__);
+					TSun::Log::WriteLine(TSun::Log::LOG_LEVEL_ERROR, TSun::TTRUE, L"Can not find character in font tex!", __FILE__, __LINE__);
 				}
 			}
 			++wKeep;
 		}
-		wKeep = TNULL;
+		wKeep = TSun::TNULL;
 
-		return TTRUE;
+		return TSun::TTRUE;
 	}
 
-	TBOOL GUIFontManager::Init(const TCHAR* effectFile,TU32 bufferWidth,TU32 bufferHeight)
+	TSun::TBOOL GUIFontManager::Init(const TSun::TCHAR* effectFile,TSun::TU32 bufferWidth,TSun::TU32 bufferHeight)
 	{
 		m_bufferWidth = bufferWidth;
 		m_bufferHeight = bufferHeight;
@@ -346,36 +346,36 @@ namespace TLunaEngine{
 		if(!pCompiledVS->compileShader(effectFile,"VS","vs"))
 		{
 			delete pCompiledVS;
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		mVS = pDevice->createVertexShader(pCompiledVS);
 		if(!mVS)
 		{
 			delete pCompiledVS;
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		// input layout
 		TLRenderDeviceInputElementDesc renderLI[3];
 		renderLI[0].AlignedByteOffset = 0;
 		renderLI[0].Format = RENDER_DEVICE_FORMAT_R32G32B32_FLOAT;
 		renderLI[0].SemanticIndex = 0;
-		renderLI[0].SemanticName = String("POSITION");
+		renderLI[0].SemanticName = TSun::String("POSITION");
 		renderLI[0].InputSlot = 0;
 		renderLI[1].AlignedByteOffset = 12;
 		renderLI[1].Format = RENDER_DEVICE_FORMAT_R32G32_FLOAT;
 		renderLI[1].SemanticIndex = 0;
-		renderLI[1].SemanticName = String("TEXCOORD");
+		renderLI[1].SemanticName = TSun::String("TEXCOORD");
 		renderLI[1].InputSlot = 0;
 		renderLI[2].AlignedByteOffset = 20;
 		renderLI[2].Format = RENDER_DEVICE_FORMAT_R32G32B32A32_FLOAT;
 		renderLI[2].SemanticIndex = 0;
-		renderLI[2].SemanticName = String("COLOR");
+		renderLI[2].SemanticName = TSun::String("COLOR");
 		renderLI[2].InputSlot = 0;
 		mInputLayout = pDevice->createInputLayout(renderLI,3,pCompiledVS);
 		if(!mInputLayout)
 		{
 			delete pCompiledVS;
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		delete pCompiledVS;
 		// PS
@@ -383,43 +383,43 @@ namespace TLunaEngine{
 		if(!pCompiledPS->compileShader(effectFile,"PS","ps"))
 		{
 			delete pCompiledPS;
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		mPS = pDevice->createPixelShader(pCompiledPS);
 		if(!mPS)
 		{
 			delete pCompiledPS;
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		delete pCompiledPS;
 		// VB
 		GUI_VERTEX_DEF vertices[] =
 		{
-			{ TLunaEngine::Vector3<TF32>( -1.0f, 1.0f, 0.0f ), TLunaEngine::Vector2<TF32>( 0.0f, 0.0f ), TLunaEngine::Vector4<TF32>(1.0f,1.0f,1.0f,1.0f) },
-			{ TLunaEngine::Vector3<TF32>( 1.0f, -1.0f, 0.0f ), TLunaEngine::Vector2<TF32>( 1.0f,1.0f ), TLunaEngine::Vector4<TF32>(1.0f,1.0f,1.0f,1.0f) },
-			{ TLunaEngine::Vector3<TF32>( -1.0f, -1.0f, 0.0f ), TLunaEngine::Vector2<TF32>( 0.0f, 1.0f ), TLunaEngine::Vector4<TF32>(1.0f,1.0f,1.0f,1.0f) },
-			{ TLunaEngine::Vector3<TF32>( -1.0f, 1.0f, 0.0f ), TLunaEngine::Vector2<TF32>( 0.0f, 0.0f ), TLunaEngine::Vector4<TF32>(1.0f,1.0f,1.0f,1.0f) },
-			{ TLunaEngine::Vector3<TF32>( 1.0f, 1.0f, 0.0f ), TLunaEngine::Vector2<TF32>( 1.0f, 0.0f ), TLunaEngine::Vector4<TF32>(1.0f,1.0f,1.0f,1.0f) },
-			{ TLunaEngine::Vector3<TF32>( 1.0f, -1.0f, 0.0f ), TLunaEngine::Vector2<TF32>( 1.0f, 1.0f ), TLunaEngine::Vector4<TF32>(1.0f,1.0f,1.0f,1.0f) },
+			{ TSun::Vector3<TSun::TF32>( -1.0f, 1.0f, 0.0f ), TSun::Vector2<TSun::TF32>( 0.0f, 0.0f ), TSun::Vector4<TSun::TF32>(1.0f,1.0f,1.0f,1.0f) },
+			{ TSun::Vector3<TSun::TF32>( 1.0f, -1.0f, 0.0f ), TSun::Vector2<TSun::TF32>( 1.0f,1.0f ), TSun::Vector4<TSun::TF32>(1.0f,1.0f,1.0f,1.0f) },
+			{ TSun::Vector3<TSun::TF32>( -1.0f, -1.0f, 0.0f ), TSun::Vector2<TSun::TF32>( 0.0f, 1.0f ), TSun::Vector4<TSun::TF32>(1.0f,1.0f,1.0f,1.0f) },
+			{ TSun::Vector3<TSun::TF32>( -1.0f, 1.0f, 0.0f ), TSun::Vector2<TSun::TF32>( 0.0f, 0.0f ), TSun::Vector4<TSun::TF32>(1.0f,1.0f,1.0f,1.0f) },
+			{ TSun::Vector3<TSun::TF32>( 1.0f, 1.0f, 0.0f ), TSun::Vector2<TSun::TF32>( 1.0f, 0.0f ), TSun::Vector4<TSun::TF32>(1.0f,1.0f,1.0f,1.0f) },
+			{ TSun::Vector3<TSun::TF32>( 1.0f, -1.0f, 0.0f ), TSun::Vector2<TSun::TF32>( 1.0f, 1.0f ), TSun::Vector4<TSun::TF32>(1.0f,1.0f,1.0f,1.0f) },
 		};
 		TLRenderDeviceBufferDesc vbDesc;
 		vbDesc.BindFlags = RENDER_DEVICE_BIND_FLAG_VERTEX_BUFFER;
 		vbDesc.ByteWidth = sizeof(GUI_VERTEX_DEF) * 6;
-		vbDesc.CPUAccessFlags = TFALSE;
+		vbDesc.CPUAccessFlags = TSun::TFALSE;
 		TLRenderDeviceSubresourceData initData;
 		initData.pSysMem = vertices;
 		mVB = pDevice->createBuffer(&vbDesc,&initData);
 		if(!mVB)
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		// VBSet
 		vbDesc.BindFlags = 0;
-		vbDesc.CPUAccessFlags = TTRUE;
-		mVBSet = pDevice->createBuffer(&vbDesc,TNULL);
+		vbDesc.CPUAccessFlags = TSun::TTRUE;
+		mVBSet = pDevice->createBuffer(&vbDesc,TSun::TNULL);
 		// blend state
 		TLRenderDeviceBlendDesc blendDesc;
-		blendDesc.RenderTarget[0].BlendEnable = TTRUE;
+		blendDesc.RenderTarget[0].BlendEnable = TSun::TTRUE;
 		blendDesc.RenderTarget[0].SrcBlend = RENDER_DEVICE_BLEND_SRC_ALPHA;
 		blendDesc.RenderTarget[0].DestBlend = RENDER_DEVICE_BLEND_INV_SRC_ALPHA;
 		blendDesc.RenderTarget[0].BlendOp = RENDER_DEVICE_BLEND_OP_ADD;
@@ -429,16 +429,16 @@ namespace TLunaEngine{
 		mBlendState = pDevice->createBlendState(&blendDesc);
 		if(!mBlendState)
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		// depth stencil state
 		TLRenderDeviceDepthStencilDesc depthDesc;
-		depthDesc.DepthEnable = TFALSE;
+		depthDesc.DepthEnable = TSun::TFALSE;
 		depthDesc.DepthWriteMask = RENDER_DEVICE_DEPTH_WRITE_MASK_ZERO;
 		mDepthStencilState = pDevice->createDepthStencilState(&depthDesc);
 		if(!mDepthStencilState)
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		// sampler state
 		TLRenderDeviceSamplerDesc samplerDesc;
@@ -448,50 +448,50 @@ namespace TLunaEngine{
 		mSamplerState = pDevice->createSamplerState(&samplerDesc);
 		if(!mSamplerState)
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		// Init FreeType
 		if(FT_Init_FreeType(&library))
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
-		return TTRUE;
+		return TSun::TTRUE;
 	}
 
-	TBOOL GUIFontManager::initDebugFont(const TCHAR* filename, TU32 size, TU32 texPageSize)
+	TSun::TBOOL GUIFontManager::initDebugFont(const TSun::TCHAR* filename, TSun::TU32 size, TSun::TU32 texPageSize)
 	{
-		if(m_pDebugFont!=TNULL)
+		if(m_pDebugFont!=TSun::TNULL)
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		m_pDebugFont = new GUIFont();
 		if(!m_pDebugFont->InitFont(filename,size,texPageSize,-1,library))
 		{
 			delete m_pDebugFont;
-			m_pDebugFont = TNULL;
-			return TFALSE;
+			m_pDebugFont = TSun::TNULL;
+			return TSun::TFALSE;
 		}
-		return TTRUE;
+		return TSun::TTRUE;
 	}
 
-	TVOID GUIFontManager::deleteDebugFont()
+	TSun::TVOID GUIFontManager::deleteDebugFont()
 	{
-		if(m_pDebugFont!=TNULL)
+		if(m_pDebugFont!=TSun::TNULL)
 		{
 			delete m_pDebugFont;
-			m_pDebugFont = TNULL;
+			m_pDebugFont = TSun::TNULL;
 		}
 	}
 
-	TBOOL GUIFontManager::RenderDebugFont(const TWCHAR* text, TU32 len, TS32 x, TS32 y, Vector4<TF32>& color)
+	TSun::TBOOL GUIFontManager::RenderDebugFont(const TSun::TWCHAR* text, TSun::TU32 len, TSun::TS32 x, TSun::TS32 y, TSun::Vector4<TSun::TF32>& color)
 	{
 		if(!m_pDebugFont)
 		{
-			return TFALSE;
+			return TSun::TFALSE;
 		}
 		GUIFont* pFont = m_pUseFont;
 		m_pUseFont = m_pDebugFont;
-		TBOOL ret = Render(text,len,x,y,color);
+		TSun::TBOOL ret = Render(text,len,x,y,color);
 		m_pUseFont = pFont;
 		return ret;
 	}

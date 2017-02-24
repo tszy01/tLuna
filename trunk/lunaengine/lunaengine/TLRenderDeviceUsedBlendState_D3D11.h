@@ -1,7 +1,7 @@
 #ifndef _TLRENDERDEVICEUSEDBLENDSTATE_D3D11_H_
 #define _TLRENDERDEVICEUSEDBLENDSTATE_D3D11_H_
 
-#include "TLCommonTypeDef.h"
+#include "TSCommonTypeDef.h"
 #include "TLRenderDeviceUsedBlendState.h"
 #include <d3d11.h>
 namespace TLunaEngine
@@ -20,7 +20,7 @@ namespace TLunaEngine
 			return mD3DBlendState;
 		}
 		// init using d3d ptr
-		TBOOL initWithD3DBlendState(ID3D11BlendState* d3dState);
+		TSun::TBOOL initWithD3DBlendState(ID3D11BlendState* d3dState);
 	};
 }
 

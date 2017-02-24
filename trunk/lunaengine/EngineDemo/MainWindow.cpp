@@ -1,7 +1,7 @@
 #include "MainWindow.h"
 #include "TLGlobalFunc.h"
 
-MainWindow* TLunaEngine::Singleton<MainWindow>::m_Ptr = 0;
+MainWindow* TSun::Singleton<MainWindow>::m_Ptr = 0;
 
 // 消息处理函数
 LRESULT FAR PASCAL WindowProc(HWND hWnd, UINT message,WPARAM wParam, LPARAM lParam)

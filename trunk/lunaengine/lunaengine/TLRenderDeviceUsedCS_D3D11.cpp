@@ -15,13 +15,13 @@ namespace TLunaEngine
 		}
 	}
 
-	TBOOL RenderDeviceUsedCS_D3D11::initWithD3DCS(ID3D11ComputeShader* d3dShader)
+	TSun::TBOOL RenderDeviceUsedCS_D3D11::initWithD3DCS(ID3D11ComputeShader* d3dShader)
 	{
 		if(mD3DCS)
-			return TFALSE;
+			return TSun::TFALSE;
 		if(!d3dShader)
-			return TFALSE;
+			return TSun::TFALSE;
 		mD3DCS = d3dShader;
-		return TTRUE;
+		return TSun::TTRUE;
 	}
 }

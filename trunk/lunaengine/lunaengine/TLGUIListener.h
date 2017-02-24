@@ -1,6 +1,6 @@
 #ifndef _TLGUILISTENER_H_
 #define _TLGUILISTENER_H_
-#include "TLCommonTypeDef.h"
+#include "TSCommonTypeDef.h"
 
 namespace TLunaEngine{
 	/*
@@ -11,17 +11,17 @@ namespace TLunaEngine{
 	{
 	public:
 
-		GUIListener(TVOID)
+		GUIListener(TSun::TVOID)
 		{
 		}
 
-		virtual ~GUIListener(TVOID)
+		virtual ~GUIListener(TSun::TVOID)
 		{
 		}
 
 	public:
 		// 动画播放完毕发送
-		virtual TVOID OnAnimePlayedOver(TS32 iContainerID,TUByte yAnimeType) = 0;
+		virtual TSun::TVOID OnAnimePlayedOver(TSun::TS32 iContainerID,TSun::TUByte yAnimeType) = 0;
 	};
 
 }

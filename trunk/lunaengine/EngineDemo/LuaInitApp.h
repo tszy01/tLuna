@@ -1,11 +1,11 @@
 #ifndef _LUAINITAPP_H_
 #define _LUAINITAPP_H_
-#include "tlluabase.h"
-#include "TLSingleton.h"
+#include "TSLuaBase.h"
+#include "TSSingleton.h"
 
-class LuaInit : public TLunaEngine::Singleton<LuaInit>, public TLunaEngine::LuaBase
+class LuaInit : public TSun::Singleton<LuaInit>, public TSun::LuaBase
 {
-	friend class TLunaEngine::Singleton<LuaInit>;
+	friend class TSun::Singleton<LuaInit>;
 protected:
 	LuaInit(void);
 	virtual ~LuaInit(void);

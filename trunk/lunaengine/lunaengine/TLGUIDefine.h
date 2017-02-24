@@ -1,18 +1,18 @@
 #ifndef _TLGUIDEFINE_H_
 #define _TLGUIDEFINE_H_
 
-#include "TLVector3.h"
-#include "TLVector2.h"
-#include "TLVector4.h"
+#include "TSVector3.h"
+#include "TSVector2.h"
+#include "TSVector4.h"
 
 namespace TLunaEngine{
 
 	// 渲染输入结构体
 	struct GUI_VERTEX_DEF
 	{
-		TLunaEngine::Vector3<TF32> Pos;
-		TLunaEngine::Vector2<TF32> Tex;
-		TLunaEngine::Vector4<TF32> Color;
+		TSun::Vector3<TSun::TF32> Pos;
+		TSun::Vector2<TSun::TF32> Tex;
+		TSun::Vector4<TSun::TF32> Color;
 	};
 
 	// Ctrl种类

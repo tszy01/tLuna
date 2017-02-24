@@ -1,12 +1,12 @@
 #ifndef _TGLOBALFUNC_H_
 #define _TGLOBALFUNC_H_
-#include "TLCommonTypeDef.h"
+#include "TSCommonTypeDef.h"
 #include <Windows.h>
 
 namespace TLunaEngine{
 
 	// 定义函数指针，上层游戏循环时调用
-	typedef TVOID(*UserLoop)(TF32 fTimeElapsed);
+	typedef TSun::TVOID(*UserLoop)(TSun::TF32 fTimeElapsed);
 
 	// -------------------------- 以下为导出全局函数，上层调用 ------------------------------
 
@@ -19,23 +19,23 @@ namespace TLunaEngine{
 	// fSecsPerFrame:帧速率控制(每帧时间)
 	// szResDir:资源根目录
 	// bShowDebugInfo:是否显示Debug信息
-	TBOOL Init(HWND hWnd,HINSTANCE hInst,TBOOL bWnd,TS32 lWidth,TS32 lHeight,
-		TF32 fSecsPerFrame,const TCHAR* szResDir,const TCHAR* szSysLangDictFile,
-		TBOOL bShowDebugInfo);
+	TSun::TBOOL Init(HWND hWnd,HINSTANCE hInst,TSun::TBOOL bWnd,TSun::TS32 lWidth,TSun::TS32 lHeight,
+		TSun::TF32 fSecsPerFrame,const TSun::TCHAR* szResDir,const TSun::TCHAR* szSysLangDictFile,
+		TSun::TBOOL bShowDebugInfo);
 
 	// 引擎循环
-	TBOOL OnLoopCtrlUpdate(TF32* pTimeElapsed);
-	TBOOL OnSceneUpdate(TF32 fTimeElapsed);
-	TBOOL OnSceneRender(TF32 fTimeElapsed);
+	TSun::TBOOL OnLoopCtrlUpdate(TSun::TF32* pTimeElapsed);
+	TSun::TBOOL OnSceneUpdate(TSun::TF32 fTimeElapsed);
+	TSun::TBOOL OnSceneRender(TSun::TF32 fTimeElapsed);
 
 	// 游戏循环
-	TBOOL OnGameLoop(UserLoop pLoop);
+	TSun::TBOOL OnGameLoop(UserLoop pLoop);
 
 	// 引擎退出
-	TBOOL Destroy();
+	TSun::TBOOL Destroy();
 
 	// window size changed
-	TBOOL onWindowSizeChanged(TU32 width,TU32 height);
+	TSun::TBOOL onWindowSizeChanged(TSun::TU32 width,TSun::TU32 height);
 
 	// ------------- 以下是给编辑器调用的方法，游戏中不能使用 --------------------------------
 
@@ -45,14 +45,14 @@ namespace TLunaEngine{
 	// lWidth:后缓冲区宽
 	// lHeight:后缓冲区高
 	// szResDir:资源根目录
-	TBOOL InitForEditor(HWND hWnd,HINSTANCE hInst,TS32 lWidth,TS32 lHeight,const TCHAR* szResDir);
+	TSun::TBOOL InitForEditor(HWND hWnd,HINSTANCE hInst,TSun::TS32 lWidth,TSun::TS32 lHeight,const TSun::TCHAR* szResDir);
 
 	// 引擎循环
-	TBOOL OnSceneUpdateForEditor(TF32 fTimeElapsed);
-	TBOOL OnSceneRenderForEditor(TF32 fTimeElapsed);
+	TSun::TBOOL OnSceneUpdateForEditor(TSun::TF32 fTimeElapsed);
+	TSun::TBOOL OnSceneRenderForEditor(TSun::TF32 fTimeElapsed);
 
 	// 引擎退出
-	TBOOL DestroyForEditor();
+	TSun::TBOOL DestroyForEditor();
 
 	// ---------------------------------------------------------------------------------------
 

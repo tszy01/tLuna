@@ -1,14 +1,14 @@
 #ifndef _CONSOLEWINDOW_H_
 #define _CONSOLEWINDOW_H_
 #include <Windows.h>
-#include "TLSingleton.h"
-#include "TLConsoleInput.h"
-#include "TLConsoleOutput.h"
+#include "TSSingleton.h"
+#include "TSConsoleInput.h"
+#include "TSConsoleOutput.h"
 
-class ConsoleWindow : public TLunaEngine::Singleton<ConsoleWindow>, 
-	TLunaEngine::ConsoleInputListener, TLunaEngine::ConsoleOutputListener, TLunaEngine::ConsoleOutputAssistant
+class ConsoleWindow : public TSun::Singleton<ConsoleWindow>, 
+	TSun::ConsoleInputListener, TSun::ConsoleOutputListener, TSun::ConsoleOutputAssistant
 {
-	friend class TLunaEngine::Singleton<ConsoleWindow>;
+	friend class TSun::Singleton<ConsoleWindow>;
 protected:
 	ConsoleWindow(void);
 	~ConsoleWindow(void);
@@ -24,9 +24,9 @@ private:
 	LONG m_clientWidth;
 	LONG m_clientHeight;
 	// console input
-	TLunaEngine::ConsoleInput* m_consoleInput;
+	TSun::ConsoleInput* m_consoleInput;
 	// console output
-	TLunaEngine::ConsoleOutput* m_consoleOutput;
+	TSun::ConsoleOutput* m_consoleOutput;
 	// gdi hdc
 	HDC m_hdc;
 	// gdi mem dc
@@ -55,26 +55,26 @@ public:
 		return m_clientHeight;
 	}
 	// get console input
-	inline TLunaEngine::ConsoleInput* GetConsoleInput()
+	inline TSun::ConsoleInput* GetConsoleInput()
 	{
 		return m_consoleInput;
 	}
 	// get console output
-	inline TLunaEngine::ConsoleOutput* GetConsoleOutput()
+	inline TSun::ConsoleOutput* GetConsoleOutput()
 	{
 		return m_consoleOutput;
 	}
 public:
 	// called when return cmd
-	virtual TLunaEngine::TVOID onReturn(const TLunaEngine::String& str);
+	virtual TSun::TVOID onReturn(const TSun::String& str);
 	// on addText end
-	TLunaEngine::TVOID onAddTextEnd();
+	TSun::TVOID onAddTextEnd();
 	// before mesure
-	TLunaEngine::TVOID beginMeasureTextSize();
+	TSun::TVOID beginMeasureTextSize();
 	// mesure
-	TLunaEngine::TVOID measureTextSize(const TLunaEngine::WString& text, TLunaEngine::TU32& width, TLunaEngine::TU32& height);
+	TSun::TVOID measureTextSize(const TSun::WString& text, TSun::TU32& width, TSun::TU32& height);
 	// after mesure
-	TLunaEngine::TVOID endMeasureTextSize();
+	TSun::TVOID endMeasureTextSize();
 };
 
 #endif
