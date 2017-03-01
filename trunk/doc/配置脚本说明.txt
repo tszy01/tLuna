@@ -1,4 +1,4 @@
-初始化脚本说明 initapp.lua
+﻿初始化脚本说明 initapp.lua
 
 如启动编辑器，则在wx中加载部分参数
 
@@ -13,6 +13,7 @@ resDir -- 资源根目录
 bOpenConsole -- 是否打开控制台
 consoleWidth -- 控制台窗口宽
 consoleHeight -- 控制台窗口高
+sysLangDict -- 全局字典
 
 日志脚本说明 logconfig.txt
 

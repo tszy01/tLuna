@@ -4,6 +4,7 @@
 #include "TLRenderDeviceUsedTex2D.h"
 #include "TLRenderDeviceUsedSRV.h"
 #include "TSMap.h"
+#include "TLMemDef.h"
 
 namespace TLunaEngine{
 
@@ -16,7 +17,7 @@ namespace TLunaEngine{
 	{
 		if(texd)
 		{
-			delete [] texd;
+			T_DELETE_ARRAY(getEngineStructMemAllocator(), TSun::TU32, texd);
 			texd = TSun::TNULL;
 		}
 	}
@@ -58,7 +59,7 @@ namespace TLunaEngine{
 					} else {
 						imgw = imgh;
 					}
-					texd = new TSun::TU32[imgw*imgh];
+					texd = T_NEW_ARRAY(getEngineStructMemAllocator(), TSun::TU32, imgw*imgh);
 					memset(texd,0,imgw*imgh*sizeof(TSun::TU32));
 					TSun::TU32 *texp = texd;
 					offset = size - bits.rows;
@@ -108,7 +109,7 @@ namespace TLunaEngine{
 			TSun::TU32* del = *itrBuffer;
 			if (del)
 			{
-				delete [] del;
+				T_DELETE_ARRAY(getEngineStructMemAllocator(), TSun::TU32, del);
 				(*itrBuffer) = 0;
 			}
 		}
@@ -119,7 +120,7 @@ namespace TLunaEngine{
 			RenderDeviceUsedSRV* del = *itrSRV;
 			if (del)
 			{
-				delete del;
+				T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedSRV, del);
 				del = 0;
 			}
 		}
@@ -127,7 +128,7 @@ namespace TLunaEngine{
 		mPageCount=0;
 		if (m_Glyphs)
 		{
-			delete [] m_Glyphs;
+			T_DELETE_ARRAY(getEngineStructMemAllocator(), FontGlyph, m_Glyphs);
 			m_Glyphs = TSun::TNULL;
 		}
 		FT_Done_Face(face);
@@ -147,7 +148,7 @@ namespace TLunaEngine{
 			return	TSun::TFALSE;
 		}
 		// 创建文字个体
-		m_Glyphs = new FontGlyph[face->num_glyphs];
+		m_Glyphs = T_NEW_ARRAY(getEngineStructMemAllocator(), FontGlyph, face->num_glyphs);
 		for (TSun::TS32 i = 0;i < face->num_glyphs;i++){
 			m_Glyphs[i].face = &face;
 			m_Glyphs[i].cached = TSun::TFALSE;
@@ -249,7 +250,7 @@ namespace TLunaEngine{
 		// 分配空间，拷贝纹理
 		for(TSun::TU32 iPage=0;iPage<pageCount-mPageCount;++iPage)
 		{
-			TSun::TU32* newBuffer = new TSun::TU32[mPageSize*mPageSize];
+			TSun::TU32* newBuffer = T_NEW_ARRAY(getEngineStructMemAllocator(), TSun::TU32, mPageSize*mPageSize);
 			memset(newBuffer,0,sizeof(TSun::TU32)*mPageSize*mPageSize);
 			mPageBufferList.push_back(newBuffer);
 		}
@@ -388,7 +389,7 @@ namespace TLunaEngine{
 			RenderDeviceUsedSRV* del = *itrSRV;
 			if (del)
 			{
-				delete del;
+				T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedSRV, del);
 				del = 0;
 			}
 		}
@@ -426,10 +427,10 @@ namespace TLunaEngine{
 			RenderDeviceUsedSRV* pSRV = pDevice->createShaderResourceView(pTex,&srvDesc);
 			if(!pSRV)
 			{
-				delete pTex;
+				T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedTex2D, pTex);
 				return TSun::TFALSE;
 			}
-			delete pTex;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedTex2D, pTex);
 			mSRVList.push_back(pSRV);
 		}
 		

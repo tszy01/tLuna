@@ -17,6 +17,8 @@
 #include "TLRenderDeviceUsedInputLayout.h"
 #include "TLRenderDeviceCompiledShader.h"
 
+#include "TLMemDef.h"
+
 TLunaEngine::GUIFontManager* TSun::Singleton<TLunaEngine::GUIFontManager>::m_Ptr = 0;
 
 namespace TLunaEngine{
@@ -43,7 +45,7 @@ namespace TLunaEngine{
 	{
 		if (m_pRenderText)
 		{
-			delete[] m_pRenderText;
+			T_DELETE_ARRAY(TSun::getStringMemAllocator(), TSun::TWCHAR, m_pRenderText);
 			m_pRenderText = 0;
 		}
 		m_pUseFont = TSun::TNULL;
@@ -53,7 +55,7 @@ namespace TLunaEngine{
 			GUIFont* pObj = itr->Value;
 			if (pObj)
 			{
-				delete pObj;
+				T_DELETE(getEngineStructMemAllocator(), GUIFont, pObj);
 				pObj = 0;
 			}
 			itr->Value = TSun::TNULL;
@@ -64,42 +66,42 @@ namespace TLunaEngine{
 		library = TSun::TNULL;
 		if (mVB)
 		{
-			delete mVB;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedBuffer, mVB);
 			mVB = 0;
 		}
 		if (mVBSet)
 		{
-			delete mVBSet;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedBuffer, mVBSet);
 			mVBSet = 0;
 		}
 		if (mVS)
 		{
-			delete mVS;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedVS, mVS);
 			mVS = 0;
 		}
 		if (mPS)
 		{
-			delete mPS;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedPS, mPS);
 			mPS = 0;
 		}
 		if (mInputLayout)
 		{
-			delete mInputLayout;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedInputLayout, mInputLayout);
 			mInputLayout = 0;
 		}
 		if (mSamplerState)
 		{
-			delete mSamplerState;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedSamplerState, mSamplerState);
 			mSamplerState = 0;
 		}
 		if (mDepthStencilState)
 		{
-			delete mDepthStencilState;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedDepthStencilState, mDepthStencilState);
 			mDepthStencilState = 0;
 		}
 		if (mBlendState)
 		{
-			delete mBlendState;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedBlendState, mBlendState);
 			mBlendState = 0;
 		}
 	}
@@ -113,7 +115,7 @@ namespace TLunaEngine{
 			GUIFont* pObj = itr->Value;
 			if (pObj)
 			{
-				delete pObj;
+				T_DELETE(getEngineStructMemAllocator(), GUIFont, pObj);
 				pObj = 0;
 			}
 			itr->Value = TSun::TNULL;
@@ -123,10 +125,10 @@ namespace TLunaEngine{
 
 	TSun::TU32 GUIFontManager::AddFont(const TSun::TCHAR* filename,TSun::TU32 size,TSun::TU32 texPageSize,TSun::TS32 id)
 	{
-		GUIFont* font = new GUIFont();
+		GUIFont* font = T_NEW(getEngineStructMemAllocator(), GUIFont);
 		if(!font->InitFont(filename,size,texPageSize,id,library))
 		{
-			delete font;
+			T_DELETE(getEngineStructMemAllocator(), GUIFont, font);
 			return -1;
 		}
 		m_FontTable.push_back(id,font);
@@ -224,10 +226,10 @@ namespace TLunaEngine{
 		{
 			if (m_pRenderText)
 			{
-				delete[] m_pRenderText;
+				T_DELETE_ARRAY(TSun::getStringMemAllocator(), TSun::TWCHAR, m_pRenderText);
 				m_pRenderText = 0;
 			}
-			m_pRenderText = new TSun::TWCHAR[len];
+			m_pRenderText = T_NEW_ARRAY(TSun::getStringMemAllocator(), TSun::TWCHAR, len);
 			m_nRenderTextLen = len;
 		}
 		//::MultiByteToWideChar(CP_ACP,MB_PRECOMPOSED,text,(TSun::TS32)len,m_pRenderText,(TSun::TS32)m_nRenderTextLen);
@@ -345,13 +347,13 @@ namespace TLunaEngine{
 		RenderDeviceCompiledShader* pCompiledVS = pDevice->createCompiledShader();
 		if(!pCompiledVS->compileShader(effectFile,"VS","vs"))
 		{
-			delete pCompiledVS;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceCompiledShader, pCompiledVS);
 			return TSun::TFALSE;
 		}
 		mVS = pDevice->createVertexShader(pCompiledVS);
 		if(!mVS)
 		{
-			delete pCompiledVS;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceCompiledShader, pCompiledVS);
 			return TSun::TFALSE;
 		}
 		// input layout
@@ -374,24 +376,24 @@ namespace TLunaEngine{
 		mInputLayout = pDevice->createInputLayout(renderLI,3,pCompiledVS);
 		if(!mInputLayout)
 		{
-			delete pCompiledVS;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceCompiledShader, pCompiledVS);
 			return TSun::TFALSE;
 		}
-		delete pCompiledVS;
+		T_DELETE(getRenderStructMemAllocator(), RenderDeviceCompiledShader, pCompiledVS);
 		// PS
 		RenderDeviceCompiledShader* pCompiledPS = pDevice->createCompiledShader();
 		if(!pCompiledPS->compileShader(effectFile,"PS","ps"))
 		{
-			delete pCompiledPS;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceCompiledShader, pCompiledPS);
 			return TSun::TFALSE;
 		}
 		mPS = pDevice->createPixelShader(pCompiledPS);
 		if(!mPS)
 		{
-			delete pCompiledPS;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceCompiledShader, pCompiledPS);
 			return TSun::TFALSE;
 		}
-		delete pCompiledPS;
+		T_DELETE(getRenderStructMemAllocator(), RenderDeviceCompiledShader, pCompiledPS);
 		// VB
 		GUI_VERTEX_DEF vertices[] =
 		{
@@ -464,10 +466,10 @@ namespace TLunaEngine{
 		{
 			return TSun::TFALSE;
 		}
-		m_pDebugFont = new GUIFont();
+		m_pDebugFont = T_NEW(getEngineStructMemAllocator(), GUIFont);
 		if(!m_pDebugFont->InitFont(filename,size,texPageSize,-1,library))
 		{
-			delete m_pDebugFont;
+			T_DELETE(getEngineStructMemAllocator(), GUIFont, m_pDebugFont);
 			m_pDebugFont = TSun::TNULL;
 			return TSun::TFALSE;
 		}
@@ -478,7 +480,7 @@ namespace TLunaEngine{
 	{
 		if(m_pDebugFont!=TSun::TNULL)
 		{
-			delete m_pDebugFont;
+			T_DELETE(getEngineStructMemAllocator(), GUIFont, m_pDebugFont);
 			m_pDebugFont = TSun::TNULL;
 		}
 	}

@@ -2,6 +2,7 @@
 #include "TSTxtFileReader.h"
 #include "TSString.h"
 #include "TSLog.h"
+#include "TLMemDef.h"
 
 TLunaEngine::GUIMgr* TSun::Singleton<TLunaEngine::GUIMgr>::m_Ptr = 0;
 
@@ -14,7 +15,7 @@ namespace TLunaEngine{
 	{
 		if (m_pRootContainer)
 		{
-			delete m_pRootContainer;
+			T_DELETE(getEngineStructMemAllocator(), GUIContainer, m_pRootContainer);
 			m_pRootContainer = 0;
 		}
 	}
@@ -92,11 +93,11 @@ namespace TLunaEngine{
 		// AnimeType
 		TSun::TxtFileReader::ReadLineInteger(&iAnimeType,stream,1,' ');
 		// 生成Container
-		GUIContainer* pNewContainer = new GUIContainer();
+		GUIContainer* pNewContainer = T_NEW(getEngineStructMemAllocator(), GUIContainer);
 		(*ppContainer) = pNewContainer;
 		if (!pNewContainer->InitContainer(containerID,pParentContainer,(TSun::TS32)rc[0],(TSun::TS32)rc[1],(TSun::TS32)rc[2],(TSun::TS32)rc[3],(TSun::TUByte)iAnimeType,this))
 		{
-			delete pNewContainer;
+			T_DELETE(getEngineStructMemAllocator(), GUIContainer, pNewContainer);
 			return TSun::TFALSE;
 		}
 		// 生成一个加一个
@@ -222,7 +223,7 @@ namespace TLunaEngine{
 		// 生成Ctrl
 		if (type == GUI_CTRL_PICTURE)
 		{
-			GUICtrl* pNewCtrl = new GUIPicture();
+			GUICtrl* pNewCtrl = T_NEW(getEngineStructMemAllocator(), GUIPicture);
 			(*ppCtrl) = pNewCtrl;
 			TSun::TS32 texID = -1;
 			TSun::TF32 texRC[4] = {0};
@@ -233,14 +234,14 @@ namespace TLunaEngine{
 			if (!pPicture->InitGUIPicture(index,pParentContainer,(TSun::TS32)rc[0],
 				(TSun::TS32)rc[1],(TSun::TS32)rc[2],(TSun::TS32)rc[3],texID,texRC[0],texRC[1],texRC[2],texRC[3]))
 			{
-				delete pNewCtrl;
+				T_DELETE(getEngineStructMemAllocator(), GUICtrl, pNewCtrl);
 				return TSun::TFALSE;
 			}
 			pParentContainer->AddCtrl(pNewCtrl);
 		}
 		else if(type == GUI_CTRL_TEXT)
 		{
-			GUICtrl* pNewCtrl = new GUIText();
+			GUICtrl* pNewCtrl = T_NEW(getEngineStructMemAllocator(), GUIText);
 			(*ppCtrl) = pNewCtrl;
 			TSun::TS32 fontID = -1;
 			TSun::TF32 fontColor[4] = {0};
@@ -253,7 +254,7 @@ namespace TLunaEngine{
 			if (!pText->InitGUIText(index,pParentContainer,(TSun::TS32)rc[0],(TSun::TS32)rc[1],(TSun::TS32)rc[2],
 				(TSun::TS32)rc[3],fontID,TSun::Vector4<TSun::TF32>(fontColor[0],fontColor[1],fontColor[2],fontColor[3]), textID))
 			{
-				delete pNewCtrl;
+				T_DELETE(getEngineStructMemAllocator(), GUICtrl, pNewCtrl);
 				return TSun::TFALSE;
 			}
 			pParentContainer->AddCtrl(pNewCtrl);

@@ -1,4 +1,4 @@
-ExportSceneInfo:
+﻿ExportSceneInfo:
 
 KeyCount
 Time (* N)

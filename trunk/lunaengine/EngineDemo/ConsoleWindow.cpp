@@ -260,8 +260,10 @@ HRESULT ConsoleWindow::InitWindow(HINSTANCE hInst, int nCmdShow, int width, int 
 	m_windowWidth = width;
 	m_windowHeight = height;
 
-	m_consoleInput = new TSun::ConsoleInput(0, 5);
-	m_consoleOutput = new TSun::ConsoleOutput(this, 1000, 0, 0);
+	m_consoleInput = T_NEW(TSun::getStructMemAllocator(), TSun::ConsoleInput);
+	m_consoleInput->init(0, 5);
+	m_consoleOutput = T_NEW(TSun::getStructMemAllocator(), TSun::ConsoleOutput);
+	m_consoleOutput->init(this, 1000, 0, 0);
 	m_consoleInput->addListener(this);
 	m_consoleOutput->addListener(this);
 	TSun::Console::getSingletonPtr()->setInputAndOutput(m_consoleInput, m_consoleOutput);
@@ -277,12 +279,12 @@ void ConsoleWindow::DestroyWindow()
 	TSun::Console::getSingletonPtr()->setInputAndOutput(0, 0);
 	if (m_consoleInput)
 	{
-		delete m_consoleInput;
+		T_DELETE(TSun::getStructMemAllocator(), TSun::ConsoleInput, m_consoleInput);
 		m_consoleInput = NULL;
 	}
 	if (m_consoleOutput)
 	{
-		delete m_consoleOutput;
+		T_DELETE(TSun::getStructMemAllocator(), TSun::ConsoleOutput, m_consoleOutput);
 		m_consoleOutput = NULL;
 	}
 	TSun::Console::delSingletonPtr();

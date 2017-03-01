@@ -51,11 +51,11 @@ namespace TLunaEngine
 			return TSun::TFALSE;
 		if(FAILED(D3DCreateBlob((TSun::TSIZE)readSize,&mD3DBlob)))
 		{
-			free(buffer);
+			TSun::getBlockMemAllocator()->freeMem(buffer, __FILE__, __LINE__);
 			return TSun::TFALSE;
 		}
 		memcpy(mD3DBlob->GetBufferPointer(),buffer,(TSun::TSIZE)readSize);
-		free(buffer);
+		TSun::getBlockMemAllocator()->freeMem(buffer, __FILE__, __LINE__);
 		return TSun::TTRUE;
 	}
 
@@ -106,7 +106,7 @@ namespace TLunaEngine
 
 		ID3DBlob* pErrorBlob;
 		TSun::TU32 strCount = (TSun::TU32)strlen(szFile);
-		TSun::TWCHAR* wStr = new TSun::TWCHAR[strCount+1];
+		TSun::TWCHAR* wStr = T_NEW_ARRAY(TSun::getStringMemAllocator(), TSun::TWCHAR, strCount + 1);
 		//mbstowcs(wStr,szFile,strCount);
 		::MultiByteToWideChar(CP_ACP, 0, szFile, strCount, wStr, strCount);
 		wStr[strCount] = L'\0';
@@ -116,11 +116,11 @@ namespace TLunaEngine
 			if( pErrorBlob != TSun::TNULL )
 				OutputDebugStringA( (TSun::TCHAR*)pErrorBlob->GetBufferPointer() );
 			if( pErrorBlob ) pErrorBlob->Release();
-			delete [] wStr;
+			T_DELETE_ARRAY(TSun::getStringMemAllocator(), TSun::TWCHAR, wStr);
 			return TSun::TFALSE;
 		}
 		if( pErrorBlob ) pErrorBlob->Release();
-		delete [] wStr;
+		T_DELETE_ARRAY(TSun::getStringMemAllocator(), TSun::TWCHAR, wStr);
 		return TSun::TTRUE;
 	}
 }

@@ -1,6 +1,8 @@
 #include "TLRenderMgr.h"
 #include "TLRenderDevice_D3D11.h"
 
+#include "TLMemDef.h"
+
 TLunaEngine::RenderMgr* TSun::Singleton<TLunaEngine::RenderMgr>::m_Ptr = 0;
 namespace TLunaEngine
 {
@@ -20,7 +22,7 @@ namespace TLunaEngine
 		}
 		if(deviceType == DT_D3D11)
 		{
-			mDevice = new RenderDevice_D3D11();
+			mDevice = T_NEW(getRenderStructMemAllocator(), RenderDevice_D3D11);
 			mDeviceType = DT_D3D11;
 			return mDevice;
 		}
@@ -35,7 +37,7 @@ namespace TLunaEngine
 	{
 		if(mDevice)
 		{
-			delete mDevice;
+			T_DELETE(getRenderStructMemAllocator(), TLunaEngine::RenderDevice, (TLunaEngine::RenderDevice*)mDevice);
 			mDevice = TSun::TNULL;
 		}
 	}

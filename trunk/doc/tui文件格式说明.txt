@@ -1,4 +1,4 @@
-TUI_TEX_100
+﻿TUI_TEX_100
 Tex_Num
 {TexID
 TexFile}(*N)
