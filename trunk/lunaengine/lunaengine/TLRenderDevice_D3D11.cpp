@@ -22,6 +22,7 @@
 #include "TLRenderDeviceCompiledShader_D3D11.h"
 
 #include "DDSTextureLoader.h"
+#include "TLMemDef.h"
 
 namespace TLunaEngine {
 	RenderDevice_D3D11::RenderDevice_D3D11() : RenderDevice(), m_pd3dDevice(TSun::TNULL),m_pImmediateContext(TSun::TNULL),
@@ -335,7 +336,7 @@ namespace TLunaEngine {
 		}
 		else
 		{
-			D3D11_VIEWPORT* theVp = new D3D11_VIEWPORT[numVp];
+			D3D11_VIEWPORT* theVp = T_NEW_ARRAY(getRenderStructMemAllocator(), D3D11_VIEWPORT, numVp);
 			for(TSun::TU32 i=0;i<numVp;i++)
 			{
 				theVp[i].Height = aVp[i]._Height;
@@ -346,7 +347,7 @@ namespace TLunaEngine {
 				theVp[i].Width = aVp[i]._Width;
 			}
 			m_pImmediateContext->RSSetViewports( numVp, theVp );
-			delete [] theVp;
+			T_DELETE_ARRAY(getRenderStructMemAllocator(), D3D11_VIEWPORT, theVp);
 			theVp = TSun::TNULL;
 		}
 		return TSun::TTRUE;
@@ -1091,11 +1092,11 @@ namespace TLunaEngine {
 			if( FAILED( hr ) )
 				return TSun::TNULL;
 
-			RenderDeviceUsedBuffer_D3D11* pRet = new RenderDeviceUsedBuffer_D3D11();
+			RenderDeviceUsedBuffer_D3D11* pRet = T_NEW(getRenderStructMemAllocator(), RenderDeviceUsedBuffer_D3D11);
 			if(!pRet->initWithD3DBuffer(pBuffer))
 			{
 				pBuffer->Release();
-				delete pRet;
+				T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedBuffer_D3D11, pRet);
 				return TSun::TNULL;
 			}
 			return pRet;
@@ -1133,7 +1134,7 @@ namespace TLunaEngine {
 			D3D11_SUBRESOURCE_DATA* data = TSun::TNULL;
 			if (pInitData != TSun::TNULL)
 			{
-				data = new D3D11_SUBRESOURCE_DATA[pDesc->ArraySize * pDesc->MipLevels];
+				data = T_NEW_ARRAY(getRenderStructMemAllocator(), D3D11_SUBRESOURCE_DATA, pDesc->ArraySize * pDesc->MipLevels);
 				for (TSun::TU32 j = 0; j < pDesc->ArraySize; ++ j)
 				{
 					for (TSun::TU32 i = 0; i < pDesc->MipLevels; ++ i)
@@ -1150,17 +1151,17 @@ namespace TLunaEngine {
 			HRESULT hr = m_pd3dDevice->CreateTexture1D(&desc,pInitData?data:0,&d3dTex);
 			if(data)
 			{
-				delete [] data;
+				T_DELETE_ARRAY(getRenderStructMemAllocator(), D3D11_SUBRESOURCE_DATA, data);
 				data = TSun::TNULL;
 			}
 			if( FAILED( hr ) )
 				return TSun::TNULL;
 
-			RenderDeviceUsedTex1D_D3D11* pRet = new RenderDeviceUsedTex1D_D3D11();
+			RenderDeviceUsedTex1D_D3D11* pRet = T_NEW(getRenderStructMemAllocator(), RenderDeviceUsedTex1D_D3D11);
 			if(!pRet->initWithD3DTex1D(d3dTex))
 			{
 				d3dTex->Release();
-				delete pRet;
+				T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedTex1D_D3D11, pRet);
 				return TSun::TNULL;
 			}
 			return pRet;
@@ -1206,7 +1207,7 @@ namespace TLunaEngine {
 			D3D11_SUBRESOURCE_DATA* data = TSun::TNULL;
 			if (pInitData != TSun::TNULL)
 			{
-				data = new D3D11_SUBRESOURCE_DATA[pDesc->ArraySize * pDesc->MipLevels];
+				data = T_NEW_ARRAY(getRenderStructMemAllocator(), D3D11_SUBRESOURCE_DATA, pDesc->ArraySize * pDesc->MipLevels);
 				for (TSun::TU32 j = 0; j < pDesc->ArraySize; ++ j)
 				{
 					for (TSun::TU32 i = 0; i < pDesc->MipLevels; ++ i)
@@ -1223,17 +1224,17 @@ namespace TLunaEngine {
 			HRESULT hr = m_pd3dDevice->CreateTexture2D(&desc,pInitData?data:0,&d3dTex);
 			if(data)
 			{
-				delete [] data;
+				T_DELETE_ARRAY(getRenderStructMemAllocator(), D3D11_SUBRESOURCE_DATA, data);
 				data = TSun::TNULL;
 			}
 			if( FAILED( hr ) )
 				return TSun::TNULL;
 
-			RenderDeviceUsedTex2D_D3D11* pRet = new RenderDeviceUsedTex2D_D3D11();
+			RenderDeviceUsedTex2D_D3D11* pRet = T_NEW(getRenderStructMemAllocator(), RenderDeviceUsedTex2D_D3D11);
 			if(!pRet->initWithD3DTex2D(d3dTex))
 			{
 				d3dTex->Release();
-				delete pRet;
+				T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedTex2D_D3D11, pRet);
 				return TSun::TNULL;
 			}
 			return pRet;
@@ -1272,7 +1273,7 @@ namespace TLunaEngine {
 			D3D11_SUBRESOURCE_DATA* data = TSun::TNULL;
 			if (pInitData != TSun::TNULL)
 			{
-				data = new D3D11_SUBRESOURCE_DATA[1 * pDesc->MipLevels];
+				data = T_NEW_ARRAY(getRenderStructMemAllocator(), D3D11_SUBRESOURCE_DATA, 1 * pDesc->MipLevels);
 				for (TSun::TU32 j = 0; j < 1; ++ j)
 				{
 					for (TSun::TU32 i = 0; i < pDesc->MipLevels; ++ i)
@@ -1289,17 +1290,17 @@ namespace TLunaEngine {
 			HRESULT hr = m_pd3dDevice->CreateTexture3D(&desc,pInitData?data:0,&d3dTex);
 			if(data)
 			{
-				delete [] data;
+				T_DELETE_ARRAY(getRenderStructMemAllocator(), D3D11_SUBRESOURCE_DATA, data);
 				data = TSun::TNULL;
 			}
 			if( FAILED( hr ) )
 				return TSun::TNULL;
 
-			RenderDeviceUsedTex3D_D3D11* pRet = new RenderDeviceUsedTex3D_D3D11();
+			RenderDeviceUsedTex3D_D3D11* pRet = T_NEW(getRenderStructMemAllocator(), RenderDeviceUsedTex3D_D3D11);
 			if(!pRet->initWithD3DTex3D(d3dTex))
 			{
 				d3dTex->Release();
-				delete pRet;
+				T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedTex3D_D3D11, pRet);
 				return TSun::TNULL;
 			}
 			return pRet;
@@ -1389,11 +1390,11 @@ namespace TLunaEngine {
 				return TSun::TNULL;
 			}
 
-			RenderDeviceUsedSRV_D3D11* pRet = new RenderDeviceUsedSRV_D3D11();
+			RenderDeviceUsedSRV_D3D11* pRet = T_NEW(getRenderStructMemAllocator(), RenderDeviceUsedSRV_D3D11);
 			if(!pRet->initWithD3DSRV(pView))
 			{
 				pView->Release();
-				delete pRet;
+				T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedSRV_D3D11, pRet);
 				return TSun::TNULL;
 			}
 			return pRet;
@@ -1474,11 +1475,11 @@ namespace TLunaEngine {
 				return TSun::TNULL;
 			}
 
-			RenderDeviceUsedRTV_D3D11* pRet = new RenderDeviceUsedRTV_D3D11();
+			RenderDeviceUsedRTV_D3D11* pRet = T_NEW(getRenderStructMemAllocator(), RenderDeviceUsedRTV_D3D11);
 			if(!pRet->initWithD3DRTV(pView))
 			{
 				pView->Release();
-				delete pRet;
+				T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedRTV_D3D11, pRet);
 				return TSun::TNULL;
 			}
 			return pRet;
@@ -1547,11 +1548,11 @@ namespace TLunaEngine {
 				return TSun::TNULL;
 			}
 
-			RenderDeviceUsedDSV_D3D11* pRet = new RenderDeviceUsedDSV_D3D11();
+			RenderDeviceUsedDSV_D3D11* pRet = T_NEW(getRenderStructMemAllocator(), RenderDeviceUsedDSV_D3D11);
 			if(!pRet->initWithD3DDSV(pView))
 			{
 				pView->Release();
-				delete pRet;
+				T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedDSV_D3D11, pRet);
 				return TSun::TNULL;
 			}
 			return pRet;
@@ -1585,11 +1586,11 @@ namespace TLunaEngine {
 				return TSun::TNULL;
 			}
 			
-			RenderDeviceUsedBlendState_D3D11* pRet = new RenderDeviceUsedBlendState_D3D11();
+			RenderDeviceUsedBlendState_D3D11* pRet = T_NEW(getRenderStructMemAllocator(), RenderDeviceUsedBlendState_D3D11);
 			if(!pRet->initWithD3DBlendState(pState))
 			{
 				pState->Release();
-				delete pRet;
+				T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedBlendState_D3D11, pRet);
 				return TSun::TNULL;
 			}
 			return pRet;
@@ -1613,11 +1614,11 @@ namespace TLunaEngine {
 				return TSun::TNULL;
 			}
 			
-			RenderDeviceUsedDepthStencilState_D3D11* pRet = new RenderDeviceUsedDepthStencilState_D3D11();
+			RenderDeviceUsedDepthStencilState_D3D11* pRet = T_NEW(getRenderStructMemAllocator(), RenderDeviceUsedDepthStencilState_D3D11);
 			if(!pRet->initWithD3DDepthStencilState(pState))
 			{
 				pState->Release();
-				delete pRet;
+				T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedDepthStencilState_D3D11, pRet);
 				return TSun::TNULL;
 			}
 			return pRet;
@@ -1647,11 +1648,11 @@ namespace TLunaEngine {
 				return TSun::TNULL;
 			}
 			
-			RenderDeviceUsedRasterizerState_D3D11* pRet = new RenderDeviceUsedRasterizerState_D3D11();
+			RenderDeviceUsedRasterizerState_D3D11* pRet = T_NEW(getRenderStructMemAllocator(), RenderDeviceUsedRasterizerState_D3D11);
 			if(!pRet->initWithD3DRasterizerState(pState))
 			{
 				pState->Release();
-				delete pRet;
+				T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedRasterizerState_D3D11, pRet);
 				return TSun::TNULL;
 			}
 			return pRet;
@@ -1681,11 +1682,11 @@ namespace TLunaEngine {
 				return TSun::TNULL;
 			}
 			
-			RenderDeviceUsedSamplerState_D3D11* pRet = new RenderDeviceUsedSamplerState_D3D11();
+			RenderDeviceUsedSamplerState_D3D11* pRet = T_NEW(getRenderStructMemAllocator(), RenderDeviceUsedSamplerState_D3D11);
 			if(!pRet->initWithD3DSamplerState(pState))
 			{
 				pState->Release();
-				delete pRet;
+				T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedSamplerState_D3D11, pRet);
 				return TSun::TNULL;
 			}
 			return pRet;
@@ -1695,7 +1696,7 @@ namespace TLunaEngine {
 
 	RenderDeviceCompiledShader* RenderDevice_D3D11::createCompiledShader()
 	{
-		return new RenderDeviceCompiledShader_D3D11();
+		return T_NEW(getRenderStructMemAllocator(), RenderDeviceCompiledShader_D3D11);
 	}
 
 	RenderDeviceUsedInputLayout* RenderDevice_D3D11::createInputLayout(const TLRenderDeviceInputElementDesc* pElementDescs, 
@@ -1703,7 +1704,7 @@ namespace TLunaEngine {
 	{
 		if(m_loaded && m_pd3dDevice && pElementDescs && numElements>0 && pBlob)
 		{
-			D3D11_INPUT_ELEMENT_DESC* pDesc = new D3D11_INPUT_ELEMENT_DESC[numElements];
+			D3D11_INPUT_ELEMENT_DESC* pDesc = T_NEW_ARRAY(getRenderStructMemAllocator(), D3D11_INPUT_ELEMENT_DESC, numElements);
 			for(TSun::TU32 i=0;i<numElements;i++)
 			{
 				pDesc[i].AlignedByteOffset = pElementDescs[i].AlignedByteOffset;
@@ -1718,16 +1719,16 @@ namespace TLunaEngine {
 			ID3D11InputLayout* pInputLayout = TSun::TNULL;
 			if(FAILED(m_pd3dDevice->CreateInputLayout(pDesc,numElements,pBlob->getBufferPointer(),pBlob->getBufferSize(),&pInputLayout)))
 			{
-				delete [] pDesc;
+				T_DELETE_ARRAY(getRenderStructMemAllocator(), D3D11_INPUT_ELEMENT_DESC, pDesc);
 				return TSun::TNULL;
 			}
-			delete [] pDesc;
+			T_DELETE_ARRAY(getRenderStructMemAllocator(), D3D11_INPUT_ELEMENT_DESC, pDesc);
 
-			RenderDeviceUsedInputLayout_D3D11* pRet = new RenderDeviceUsedInputLayout_D3D11();
+			RenderDeviceUsedInputLayout_D3D11* pRet = T_NEW(getRenderStructMemAllocator(), RenderDeviceUsedInputLayout_D3D11);
 			if(!pRet->initWithD3DInputLayout(pInputLayout))
 			{
 				pInputLayout->Release();
-				delete pRet;
+				T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedInputLayout_D3D11, pRet);
 				return TSun::TNULL;
 			}
 			return pRet;
@@ -1745,11 +1746,11 @@ namespace TLunaEngine {
 				return TSun::TNULL;
 			}
 
-			RenderDeviceUsedVS_D3D11* pRet = new RenderDeviceUsedVS_D3D11();
+			RenderDeviceUsedVS_D3D11* pRet = T_NEW(getRenderStructMemAllocator(), RenderDeviceUsedVS_D3D11);
 			if(!pRet->initWithD3DVS(pShader))
 			{
 				pShader->Release();
-				delete pRet;
+				T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedVS_D3D11, pRet);
 				return TSun::TNULL;
 			}
 			return pRet;
@@ -1767,11 +1768,11 @@ namespace TLunaEngine {
 				return TSun::TNULL;
 			}
 
-			RenderDeviceUsedHS_D3D11* pRet = new RenderDeviceUsedHS_D3D11();
+			RenderDeviceUsedHS_D3D11* pRet = T_NEW(getRenderStructMemAllocator(), RenderDeviceUsedHS_D3D11);
 			if(!pRet->initWithD3DHS(pShader))
 			{
 				pShader->Release();
-				delete pRet;
+				T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedHS_D3D11, pRet);
 				return TSun::TNULL;
 			}
 			return pRet;
@@ -1789,11 +1790,11 @@ namespace TLunaEngine {
 				return TSun::TNULL;
 			}
 
-			RenderDeviceUsedDS_D3D11* pRet = new RenderDeviceUsedDS_D3D11();
+			RenderDeviceUsedDS_D3D11* pRet = T_NEW(getRenderStructMemAllocator(), RenderDeviceUsedDS_D3D11);
 			if(!pRet->initWithD3DDS(pShader))
 			{
 				pShader->Release();
-				delete pRet;
+				T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedDS_D3D11, pRet);
 				return TSun::TNULL;
 			}
 			return pRet;
@@ -1811,11 +1812,11 @@ namespace TLunaEngine {
 				return TSun::TNULL;
 			}
 
-			RenderDeviceUsedGS_D3D11* pRet = new RenderDeviceUsedGS_D3D11();
+			RenderDeviceUsedGS_D3D11* pRet = T_NEW(getRenderStructMemAllocator(), RenderDeviceUsedGS_D3D11);
 			if(!pRet->initWithD3DGS(pShader))
 			{
 				pShader->Release();
-				delete pRet;
+				T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedGS_D3D11, pRet);
 				return TSun::TNULL;
 			}
 			return pRet;
@@ -1828,7 +1829,7 @@ namespace TLunaEngine {
 	{
 		if(m_loaded && m_pd3dDevice && pCompiledShader && pSODeclaration && numEntries>0)
 		{
-			D3D11_SO_DECLARATION_ENTRY* pEntry = new D3D11_SO_DECLARATION_ENTRY[numEntries];
+			D3D11_SO_DECLARATION_ENTRY* pEntry = T_NEW_ARRAY(getRenderStructMemAllocator(), D3D11_SO_DECLARATION_ENTRY, numEntries);
 			for(TSun::TU32 i=0;i<numEntries;i++)
 			{
 				pEntry[i].ComponentCount = pSODeclaration[i].ComponentCount;
@@ -1843,16 +1844,16 @@ namespace TLunaEngine {
 			if(FAILED(m_pd3dDevice->CreateGeometryShaderWithStreamOutput(pCompiledShader->getBufferPointer(),
 				pCompiledShader->getBufferSize(),pEntry,numEntries,TSun::TNULL,0,0,TSun::TNULL,&pShader)))
 			{
-				delete [] pEntry;
+				T_DELETE_ARRAY(getRenderStructMemAllocator(), D3D11_SO_DECLARATION_ENTRY, pEntry);
 				return TSun::TNULL;
 			}
-			delete [] pEntry;
+			T_DELETE_ARRAY(getRenderStructMemAllocator(), D3D11_SO_DECLARATION_ENTRY, pEntry);
 
-			RenderDeviceUsedGS_D3D11* pRet = new RenderDeviceUsedGS_D3D11();
+			RenderDeviceUsedGS_D3D11* pRet = T_NEW(getRenderStructMemAllocator(), RenderDeviceUsedGS_D3D11);
 			if(!pRet->initWithD3DGS(pShader))
 			{
 				pShader->Release();
-				delete pRet;
+				T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedGS_D3D11, pRet);
 				return TSun::TNULL;
 			}
 			return pRet;
@@ -1870,11 +1871,11 @@ namespace TLunaEngine {
 				return TSun::TNULL;
 			}
 
-			RenderDeviceUsedPS_D3D11* pRet = new RenderDeviceUsedPS_D3D11();
+			RenderDeviceUsedPS_D3D11* pRet = T_NEW(getRenderStructMemAllocator(), RenderDeviceUsedPS_D3D11);
 			if(!pRet->initWithD3DPS(pShader))
 			{
 				pShader->Release();
-				delete pRet;
+				T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedPS_D3D11, pRet);
 				return TSun::TNULL;
 			}
 			return pRet;
@@ -1892,11 +1893,11 @@ namespace TLunaEngine {
 				return TSun::TNULL;
 			}
 
-			RenderDeviceUsedCS_D3D11* pRet = new RenderDeviceUsedCS_D3D11();
+			RenderDeviceUsedCS_D3D11* pRet = T_NEW(getRenderStructMemAllocator(), RenderDeviceUsedCS_D3D11);
 			if(!pRet->initWithD3DCS(pShader))
 			{
 				pShader->Release();
-				delete pRet;
+				T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedCS_D3D11, pRet);
 				return TSun::TNULL;
 			}
 			return pRet;
@@ -1916,7 +1917,7 @@ namespace TLunaEngine {
 				return TSun::TFALSE;
 			if(ppTex2D)
 			{
-				*ppTex2D = new RenderDeviceUsedTex2D_D3D11();
+				*ppTex2D = T_NEW(getRenderStructMemAllocator(), RenderDeviceUsedTex2D_D3D11);
 				((RenderDeviceUsedTex2D_D3D11*)(*ppTex2D))->initWithD3DTex2D(d3dTex);
 			}
 			else
@@ -1925,7 +1926,7 @@ namespace TLunaEngine {
 			}
 			if(ppSRV)
 			{
-				*ppSRV = new RenderDeviceUsedSRV_D3D11();
+				*ppSRV = T_NEW(getRenderStructMemAllocator(), RenderDeviceUsedSRV_D3D11);
 				((RenderDeviceUsedSRV_D3D11*)(*ppSRV))->initWithD3DSRV(d3dSRV);
 			}
 			else

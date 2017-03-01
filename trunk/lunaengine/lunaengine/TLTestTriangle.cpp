@@ -16,6 +16,7 @@
 #include "TLRenderDeviceUsedInputLayout.h"
 #include "TLRenderDeviceCompiledShader.h"
 #include "TLImage.h"
+#include "TLMemDef.h"
 
 namespace TLunaEngine{
 
@@ -30,82 +31,82 @@ namespace TLunaEngine{
 	{
 		if (mVB)
 		{
-			delete mVB;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedBuffer, mVB);
 			mVB = 0;
 		}
 		if (mIB)
 		{
-			delete mIB;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedBuffer, mIB);
 			mIB = 0;
 		}
 		if (mRB)
 		{
-			delete mRB;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedBuffer, mRB);
 			mRB = 0;
 		}
 		if (mCB[0])
 		{
-			delete mCB[0];
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedBuffer, mCB[0]);
 			mCB[0] = 0;
 		}
 		if (mCB[1])
 		{
-			delete mCB[1];
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedBuffer, mCB[1]);
 			mCB[1] = 0;
 		}
 		if (mCB[2])
 		{
-			delete mCB[2];
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedBuffer, mCB[2]);
 			mCB[2] = 0;
 		}
 		if (mSRV)
 		{
-			delete mSRV;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedSRV, mSRV);
 			mSRV = 0;
 		}
 		if (mVS)
 		{
-			delete mVS;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedVS, mVS);
 			mVS = 0;
 		}
 		if (mPS)
 		{
-			delete mPS;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedPS, mPS);
 			mPS = 0;
 		}
 		if (mVSAdd)
 		{
-			delete mVSAdd;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedVS, mVSAdd);
 			mVSAdd = 0;
 		}
 		if (mGS)
 		{
-			delete mGS;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedGS, mGS);
 			mGS = 0;
 		}
 		if (mInputLayout)
 		{
-			delete mInputLayout;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedInputLayout, mInputLayout);
 			mInputLayout = 0;
 		}
 		if (mInputLayout2)
 		{
-			delete mInputLayout2;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedInputLayout, mInputLayout2);
 			mInputLayout2 = 0;
 		}
 		if (mSamplerState)
 		{
-			delete mSamplerState;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedSamplerState, mSamplerState);
 			mSamplerState = 0;
 		}
 		if (mDepthStencilState)
 		{
-			delete mDepthStencilState;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedDepthStencilState, mDepthStencilState);
 			mDepthStencilState = 0;
 		}
 		if (mBlendState)
 		{
-			delete mBlendState;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedBlendState, mBlendState);
 			mBlendState = 0;
 		}
 	}
@@ -120,13 +121,13 @@ namespace TLunaEngine{
 		RenderDeviceCompiledShader* pCompiledVS = pDevice->createCompiledShader();
 		if(!pCompiledVS->compileShader(strShader.GetString(),"VS","vs"))
 		{
-			delete pCompiledVS;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceCompiledShader, pCompiledVS);
 			return TSun::TFALSE;
 		}
 		mVS = pDevice->createVertexShader(pCompiledVS);
 		if(!mVS)
 		{
-			delete pCompiledVS;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceCompiledShader, pCompiledVS);
 			return TSun::TFALSE;
 		}
 		// input layout
@@ -144,42 +145,42 @@ namespace TLunaEngine{
 		mInputLayout = pDevice->createInputLayout(renderLI,2,pCompiledVS);
 		if(!mInputLayout)
 		{
-			delete pCompiledVS;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceCompiledShader, pCompiledVS);
 			return TSun::TFALSE;
 		}
-		delete pCompiledVS;
+		T_DELETE(getRenderStructMemAllocator(), RenderDeviceCompiledShader, pCompiledVS);
 		// PS
 		RenderDeviceCompiledShader* pCompiledPS = pDevice->createCompiledShader();
 		if(!pCompiledPS->compileShader(strShader.GetString(),"PS","ps"))
 		{
-			delete pCompiledPS;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceCompiledShader, pCompiledPS);
 			return TSun::TFALSE;
 		}
 		mPS = pDevice->createPixelShader(pCompiledPS);
 		if(!mPS)
 		{
-			delete pCompiledPS;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceCompiledShader, pCompiledPS);
 			return TSun::TFALSE;
 		}
-		delete pCompiledPS;
+		T_DELETE(getRenderStructMemAllocator(), RenderDeviceCompiledShader, pCompiledPS);
 		// VSAdd
 		RenderDeviceCompiledShader* pCompiledVSAdd = pDevice->createCompiledShader();
 		if(!pCompiledVSAdd->compileShader(strShader.GetString(),"AddVS","vs"))
 		{
-			delete pCompiledVSAdd;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceCompiledShader, pCompiledVSAdd);
 			return TSun::TFALSE;
 		}
 		mVSAdd = pDevice->createVertexShader(pCompiledVSAdd);
 		if(!mVSAdd)
 		{
-			delete pCompiledVSAdd;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceCompiledShader, pCompiledVSAdd);
 			return TSun::TFALSE;
 		}
 		// input layout
 		mInputLayout2 = pDevice->createInputLayout(renderLI,2,pCompiledVSAdd);
 		if(!mInputLayout2)
 		{
-			delete pCompiledVSAdd;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceCompiledShader, pCompiledVSAdd);
 			return TSun::TFALSE;
 		}
 		// GS
@@ -195,10 +196,10 @@ namespace TLunaEngine{
 		mGS = pDevice->createGeometryShaderWithStreamOutput(pCompiledVSAdd,entry,2);
 		if(!mGS)
 		{
-			delete pCompiledVSAdd;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceCompiledShader, pCompiledVSAdd);
 			return TSun::TFALSE;
 		}
-		delete pCompiledVSAdd;
+		T_DELETE(getRenderStructMemAllocator(), RenderDeviceCompiledShader, pCompiledVSAdd);
 		// VB
 		SimpleVertex vertices[] =
 		{

@@ -33,6 +33,62 @@
 #include "TSLog.h"
 #endif // BUILD_TEST
 
+TSun::MemAllocator _globalAllocator;
+
+namespace TSun {
+	TSun::MemAllocator* getDefaultMemAllocator()
+	{
+		return &_globalAllocator;
+	}
+
+	TSun::MemAllocator* getStringMemAllocator()
+	{
+		return &_globalAllocator;
+	}
+
+	TSun::MemAllocator* getMathMemAllocator()
+	{
+		return &_globalAllocator;
+	}
+
+	TSun::MemAllocator* getListMemAllocator()
+	{
+		return &_globalAllocator;
+	}
+
+	TSun::MemAllocator* getStructMemAllocator()
+	{
+		return &_globalAllocator;
+	}
+
+	TSun::MemAllocator* getBlockMemAllocator()
+	{
+		return &_globalAllocator;
+	}
+}
+
+namespace TLunaEngine {
+	TSun::MemAllocator* getEngineBlockMemAllocator()
+	{
+		return TSun::getBlockMemAllocator();
+	}
+
+	TSun::MemAllocator* getEngineStructMemAllocator()
+	{
+		return TSun::getStructMemAllocator();
+	}
+
+	TSun::MemAllocator* getRenderBlockMemAllocator()
+	{
+		return &_globalAllocator;
+	}
+
+	TSun::MemAllocator* getRenderStructMemAllocator()
+	{
+		return &_globalAllocator;
+	}
+}
+
 int MainExampleGame(HINSTANCE hInstance,HINSTANCE hPrevInstance,LPSTR lpCmLine, int nCmdShow)
 {
 	// 构造一个初始化结构体
@@ -346,6 +402,10 @@ int PASCAL WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmLine,
 	//_CrtSetBreakAlloc(538);
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif // DEMO_CHECK_MEM_LEAK
+
+	// memory management
+	_globalAllocator.initialize(1024 * 1024 * 50, "GlobalAllocator");
+
 	// init variables
 	TSun::String initScriptFile("initapp.lua");
 	bool bEditor = false;

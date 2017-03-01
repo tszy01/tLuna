@@ -16,6 +16,7 @@
 #include "TLRenderDeviceUsedInputLayout.h"
 #include "TLRenderDeviceCompiledShader.h"
 #include "TLImage.h"
+#include "TLMemDef.h"
 
 TLunaEngine::GUITextureMgr* TSun::Singleton<TLunaEngine::GUITextureMgr>::m_Ptr = 0;
 
@@ -31,42 +32,42 @@ namespace TLunaEngine{
 		m_bufferWidth = 0;
 		if (mVB)
 		{
-			delete mVB;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedBuffer, mVB);
 			mVB = 0;
 		}
 		if (mVBSet)
 		{
-			delete mVBSet;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedBuffer, mVBSet);
 			mVBSet = 0;
 		}
 		if (mVS)
 		{
-			delete mVS;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedVS, mVS);
 			mVS = 0;
 		}
 		if (mPS)
 		{
-			delete mPS;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedPS, mPS);
 			mPS = 0;
 		}
 		if (mInputLayout)
 		{
-			delete mInputLayout;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedInputLayout, mInputLayout);
 			mInputLayout = 0;
 		}
 		if (mSamplerState)
 		{
-			delete mSamplerState;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedSamplerState, mSamplerState);
 			mSamplerState = 0;
 		}
 		if (mDepthStencilState)
 		{
-			delete mDepthStencilState;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedDepthStencilState, mDepthStencilState);
 			mDepthStencilState = 0;
 		}
 		if (mBlendState)
 		{
-			delete mBlendState;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedBlendState, mBlendState);
 			mBlendState = 0;
 		}
 		TSun::Map<TSun::TS32,RenderDeviceUsedSRV*>::Iterator itr = mSRVList.begin();
@@ -75,7 +76,7 @@ namespace TLunaEngine{
 			RenderDeviceUsedSRV* pSRV = itr->Value;
 			if (pSRV)
 			{
-				delete pSRV;
+				T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedSRV, pSRV);
 				pSRV = 0;
 			}
 			itr->Value = TSun::TNULL;
@@ -102,7 +103,7 @@ namespace TLunaEngine{
 			RenderDeviceUsedSRV* pSRV = itr->Value;
 			if (pSRV)
 			{
-				delete pSRV;
+				T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedSRV, pSRV);
 				pSRV = 0;
 			}
 			itr->Value = TSun::TNULL;
@@ -148,7 +149,7 @@ namespace TLunaEngine{
 		RenderDeviceUsedTex2D* pTex = pDevice->createTex2D(&texDesc,&initData);
 		if(!pTex)
 		{
-			delete image;
+			T_DELETE(getEngineStructMemAllocator(), Image, image);
 			return TSun::TFALSE;
 		}
 		TLRenderDeviceSRVDesc srvDesc;
@@ -159,12 +160,12 @@ namespace TLunaEngine{
 		RenderDeviceUsedSRV* pSRV = pDevice->createShaderResourceView(pTex,&srvDesc);
 		if(!pSRV)
 		{
-			delete image;
-			delete pTex;
+			T_DELETE(getEngineStructMemAllocator(), Image, image);
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedTex2D, pTex);
 			return TSun::TFALSE;
 		}
-		delete image;
-		delete pTex;
+		T_DELETE(getEngineStructMemAllocator(), Image, image);
+		T_DELETE(getRenderStructMemAllocator(), RenderDeviceUsedTex2D, pTex);
 		mSRVList.push_back(texID,pSRV);
 		return TSun::TTRUE;
 	}
@@ -219,13 +220,13 @@ namespace TLunaEngine{
 		RenderDeviceCompiledShader* pCompiledVS = pDevice->createCompiledShader();
 		if(!pCompiledVS->compileShader(effectFile,"VS","vs"))
 		{
-			delete pCompiledVS;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceCompiledShader, pCompiledVS);
 			return TSun::TFALSE;
 		}
 		mVS = pDevice->createVertexShader(pCompiledVS);
 		if(!mVS)
 		{
-			delete pCompiledVS;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceCompiledShader, pCompiledVS);
 			return TSun::TFALSE;
 		}
 		// input layout
@@ -248,24 +249,24 @@ namespace TLunaEngine{
 		mInputLayout = pDevice->createInputLayout(renderLI,3,pCompiledVS);
 		if(!mInputLayout)
 		{
-			delete pCompiledVS;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceCompiledShader, pCompiledVS);
 			return TSun::TFALSE;
 		}
-		delete pCompiledVS;
+		T_DELETE(getRenderStructMemAllocator(), RenderDeviceCompiledShader, pCompiledVS);
 		// PS
 		RenderDeviceCompiledShader* pCompiledPS = pDevice->createCompiledShader();
 		if(!pCompiledPS->compileShader(effectFile,"PS","ps"))
 		{
-			delete pCompiledPS;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceCompiledShader, pCompiledPS);
 			return TSun::TFALSE;
 		}
 		mPS = pDevice->createPixelShader(pCompiledPS);
 		if(!mPS)
 		{
-			delete pCompiledPS;
+			T_DELETE(getRenderStructMemAllocator(), RenderDeviceCompiledShader, pCompiledPS);
 			return TSun::TFALSE;
 		}
-		delete pCompiledPS;
+		T_DELETE(getRenderStructMemAllocator(), RenderDeviceCompiledShader, pCompiledPS);
 		// VB
 		GUI_VERTEX_DEF vertices[] =
 		{

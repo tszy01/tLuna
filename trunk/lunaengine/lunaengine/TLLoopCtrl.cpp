@@ -2,6 +2,8 @@
 #include "TSTimer.h"
 #include <stdio.h>
 
+#include "TLMemDef.h"
+
 namespace TLunaEngine{
 	LoopCtrl::LoopCtrl(TSun::TVOID) : 
 	m_curTime(0),
@@ -27,14 +29,14 @@ namespace TLunaEngine{
 	{
 		if(mTimer)
 		{
-			delete mTimer;
+			T_DELETE(getEngineStructMemAllocator(), TSun::Timer, mTimer);
 			mTimer = 0;
 		}
 	}
 
 	TSun::TBOOL LoopCtrl::Init()
 	{
-		mTimer = new TSun::Timer();
+		mTimer = T_NEW(getEngineStructMemAllocator(), TSun::Timer);
 		return TSun::TTRUE;
 	}
 

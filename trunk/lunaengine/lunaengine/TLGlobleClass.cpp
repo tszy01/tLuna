@@ -4,6 +4,7 @@
 #include "TLLoopCtrl.h"
 #include "TLGUIFontManager.h"
 #include "TSLangDict.h"
+#include "TLMemDef.h"
 
 TLunaEngine::GlobleClass* TSun::Singleton<TLunaEngine::GlobleClass>::m_Ptr = 0;
 
@@ -25,15 +26,15 @@ namespace TLunaEngine{
 			mLangDictFile = "sys_en.txt";
 		}
 		TSun::String strLangDictFullFile = m_strResDir + TSun::String("lang_dict\\") + mLangDictFile;
-		mLangDict = new TSun::LangDict();
+		mLangDict = T_NEW(getEngineStructMemAllocator(), TSun::LangDict);
 		if (!mLangDict->loadFromFile(strLangDictFullFile.GetString()))
 		{
-			delete mLangDict;
+			T_DELETE(getEngineStructMemAllocator(), TSun::LangDict, mLangDict);
 			mLangDict = 0;
 			return TSun::TFALSE;
 		}
 		// Triangle
-		m_pTri = new TestTriangle();
+		m_pTri = T_NEW(getEngineStructMemAllocator(), TestTriangle);
 		if(!m_pTri->InitTriangle())
 			return TSun::TFALSE;
 		// Debug信息
@@ -43,7 +44,7 @@ namespace TLunaEngine{
 			return TSun::TFALSE;
 		}
 		// init loop control
-		mLoopCtrl = new LoopCtrl();
+		mLoopCtrl = T_NEW(getEngineStructMemAllocator(), LoopCtrl);
 		mLoopCtrl->Init();
 		mLoopCtrl->StartTime();
 
@@ -56,7 +57,7 @@ namespace TLunaEngine{
 		if (mLoopCtrl)
 		{
 			mLoopCtrl->StopTime();
-			delete mLoopCtrl;
+			T_DELETE(getEngineStructMemAllocator(), LoopCtrl, mLoopCtrl);
 			mLoopCtrl = 0;
 		}
 		// Debug信息
@@ -64,13 +65,13 @@ namespace TLunaEngine{
 		// Triangle
 		if (m_pTri)
 		{
-			delete m_pTri;
+			T_DELETE(getEngineStructMemAllocator(), TestTriangle, m_pTri);
 			m_pTri = 0;
 		}
 		// destroy language dictionary
 		if (mLangDict)
 		{
-			delete mLangDict;
+			T_DELETE(getEngineStructMemAllocator(), TSun::LangDict, mLangDict);
 			mLangDict = 0;
 		}
 	}

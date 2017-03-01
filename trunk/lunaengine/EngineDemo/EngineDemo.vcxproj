@@ -122,7 +122,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\LunaEngine;$(SolutionDir)\..\tSun\trunk\src\lua\include;..\freetype-2.1.9\include;$(SolutionDir)\..\tSun\trunk\src\SunBase;$(SolutionDir)\..\tSun\trunk\src\SunMath;$(SolutionDir)\..\tSun\trunk\src\SunUtils;..\wxWidgets-2.9.4\include;..\wxWidgets-2.9.4\lib\vc_lib\mswud;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\LunaEngine;$(SolutionDir)\..\tSun\trunk\src\lua\include;..\freetype-2.1.9\include;$(SolutionDir)\..\tSun\trunk\src\SunFoundationLibrary;..\wxWidgets-2.9.4\include;..\wxWidgets-2.9.4\lib\vc_lib\mswud;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;DEMO_CHECK_MEM_LEAK;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -133,7 +133,7 @@
       <DisableSpecificWarnings>4819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>dxguid.lib;dinput8.lib;lua.lib;LunaEngine.lib;SunBase.lib;SunMath.lib;SunUtils.lib;d3d11.lib;d3dcompiler.lib;freetype219MT.lib;FreeImage.lib;LibDDSTextureLoader.lib;wxmsw29ud_propgrid.lib;wxmsw29ud_adv.lib;wxmsw29ud_core.lib;wxbase29ud.lib;wxtiffd.lib;wxjpegd.lib;wxpngd.lib;wxzlibd.lib;wxregexud.lib;wxexpatd.lib;comctl32.lib;rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>dxguid.lib;dinput8.lib;lua.lib;LunaEngine.lib;SunFoundationLibrary.lib;d3d11.lib;d3dcompiler.lib;freetype219MT.lib;FreeImage.lib;LibDDSTextureLoader.lib;wxmsw29ud_propgrid.lib;wxmsw29ud_adv.lib;wxmsw29ud_core.lib;wxbase29ud.lib;wxtiffd.lib;wxjpegd.lib;wxpngd.lib;wxzlibd.lib;wxregexud.lib;wxexpatd.lib;comctl32.lib;rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(SolutionDir)\..\bin\$(Platform)\$(Configuration)\$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>$(WindowsSDK_LibraryPath_x64);$(SolutionDir)\..\lib\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -175,7 +175,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>..\LunaEngine;$(SolutionDir)\..\tSun\trunk\src\lua\include;..\freetype-2.1.9\include;$(SolutionDir)\..\tSun\trunk\src\SunBase;$(SolutionDir)\..\tSun\trunk\src\SunMath;$(SolutionDir)\..\tSun\trunk\src\SunUtils;..\wxWidgets-2.9.4\include;..\wxWidgets-2.9.4\lib\vc_lib\mswu;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\LunaEngine;$(SolutionDir)\..\tSun\trunk\src\lua\include;..\freetype-2.1.9\include;$(SolutionDir)\..\tSun\trunk\src\SunFoundationLibrary;..\wxWidgets-2.9.4\include;..\wxWidgets-2.9.4\lib\vc_lib\mswu;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -185,7 +185,7 @@
       <DisableSpecificWarnings>4819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>dxguid.lib;dinput8.lib;lua.lib;LunaEngine.lib;SunBase.lib;SunMath.lib;SunUtils.lib;d3d11.lib;d3dcompiler.lib;freetype219MT.lib;FreeImage.lib;LibDDSTextureLoader.lib;wxmsw29u_propgrid.lib;wxmsw29u_adv.lib;wxmsw29u_core.lib;wxbase29u.lib;wxtiff.lib;wxjpeg.lib;wxpng.lib;wxzlib.lib;wxregexu.lib;wxexpat.lib;comctl32.lib;rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>dxguid.lib;dinput8.lib;lua.lib;LunaEngine.lib;SunFoundationLibrary.lib;d3d11.lib;d3dcompiler.lib;freetype219MT.lib;FreeImage.lib;LibDDSTextureLoader.lib;wxmsw29u_propgrid.lib;wxmsw29u_adv.lib;wxmsw29u_core.lib;wxbase29u.lib;wxtiff.lib;wxjpeg.lib;wxpng.lib;wxzlib.lib;wxregexu.lib;wxexpat.lib;comctl32.lib;rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(SolutionDir)\..\bin\$(Platform)\$(Configuration)\$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)\..\lib\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>

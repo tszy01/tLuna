@@ -1,7 +1,11 @@
 ﻿TLuna项目：
-Version 0.6.0
+Version 0.7.0
 
 ====================== Release Note =================================================
+0.7.0
+1，升级tSun为0.2.1
+2，修改引擎内存分配对应tSun的内存分配机能
+
 0.6.0
 1，去掉基础类，使用tSun作为基础类库，tSun对应0.1.0
 
@@ -140,6 +144,7 @@ HLSL代码编译工具
 LunaEngine项目：
 
 引擎逻辑部分
+TLMemDef.h -- 定义引擎端内存分配器接口
 TLGlobleFunc.h -- 提供全局对外接口
 TLGUIDefine.h -- 定义GUI相关
 TestTriangle -- 测试用三角形

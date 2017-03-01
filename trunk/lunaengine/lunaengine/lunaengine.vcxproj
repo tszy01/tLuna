@@ -113,7 +113,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\freetype-2.1.9\include;..\FreeImage\source;$(SolutionDir)\..\tSun\trunk\src\ZLib;$(SolutionDir)\..\tSun\trunk\src\lua\include;..\LibDDSTextureLoader;$(SolutionDir)\..\tSun\trunk\src\SunBase;$(SolutionDir)\..\tSun\trunk\src\SunMath;$(SolutionDir)\..\tSun\trunk\src\SunUtils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\freetype-2.1.9\include;..\FreeImage\source;$(SolutionDir)\..\tSun\trunk\src\ZLib;$(SolutionDir)\..\tSun\trunk\src\lua\include;..\LibDDSTextureLoader;$(SolutionDir)\..\tSun\trunk\src\SunFoundationLibrary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_SWPRINTFS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -155,7 +155,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>..\freetype-2.1.9\include;..\FreeImage\source;$(SolutionDir)\..\tSun\trunk\src\ZLib;$(SolutionDir)\..\tSun\trunk\src\lua\include;..\LibDDSTextureLoader;$(SolutionDir)\..\tSun\trunk\src\SunBase;$(SolutionDir)\..\tSun\trunk\src\SunMath;$(SolutionDir)\..\tSun\trunk\src\SunUtils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\freetype-2.1.9\include;..\FreeImage\source;$(SolutionDir)\..\tSun\trunk\src\ZLib;$(SolutionDir)\..\tSun\trunk\src\lua\include;..\LibDDSTextureLoader;$(SolutionDir)\..\tSun\trunk\src\SunFoundationLibrary;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;_CRT_NON_CONFORMING_SWPRINTFS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -225,6 +225,7 @@
     <ClInclude Include="TLGUITextureMgr.h" />
     <ClInclude Include="TLGUIListener.h" />
     <ClInclude Include="TLImage.h" />
+    <ClInclude Include="TLMemDef.h" />
     <ClInclude Include="TLRenderDevice.h" />
     <ClInclude Include="TLRenderDeviceUsed.h" />
     <ClInclude Include="TLRenderDeviceUsedBlendState.h" />

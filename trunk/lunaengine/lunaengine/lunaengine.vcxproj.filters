@@ -341,6 +341,9 @@
     <ClInclude Include="TLLoopCtrl.h">
       <Filter>EngineUtils</Filter>
     </ClInclude>
+    <ClInclude Include="TLMemDef.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />

@@ -17,11 +17,10 @@ namespace TLunaEngine
 			PIXEL_FORMAT_R8G8B8A8 = 3,
 		};
 	public:
-		// constructor will alloc memory for pixel
-		// use create functions for usual
-		Image(TSun::TU32 width, TSun::TU32 height, PIXEL_FORMAT format);
+		Image();
 		Image(const Image& right);
 		~Image();
+		TSun::TVOID initImage(TSun::TU32 width, TSun::TU32 height, PIXEL_FORMAT format);
 	public:
 		// create from file
 		static Image* createFromFile(const TSun::TCHAR* file);

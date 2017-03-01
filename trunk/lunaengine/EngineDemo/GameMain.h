@@ -1,6 +1,7 @@
 #ifndef _GAMEFUNC_H_
 #define _GAMEFUNC_H_
 #include <Windows.h>
+#include "TLMemDef.h"
 #include "TLGlobalFunc.h"
 
 // 定义初始化结构体

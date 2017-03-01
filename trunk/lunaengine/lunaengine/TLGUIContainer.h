@@ -5,6 +5,7 @@
 #include "TSMap.h"
 #include "TLGUICtrl.h"
 #include "TSList.h"
+#include "TLMemDef.h"
 namespace TLunaEngine{
 
 	class GUICtrl;
@@ -163,7 +164,7 @@ namespace TLunaEngine{
 				GUICtrl* pCtrl = (*itr);
 				if (pCtrl)
 				{
-					delete pCtrl;
+					T_DELETE(getEngineStructMemAllocator(), GUICtrl, pCtrl);
 					pCtrl = 0;
 				}
 			}
@@ -178,7 +179,7 @@ namespace TLunaEngine{
 				GUIContainer* pSubContainer = itr->Value;
 				if (pSubContainer)
 				{
-					delete pSubContainer;
+					T_DELETE(getEngineStructMemAllocator(), GUIContainer, pSubContainer);
 					pSubContainer = 0;
 				}
 			}

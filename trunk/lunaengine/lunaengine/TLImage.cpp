@@ -1,12 +1,13 @@
 #include "TLImage.h"
+#include "TLMemDef.h"
 #include "FreeImage.h"
 #include <memory.h>
 
 namespace TLunaEngine
 {
-	Image::Image(TSun::TU32 width, TSun::TU32 height, PIXEL_FORMAT format) : mPixelBuffer(TSun::TNULL),mWidth(0),mHeight(0)
+	Image::Image() : mPixelBuffer(TSun::TNULL),mWidth(0),mHeight(0)
 	{
-		createBuffer(width,height,format);
+		
 	}
 
 	Image::Image(const Image& right) : mPixelBuffer(TSun::TNULL),mWidth(0),mHeight(0)
@@ -19,9 +20,15 @@ namespace TLunaEngine
 	{
 		if(mPixelBuffer)
 		{
-			delete [] mPixelBuffer;
+			getEngineBlockMemAllocator()->freeMem(mPixelBuffer, __FILE__, __LINE__);
+			//delete [] mPixelBuffer;
 			mPixelBuffer = TSun::TNULL;
 		}
+	}
+
+	TSun::TVOID Image::initImage(TSun::TU32 width, TSun::TU32 height, PIXEL_FORMAT format)
+	{
+		createBuffer(width, height, format);
 	}
 
 	TSun::TBOOL Image::createBuffer(TSun::TU32 width, TSun::TU32 height, PIXEL_FORMAT format)
@@ -34,19 +41,22 @@ namespace TLunaEngine
 		{
 		case PIXEL_FORMAT_R8:
 			{
-				mPixelBuffer = new TSun::TUByte[width*height];
+				//mPixelBuffer = new TSun::TUByte[width*height];
+				mPixelBuffer = (TSun::TUByte*)getEngineBlockMemAllocator()->allocateMem(width*height, __FILE__, __LINE__);
 				memset(mPixelBuffer,0,sizeof(TSun::TUByte)*width*height);
 			}
 			break;
 		case PIXEL_FORMAT_R8G8B8:
 			{
-				mPixelBuffer = new TSun::TUByte[width*height*3];
+				//mPixelBuffer = new TSun::TUByte[width*height*3];
+				mPixelBuffer = (TSun::TUByte*)getEngineBlockMemAllocator()->allocateMem(width*height * 3, __FILE__, __LINE__);
 				memset(mPixelBuffer,0,sizeof(TSun::TUByte)*width*height*3);
 			}
 			break;
 		case PIXEL_FORMAT_R8G8B8A8:
 			{
-				mPixelBuffer = new TSun::TUByte[width*height*4];
+				//mPixelBuffer = new TSun::TUByte[width*height*4];
+				mPixelBuffer = (TSun::TUByte*)getEngineBlockMemAllocator()->allocateMem(width*height * 4, __FILE__, __LINE__);
 				memset(mPixelBuffer,0,sizeof(TSun::TUByte)*width*height*4);
 			}
 			break;
@@ -96,15 +106,16 @@ namespace TLunaEngine
 	{
 		if(!pBuffer)
 			return TSun::TNULL;
-		Image* pRet = new Image(width,height,format);
+		Image* pRet = T_NEW(getEngineStructMemAllocator(), Image);
+		pRet->initImage(width, height, format);
 		if(pRet->mPixelBuffer==TSun::TNULL)
 		{
-			delete pRet;
+			T_DELETE(getEngineStructMemAllocator(), Image, pRet);
 			return TSun::TNULL;
 		}
 		if(!pRet->copyFromBuffer(pBuffer))
 		{
-			delete pRet;
+			T_DELETE(getEngineStructMemAllocator(), Image, pRet);
 			return TSun::TNULL;
 		}
 		return pRet;
@@ -122,19 +133,22 @@ namespace TLunaEngine
 		{
 		case PIXEL_FORMAT_R8:
 			{
-				*ppBuffer = new TSun::TUByte[mWidth*mHeight];
+				//*ppBuffer = new TSun::TUByte[mWidth*mHeight];
+				*ppBuffer = (TSun::TUByte*)getEngineBlockMemAllocator()->allocateMem(mWidth*mHeight, __FILE__, __LINE__);
 				memcpy(*ppBuffer,mPixelBuffer,sizeof(TSun::TUByte)*mWidth*mHeight);
 			}
 			break;
 		case PIXEL_FORMAT_R8G8B8:
 			{
-				*ppBuffer = new TSun::TUByte[mWidth*mHeight*3];
+				//*ppBuffer = new TSun::TUByte[mWidth*mHeight*3];
+				*ppBuffer = (TSun::TUByte*)getEngineBlockMemAllocator()->allocateMem(mWidth*mHeight * 3, __FILE__, __LINE__);
 				memcpy(*ppBuffer,mPixelBuffer,sizeof(TSun::TUByte)*mWidth*mHeight*3);
 			}
 			break;
 		case PIXEL_FORMAT_R8G8B8A8:
 			{
-				*ppBuffer = new TSun::TUByte[mWidth*mHeight*4];
+				//*ppBuffer = new TSun::TUByte[mWidth*mHeight*4];
+				*ppBuffer = (TSun::TUByte*)getEngineBlockMemAllocator()->allocateMem(mWidth*mHeight * 4, __FILE__, __LINE__);
 				memcpy(*ppBuffer,mPixelBuffer,sizeof(TSun::TUByte)*mWidth*mHeight*4);
 			}
 			break;
@@ -153,15 +167,16 @@ namespace TLunaEngine
 			return TSun::TNULL;
 		if(mWidth<=0 || mHeight<=0)
 			return TSun::TNULL;
-		Image* pRet = new Image(mWidth,mHeight,mPixelFormat);
+		Image* pRet = T_NEW(getEngineStructMemAllocator(), Image);
+		pRet->initImage(mWidth, mHeight, mPixelFormat);
 		if(pRet->mPixelBuffer==TSun::TNULL)
 		{
-			delete pRet;
+			T_DELETE(getEngineStructMemAllocator(), Image, pRet);
 			return TSun::TNULL;
 		}
 		if(!pRet->copyFromBuffer(mPixelBuffer))
 		{
-			delete pRet;
+			T_DELETE(getEngineStructMemAllocator(), Image, pRet);
 			return TSun::TNULL;
 		}
 		return pRet;
@@ -499,7 +514,8 @@ namespace TLunaEngine
 			break;
 		}
 		// 重新拷贝
-		TSun::TUByte* newBuff = new TSun::TUByte[rawSize*height];
+		//TSun::TUByte* newBuff = new TSun::TUByte[rawSize*height];
+		TSun::TUByte* newBuff = (TSun::TUByte*)getEngineBlockMemAllocator()->allocateMem(rawSize*height, __FILE__, __LINE__);
 		if(pixelBits==32)
 		{
 			TSun::TS32 count = 0;
@@ -544,7 +560,8 @@ namespace TLunaEngine
 
 		Image* pRet = createFromMemory(newBuff,width,height,format);
 		FreeImage_Unload(dib);
-		delete [] newBuff;
+		getEngineBlockMemAllocator()->freeMem(newBuff, __FILE__, __LINE__);
+		//delete [] newBuff;
 		return pRet;
 	}
 }

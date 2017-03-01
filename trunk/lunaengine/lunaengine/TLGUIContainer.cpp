@@ -451,7 +451,7 @@ namespace TLunaEngine{
 			// 释放内存
 			if (pSubContainer)
 			{
-				delete pSubContainer;
+				T_DELETE(getEngineStructMemAllocator(), GUIContainer, pSubContainer);
 				pSubContainer = 0;
 			}
 		}

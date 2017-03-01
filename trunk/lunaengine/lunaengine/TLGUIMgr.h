@@ -46,7 +46,7 @@ namespace TLunaEngine{
 		{
 			if (m_pRootContainer)
 			{
-				delete m_pRootContainer;
+				T_DELETE(getEngineStructMemAllocator(), GUIContainer, m_pRootContainer);
 				m_pRootContainer = 0;
 			}
 		}
